@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
