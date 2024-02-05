@@ -4,6 +4,9 @@
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
