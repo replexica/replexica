@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.11.0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 8.14.0
+          run_install: false
+
+      - name: Configure pnpm cache
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install deps
+        run: pnpm install
+
+      - name: Configure Turbo cache
+        uses: dtinth/setup-github-actions-caching-for-turbo@v1
+
+      - name: Build
+        run: pnpm build
+        
+      - name: Test
+        run: pnpm test
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          title: "chore: bump package versions"
+          version: pnpm changeset version
+          publish: pnpm changeset publish
+          commit: "chore: bump package version [skip ci]"
+        env:
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
