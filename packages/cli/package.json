@@ -1,7 +1,8 @@
 {
   "name": "replexica",
   "version": "0.0.0",
-  "description": "",
+  "description": "Replexica CLI",
+  "private": true,
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
