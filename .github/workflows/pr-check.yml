@@ -50,4 +50,4 @@ jobs:
         run: pnpm test
 
       - name: Require changeset to be present in PR
-        run: pnpm changeset --since main
+        run: pnpm changeset status --since main
