@@ -3,21 +3,28 @@
   "version": "0.0.2",
   "description": "Replexica compiler",
   "private": false,
-  "main": "build/index.js",
+  "type": "module",
+  "main": "build/index.cjs",
   "types": "build/index.d.ts",
+  "module": "build/index.mjs",
   "files": [
     "build"
   ],
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "build": "unbuild",
     "test": "vitest run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/generator": "^7.24.1",
+    "@babel/parser": "^7.24.1",
     "typescript": "^5.4.3",
     "vitest": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/babel__generator": "^7.6.8",
+    "unbuild": "^2.0.0"
   }
 }
