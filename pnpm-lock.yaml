@@ -60,6 +60,9 @@ importers:
       '@babel/parser':
         specifier: ^7.24.1
         version: 7.24.1
+      object-hash:
+        specifier: ^3.0.0
+        version: 3.0.0
       typescript:
         specifier: ^5.4.3
         version: 5.4.3
@@ -70,6 +73,9 @@ importers:
       '@types/babel__generator':
         specifier: ^7.6.8
         version: 7.6.8
+      '@types/object-hash':
+        specifier: ^3.0.6
+        version: 3.0.6
       unbuild:
         specifier: ^2.0.0
         version: 2.0.0(typescript@5.4.3)
@@ -1459,6 +1465,10 @@ packages:
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
     dev: false
+
+  /@types/object-hash@3.0.6:
+    resolution: {integrity: sha512-fOBV8C1FIu2ELinoILQ+ApxcUKz4ngq+IWUYrxSGjXzzjUALijilampwkMgEtJ+h2njAW3pi853QpzNVCHB73w==}
+    dev: true
 
   /@types/resolve@1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -3476,6 +3486,11 @@ packages:
     dependencies:
       boolbase: 1.0.0
     dev: true
+
+  /object-hash@3.0.0:
+    resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
+    engines: {node: '>= 6'}
+    dev: false
 
   /object-inspect@1.13.1:
     resolution: {integrity: sha512-5qoj1RUiKOMsCCNLV1CBiPYE10sziTsnmNxkAI/rZhiD63CF7IqdFGC/XzjWjpSgLf0LxXX3bDFIh0E18f6UhQ==}
