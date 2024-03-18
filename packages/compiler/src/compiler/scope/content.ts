@@ -83,34 +83,61 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
       );
 
       if (isServer) {
-        // add the following prop to the injected element:
-        // importer={(locale) => import(`./${i18nImportPrefix}/${locale}.json`).then((m) => m.default)}
-        const importer = t.arrowFunctionExpression(
-          [t.identifier('locale')],
-          t.callExpression(
-            t.memberExpression(
-              t.callExpression(t.identifier('import'), [
-                t.templateLiteral([
-                  t.templateElement({ raw: `./${i18nImportPrefix}/`, cooked: `./${i18nImportPrefix}/` }, false),
-                  t.templateElement({ raw: '.json', cooked: '.json' }, true),
-                ], [t.identifier('locale')]),
-              ]),
-              t.identifier('then'),
-            ),
-            [
-              t.arrowFunctionExpression(
-                [t.identifier('m')],
-                t.memberExpression(t.identifier('m'), t.identifier('default')),
-              ),
-            ],
-          ),
-        );
-
+        // make sure the following import is available in the file:
+        // import { loadLocaleFromCookie } from '@replexica/react/next';
+        let localeLoaderImportName = getImportName(programNode, '@replexica/react/next', 'loadLocaleFromCookie');
+        if (!localeLoaderImportName) {
+          localeLoaderImportName = injectImport(programNode, '@replexica/react/next', 'loadLocaleFromCookie');
+        }
+        // add the following props to the injected element:
+        // loadLocale={loadLocaleFromCookie}
         injectedElement.attributes.push(
           t.jsxAttribute(
-            t.jsxIdentifier('importer'),
-            t.jsxExpressionContainer(importer),  
-          ),
+            t.jsxIdentifier('loadLocale'), 
+            t.jsxExpressionContainer(t.identifier(localeLoaderImportName)),
+          )
+        );
+        // make sure the following import is available in the file:
+        // import { loadLocaleData } from '@replexica/react/next';
+        let localeDataLoaderImportName = getImportName(programNode, '@replexica/react/next', 'loadLocaleData');
+        if (!localeDataLoaderImportName) {
+          localeDataLoaderImportName = injectImport(programNode, '@replexica/react/next', 'loadLocaleData');
+        }
+        // add the following props to the injected element:
+        // loadLocaleData={(locale) => loadLocaleData(i18nImportPrefix, locale)}
+        // injectedElement.attributes.push(
+        //   t.jsxAttribute(
+        //     t.jsxIdentifier('loadLocaleData'), 
+        //     t.jsxExpressionContainer(
+        //       t.arrowFunctionExpression(
+        //         [t.identifier('locale')],
+        //         t.callExpression(
+        //           t.identifier(localeDataLoaderImportName),
+        //           [t.stringLiteral(i18nImportPrefix), t.identifier('locale')],
+        //         ),
+        //       ),
+        //     ),
+        //   )
+        // );
+
+        // add the following props to the injected element:
+        // loadLocaleData={(locale) => import(`${i18nImportPrefix}/${locale}.json`)}
+        injectedElement.attributes.push(
+          t.jsxAttribute(
+            t.jsxIdentifier('loadLocaleData'), 
+            t.jsxExpressionContainer(
+              t.arrowFunctionExpression(
+                [t.identifier('locale')],
+                t.callExpression(
+                  t.identifier('import'),
+                  [t.templateLiteral([
+                    t.templateElement({ raw: `${i18nImportPrefix}/`, cooked: `${i18nImportPrefix}/` }, false),
+                    t.templateElement({ raw: '.json', cooked: '.json' }, true),
+                  ], [t.identifier('locale')])],
+                ),
+              ),
+            ),
+          )
         );
       }
 
