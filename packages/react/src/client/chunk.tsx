@@ -2,27 +2,20 @@
 
 import { useContext } from "react";
 import { replexicaContext } from "./context";
-import { ReplexicaChunkGetterArgs, ReplexicaChunkProps } from "../types";
+import { ReplexicaBaseChunk, ReplexicaBaseChunkProps } from "../shared";
+
+export type ReplexicaChunkProps = Omit<ReplexicaBaseChunkProps, 'data'>;
 
 export function ReplexicaClientChunk(props: ReplexicaChunkProps) {
-  const r = useContext(replexicaContext)!;
+  const r = useContext(replexicaContext);
+  const data = r?.data || {};
 
-  const result = getReplexicaChunkContent({
-    data: r.data,
-    selector: props,
-  });
-
-  return result;
-}
-
-export function getReplexicaChunkContent(args: ReplexicaChunkGetterArgs) {
-  const fileData = args.data?.[args.selector.fileId];
-  const scopeData = fileData?.[args.selector.scopeId];
-  const chunkData = scopeData?.[args.selector.chunkId];
-
-  const fallback = `chunk#${args.selector.fileId}:${args.selector.scopeId}.${args.selector.chunkId}`;
-
-  const result = chunkData || fallback;
-
-  return result;
+  return (
+    <ReplexicaBaseChunk
+      data={data}
+      fileId={props.fileId}
+      scopeId={props.scopeId}
+      chunkId={props.chunkId}
+    />
+  );
 }
