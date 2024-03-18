@@ -1,35 +1,22 @@
 'use server';
 
-import { createElement } from "react";
-import { ReplexicaProxyProps, ReplexicaChunkSelector } from "../types";
-import { getReplexicaChunkContent } from './chunk';
+import { ReplexicaBaseProxy, ReplexicaBaseProxyProps } from "../shared";
+import { ReplexicaServerProps } from "./types";
 
-export async function ReplexicaServerProxy<P extends {}>(props: ReplexicaProxyProps<P>) {
-  // const data = {};
+export type ReplexicaServerProxyProps<P extends {}> =
+  & Omit<ReplexicaBaseProxyProps<P>, 'data'> 
+  & ReplexicaServerProps;
 
-  // let propsPatch: Partial<P> = {};
+export async function ReplexicaServerProxy<P extends {}>(props: ReplexicaServerProxyProps<P>) {
+  const { loadLocale, loadLocaleData, ...baseProps } = props;
 
-  // for (const [key, value] of Object.entries(props.attributes || {})) {
-  //   const result = await getReplexicaChunkContent({
-  //     data,
-  //     selector: value as ReplexicaChunkSelector,
-  //   });
+  const locale = await loadLocale();
+  const localeData = await loadLocaleData(locale);
 
-  //   propsPatch = {
-  //     ...propsPatch,
-  //     [key]: result,
-  //   };
-  // }
-
-  // const modifiedProps: P = {
-  //   ...props.targetProps,
-  //   ...propsPatch,
-  // };
-
-  // return createElement(
-  //   props.target,
-  //   modifiedProps,
-  // );
-
-  return null;
+  return (
+    <ReplexicaBaseProxy<P>
+      data={localeData as any}
+      {...baseProps as any}
+    />  
+  );
 }
