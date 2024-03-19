@@ -4,7 +4,7 @@ exports[`Compiles attribute values > compiles attribute values 1`] = `
 "import { ReplexicaServerProxy as _ReplexicaServerProxy } from "@replexica/react/server";
 import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
 <div>
-  <_ReplexicaServerProxy title="Hello!" __ReplexicaComponent="span" __ReplexicaAttributes={{
+  <_ReplexicaServerProxy title="Hello!" _ReplexicaComponent="span" _ReplexicaAttributes={{
     "title": {
       "fileId": "fileId_0",
       "scopeId": "scopeId_1",
