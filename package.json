@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "turbo build",
+    "deploy": "turbo deploy"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
