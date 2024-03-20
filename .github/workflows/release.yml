@@ -58,7 +58,7 @@ jobs:
           title: "chore: bump package versions"
           version: pnpm changeset version
           publish: pnpm changeset publish
-          commit: "chore: bump package version [skip ci]"
+          commit: "chore: bump package version"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

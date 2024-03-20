@@ -1,0 +1,5 @@
+---
+"@replexica/compiler": patch
+---
+
+bump
