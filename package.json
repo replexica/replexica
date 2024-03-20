@@ -1,8 +1,7 @@
 {
   "scripts": {
     "test": "turbo test",
-    "build": "turbo build",
-    "deploy": "turbo deploy"
+    "build": "turbo build"
   },
   "devDependencies": {
     "turbo": "latest"
@@ -12,6 +11,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.1"
   }
 }
