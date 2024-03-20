@@ -1,6 +1,6 @@
 {
   "name": "@replexica/compiler",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Replexica compiler",
   "private": false,
   "main": "build/index.js",
