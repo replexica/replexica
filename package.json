@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test": "turbo test",
     "build": "turbo build",
     "deploy": "turbo deploy"
   },
