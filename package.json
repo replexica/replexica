@@ -1,11 +1,14 @@
 {
+  "type": "module",
   "scripts": {
     "test": "turbo test",
-    "build": "turbo build"
+    "build": "turbo build",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
+    "husky": "^9.0.11",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",
