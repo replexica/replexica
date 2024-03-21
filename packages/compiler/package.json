@@ -3,14 +3,15 @@
   "version": "0.0.2",
   "description": "Replexica compiler",
   "private": false,
-  "main": "build/index.js",
+  "type": "module",
+  "main": "build/index.cjs",
   "types": "build/index.d.ts",
+  "module": "build/index.mjs",
   "files": [
     "build"
   ],
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "build": "unbuild",
     "test": "vitest run"
   },
   "keywords": [],
@@ -19,5 +20,8 @@
   "dependencies": {
     "typescript": "^5.4.3",
     "vitest": "^1.4.0"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0"
   }
 }
