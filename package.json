@@ -4,6 +4,8 @@
     "build": "turbo build"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",
