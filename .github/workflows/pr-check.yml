@@ -45,10 +45,10 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: pnpm build
+        run: pnpm turbo build --force
         
       - name: Test
-        run: pnpm test
+        run: pnpm turbo test
 
       - name: Require changeset to be present in PR
         run: pnpm changeset status --since origin/main

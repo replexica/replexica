@@ -46,10 +46,10 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: pnpm build
+        run: pnpm turbo build --force
         
       - name: Test
-        run: pnpm test
+        run: pnpm turbo test --force
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
