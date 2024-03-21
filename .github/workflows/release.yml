@@ -42,6 +42,10 @@ jobs:
       - name: Install deps
         run: pnpm install
 
+      - name: Setup
+        run: |
+          pnpm turbo telemetry disable
+
       - name: Configure Turbo cache
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
