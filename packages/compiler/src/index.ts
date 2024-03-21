@@ -12,7 +12,7 @@ function compile(code: string) {
   return generate(ast).code;
 }
 
-export {
+export default {
   code,
   compile,
 };
