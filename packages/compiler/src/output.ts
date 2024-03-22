@@ -30,16 +30,35 @@ export class ReplexicaOutputProcessor {
     this._saveObject(filePath, newData);
   }
 
+  public saveFullSourceLocaleData(data: ReplexicaCompilerData) {
+    const fileName = `${this.options.sourceLocale}.json`;
+    this._saveSourceLocaleData(data, fileName);
+  }
 
-  public saveSourceLocaleData(data: ReplexicaCompilerData) {
+  public saveClientSourceLocaleData(data: ReplexicaCompilerData) {
+    const fileName = `${this.options.sourceLocale}.client.json`;
+    this._saveSourceLocaleData(
+      data, 
+      fileName, 
+      (fileData) => fileData.context.isClient,
+    );
+  }
+
+  private _saveSourceLocaleData(
+    data: ReplexicaCompilerData,
+    fileName: string,
+    fileDataPredicate: (fileData: ReplexicaCompilerData['']) => boolean = () => true,
+  ) {
     const existingData: ReplexicaLocaleData =
-      this._loadObject<ReplexicaLocaleData>(path.join(this._outDir, `${this.options.sourceLocale}.json`)) ||
+      this._loadObject<ReplexicaLocaleData>(path.join(this._outDir, fileName)) ||
       this._createEmptyLocaleData();
 
     const newLocaleData: ReplexicaLocaleData = {
       ...existingData,
     };
     for (const [fileId, fileData] of Object.entries(data)) {
+      if (!fileDataPredicate(fileData)) { continue; }
+
       newLocaleData[fileId] = {};
       for (const [scopeId, scopeData] of Object.entries(fileData.data)) {
         for (const [chunkId, value] of Object.entries(scopeData.data)) {
@@ -56,7 +75,7 @@ export class ReplexicaOutputProcessor {
         delete newLocaleData[fileId];
       }
     }
-    const filePath = path.join(this._outDir, `${this.options.sourceLocale}.json`);
+    const filePath = path.join(this._outDir, fileName);
     this._saveObject(filePath, newLocaleData);
   }
 
