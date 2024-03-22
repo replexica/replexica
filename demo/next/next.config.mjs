@@ -1,7 +1,5 @@
 import compiler from '@replexica/compiler';
 
-console.log(compiler);
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
 
