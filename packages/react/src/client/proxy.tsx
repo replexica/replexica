@@ -1,36 +1,20 @@
 'use client';
 
-import { createElement, useContext } from "react";
-import { ReplexicaChunkSelector, ReplexicaProxyProps } from "../types";
-import { replexicaContext } from "./context";
-import { getReplexicaChunkContent } from "./chunk";
+import { useContext } from 'react';
+import { ReplexicaBaseProxy, ReplexicaBaseProxyProps } from "../shared";
+import { replexicaContext } from './context';
 
-export function ReplexicaClientProxy<P extends {}>(props: ReplexicaProxyProps<P>) {
-  // const r = useContext(replexicaContext)!;
-  // const data = r.data;
+export type ReplexicaClientProxyProps<P extends {}> =
+  & Omit<ReplexicaBaseProxyProps<P>, 'data'>;
 
-  // const propsPatch: Partial<P> = Object
-  //   .entries(props.attributes || {})
-  //   .reduce((acc, [key, value]) => {
-  //     const result = getReplexicaChunkContent({
-  //       data: data,
-  //       selector: value as ReplexicaChunkSelector,
-  //     });
+export async function ReplexicaClientProxy<P extends {}>(props: ReplexicaClientProxyProps<P>) {
+  const r = useContext(replexicaContext)!;
+  const data = r.data || {};
 
-  //     return {
-  //       ...acc,
-  //       [key]: result,
-  //     };
-  //   }, {});
-
-  // const modifiedProps: P = {
-  //   ...props.targetProps,
-  //   ...propsPatch,
-  // };
-
-  // return createElement(
-  //   props.target,
-  //   modifiedProps,
-  // );
-  return null;
+  return (
+    <ReplexicaBaseProxy<P>
+      data={data as any}
+      {...props as any}
+    />  
+  );
 }
