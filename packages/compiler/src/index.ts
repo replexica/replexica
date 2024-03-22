@@ -17,10 +17,9 @@ const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
       const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
       
       const relativeFileDir = path.relative(process.cwd(), path.dirname(absoluteFilePath));
-      const i18nImportPrefix = path.relative(relativeFileDir, options.i18nDir);
 
       const compiler = ReplexicaCompiler
-        .fromCode(code, relativeFilePath, i18nImportPrefix)
+        .fromCode(code, relativeFilePath)
         .withScope(ReplexicaSkipScope)
         .withScope(ReplexicaAttributeScope)
         .withScope(ReplexicaContentScope)

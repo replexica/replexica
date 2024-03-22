@@ -4,7 +4,6 @@ import path from 'path';
 import { ReplexicaCompilerData, ReplexicaCompilerPayload } from "./compiler";
 import { ReplexicaLocaleData, ReplexicaConfig } from "./types";
 
-const debugDir = '.debug/replexica';
 export class ReplexicaOutputProcessor {
   public static create(relativeFilePath: string, options: ReplexicaConfig) {
     return new ReplexicaOutputProcessor(relativeFilePath, options);
@@ -14,9 +13,12 @@ export class ReplexicaOutputProcessor {
     private readonly relativeFilePath: string,
     private readonly options: ReplexicaConfig,
   ) {}
+
+  private _outDir = path.join(process.cwd(), `node_modules/@replexica/translations`);
+  private _debugDir = path.join(process.cwd(), '.debug/replexica');
   
   public saveData(data: ReplexicaCompilerData) {
-    const filePath = path.join(process.cwd(), this.options.outDir, '.replexica.json');
+    const filePath = path.join(this._outDir, '.replexica.json');
     const existingData: ReplexicaCompilerPayload = this._loadObject<ReplexicaCompilerPayload>(filePath) || this._createEmptyCompilerPayload();
     const newData = {
       ...existingData,
@@ -31,7 +33,7 @@ export class ReplexicaOutputProcessor {
 
   public saveSourceLocaleData(data: ReplexicaCompilerData) {
     const existingData: ReplexicaLocaleData =
-      this._loadObject<ReplexicaLocaleData>(path.join(process.cwd(), this.options.i18nDir, `${this.options.sourceLocale}.json`)) ||
+      this._loadObject<ReplexicaLocaleData>(path.join(this._outDir, `${this.options.sourceLocale}.json`)) ||
       this._createEmptyLocaleData();
 
     const newLocaleData: ReplexicaLocaleData = {
@@ -54,17 +56,17 @@ export class ReplexicaOutputProcessor {
         delete newLocaleData[fileId];
       }
     }
-    const filePath = path.join(process.cwd(), this.options.i18nDir, `${this.options.sourceLocale}.json`);
+    const filePath = path.join(this._outDir, `${this.options.sourceLocale}.json`);
     this._saveObject(filePath, newLocaleData);
   }
 
   public saveAst(ast: File) {
-    const filePath = path.join(process.cwd(), debugDir, this.relativeFilePath + '.json');
+    const filePath = path.join(process.cwd(), this._debugDir, this.relativeFilePath + '.json');
     this._saveObject(filePath, ast);
   }
 
   public saveOutput(output: string) {
-    const filePath = path.join(process.cwd(), debugDir, this.relativeFilePath + '.txt');
+    const filePath = path.join(process.cwd(), this._debugDir, this.relativeFilePath + '.txt');
     this._saveText(filePath, output);
   }
 

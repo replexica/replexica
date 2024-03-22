@@ -1,6 +1,4 @@
 export type ReplexicaConfig = {
-  outDir: string;
-  i18nDir: string;
   sourceLocale: string;
   debug?: boolean;
 };

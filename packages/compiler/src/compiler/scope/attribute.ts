@@ -57,7 +57,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
     return this._id;
   }
 
-  public injectIntl(fileId: string, isServer: boolean, i18nImportPrefix: string): ReplexicaScopeData {
+  public injectIntl(fileId: string, isServer: boolean): ReplexicaScopeData {
     const result: ReplexicaScopeData = {};
     if (!this._chunk) { return result; }
 
@@ -185,7 +185,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
         // );
         
         // add the following props to the injected element:
-        // loadLocaleData={(locale) => import(`${i18nImportPrefix}/${locale}.json`)}
+        // loadLocaleData={(locale) => import(`@replexica/translations/${locale}.json`)}
         jsxElement.node.openingElement.attributes.push(
           t.jsxAttribute(
             t.jsxIdentifier('loadLocaleData'), 
@@ -195,7 +195,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
                 t.callExpression(
                   t.identifier('import'),
                   [t.templateLiteral([
-                    t.templateElement({ raw: `${i18nImportPrefix}/`, cooked: `${i18nImportPrefix}/` }, false),
+                    t.templateElement({ raw: `@replexica/translations/`, cooked: `@replexica/translations/` }, false),
                     t.templateElement({ raw: '.json', cooked: '.json' }, true),
                   ], [t.identifier('locale')])],
                 ),
