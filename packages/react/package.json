@@ -3,15 +3,19 @@
   "version": "0.0.3",
   "description": "Replexica React components",
   "private": false,
-  "type": "module",
-  "main": "build/index.cjs",
+  "main": "./build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./client": "./build/client/index.js",
+    "./server": "./build/server/index.js"
+  },
   "types": "build/index.d.ts",
-  "module": "build/index.mjs",
   "files": [
     "build"
   ],
   "scripts": {
-    "build": "unbuild",
+    "dev": "tsc -w",
+    "build": "tsc",
     "test": "vitest run"
   },
   "keywords": [],
@@ -19,10 +23,13 @@
   "license": "ISC",
   "dependencies": {
     "typescript": "^5.4.3",
-    "unbuild": "^2.0.0",
     "vitest": "^1.4.0"
   },
   "devDependencies": {
-    "@types/react": "^18"
+    "@types/react": "^18.2.67",
+    "next": "^14"
+  },
+  "peerDependencies": {
+    "next": "^14"
   }
 }
