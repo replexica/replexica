@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@replexica/compiler": "workspace:*",
+    "@replexica/react": "workspace:*",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
