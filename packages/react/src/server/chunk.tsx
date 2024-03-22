@@ -1,38 +1,22 @@
 'use server';
 
-import { ReplexicaChunkGetterArgs, ReplexicaChunkProps } from "../types";
-import { cookies } from 'next/headers';
+import { ReplexicaBaseChunk, ReplexicaBaseChunkProps } from "../shared";
+import { ReplexicaServerProps } from "./types";
 
-export type ReplexicaServerChunkProps = ReplexicaChunkProps & {
-  strategy?: 'cookie';
-  importer: (locale: string) => ReplexicaChunkGetterArgs['data'];
-};
+export type ReplexicaServerChunkProps = 
+  & Omit<ReplexicaBaseChunkProps, 'data'> 
+  & ReplexicaServerProps;
 
 export async function ReplexicaServerChunk(props: ReplexicaServerChunkProps) {
-  const locale = await getCurrentLocale();
-  console.log(`[ReplexicaServerChunk] locale: ${locale}`);
-  const data = await props.importer(locale);
-  console.log(`[ReplexicaServerChunk] data: ${JSON.stringify(data)}`);
-  const result = await getReplexicaChunkContent({
-    data: data,
-    selector: {
-      fileId: props.fileId,
-      scopeId: props.scopeId,
-      chunkId: props.chunkId,
-    },
-  });
+  const locale = await props.loadLocale();
+  const data = await props.loadLocaleData(locale);
 
-  return result;
-}
-
-export async function getReplexicaChunkContent(args: ReplexicaChunkGetterArgs) {
-  const { fileId, scopeId, chunkId } = args.selector;
-  const text = args.data?.[fileId]?.[scopeId]?.[chunkId];
-  const fallback = `chunk1#${fileId}:${scopeId}.${chunkId}`;
-  return text || fallback;
-}
-
-export async function getCurrentLocale() {
-  const cookieMgr = cookies();
-  return cookieMgr.get('locale')?.value || 'en';
+  return (
+    <ReplexicaBaseChunk
+      data={data}
+      fileId={props.fileId}
+      scopeId={props.scopeId}
+      chunkId={props.chunkId}
+    />
+  );
 }
