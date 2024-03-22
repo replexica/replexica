@@ -8,11 +8,11 @@ import { ReplexicaFileData, ReplexicaCompilerData } from "./types";
 import { ReplexicaScopeExtractor } from "./scope";
 
 export class ReplexicaCompiler {
-  public static fromCode(code: string, relativeFilePath: string, i18nImportPrefix: string) {
+  public static fromCode(code: string, relativeFilePath: string) {
     const ast = parseCodeIntoBabelAst(code);
     const isServer = !hasDirective(ast, 'use client');
 
-    return new ReplexicaCompiler(relativeFilePath, code, ast, isServer, i18nImportPrefix);
+    return new ReplexicaCompiler(relativeFilePath, code, ast, isServer);
   }
 
   private constructor(
@@ -20,7 +20,6 @@ export class ReplexicaCompiler {
     private readonly code: string,
     public readonly ast: t.File,
     private readonly isServer: boolean,
-    private readonly i18nImportPrefix: string,
   ) {
     this.fileId = generateFileId(relativeFilePath, 0);
   }
@@ -44,7 +43,7 @@ export class ReplexicaCompiler {
             const scopes = extractor.fromNode(path);
             for (const scope of scopes) {
               const hints = scope.extractHints();
-              const data = scope.injectIntl(_compiler.fileId, _compiler.isServer, _compiler.i18nImportPrefix);
+              const data = scope.injectIntl(_compiler.fileId, _compiler.isServer);
               _compiler._data[scope.id] = { hints, data };
             }
           }
