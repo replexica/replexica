@@ -57,7 +57,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
     return this._id;
   }
 
-  public injectIntl(fileId: string, isServer: boolean): ReplexicaScopeData {
+  public injectIntl(fileId: string, isServer: boolean, i18nImportPrefix: string): ReplexicaScopeData {
     const result: ReplexicaScopeData = {};
     if (!this._chunk) { return result; }
 
@@ -79,14 +79,14 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
 
     const isProxyAlreadyApplied = t.isJSXIdentifier(jsxElement.node.openingElement.name) && jsxElement.node.openingElement.name.name === helperName;
     if (!isProxyAlreadyApplied) {
-      // 1. add __ReplexicaComponent attribute to the element and set it to the original component name / identifier / member expression
+      // 1. add _ReplexicaComponent attribute to the element and set it to the original component name / identifier / member expression
       if (t.isJSXIdentifier(jsxElement.node.openingElement.name)) {
         // if it's an identifier, it's a native element or a component
         if (/^[a-z]/.test(jsxElement.node.openingElement.name.name)) {
           // if it's lowercased identifier, it's a native element
           jsxElement.node.openingElement.attributes.push(
             t.jSXAttribute(
-              t.jSXIdentifier('__ReplexicaComponent'),
+              t.jSXIdentifier('_ReplexicaComponent'),
               t.stringLiteral(jsxElement.node.openingElement.name.name),  
             ),
           );
@@ -94,7 +94,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
           // if it's uppercased identifier, it's a component
           jsxElement.node.openingElement.attributes.push(
             t.jSXAttribute(
-              t.jSXIdentifier('__ReplexicaComponent'),
+              t.jSXIdentifier('_ReplexicaComponent'),
               t.jSXExpressionContainer(t.identifier(jsxElement.node.openingElement.name.name)),
             ),
           );
@@ -103,7 +103,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
         const memberExpression = parseMemberExpressionFromJsxMemberExpression(jsxElement.node.openingElement.name);
         jsxElement.node.openingElement.attributes.push(
           t.jSXAttribute(
-            t.jSXIdentifier('__ReplexicaComponent'),
+            t.jSXIdentifier('_ReplexicaComponent'),
             t.jSXExpressionContainer(memberExpression),
           ),
         );
@@ -117,15 +117,15 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
       }
     }
 
-    // add the current attribute to the proxy component's __ReplexicaAttributes attribute
-    // like so: <ProxyComponent __ReplexicaAttributes={{ [attributeName]: { fileId, scopeId, chunkId } }} />
-    // create __ReplexicaAttributes attribute entry only if it doesn't exist yet
+    // add the current attribute to the proxy component's _ReplexicaAttributes attribute
+    // like so: <ProxyComponent _ReplexicaAttributes={{ [attributeName]: { fileId, scopeId, chunkId } }} />
+    // create _ReplexicaAttributes attribute entry only if it doesn't exist yet
     let systemReplexicaAttribute = jsxElement.node.openingElement.attributes.find((attr) => {
-      return t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name) && attr.name.name === '__ReplexicaAttributes';
+      return t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name) && attr.name.name === '_ReplexicaAttributes';
     }) as t.JSXAttribute | undefined;
     if (!systemReplexicaAttribute) {
       systemReplexicaAttribute = t.jSXAttribute(
-        t.jSXIdentifier('__ReplexicaAttributes'),
+        t.jSXIdentifier('_ReplexicaAttributes'),
         t.jSXExpressionContainer(t.objectExpression([])),
       );
       jsxElement.node.openingElement.attributes.push(systemReplexicaAttribute);
@@ -142,9 +142,69 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
         t.objectProperty(t.stringLiteral('chunkId'), t.stringLiteral(this._chunk.id)),
       ]),
     );
-    // add the current attribute entry to the __ReplexicaAttributes attribute
+    // add the current attribute entry to the _ReplexicaAttributes attribute
     if (t.isJSXExpressionContainer(systemReplexicaAttribute.value) && t.isObjectExpression(systemReplexicaAttribute.value.expression)) {
       systemReplexicaAttribute.value.expression.properties.push(selectorProperty);
+      
+      if (isServer) {
+        // make sure the following import is available in the file:
+        // import { loadLocaleFromCookie } from '@replexica/react/next';
+        let localeLoaderImportName = getImportName(programNode, '@replexica/react/next', 'loadLocaleFromCookie');
+        if (!localeLoaderImportName) {
+          localeLoaderImportName = injectImport(programNode, '@replexica/react/next', 'loadLocaleFromCookie');
+        }
+        // add the following props to the injected element:
+        // loadLocale={loadLocaleFromCookie}
+        jsxElement.node.openingElement.attributes.push(
+          t.jsxAttribute(
+            t.jsxIdentifier('loadLocale'), 
+            t.jsxExpressionContainer(t.identifier(localeLoaderImportName)),
+          )
+        );
+        // make sure the following import is available in the file:
+        // import { loadLocaleData } from '@replexica/react/next';
+        let localeDataLoaderImportName = getImportName(programNode, '@replexica/react/next', 'loadLocaleData');
+        if (!localeDataLoaderImportName) {
+          localeDataLoaderImportName = injectImport(programNode, '@replexica/react/next', 'loadLocaleData');
+        }
+        // add the following props to the injected element:
+        // loadLocaleData={(locale) => loadLocaleData(i18nImportPrefix, locale)}
+        // jsxElement.node.openingElement.attributes.push(
+        //   t.jsxAttribute(
+        //     t.jsxIdentifier('loadLocaleData'), 
+        //     t.jsxExpressionContainer(
+        //       t.arrowFunctionExpression(
+        //         [t.identifier('locale')],
+        //         t.callExpression(
+        //           t.identifier(localeDataLoaderImportName),
+        //           [t.stringLiteral(i18nImportPrefix), t.identifier('locale')],
+        //         ),
+        //       ),
+        //     ),
+        //   )
+        // );
+        
+        // add the following props to the injected element:
+        // loadLocaleData={(locale) => import(`${i18nImportPrefix}/${locale}.json`)}
+        jsxElement.node.openingElement.attributes.push(
+          t.jsxAttribute(
+            t.jsxIdentifier('loadLocaleData'), 
+            t.jsxExpressionContainer(
+              t.arrowFunctionExpression(
+                [t.identifier('locale')],
+                t.callExpression(
+                  t.identifier('import'),
+                  [t.templateLiteral([
+                    t.templateElement({ raw: `${i18nImportPrefix}/`, cooked: `${i18nImportPrefix}/` }, false),
+                    t.templateElement({ raw: '.json', cooked: '.json' }, true),
+                  ], [t.identifier('locale')])],
+                ),
+              ),
+            ),
+          )
+        );
+      }
+
       result[this._chunk.id] = this._chunk.text;
     }
 
