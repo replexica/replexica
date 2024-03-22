@@ -17,7 +17,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await loadLocaleFromCookie();
-  const localeData = await import(`@replexica/translations/${locale}.json`).then((m) => m.default);
+  const localeData = await import(`@replexica/translations/${locale}.client.json`).then((m) => m.default);
   return (
     <ReplexicaIntlProvider data={localeData}>
       <html lang={locale}>

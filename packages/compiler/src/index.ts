@@ -29,7 +29,8 @@ const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
   
       const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
       outputProcessor.saveData(compiler.data);
-      outputProcessor.saveSourceLocaleData(compiler.data);
+      outputProcessor.saveFullSourceLocaleData(compiler.data);
+      outputProcessor.saveClientSourceLocaleData(compiler.data);
   
       if (options.debug) {
         outputProcessor.saveAst(compiler.ast);
