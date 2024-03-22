@@ -1,7 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "turbo build",
+    "test": "turbo test"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
