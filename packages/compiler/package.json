@@ -20,11 +20,13 @@
   "dependencies": {
     "@babel/generator": "^7.24.1",
     "@babel/parser": "^7.24.1",
+    "object-hash": "^3.0.0",
     "typescript": "^5.4.3",
     "vitest": "^1.4.0"
   },
   "devDependencies": {
     "@types/babel__generator": "^7.6.8",
+    "@types/object-hash": "^3.0.6",
     "unbuild": "^2.0.0"
   }
 }
