@@ -50,7 +50,7 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: pnpm turbo build
+        run: pnpm turbo build --force
         
       - name: Test
         run: pnpm turbo test
