@@ -3,13 +3,12 @@ import Ora from 'ora';
 import { setTimeout } from 'timers/promises';
 
 export default new Command()
-  .command('login')
-  .description('Authenticate with Replexica Platform')
+  .command('translate')
+  .description('Fetch translations from Replexica Platform')
   .helpOption('-h, --help', 'Show help')
-  .argument('<email>', 'Email address')
   .action(async () => {
     const spinner = Ora();
-    spinner.start('Logging in...');
+    spinner.start('Fetching translations...');
     await setTimeout(2000);
-    spinner.succeed('Logged in');
+    spinner.succeed('Translations fetched');
   });
