@@ -2,7 +2,7 @@ import { Command } from '@oclif/core'
 import Ora from 'ora';
 import { setTimeout } from 'timers/promises';
 
-export class Login extends Command {
+export default class Login extends Command {
   static description = 'Replexica Login';
 
   async run(): Promise<void> {

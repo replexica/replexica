@@ -7,7 +7,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {
-    "replexica": "build/index.js"
+    "replexica": "./bin/run.js"
   },
   "files": [
     "build",
@@ -30,7 +30,6 @@
     "vitest": "^1.4.0"
   },
   "oclif": {
-    "commands": "./build/commands",
-    "default": "welcome"
+    "commands": "build/commands"
   }
 }

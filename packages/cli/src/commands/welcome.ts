@@ -1,6 +1,6 @@
 import { Command } from '@oclif/core'
 
-export class Welcome extends Command {
+export default class Welcome extends Command {
   static description = 'Replexica CLI';
 
   async run(): Promise<void> {
