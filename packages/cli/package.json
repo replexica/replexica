@@ -3,12 +3,18 @@
   "version": "0.0.0",
   "description": "Replexica CLI",
   "private": true,
+  "type": "module",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "bin": {
+    "replexica": "build/index.js"
+  },
   "files": [
-    "build"
+    "build",
+    "bin"
   ],
   "scripts": {
+    "replexica": "./bin/run.js",
     "dev": "tsc -w",
     "build": "tsc",
     "test": "vitest run"
@@ -17,7 +23,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@oclif/core": "^3.26.0",
+    "oclif": "^4.6.1",
+    "ora": "^8.0.1",
     "typescript": "^5.4.3",
     "vitest": "^1.4.0"
+  },
+  "oclif": {
+    "commands": "./build/commands",
+    "default": "welcome"
   }
 }
