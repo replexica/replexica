@@ -27,7 +27,7 @@
     "vitest": "^1.4.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.67",
+    "@types/react": "^18.2.69",
     "next": "^14"
   },
   "peerDependencies": {
