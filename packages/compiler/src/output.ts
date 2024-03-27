@@ -17,7 +17,7 @@ export class ReplexicaOutputProcessor {
   private _outDir = path.join(process.cwd(), `node_modules/@replexica/translations`);
   private _debugDir = path.join(process.cwd(), '.debug/replexica');
   
-  public saveData(data: ReplexicaCompilerData) {
+  public saveBuildData(data: ReplexicaCompilerData) {
     const filePath = path.join(this._outDir, '.replexica.json');
     const existingData: ReplexicaData = this._loadObject<ReplexicaData>(filePath) || this._createEmptyData();
     const newData: ReplexicaData = {
@@ -48,6 +48,16 @@ export class ReplexicaOutputProcessor {
       fileName, 
       (fileData) => fileData.context.isClient,
     );
+  }
+
+  public saveStubLocaleData() {
+    for (const targetLocale of this.options.locale.targets) {
+      const fullLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.json`);
+      fs.writeFileSync(fullLocaleDataFilePath, '{}', 'utf-8');
+
+      const clientLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.client.json`);
+      fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
+    }
   }
 
   private _saveSourceLocaleData(
