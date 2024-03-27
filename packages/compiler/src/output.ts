@@ -2,7 +2,7 @@ import { File } from "@babel/types";
 import fs from 'fs';
 import path from 'path';
 import { ReplexicaCompilerData, ReplexicaCompilerPayload } from "./compiler";
-import { ReplexicaLocaleData, ReplexicaConfig } from "./types";
+import { ReplexicaLocaleData, ReplexicaConfig, ReplexicaData } from "./types";
 
 export class ReplexicaOutputProcessor {
   public static create(relativeFilePath: string, options: ReplexicaConfig) {
@@ -19,24 +19,30 @@ export class ReplexicaOutputProcessor {
   
   public saveData(data: ReplexicaCompilerData) {
     const filePath = path.join(this._outDir, '.replexica.json');
-    const existingData: ReplexicaCompilerPayload = this._loadObject<ReplexicaCompilerPayload>(filePath) || this._createEmptyCompilerPayload();
-    const newData = {
+    const existingData: ReplexicaData = this._loadObject<ReplexicaData>(filePath) || this._createEmptyData();
+    const newData: ReplexicaData = {
       ...existingData,
-      data: {
-        ...existingData.data,
-        ...data,
-      },
     };
+    for (const [fileId, fileData] of Object.entries(data)) {
+      newData.meta.files[fileId] = {
+        isClient: fileData.context.isClient,
+      };
+      for (const [scopeId, scopeData] of Object.entries(fileData.data)) {
+        newData.meta.scopes[scopeId] = {
+          hints: scopeData.hints,
+        };
+      }
+    }
     this._saveObject(filePath, newData);
   }
 
   public saveFullSourceLocaleData(data: ReplexicaCompilerData) {
-    const fileName = `${this.options.sourceLocale}.json`;
+    const fileName = `${this.options.locale.source}.json`;
     this._saveSourceLocaleData(data, fileName);
   }
 
   public saveClientSourceLocaleData(data: ReplexicaCompilerData) {
-    const fileName = `${this.options.sourceLocale}.client.json`;
+    const fileName = `${this.options.locale.source}.client.json`;
     this._saveSourceLocaleData(
       data, 
       fileName, 
@@ -80,25 +86,29 @@ export class ReplexicaOutputProcessor {
   }
 
   public saveAst(ast: File) {
-    const filePath = path.join(process.cwd(), this._debugDir, this.relativeFilePath + '.json');
+    const filePath = path.join(this._debugDir, this.relativeFilePath + '.json');
     this._saveObject(filePath, ast);
   }
 
   public saveOutput(output: string) {
-    const filePath = path.join(process.cwd(), this._debugDir, this.relativeFilePath + '.txt');
+    const filePath = path.join(this._debugDir, this.relativeFilePath + '.txt');
     this._saveText(filePath, output);
   }
 
   // Private
 
-  private _createEmptyCompilerPayload(): ReplexicaCompilerPayload {
+  private _createEmptyData(): ReplexicaData {
     return {
       settings: {
         locale: {
-          source: this.options.sourceLocale,
+          source: this.options.locale.source,
+          targets: this.options.locale.targets,
         },
       },
-      data: {},
+      meta: {
+        files: {},
+        scopes: {},
+      },
     };
   }
 
