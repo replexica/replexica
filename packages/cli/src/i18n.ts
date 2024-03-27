@@ -6,58 +6,60 @@ import fs from 'fs/promises';
 
 const buildDataDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
 const buildDataFilePath = path.resolve(buildDataDir, '.replexica.json');
-const spinner = Ora();
 
 export default new Command()
   .command('i18n')
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
   .action(async () => {
-    const env = getEnv();
-    spinner.start('Loading Replexica build data...');
+    const initSpinner = Ora();
+    initSpinner.start('Loading Replexica build data...');
     const buildData = await loadBuildData();
     if (!buildData) {
-      spinner.fail(`Couldn't load Replexica build data. Did you forget to run 'replexica i18n'?`);
+      initSpinner.fail(`Couldn't load Replexica build data. Did you forget to run 'replexica i18n'?`);
       return process.exit(1);
     }
 
     const localeSource = buildData.settings?.locale?.source;
     if (!localeSource) {
-      spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
+      initSpinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
       return process.exit(1);
     }
 
     const localeTargets = buildData.settings?.locale?.targets || [];
     if (!localeTargets.length) {
-      spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
+      initSpinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
       return process.exit(1);
     }
 
     const localeSourceData = await loadLocaleData(localeSource);
     if (!localeSourceData) {
-      spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to run 'replexica i18n'?`);
+      initSpinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to run 'replexica i18n'?`);
       return process.exit(1);
     }
 
+    initSpinner.succeed('Replexica build data loaded!');
+
     for (const target of localeTargets) {
-      spinner.start(`Processing i18n for ${target}...`);
+      const targetSpinner = Ora();
+      targetSpinner.start(`Processing i18n for ${target}...`);
       const result = await processI18n(
         { source: localeSource, target },
         buildData.meta,
         localeSourceData,
       );
-      spinner.succeed(`i18n processed for ${target}!`);
+      targetSpinner.succeed(`i18n processed for ${target}!`);
 
-      spinner.start(`Saving full i18n data for ${target}...`);
+      targetSpinner.start(`Saving full i18n data for ${target}...`);
       await saveFullLocaleData(target, result.data);
-      spinner.succeed(`Full i18n data saved for ${target}!`);
+      targetSpinner.succeed(`Full i18n data saved for ${target}!`);
 
-      spinner.start(`Saving client i18n data for ${target}...`);
+      targetSpinner.start(`Saving client i18n data for ${target}...`);
       await saveClientLocaleData(target, result.data, buildData.meta);
-      spinner.succeed(`Client i18n data saved for ${target}!`);
+      targetSpinner.succeed(`Client i18n data saved for ${target}!`);
     }
 
-    spinner.succeed('All i18n processed!');
+    initSpinner.succeed('Replexica i18n processing complete!');
   });
 
 async function processI18n(
@@ -114,7 +116,6 @@ async function loadLocaleData(locale: string) {
 
 async function saveFullLocaleData(locale: string, data: any) {
   const localeFilePath = path.resolve(buildDataDir, `${locale}.json`);
-  spinner.succeed(`Saved full ${locale} locale data to ${localeFilePath}`);
   await fs.writeFile(localeFilePath, JSON.stringify(data, null, 2));
 }
 
@@ -132,6 +133,5 @@ async function saveClientLocaleData(locale: string, data: any, meta: any) {
   }
 
   const localeFilePath = path.resolve(buildDataDir, `${locale}.client.json`);
-  spinner.succeed(`Saved client ${locale} locale data to ${localeFilePath}`);
   await fs.writeFile(localeFilePath, JSON.stringify(newData, null, 2));
 }
