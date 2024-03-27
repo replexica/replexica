@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "i18n": "replexica i18n",
     "start": "next start",
     "lint": "next lint"
   },
