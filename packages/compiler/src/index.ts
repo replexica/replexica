@@ -15,8 +15,6 @@ const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
   transform(code, absoluteFilePath) {
     try {
       const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
-      
-      const relativeFileDir = path.relative(process.cwd(), path.dirname(absoluteFilePath));
 
       const compiler = ReplexicaCompiler
         .fromCode(code, relativeFilePath)
@@ -28,9 +26,10 @@ const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
       const result = compiler.generate();
   
       const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
-      outputProcessor.saveData(compiler.data);
+      outputProcessor.saveBuildData(compiler.data);
       outputProcessor.saveFullSourceLocaleData(compiler.data);
       outputProcessor.saveClientSourceLocaleData(compiler.data);
+      outputProcessor.saveStubLocaleData();
   
       if (options.debug) {
         outputProcessor.saveAst(compiler.ast);
