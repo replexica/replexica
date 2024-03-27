@@ -1,6 +1,6 @@
 export type ReplexicaCompilerPayload = {
   settings: {
-    locale: { source: string; };
+    locale: { source: string; targets: string[]; };
   };
   data: ReplexicaCompilerData;
 };

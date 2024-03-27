@@ -5,7 +5,10 @@ const nextConfig = {};
 
 /** @type {import('@replexica/compiler').ReplexicaConfig} */
 const replexicaConfig = {
-  sourceLocale: 'en',
+  locale: {
+    source: 'en',
+    targets: ['es'],
+  },
   debug: true,    
 };
 
@@ -13,4 +16,3 @@ export default compiler.next(
   replexicaConfig,
   nextConfig,
 );
-
