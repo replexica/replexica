@@ -1,20 +1,13 @@
+import dotenv from 'dotenv';
 import { Command } from 'commander';
-import Ora from 'ora';
-import { setTimeout } from 'timers/promises';
 
-import authCmd from './auth.js';
-import translateCmd from './translate.js';
+import i18nCmd from './i18n.js';
+
+dotenv.config();
 
 export default new Command()
   .name('replexica')
   .description('Replexica CLI')
   .helpOption('-h, --help', 'Show help')
-  .addCommand(authCmd)
-  .addCommand(translateCmd)
-  .action(async (options) => {
-    const spinner = Ora();
-    spinner.start('Loading...');
-    await setTimeout(2000);
-    spinner.succeed('Welcome to Replexica CLI!');
-  })
+  .addCommand(i18nCmd)
   .parse(process.argv);
