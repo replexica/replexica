@@ -12,54 +12,60 @@ export default new Command()
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
   .action(async () => {
-    const initSpinner = Ora();
-    initSpinner.start('Loading Replexica build data...');
+    const spinner = Ora();
+    spinner.start('Loading Replexica build data...');
     const buildData = await loadBuildData();
     if (!buildData) {
-      initSpinner.fail(`Couldn't load Replexica build data. Did you forget to run 'replexica i18n'?`);
+      spinner.fail(`Couldn't load Replexica build data. Did you forget to run 'replexica i18n'?`);
       return process.exit(1);
     }
 
     const localeSource = buildData.settings?.locale?.source;
     if (!localeSource) {
-      initSpinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
+      spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
       return process.exit(1);
     }
 
     const localeTargets = buildData.settings?.locale?.targets || [];
     if (!localeTargets.length) {
-      initSpinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
+      spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
       return process.exit(1);
     }
 
     const localeSourceData = await loadLocaleData(localeSource);
     if (!localeSourceData) {
-      initSpinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to run 'replexica i18n'?`);
+      spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to run 'replexica i18n'?`);
       return process.exit(1);
     }
 
-    initSpinner.succeed('Replexica build data loaded!');
+    spinner.succeed('Replexica build data loaded!');
 
-    for (const target of localeTargets) {
-      const targetSpinner = Ora();
-      targetSpinner.start(`Processing i18n for ${target}...`);
-      const result = await processI18n(
-        { source: localeSource, target },
-        buildData.meta,
-        localeSourceData,
-      );
-      targetSpinner.succeed(`i18n processed for ${target}!`);
 
-      targetSpinner.start(`Saving full i18n data for ${target}...`);
-      await saveFullLocaleData(target, result.data);
-      targetSpinner.succeed(`Full i18n data saved for ${target}!`);
+    for (let i = 0; i < localeTargets.length; i++) {
+      const targetLocale = localeTargets[i];
+      const resultData: any = {};
 
-      targetSpinner.start(`Saving client i18n data for ${target}...`);
-      await saveClientLocaleData(target, result.data, buildData.meta);
-      targetSpinner.succeed(`Client i18n data saved for ${target}!`);
+      const localeEntries = Object.entries(localeSourceData || {});
+      for (let j = 0; j < localeEntries.length; j++) {
+        const [localeFileId, localeFileData] = localeEntries[j];
+        spinner.start(`[${targetLocale}] Processing file ${j + 1}/${localeEntries.length}...`);
+
+        const partialLocaleData = { [localeFileId]: localeFileData };
+        const result = await processI18n(
+          { source: localeSource, target: targetLocale },
+          buildData.meta,
+          partialLocaleData,
+        );
+        resultData[localeFileId] = result.data[localeFileId];
+
+        spinner.succeed(`[${targetLocale}] File ${j + 1}/${localeEntries.length} processed!`);
+      }
+
+      await saveFullLocaleData(targetLocale, resultData);
+      await saveClientLocaleData(targetLocale, resultData, buildData.meta);
     }
 
-    initSpinner.succeed('Replexica i18n processing complete!');
+    spinner.succeed('Replexica i18n processing complete!');
   });
 
 async function processI18n(
