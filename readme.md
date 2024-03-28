@@ -14,7 +14,7 @@ Why does this matter? Because 75% of the world doesn't speak English. If the app
 
 That's where Replexica comes in: it's a build system plugin that translates React apps into multiple languages using AI. The best part? It doesn't require messing around with extracting or maintaining JSON files.
 
-## The API
+## API
 
 ```js
 import compiler from '@replexica/compiler';
@@ -37,13 +37,17 @@ export default compiler.next(
 
 ```
 
-## The Roadmap
+## Roadmap
+
+The Replexica compiler is open-source, and the platform API is open, allowing you to build your own translation engine.
+
+We're also developing our own AI translation platform ([replexica.com](https://replexica.com)), to make it even easier to launch your first multi-language app!
 
 - [x] Replexica Compiler
   - [x] Next.js App Router
-  - [ ] Next.js Pages Router
-  - [ ] Remix
-  - [ ] Create React App
+  - [ ] Next.js Pages Router (April 2024)
+  - [ ] Remix (May 2024)
+  - [ ] Create React App (May 2024)
 - [x] Replexica Framework
   - [x] JSX translation
   - [x] Custom context hints
@@ -61,15 +65,13 @@ export default compiler.next(
     - [x] Spanish
     - [ ] French (April 2024)
     - [ ] German (April 2024)
-    - [ ] (Create a GitHub issue )
+    - [ ] (Create a GitHub issue to request a new language!)
   - [ ] Automated i18n quality checks (May 2024)
   - [ ] Documentation/examples on self-hosted translation engine
 - [x] Replexica CLI
   - [x] CLI for Replexica Platform
   - [x] Open-source API schema
   - [ ] GitHub Actions integration
-
-The Replexica compiler is open-source, and the API is open, allowing you to build your own translation engine. We're also developing our own AI translation platform ([replexica.com](https://replexica.com)), to make it even easier to launch your first multi-language app!
 
 ## How it Works
 
