@@ -2,7 +2,7 @@
   "name": "replexica",
   "version": "0.0.0",
   "description": "Replexica CLI",
-  "private": true,
+  "private": false,
   "type": "module",
   "main": "build/index.js",
   "types": "build/index.d.ts",
