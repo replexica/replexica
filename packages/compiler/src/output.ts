@@ -53,10 +53,14 @@ export class ReplexicaOutputProcessor {
   public saveStubLocaleData() {
     for (const targetLocale of this.options.locale.targets) {
       const fullLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.json`);
-      fs.writeFileSync(fullLocaleDataFilePath, '{}', 'utf-8');
+      if (!path.existsSync(fullLocaleDataFilePath)) {
+        fs.writeFileSync(fullLocaleDataFilePath, '{}', 'utf-8');
+      }
 
       const clientLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.client.json`);
-      fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
+      if (!path.existsSync(clientLocaleDataFilePath)) {
+        fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
+      }
     }
   }
 
