@@ -184,3 +184,5 @@ So, whatever approach you choose for switching between locales, just be sure to 
 ## Questions?
 
 If you have any questions, feel free to create a GitHub issue!
+
+Also, we're [on Discord](https://discord.gg/P2J3dGUM).
