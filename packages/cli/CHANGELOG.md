@@ -1,5 +1,11 @@
 # replexica
 
+## 0.18.0
+
+### Minor Changes
+
+- [`55e0d93`](https://github.com/replexica/replexica/commit/55e0d93bc7c124ca272dffdad0a18a0fb912eb52) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - bump version
+
 ## 0.2.0
 
 ### Minor Changes
