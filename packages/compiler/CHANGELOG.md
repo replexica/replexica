@@ -1,5 +1,11 @@
 # @replexica/compiler
 
+## 0.1.1
+
+### Patch Changes
+
+- [#17](https://github.com/replexica/replexica/pull/17) [`eca4595`](https://github.com/replexica/replexica/commit/eca45954360f59d57e26ff8dea5841c25bf2f1b7) Thanks [@vrcprl](https://github.com/vrcprl)! - write stub locale data files only when no files exist
+
 ## 0.1.0
 
 ### Minor Changes
