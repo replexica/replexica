@@ -53,7 +53,7 @@ jobs:
         run: pnpm turbo build --force
         
       - name: Test
-        run: pnpm turbo test
+        run: pnpm turbo test --force
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
