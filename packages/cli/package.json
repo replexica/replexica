@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@inquirer/prompts": "^4.3.0",
+    "@paralleldrive/cuid2": "^2.2.2",
     "commander": "^12.0.0",
     "dotenv": "^16.4.5",
     "open": "^10.1.0",

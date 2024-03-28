@@ -3,6 +3,7 @@ import Ora from 'ora';
 import { getEnv } from './services/env.js';
 import path from 'path';
 import fs from 'fs/promises';
+import { createId } from '@paralleldrive/cuid2';
 
 const buildDataDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
 const buildDataFilePath = path.resolve(buildDataDir, '.replexica.json');
@@ -40,7 +41,7 @@ export default new Command()
 
     spinner.succeed('Replexica build data loaded!');
 
-
+    const workflowId = createId();
     for (let i = 0; i < localeTargets.length; i++) {
       const targetLocale = localeTargets[i];
       const resultData: any = {};
@@ -52,6 +53,7 @@ export default new Command()
 
         const partialLocaleData = { [localeFileId]: localeFileData };
         const result = await processI18n(
+          { workflowId },
           { source: localeSource, target: targetLocale },
           buildData.meta,
           partialLocaleData,
@@ -69,6 +71,7 @@ export default new Command()
   });
 
 async function processI18n(
+  params: { workflowId: string },
   locale: { source: string, target: string },
   meta: any,
   data: any,
@@ -82,6 +85,7 @@ async function processI18n(
       Authorization: `Bearer ${env.REPLEXICA_API_KEY}`,
     },
     body: JSON.stringify({
+      params,
       locale,
       meta,
       data,
