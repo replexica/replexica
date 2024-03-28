@@ -12,11 +12,11 @@ export class ReplexicaOutputProcessor {
   private constructor(
     private readonly relativeFilePath: string,
     private readonly options: ReplexicaConfig,
-  ) {}
+  ) { }
 
   private _outDir = path.join(process.cwd(), `node_modules/@replexica/translations`);
   private _debugDir = path.join(process.cwd(), '.debug/replexica');
-  
+
   public saveBuildData(data: ReplexicaCompilerData) {
     const filePath = path.join(this._outDir, '.replexica.json');
     const existingData: ReplexicaData = this._loadObject<ReplexicaData>(filePath) || this._createEmptyData();
@@ -44,8 +44,8 @@ export class ReplexicaOutputProcessor {
   public saveClientSourceLocaleData(data: ReplexicaCompilerData) {
     const fileName = `${this.options.locale.source}.client.json`;
     this._saveSourceLocaleData(
-      data, 
-      fileName, 
+      data,
+      fileName,
       (fileData) => fileData.context.isClient,
     );
   }
@@ -53,10 +53,14 @@ export class ReplexicaOutputProcessor {
   public saveStubLocaleData() {
     for (const targetLocale of this.options.locale.targets) {
       const fullLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.json`);
-      fs.writeFileSync(fullLocaleDataFilePath, '{}', 'utf-8');
+      if (!fs.existsSync(fullLocaleDataFilePath)) {
+        fs.writeFileSync(fullLocaleDataFilePath, '{}', 'utf-8');
+      }
 
       const clientLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.client.json`);
-      fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
+      if (!fs.existsSync(clientLocaleDataFilePath)) {
+        fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
+      }
     }
   }
 
