@@ -100,13 +100,13 @@ So, if you want a hassle-free i18n on autopilot, **follow The Replexica Rule** w
 
 ## Getting Started
 
-#### Step 1. Install Replexica
+### Step 1. Install Replexica
 
 ```bash
 pnpm add replexica @replexica/compiler @replexica/react
 ```
 
-#### Step 2. Configure NextJS
+### Step 2. Configure NextJS
 
 ```js
 // next.config.mjs
@@ -131,7 +131,7 @@ export default compiler.next(
 
 ```
 
-#### Step 3. Configure React App
+### Step 3. Configure React app
 
 > [!NOTE]
 > This guide is for Next.js App Router apps only. Guides for other setups are coming soon (ETA April 2024).
@@ -166,23 +166,32 @@ export default async function RootLayout({
 
 ```
 
-#### Step 4. Run the Compiler
+### Step 4. Run the compiler
 
 ```bash
 # If you haven't already, authenticate with the Replexica platform
 pnpm replexica auth
 
-# Build the app
+# Build the app, without translations
 pnpm run build
 
 # Fetch translations from the Replexica platform
 pnpm replexica i18n
 
+# Build the app again, to inject translations into the build output
+pnpm run build
+
 # Start the app
 pnpm run start
 ```
 
-#### Step 5 (Optional). Test the result
+> [!TIP]
+> `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
+
+> [!NOTE]
+> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined!
+
+### Step 5 (Optional). Test the result
 
 If you haven't yet implemented the language switcher on the UI, run the following code in the browser console to switch the language to Spanish:
 
@@ -191,8 +200,14 @@ document.cookie = "REPLEXICA_LOCALE=es; path=/;";
 location.reload();
 ```
 
-> [!TIP]
-> `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
+... and you should see the app in Spanish!
+
+To switch back to English, run:
+
+```js
+document.cookie = "REPLEXICA_LOCALE=en; path=/;";
+location.reload();
+```
 
 ## How to Switch Between Languages
 
