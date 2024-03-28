@@ -98,6 +98,48 @@ If you don't follow the rule and decide to store some of your translatable conte
 
 So, if you want a hassle-free i18n on autopilot, **follow The Replexica Rule** whenever possible.
 
+### But what if I have an array of items, and some of the fields should be translated?
+
+There's a common scenario, when you have an array of items that you render in a list, like this:
+
+```jsx
+const menuItems = [
+  {
+    title: 'Home',
+    url: '/',
+  },
+  {
+    title: 'About',
+    url: '/about',
+  },
+  {
+    title: 'Contact',
+    url: '/contact',
+  },
+];
+```
+
+In this case, you can still follow the Replexica Rule by simply wrapping the text in JSX! Here's how you can do it:
+
+```jsx
+const menuItesm = [
+  {
+    title: <>Home</>,
+    url: '/',
+  },
+  {
+    title: <>About</>,
+    url: '/about',
+  },
+  {
+    title: <>Contact</>,
+    url: '/contact',
+  },
+];
+```
+
+And that's it! The Replexica Compiler will automatically infer the metadata from the JSX and prepare the text for translation.
+
 ## Getting Started
 
 ### Step 1. Install Replexica
