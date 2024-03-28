@@ -28,7 +28,7 @@ export default new Command()
   .command('localize')
   .description('Localize i18n JSON with Replexica')
   .helpOption('-h, --help', 'Show help')
-  .argument('[root]', 'Root directory of the repository, containing the .replexica/config.yml config file.')
+  .argument('[root]', 'Root directory of the repository, containing the .replexica/config.yml config file.', '.')
   .option('--trigger-type <triggerType>', 'Environment from which the localization is triggered', 'cli')
   .option('--trigger-name <triggerName>', 'Name of the trigger', '')
   .action(async (root, options) => {
