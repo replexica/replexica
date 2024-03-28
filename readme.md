@@ -10,7 +10,7 @@ Replexica is a free, open-source compiler plugin for React, paired with an AI tr
 ![GitHub License](https://img.shields.io/github/license/replexica/replexica)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/replexica/replexica/release)
 
-Why does this matter? Because 75% of the world doesn't speak English. If the app is multilingual, it can serve many more users. But, let's be honest, making an app multilingual is a headache. You have to extract strings to JSON files and update translations every time something changes.
+Why does this matter? Because 75% of the world doesn't speak English. If the app is multilingual, it can serve many more users. But, let's be honest, making an app multilingual is a headache: extract strings to JSON files, update translations every time something changes, etc.
 
 That's where Replexica comes in: it's a build system plugin that translates React apps into multiple languages using AI. The best part? It doesn't require messing around with extracting or maintaining JSON files.
 
