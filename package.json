@@ -3,7 +3,9 @@
   "scripts": {
     "prepare": "husky",
     "build": "turbo build",
-    "test": "turbo test"
+    "test": "turbo test",
+    "new": "changeset",
+    "new:empty": "changeset --empty"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
