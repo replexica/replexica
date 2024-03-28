@@ -180,6 +180,15 @@ pnpm replexica i18n
 pnpm run start
 ```
 
+#### Step 5 (Optional). Test the result
+
+If you haven't yet implemented the language switcher on the UI, run the following code in the browser console to switch the language to Spanish:
+
+```js
+document.cookie = "REPLEXICA_LOCALE=es; path=/;";
+location.reload();
+```
+
 > [!TIP]
 > `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
 
