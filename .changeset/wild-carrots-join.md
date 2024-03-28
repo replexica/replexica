@@ -1,0 +1,5 @@
+---
+"replexica": minor
+---
+
+bump version
