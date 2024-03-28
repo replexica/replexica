@@ -11,8 +11,6 @@ Multi-language products get more users: 75% of the world doesn't speak English. 
 
 That's where Replexica comes in: it's a build system plugin, that translates React apps to multiple languages with AI, and doesn't require JSON files extraction / maintenance.
 
-Replexica compiler is open-source, and the API is open so you can build your own translation engine. We're also building our own AI translation platform, to make it even easier to roll out your first multi-language app ;)
-
 - [x] Replexica Compiler
   - [x] Next.js
   - [ ] Remix
@@ -20,23 +18,27 @@ Replexica compiler is open-source, and the API is open so you can build your own
 - [x] Replexica Framework
   - [x] JSX translation
   - [x] Custom context hints
-  - [ ] Translation of string literals using a helper
+  - [x] Skipper for non-translatable text
+  - [x] Translation of JSX attributes (title, alt, placeholder)
+  - [ ] Translation of generic literals w/ helper functions
+  - [ ] Translation of arbitrary attributes
 - [x] Replexica Platform
   - [x] AI Translation Engine
   - [x] Translation memory
   - [x] Context awareness aka **Brand voice**
-  - [ ] i18n overrides
   - [ ] i18n quality checks
 - [x] Replexica CLI
   - [x] CLI for Replexica Platform
   - [x] Open-source API schema
   - [ ] GitHub Actions integration
 
+Replexica compiler is open-source, and the API is open so you can build your own translation engine. We're also building our own AI translation platform, to make it even easier to roll out your first multi-language app!
+
 ## How it works
 
-Replexica is a compiler plugin. It hooks into your build system, and collects all the user-facing text in your app, getting it ready for translation with the Replexica platform. Here's how it works:
+Replexica is a compiler plugin. It hooks into the build system, and collects all the user-facing text in the app, getting it ready for translation with the Replexica platform. Here's how it works:
 
-1. **Infers** metadata from your app, like the text that needs to be translated and the context it's in. The metadata is then stored alongside your build artifacts.
+1. **Infers** metadata from your app, like the text that needs to be translated and the context it's in. The metadata is then stored alongside the build artifacts.
 1. **Translates** the text using the CLI that connects to the Replexica platform. The platform uses AI to translate the text, and the more you use it, the better it gets. The API is open, so you can build your own translation engine if you want!
 1. **Injects** the translations back into your app, so that the translated text is displayed to the user, based on their locale.
 
