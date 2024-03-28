@@ -164,6 +164,25 @@ export default async function RootLayout({
 
 ```
 
+#### Step 4. Run the Compiler
+
+```bash
+# If you haven't already, authenticate with the Replexica platform
+pnpm replexica auth
+
+# Build the app
+pnpm run build
+
+# Fetch translations from the Replexica platform
+pnpm replexica i18n
+
+# Start the app
+pnpm run start
+```
+
+> [!TIP]
+> `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
+
 ## How to Switch Between Languages
 
 Different apps use different strategies for switching between supported languages. Here are a few approaches we've seen:
