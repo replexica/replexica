@@ -111,7 +111,7 @@ pnpm add replexica @replexica/compiler @replexica/react
 ```js
 // next.config.mjs
 
-import compiler from '@replexica/compiler';
+import replexica from '@replexica/compiler';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
@@ -124,7 +124,7 @@ const replexicaConfig = {
   },
 };
 
-export default compiler.next(
+export default replexica.next(
   replexicaConfig,
   nextConfig,
 );
