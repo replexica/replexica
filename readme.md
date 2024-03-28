@@ -119,7 +119,7 @@ const menuItems = [
 ];
 ```
 
-In this case, you can still follow the Replexica Rule by simply wrapping the text in JSX! Here's how you can do it:
+In this case, you can still follow The Replexica Rule by simply wrapping the text in JSX! Here's how you can do it:
 
 ```jsx
 const menuItesm = [
