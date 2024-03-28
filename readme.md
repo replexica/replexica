@@ -136,9 +136,11 @@ export default compiler.next(
 > [!NOTE]
 > This guide is for Next.js App Router apps only. Guides for other setups are coming soon (ETA April 2024).
 
-If you plan on having `'use client'` components in your app (you probably do), you'll need to also wrap your entire component tree in `<ReplexicaProvider />`:
+If you plan on having `'use client'` components *at least somewhere* in your app (you probably do), you'll need to also wrap your entire component tree in `<ReplexicaProvider />`:
 
 ```jsx
+// src/app/layout.tsx
+
 import { ReplexicaIntlProvider } from '@replexica/react/client';
 import { loadLocaleFromCookie } from '@replexica/react/next';
 
