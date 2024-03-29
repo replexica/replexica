@@ -17,6 +17,8 @@ That's where Replexica comes in: it's a build system plugin (+ AI engine in the 
 ## API
 
 ```js
+// next.config.mjs
+
 import compiler from '@replexica/compiler';
 
 /** @type {import('next').NextConfig} */
