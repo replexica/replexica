@@ -1,5 +1,11 @@
 # @replexica/compiler
 
+## 0.2.0
+
+### Minor Changes
+
+- [#21](https://github.com/replexica/replexica/pull/21) [`392bb1c`](https://github.com/replexica/replexica/commit/392bb1cbf35a7b8b11f14788497bd8d36de12808) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - The compiler now supports the rsc flag, which is set to true by default. When set to false, every piece of code is processed as if it had 'use client'.
+
 ## 0.1.1
 
 ### Patch Changes
