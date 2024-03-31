@@ -8,9 +8,9 @@ import { ReplexicaFileData, ReplexicaCompilerData } from "./types";
 import { ReplexicaScopeExtractor } from "./scope";
 
 export class ReplexicaCompiler {
-  public static fromCode(code: string, relativeFilePath: string) {
+  public static fromCode(code: string, relativeFilePath: string, rsc: boolean) {
     const ast = parseCodeIntoBabelAst(code);
-    const isServer = !hasDirective(ast, 'use client');
+    const isServer = !rsc ? false : !hasDirective(ast, 'use client');
 
     return new ReplexicaCompiler(relativeFilePath, code, ast, isServer);
   }

@@ -3,9 +3,9 @@ import { ReplexicaAttributeScope, ReplexicaCompiler, ReplexicaContentScope, Repl
 import { ReplexicaOutputProcessor } from "./output";
 import path from 'path';
 import { createNextPlugin } from "./plugins";
-import { ReplexicaConfig } from "./types";
+import { ReplexicaConfig, parseOptions } from "./options";
 
-const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
+const unplugin = createUnplugin<Partial<ReplexicaConfig>>((_options) => ({
   name: '@replexica/compiler',
   enforce: 'pre',
   transformInclude(id) {
@@ -13,11 +13,12 @@ const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
     return /\.(t|j)sx$/.test(id);
   },
   transform(code, absoluteFilePath) {
+    const options = parseOptions(_options);
     try {
       const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
 
       const compiler = ReplexicaCompiler
-        .fromCode(code, relativeFilePath)
+        .fromCode(code, relativeFilePath, options.rsc)
         .withScope(ReplexicaSkipScope)
         .withScope(ReplexicaAttributeScope)
         .withScope(ReplexicaContentScope)
@@ -49,7 +50,8 @@ const unplugin = createUnplugin<ReplexicaConfig>((options) => ({
 class ReplexicaError extends Error {
 
 }
-export * from './types';
+
+export { ReplexicaConfig } from './options';
 export default {
   next: createNextPlugin(unplugin),
 };

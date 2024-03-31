@@ -1,8 +1,9 @@
 import { File } from "@babel/types";
 import fs from 'fs';
 import path from 'path';
-import { ReplexicaCompilerData, ReplexicaCompilerPayload } from "./compiler";
-import { ReplexicaLocaleData, ReplexicaConfig, ReplexicaData } from "./types";
+import { ReplexicaCompilerData } from "./compiler";
+import { ReplexicaLocaleData, ReplexicaData } from "./types";
+import { ReplexicaConfig } from "./options";
 
 export class ReplexicaOutputProcessor {
   public static create(relativeFilePath: string, options: ReplexicaConfig) {
