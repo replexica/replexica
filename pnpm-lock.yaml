@@ -28,7 +28,7 @@ importers:
         specifier: latest
         version: 1.13.0
 
-  demo/next:
+  demo/next-app:
     dependencies:
       next:
         specifier: 14.1.4
@@ -51,7 +51,59 @@ importers:
         version: 20.11.30
       '@types/react':
         specifier: ^18
-        version: 18.2.67
+        version: 18.2.73
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.2.22
+      autoprefixer:
+        specifier: ^10.0.1
+        version: 10.4.19(postcss@8.4.37)
+      postcss:
+        specifier: ^8
+        version: 8.4.37
+      replexica:
+        specifier: workspace:*
+        version: link:../../packages/cli
+      tailwindcss:
+        specifier: ^3.3.0
+        version: 3.4.1
+      typescript:
+        specifier: ^5
+        version: 5.4.3
+
+  demo/next-pages:
+    dependencies:
+      cookie:
+        specifier: ^0.6.0
+        version: 0.6.0
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
+      next:
+        specifier: 14.1.4
+        version: 14.1.4(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18
+        version: 18.2.0
+      react-dom:
+        specifier: ^18
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@replexica/compiler':
+        specifier: workspace:*
+        version: link:../../packages/compiler
+      '@replexica/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@types/cookie':
+        specifier: ^0.6.0
+        version: 0.6.0
+      '@types/node':
+        specifier: ^20
+        version: 20.11.30
+      '@types/react':
+        specifier: ^18
+        version: 18.2.73
       '@types/react-dom':
         specifier: ^18
         version: 18.2.22
@@ -1692,6 +1744,10 @@ packages:
       '@types/node': 20.11.30
     dev: true
 
+  /@types/cookie@0.6.0:
+    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
+    dev: true
+
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
@@ -2278,6 +2334,11 @@ packages:
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  /cookie@0.6.0:
+    resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
+    engines: {node: '>= 0.6'}
+    dev: false
 
   /cosmiconfig-typescript-loader@5.0.0(@types/node@20.11.30)(cosmiconfig@9.0.0)(typescript@5.4.3):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}
@@ -3584,6 +3645,11 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
     dev: true
+
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
+    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

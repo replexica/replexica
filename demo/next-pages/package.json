@@ -1,0 +1,32 @@
+{
+  "name": "@replexica/demo/next-pages",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "i18n": "replexica i18n",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "cookie": "^0.6.0",
+    "js-cookie": "^3.0.5",
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@replexica/compiler": "workspace:*",
+    "@replexica/react": "workspace:*",
+    "@types/cookie": "^0.6.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "replexica": "workspace:*",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}
