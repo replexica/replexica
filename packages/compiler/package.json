@@ -26,7 +26,8 @@
     "object-hash": "^3.0.0",
     "typescript": "^5.4.3",
     "unplugin": "^1.10.0",
-    "vitest": "^1.4.0"
+    "vitest": "^1.4.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",

@@ -1,13 +1,5 @@
 import { ReplexicaScopeHint } from "./compiler";
 
-export type ReplexicaConfig = {
-  locale: {
-    source: string;
-    targets: string[];
-  };
-  debug?: boolean;
-};
-
 export type ReplexicaLocaleData = {
   [fileId: string]: {
     [scopeId: string]: {

@@ -149,6 +149,9 @@ importers:
       vitest:
         specifier: ^1.4.0
         version: 1.4.0(@types/node@20.11.30)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@types/babel__core':
         specifier: ^7.20.5
