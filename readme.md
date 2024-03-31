@@ -17,7 +17,7 @@ That's where Replexica comes in: it's a build system plugin (+ AI engine in the 
 ## API
 
 > [!NOTE]
-> This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024).
+> This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
 
 ```js
 // next.config.mjs
@@ -178,7 +178,7 @@ export default replexica.next(
 ### Step 3. Configure React app
 
 > [!NOTE]
-> This guide is for Next.js App Router apps only. Guides for other setups are coming soon (ETA April 2024).
+> This guide is for Next.js App Router apps only. Guides for other setups are coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
 
 If you plan on having `'use client'` components *at least somewhere* in your app (you probably do), you'll need to also wrap your entire component tree in `<ReplexicaProvider />`:
 
@@ -233,7 +233,7 @@ pnpm run start
 > `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
 
 > [!NOTE]
-> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined (ETA April 2024 🙏)!
+> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined (ETA April 2024 🙏)! <https://github.com/replexica/replexica/issues/26>
 
 ### Step 5 (Optional). Test the result
 
