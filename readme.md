@@ -16,6 +16,9 @@ That's where Replexica comes in: it's a build system plugin (+ AI engine in the 
 
 ## API
 
+> [!NOTE]
+> This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024).
+
 ```js
 // next.config.mjs
 
@@ -43,7 +46,7 @@ export default compiler.next(
 
 The Replexica compiler is open-source, and the platform API is open, allowing you to build your own translation engine.
 
-We're also developing our own AI translation platform ([replexica.com](https://replexica.com)), to make it even easier to launch your first multi-language app!
+We're also developing our own i18n engine called [Replexica Cloud](https://replexica.com), to make it even easier to ship your first multi-language app!
 
 - [x] Replexica Compiler
   - [x] Next.js App Router
@@ -51,16 +54,13 @@ We're also developing our own AI translation platform ([replexica.com](https://r
   - [ ] Remix (May 2024)
   - [ ] Create React App (May 2024)
 - [x] Replexica Framework
-  - [x] JSX translation
+  - [x] Core JSX translation
   - [x] Custom context hints
-  - [x] Skipper for non-translatable text
-  - [x] Avoid fetching unused translations
   - [x] Translation of JSX attributes (title, alt, placeholder)
   - [ ] Translation of generic literals with helper functions
   - [ ] Translation of arbitrary attributes
-- [x] Replexica Platform
+- [x] Replexica Cloud
   - [x] AI Translation Engine
-  - [x] Translation memory
   - [x] Context awareness aka **Brand voice**
   - [ ] Supported locales (production-ready, state-of-the-art quality)
     - [x] English
@@ -68,7 +68,7 @@ We're also developing our own AI translation platform ([replexica.com](https://r
     - [ ] French (April 2024)
     - [ ] German (April 2024)
     - [ ] (Create a GitHub issue to request a new language!)
-  - [ ] Automated i18n quality checks (May 2024)
+  - [ ] Quality checks (May 2024)
   - [ ] Documentation/examples on self-hosted translation engine
 - [x] Replexica CLI
   - [x] CLI for Replexica Platform
@@ -80,7 +80,7 @@ We're also developing our own AI translation platform ([replexica.com](https://r
 Replexica is a compiler plugin that integrates with the build system, collecting all user-facing text in the app and preparing it for translation with the Replexica platform. Here's how it works:
 
 1. **Infers** metadata from your app, such as the text that needs to be translated and its context. This metadata is then stored alongside the build artifacts.
-1. **Translates** the text using the CLI that connects to the Replexica platform. The platform uses AI to translate the text, and the more you use it, the better it gets. The API is open, so you can build your own translation engine if you wish!
+1. **Translates** the text using the CLI that connects to the Replexica Cloud. The cloud engine uses AI to translate the text, and the more you use it, the better it gets. The API is open, so you can build your own translation engine if you wish!
 1. **Injects** the translations back into your app, so that the translated text is displayed to the user, based on their locale.
 
 With Replexica, you can build multi-language apps without the hassle of managing JSON files, and with the power of AI translation.
@@ -233,7 +233,7 @@ pnpm run start
 > `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
 
 > [!NOTE]
-> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined!
+> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined (ETA April 2024 🙏)!
 
 ### Step 5 (Optional). Test the result
 
@@ -274,4 +274,4 @@ So, whatever approach you choose for switching between locales, just be sure to 
 
 If you have any questions, feel free to create a GitHub issue!
 
-Also, we're [on Discord](https://discord.gg/P2J3dGUM).
+Also, we're [on Discord](https://discord.gg/P2J3dGUM): come say hi!
