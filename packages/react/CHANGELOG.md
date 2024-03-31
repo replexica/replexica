@@ -1,5 +1,11 @@
 # @replexica/react
 
+## 0.1.1
+
+### Patch Changes
+
+- [#19](https://github.com/replexica/replexica/pull/19) [`2667316`](https://github.com/replexica/replexica/commit/266731678ab9630f5d5afb29c2e80c44b2f5a5db) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - switch `@replexica/react` module resolution to commonjs
+
 ## 0.1.0
 
 ### Minor Changes
