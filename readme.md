@@ -5,14 +5,34 @@
 
 # Replexica
 
-Replexica is a free, open-source compiler plugin for React, paired with an AI translation platform. It's a toolset that enables React apps to speak many languages.
+Replexica is an AI-powered i18n engine for React.
 
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 
-Why does this matter? Because 75% of the world doesn't speak English. If the app is multilingual, it can serve many more users. But, let's be honest, making an app multilingual is a headache: extract strings to JSON files, update translations every time something changes, etc.
+75% of the world doesn't speak English. But if the app is multilingual, it can serve many more users!
 
-That's where Replexica comes in: it's a build system plugin (+ AI engine in the cloud) that translates React apps into multiple languages. The best part - it doesn't require messing around with extracting or maintaining JSON files!
+But making an app multilingual is a headache: extracting text, managing JSON files, keeping the translations in sync, asking your native-speaking friends to double-check the translations... sometimes it's just too much of a hassle.
+
+That's where Replexica comes in: it's an AI-powered i18n engine, that integrates with React compiler, to make building multi-language apps easy and hassle-free.
+
+## What is Replexica?
+
+Replexica consists of two parts:
+
+1. **Replexica Compiler** (this repo) - an open-source build system plugin for React:
+    * Doesn't require managing JSON files with i18n strings;
+    * Seamlessly integrates with the build system;
+    * Infers metadata and user-facing text from the app;
+    * Prepares the translatable content for translation.
+
+1. **Replexica Cloud** ([replexica.com](https://replexica.com)) - an AI translation engine in the cloud that translates apps into multiple languages, fast:
+    * $0/mo + usage;
+    * Full context awareness + brand voice;
+    * State-of-the-art quality translations;
+    * Open API, so anyone could build their own translation engine (self-hosting guide coming soon).
+
+The idea behind Replexica is simple: building multi-language apps should be easy and hassle-free. The Internet is global, and so should be any software that runs on it!
 
 ## API
 
@@ -44,40 +64,42 @@ export default compiler.next(
 
 ## Roadmap
 
-The Replexica compiler is open-source, and the platform API is open, allowing you to build your own translation engine.
+Replexica Compiler is open-source. Replexica Cloud has $0/mo + usage pricing.
 
-We're also developing our own i18n engine called [Replexica Cloud](https://replexica.com), to make it even easier to ship your first multi-language app!
+Also, the API is open, so you can build your own translation engine if you wish! (Self-hosting guide coming soon.)
 
-- [x] Replexica Compiler
-  - [x] Next.js App Router
-  - [ ] Next.js Pages Router (April 2024)
-  - [ ] Remix (May 2024)
-  - [ ] Create React App (May 2024)
-- [x] Replexica Framework
-  - [x] Core JSX translation
-  - [x] Custom context hints
-  - [x] Translation of JSX attributes (title, alt, placeholder)
-  - [ ] Translation of generic literals with helper functions
-  - [ ] Translation of arbitrary attributes
-- [x] Replexica Cloud
-  - [x] AI Translation Engine
-  - [x] Context awareness aka **Brand voice**
-  - [ ] Supported locales (production-ready, state-of-the-art quality)
-    - [x] English
-    - [x] Spanish
-    - [ ] French (April 2024)
-    - [ ] German (April 2024)
-    - [ ] (Create a GitHub issue to request a new language!)
-  - [ ] Quality checks (May 2024)
-  - [ ] Documentation/examples on self-hosted translation engine
-- [x] Replexica CLI
-  - [x] CLI for Replexica Platform
-  - [x] Open-source API schema
-  - [ ] GitHub Actions integration
+* [x] Replexica Compiler
+  * [x] Next.js App Router
+  * [ ] Next.js Pages Router (April 2024)
+  * [ ] Remix (May 2024)
+  * [ ] Create React App (May 2024)
+* [x] Replexica Framework
+  * [x] Core JSX translation
+  * [x] Custom context hints
+  * [x] Translation of JSX attributes (title, alt, placeholder)
+  * [ ] Translation of generic literals with helper functions
+  * [ ] Translation of arbitrary attributes
+* [x] Replexica Cloud
+  * [x] AI Translation Engine
+  * [x] Context awareness aka **Brand voice**
+  * [ ] Supported locales (production-ready, state-of-the-art quality)
+    * [x] English
+    * [x] Spanish
+    * [ ] French (April 2024)
+    * [ ] German (April 2024)
+    * [ ] 10+ more languages to be announced (June 2024)
+    * [ ] (Create a GitHub issue to request a new language!)
+  * [ ] Self-hosting guides / docs
+* [x] Replexica CLI
+  * [x] CLI for Replexica Platform
+  * [x] Open-source API schema
+  * [ ] GitHub Actions integration
 
 ## How it Works
 
-Replexica is a compiler plugin that integrates with the build system, collecting all user-facing text in the app and preparing it for translation with the Replexica platform. Here's how it works:
+Replexica Compiler integrates with the build system, collecting all user-facing text in the app and preparing it for translation with the Replexica Cloud.
+
+Here's how it works:
 
 1. **Infers** metadata from your app, such as the text that needs to be translated and its context. This metadata is then stored alongside the build artifacts.
 1. **Translates** the text using the CLI that connects to the Replexica Cloud. The cloud engine uses AI to translate the text, and the more you use it, the better it gets. The API is open, so you can build your own translation engine if you wish!
@@ -257,10 +279,10 @@ location.reload();
 
 Different apps use different strategies for switching between supported languages. Here are a few approaches we've seen:
 
-- Cookie value (get/set cookie value)
-- Subdomain (`en.myapp.com` / `es.myapp.com`)
-- TLD domain (`myapp.com` / `myapp.es`)
-- Pathname segments (`myapp.com/en` / `myapp.com/es`)
+* Cookie value (get/set cookie value)
+* Subdomain (`en.myapp.com` / `es.myapp.com`)
+* TLD domain (`myapp.com` / `myapp.es`)
+* Pathname segments (`myapp.com/en` / `myapp.com/es`)
 
 ... and so on.
 
