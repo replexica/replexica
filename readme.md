@@ -14,17 +14,21 @@ Replexica is an AI-powered i18n engine for React.
 
 But, making an app multilingual is a headache: extracting text, managing JSON files, asking a native-speaking friend to double-check the translations... Oftentimes, it's a lot of work.
 
-That's where Replexica comes in: it's an AI-powered i18n engine, that integrates with React, to make the app multilingual instantly, and scale to more international users much faster. *And you don't even have to deal with JSON files!*
+That's where Replexica comes in: it's an AI-powered i18n engine, that integrates with React, to make the app multilingual instantly, and scale to more international users much faster.
+
+The best part - *you don't even have to deal with JSON files!* (I know, right?)
 
 ## API
 
 > [!NOTE]
 > This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
 
+While the full getting started guide is below, here's a quick TLDR of the changes needed to get Replexica up and running in a modern Next.js app:
+
 ```js
 // next.config.mjs
 
-import compiler from '@replexica/compiler';
+import replexica from '@replexica/compiler';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
@@ -37,7 +41,7 @@ const replexicaConfig = {
   },
 };
 
-export default compiler.next(
+export default replexica.next(
   replexicaConfig,
   nextConfig,
 );
@@ -46,19 +50,19 @@ export default compiler.next(
 
 ## What is Replexica
 
-Replexica is an AI-powered i18n engine for React, and it has two components:
+Replexica is an AI-powered i18n engine for React, and it consists of **two main parts**:
 
-1. **Replexica Compiler** (this repo) - an open-source compiler plugin for React:
-    * Doesn't require managing JSON files with i18n strings;
-    * Seamlessly integrates with the build system;
+1. **Replexica i18n Compiler** (this repo) - an open-source compiler plugin for React:
+    * Doesn't require extracting strings into JSON files;
+    * Seamlessly integrates with React build system;
     * Infers metadata and user-facing text from the app;
-    * Prepares the translatable content for translation.
+    * Prepares the content for translation.
 
-1. **Replexica Cloud** ([replexica.com](https://replexica.com)) - an AI translation engine in the cloud that translates apps into multiple languages, fast:
-    * $0/mo + usage OR Free tier (w/ fair usage policy);
+1. **Replexica i18n Cloud** ([replexica.com](https://replexica.com)) - an AI translation engine in the cloud that translates apps into multiple languages, fast:
+    * $0/mo + usage and Free tier (w/ fair usage policy);
     * Full context awareness + brand voice;
-    * State-of-the-art quality translations (adding new languages regularly!);
-    * Open API, so anyone could build their own translation engine (self-hosting guide coming soon).
+    * State-of-the-art quality translations (adding even more new languages soon!) via a mix of open-source and proprietary AI models;
+    * API is open, so anyone could build their own translation engine (self-hosting guide coming soon).
 
 The core idea behind Replexica is simple: apps must be multi-language by default, from day one. **The Internet is global, and so should be any software that runs on it!**
 
@@ -68,27 +72,31 @@ Replexica Compiler integrates with the build system, collecting all user-facing 
 
 Here's how it works:
 
-1. **Infers** metadata from your app, such as the text that needs to be translated and its context. This metadata is then stored alongside the build artifacts.
-1. **Translates** the text using the CLI that connects to the Replexica Cloud. The cloud engine uses AI to translate the text, and the more you use it, the better it gets. The API is open, so you can build your own translation engine if you wish!
-1. **Injects** the translations back into your app, so that the translated text is displayed to the user, based on their locale.
+1. **Infers** metadata from the app, such as the text that needs to be translated and its context. This metadata is then stored alongside the build artifacts.
+1. **Translates** the text using the CLI that connects to the Replexica Cloud. The cloud engine uses AI to translate the text, and the more it's used, the better it gets. Also, the API is open, so that everyone can build their own translation engine if desired.
+1. **Injects** the translations back into the app, so that the translated text is displayed to the user, based on their locale, when React renders the app.
 
-With Replexica, you can build multi-language apps without the hassle of managing JSON files, and with the power of AI translation.
+With Replexica, you can build multi-language apps without the hassle of dealing with i18n JSON files, and with the power of AI-powered translation engine!
 
 ## OSS + Commercial
 
 ### Open Source
 
-Everyone in the world deserves to have access to great software. And we believe that making software multilingual is the most important step towards removing barriers.
+Everyone in the world deserves to have access to great software. And we believe that making software multilingual is the most important step towards removing digital barriers.
 
-That's why Replexica is open source: so that anyone can start building multi-language apps quickly and ship them to the world fast.
+That's why Replexica is open source: so that anyone can start building multi-language apps quickly and ship them to the world faster!
 
 ### Commercial
 
-Replexica Cloud, the commercial component of Replexica, is where we hope to start making money in the future. We don't have a clear business model yet, but we're thinking that $0/month + usage, along with a free tier (with a fair usage policy), would be a good start!
+Replexica Cloud, the commercial part of Replexica, is where we hope to start making money in the future. We don't have a clear business model yet, but we're thinking $0/month + usage, along with a free tier (with a fair usage policy), would be a good start.
+
+Having built hundreds of side-projects ourselves, we're committed to making Replexica an affordable / free tool for indie hackers and hobbyists building side-projects. In the end, that's where we come from, and that's where our heart is.
+
+At the same time, we're also committed to making Replexica a powerful tool for startups and enterprises building commercial software, to enable them to reach more users faster.
 
 ### Self-Hosting
 
-Additionally, since the API is open, anyone can build their own translation engine, memory, and fine-tune it themselves instead of using these features of Replexica Cloud. We're planning to release the self-hosting guide soon!
+Additionally, since the API is open, anyone can build their own translation engine, memory, and fine-tune it themselves instead of using these features of Replexica Cloud. We're planning to release the self-hosting guide soon.
 
 ## Roadmap
 
@@ -97,7 +105,7 @@ Replexica is a new project (support our work with a GitHub star btw! 😉), and 
 * **Next.js App Router** - Replexica Compiler currently supports only Next.js App Router. Support for other setups is coming soon (ETA April 2024).
 * **New Languages** - Replexica Cloud currently supports only English and Spanish. More languages are coming soon (ETA April 2024).
 
-The more detailed roadmap is as follows:
+The more detailed roadmap is below:
 
 * [x] Replexica Compiler
   * [x] Next.js App Router
@@ -130,14 +138,14 @@ The more detailed roadmap is as follows:
 
 At Replexica, we believe in the elegance of [Convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) principle.
 
-Therefore, there's an important rule to remember when using Replexica:
+Therefore, there's one important rule to remember when using Replexica:
 
 > [!TIP]
 > Place translatable text inside `JSX`.
 
 As long as you follow this rule, the Replexica Compiler can automatically infer the metadata from your app and prepare the text inside JSX for translation.
 
-If you don't follow the rule and decide to store some of your translatable content in variables, that **can be translated too**, but you'll need to manually wrap that text in a helper function.
+If you don't follow the rule and decide to store some of your translatable content in variables, that **can be translated too**, but you'll need to manually wrap that text in a helper function (... that we're planning to release soon, ETA April 2024).
 
 So, if you want a hassle-free i18n on autopilot, **follow The Replexica Rule** whenever possible.
 
@@ -278,7 +286,7 @@ pnpm run start
 > `pnpm replexica i18n` must be run after every build, to fetch the latest translations from the Replexica platform. It must be run in CI/CD pipelines as well, right after the `build` step.
 
 > [!NOTE]
-> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined (ETA April 2024 🙏)! <https://github.com/replexica/replexica/issues/26>
+> We know that running `pnpm replexica i18n` after every build and running the build twice can be a bit cumbersome. We're working on a solution to make this process more streamlined (ETA April 2024). We're working really hard on this one! 🙏 <https://github.com/replexica/replexica/issues/26>
 
 ### Step 5 (Optional). Test the result
 
@@ -315,17 +323,38 @@ To support every possible strategy, now and in the future, Replexica does the fo
 
 So, whatever approach you choose for switching between locales, just be sure to update the value of the `REPLEXICA_LOCALE` cookie, and Replexica will handle the rest.
 
+> [!WARNING]
+> Be sure to drop by our Discord (link at the bottom) if you have an opinion on how Replexica should be handling the locale detection. Even if your idea is exotic or feels unfeasible, we'd love to hear it! 🙏 (feel free to send in private, if you want).
+
 ## Team
 
-Before Replexica, we bootstrapped a B2B SaaS startup. It got acquired, and we decided to build a tool we think should've always existed, in open source.
+Before Replexica, we were bootstrapping a B2B SaaS startup. It got acquired, and we decided to build a devtool that'd just be cool and would be fun to work on.
+
+We used to work with i18n a lot, using tens of different libraries, and none of them was a perfect match: something has always been a bit off.
+
+So, we decided to build Replexica, to solve the i18n problem once and for all, for everyone, in a way that's simple, elegant, and powerful.
 
 We're a lean team of two:
 
 * **[Veronica](https://github.com/vrcprl)** - Product, and AI.
 * **[Max](https://github.com/maxprilutskiy)** - React, Typescript and Compilers.
 
+## Contributing
+
+If you're building a side-project, or a startup, or you're working at a big company that uses Replexica - we'd LOVE to hear from you!
+
+You can contribute in the form of:
+
+* **Feedback** - tell us what you like, what you don't like, what you'd like to see next.
+* **Feature requests** - tell us what you need, and we'll do our best to build it.
+* **Bug reports** - if you find a bug, please let us know, and we'll fix it as soon as we physically can.
+
+Also the special one:
+
+* **Complaints** - if you're unhappy with *ANYTHING* about your current i18n approach, and you just need to vent, we're (our co-founder Max specifically) here to listen!
+
+Lastly, we have a small [Discord channel](https://discord.gg/P2J3dGUM): come say hi! 👋
+
 ## Questions
 
-If you have any questions, feel free to create a GitHub issue!
-
-Also, we have a small [Discord channel](https://discord.gg/P2J3dGUM): come say hi! 👋
+If you found a bug, or have a feature request, please [create an issue](https://github.com/replexica/replexica/issues) and post the link in the Discord channel. We'll take a look as soon as we can!
