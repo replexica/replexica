@@ -5,17 +5,17 @@
 
 # Replexica
 
+[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
+[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
+![Pricing](https://img.shields.io/badge/pricing-$0%2Fmo-blue)
+
 Replexica is an AI-powered i18n engine for building multi-language React apps.
 
 It ships in two parts:
 
 1. **Replexica Compiler** - an open-source compiler plugin for React;
-1. **Replexica Cloud** - an AI-powered engine that performs state-of-the-art translations.
-
-[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
-[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
-![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
-![Pricing](https://img.shields.io/badge/pricing-$0%2Fmo-blue)
+1. **Replexica Cloud** - an AI-powered engine in the cloud that performs translations.
 
 ## Why
 
