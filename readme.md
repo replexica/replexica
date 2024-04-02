@@ -20,7 +20,7 @@ It ships in two parts:
 
 ## Why
 
-75% of the world doesn't speak English. So, if the app is multilingual, it can reach so many more users!
+75% of the world doesn't speak English. So, if the app is multilingual, it can reach many more users!
 
 But, making an app multilingual is a headache: extracting text, managing JSON files, asking a native-speaking teammate to double-check the translations... Oftentimes, it's a lot of work.
 
