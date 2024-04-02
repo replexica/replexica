@@ -5,7 +5,8 @@
 
 # Replexica
 
-[![Discord](https://img.shields.io/discord/1193198600298172486)](https://discord.gg/P2J3dGUM)
+[![Discord](https://img.shields.io/discord/1193198600298172486?label=discord
+)](https://discord.gg/P2J3dGUM)
 ![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
