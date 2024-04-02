@@ -5,10 +5,10 @@
 
 # Replexica
 
-[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
-[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+[![Discord](https://img.shields.io/discord/1193198600298172486)](https://discord.gg/P2J3dGUM)
 ![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
-![Pricing](https://img.shields.io/badge/pricing-$0%2Fmo-blue)
+[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
 Replexica is an AI-powered i18n engine for building multi-language React apps.
 
@@ -362,7 +362,7 @@ Also the special one:
 
 * **Complaints** - if you're unhappy with *ANYTHING* about your current i18n approach, and you just need to vent, we're (our co-founder Max specifically) here to listen!
 
-Lastly, we have a small [Discord channel](https://discord.gg/P2J3dGUM): come say hi! 👋
+Lastly, we've recently created a [Discord channel](https://discord.gg/P2J3dGUM): come say hi! 👋
 
 ## Questions
 
