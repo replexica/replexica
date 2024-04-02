@@ -9,6 +9,8 @@ Replexica is an AI-powered i18n engine for React.
 
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
+![Pricing](https://img.shields.io/badge/pricing-$0%2Fmo-blue)
 
 75% of the world doesn't speak English. So, if the app is multilingual, it can reach so many more users!
 
@@ -16,7 +18,7 @@ But, making an app multilingual is a headache: extracting text, managing JSON fi
 
 That's where Replexica comes in: it's an AI-powered i18n engine, that integrates with React, to make the app multilingual instantly, and scale to more international users much faster.
 
-The best part - *you don't even have to deal with JSON files!* (I know, right?)
+The best part - *you don't even have to deal with JSON files!*
 
 ## API
 
