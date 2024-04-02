@@ -80,8 +80,8 @@ importers:
   packages/cli:
     dependencies:
       '@inquirer/prompts':
-        specifier: ^4.3.0
-        version: 4.3.0
+        specifier: ^4.3.1
+        version: 4.3.1
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
@@ -1158,32 +1158,32 @@ packages:
     dev: false
     optional: true
 
-  /@inquirer/checkbox@2.2.0:
-    resolution: {integrity: sha512-L+owhbEm98dnP15XtT/8D1+nNvQecf8HngVFYTJaDR0jlfIeOHFHRbjhLKoVYxks85yY8mLaYXVZQLU46KTkXg==}
+  /@inquirer/checkbox@2.2.1:
+    resolution: {integrity: sha512-eYdhZWZMOaliMBPOL/AO3uId58lp+zMyrJdoZ2xw9hfUY4IYJlIMvgW80RJdvCY3q9fGMUyZI5GwguH2tO51ew==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       figures: 3.2.0
     dev: false
 
-  /@inquirer/confirm@3.1.0:
-    resolution: {integrity: sha512-nH5mxoTEoqk6WpoBz80GMpDSm9jH5V9AF8n+JZAZfMzd9gHeEG9w1o3KawPRR72lfzpP+QxBHLkOKLEApwhDiQ==}
+  /@inquirer/confirm@3.1.1:
+    resolution: {integrity: sha512-epf2RVHJJxX5qF85U41PBq9qq2KTJW9sKNLx6+bb2/i2rjXgeoHVGUm8kJxZHavrESgXgBLKCABcfOJYIso8cQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
     dev: false
 
-  /@inquirer/core@7.1.0:
-    resolution: {integrity: sha512-FRCiDiU54XHt5B/D8hX4twwZuzSP244ANHbu3R7CAsJfiv1dUOz24ePBgCZjygEjDUi6BWIJuk4eWLKJ7LATUw==}
+  /@inquirer/core@7.1.1:
+    resolution: {integrity: sha512-rD1UI3eARN9qJBcLRXPOaZu++Bg+xsk0Tuz1EUOXEW+UbYif1sGjr0Tw7lKejHzKD9IbXE1CEtZ+xR/DrNlQGQ==}
     engines: {node: '>=18'}
     dependencies:
       '@inquirer/type': 1.2.1
       '@types/mute-stream': 0.0.4
-      '@types/node': 20.11.30
+      '@types/node': 20.12.2
       '@types/wrap-ansi': 3.0.0
       ansi-escapes: 4.3.2
       chalk: 4.1.2
@@ -1191,77 +1191,75 @@ packages:
       cli-width: 4.1.0
       figures: 3.2.0
       mute-stream: 1.0.0
-      run-async: 3.0.0
       signal-exit: 4.1.0
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
     dev: false
 
-  /@inquirer/editor@2.1.0:
-    resolution: {integrity: sha512-gBxebaZLATrQyjZnuPLcfM2WxjZG6rjEmnzepJb/0bypi1PgWt9rZoH+a/j1uJx/tF+jhYrvSBr8McEOWcyAWg==}
+  /@inquirer/editor@2.1.1:
+    resolution: {integrity: sha512-SGVAmSKY2tt62+5KUySYFeMwJEXX866Ws5MyjwbrbB+WqC8iZAtPcK0pz8KVsO0ak/DB3/vCZw0k2nl7TifV5g==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       external-editor: 3.1.0
     dev: false
 
-  /@inquirer/expand@2.1.0:
-    resolution: {integrity: sha512-jQgF7ImxxsX4MM8BUk33ffOvx3YOlaEqNCLTxBk7eZ5KOqOshmUq9FnOMnacUXpu7MJtkV/DJHubFiC/q4NF6g==}
+  /@inquirer/expand@2.1.1:
+    resolution: {integrity: sha512-FTHf56CgE24CtweB+3sF4mOFa6Q7H8NfTO+SvYio3CgQwhIWylSNueEeJ7sYBnWaXHNUfiX883akgvSbWqSBoQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       chalk: 4.1.2
-      figures: 3.2.0
     dev: false
 
-  /@inquirer/input@2.1.0:
-    resolution: {integrity: sha512-o57pST+xxZfGww1h4G7ISiX37KlLcajhKgKGG7/h8J6ClWtsyqwMv1el9Ds/4geuYN/HcPj0MyX9gTEO62UpcA==}
+  /@inquirer/input@2.1.1:
+    resolution: {integrity: sha512-Ag5PDh3/V3B68WGD/5LKXDqbdWKlF7zyfPAlstzu0NoZcZGBbZFjfgXlZIcb6Gs+AfdSi7wNf7soVAaMGH7moQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
     dev: false
 
-  /@inquirer/password@2.1.0:
-    resolution: {integrity: sha512-93x0Rpq75SP9u4s3zh4UcSKvn8KBGgyF3tKN7bNQp3bseROR0uJgySDp8iTQpcTfhJy41R+2Jr4xNLKGhr6Gzw==}
+  /@inquirer/password@2.1.1:
+    resolution: {integrity: sha512-R5R6NVXDKXEjAOGBqgRGrchFlfdZIx/qiDvH63m1u1NQVOQFUMfHth9VzVwuTZ2LHzbb9UrYpBumh2YytFE9iQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       ansi-escapes: 4.3.2
     dev: false
 
-  /@inquirer/prompts@4.3.0:
-    resolution: {integrity: sha512-bSpFHqCnHrfmYgIMEFmA2YPPKxyw3n3ouI5S8m4N8krztJm1hFpQ8SdsZbBPRytoMaVvUgkASmiC0ih2VhDW9g==}
+  /@inquirer/prompts@4.3.1:
+    resolution: {integrity: sha512-FI8jhVm3GRJ/z40qf7YZnSP0TfPKDPdIYZT9W6hmiYuaSmAXL66YMXqonKyysE5DwtKQBhIqt0oSoTKp7FCvQQ==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/checkbox': 2.2.0
-      '@inquirer/confirm': 3.1.0
-      '@inquirer/core': 7.1.0
-      '@inquirer/editor': 2.1.0
-      '@inquirer/expand': 2.1.0
-      '@inquirer/input': 2.1.0
-      '@inquirer/password': 2.1.0
-      '@inquirer/rawlist': 2.1.0
-      '@inquirer/select': 2.2.0
+      '@inquirer/checkbox': 2.2.1
+      '@inquirer/confirm': 3.1.1
+      '@inquirer/core': 7.1.1
+      '@inquirer/editor': 2.1.1
+      '@inquirer/expand': 2.1.1
+      '@inquirer/input': 2.1.1
+      '@inquirer/password': 2.1.1
+      '@inquirer/rawlist': 2.1.1
+      '@inquirer/select': 2.2.1
     dev: false
 
-  /@inquirer/rawlist@2.1.0:
-    resolution: {integrity: sha512-PykR/2LwcXcCeglDVj3OVVNrbhY2cyHTveWoSm9FmnksDtQDIXJqYgYGgvPOdPsDIj3VGVBKSXYNk+kHaQv0gw==}
+  /@inquirer/rawlist@2.1.1:
+    resolution: {integrity: sha512-PIpJdNqVhjnl2bDz8iUKqMmgGdspN4s7EZiuNPnNrqZLP+LRUDDHVyd7X7xjiEMulBt3lt2id4SjTbra+v/Ajg==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       chalk: 4.1.2
     dev: false
 
-  /@inquirer/select@2.2.0:
-    resolution: {integrity: sha512-Pml3DhVM1LnfqasUMIzaBtw+s5UjM5k0bzDeWrWOgqAMWe16AOg0DcAhXHf+SYbnj2CFBeP/TvkvedL4aAEWww==}
+  /@inquirer/select@2.2.1:
+    resolution: {integrity: sha512-JR4FeHvuxPSPWQy8DzkIvoIsJ4SWtSFb4xVLvLto84dL+jkv12lm8ILtuax4bMHvg5MBj3wYUF6Tk9izJ07gdw==}
     engines: {node: '>=18'}
     dependencies:
-      '@inquirer/core': 7.1.0
+      '@inquirer/core': 7.1.1
       '@inquirer/type': 1.2.1
       ansi-escapes: 4.3.2
       chalk: 4.1.2
@@ -1706,7 +1704,7 @@ packages:
   /@types/mute-stream@0.0.4:
     resolution: {integrity: sha512-CPM9nzrCPPJHQNA9keH9CVkVI+WR5kMa+7XEs5jcGQ0VoAGnLv242w8lIVgwAEfmE4oufJRaTc9PNLQl0ioAow==}
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 20.12.2
     dev: false
 
   /@types/node@12.20.55:
@@ -4877,11 +4875,6 @@ packages:
   /run-applescript@7.0.0:
     resolution: {integrity: sha512-9by4Ij99JUr/MCFBUkDKLWK3G9HVXmabKz9U5MlIAIuvuzkiOicRYs8XJLxX+xahD+mLiiCYDqF9dKAgtzKP1A==}
     engines: {node: '>=18'}
-    dev: false
-
-  /run-async@3.0.0:
-    resolution: {integrity: sha512-540WwVDOMxA6dN6We19EcT9sc3hkXPw5mzRNGM3FkdN/vtE9NFvj5lFAPNwUDmJjXidm3v7TC1cTE7t17Ulm1Q==}
-    engines: {node: '>=0.12.0'}
     dev: false
 
   /run-parallel@1.2.0:
