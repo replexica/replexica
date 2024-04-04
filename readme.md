@@ -26,7 +26,11 @@ But, making an app multilingual is a headache: extracting text, managing JSON fi
 
 That's where Replexica comes in: it's an AI-powered i18n engine, that integrates with React, to make the app multilingual right during the build, and scale to more international users much faster.
 
-The best part - *you don't even have to deal with JSON files!*
+The best part - *you don't even have to deal with JSON files!* (You can though, if you want to, Replexica supports that too.)
+
+### Does Replexica work with ... ?
+
+Please drop by our new [Discord channel](https://discord.gg/P2J3dGUM) and ask! Our co-founder Max is online almost 24/7.
 
 ## API
 
