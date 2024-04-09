@@ -11,12 +11,12 @@
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
-Replexica is an AI-powered i18n engine for building multi-language React apps.
+Replexica is an AI-powered i18n API for building multi-language React apps.
 
 It ships in two parts:
 
 1. **Replexica Compiler** - an open-source compiler plugin for React;
-1. **Replexica Cloud** - an AI-powered engine in the cloud that performs translations.
+1. **Replexica API** - an i18n API in the cloud that performs translations, using AI models.
 
 ## Why
 
@@ -72,8 +72,8 @@ Replexica is an AI-powered i18n engine for React, and it consists of **two main 
     * Infers metadata and user-facing text from the app;
     * Prepares the content for translation.
 
-1. **Replexica i18n Cloud** ([replexica.com](https://replexica.com)) - an AI translation engine in the cloud that translates apps into multiple languages, fast:
-    * $0/mo + usage and Free tier (w/ fair usage policy);
+1. **Replexica i18n API** ([replexica.com](https://replexica.com)) - an i18n API in the cloud that translates apps into multiple languages, using LLMs, fast:
+    * ~~$0/mo + usage and Free tier (w/ fair usage policy);~~ Entirely free, during the launch period;
     * Full context awareness + brand voice;
     * State-of-the-art quality translations (adding even more new languages soon!) via a mix of open-source and proprietary AI models;
     * API is open, so anyone could build their own translation engine (self-hosting guide coming soon).
@@ -98,11 +98,11 @@ With Replexica, you can build multi-language apps without the hassle of dealing 
 
 Everyone in the world deserves to have access to great software. And we believe that making software multilingual is the most important step towards removing digital barriers.
 
-That's why Replexica is open source: so that anyone can start building multi-language apps quickly and ship them to the world faster!
+That's why Replexica Compiler is open source: so that anyone can start building multi-language apps quickly and ship them to the world faster!
 
 ### Commercial
 
-Replexica Cloud, the commercial part of Replexica, is where we hope to start making money in the future. We don't have a clear business model yet, but we're thinking $0/month + usage, along with a free tier (with a fair usage policy), would be a good start.
+Replexica API, the commercial part of Replexica, is where we hope to start making money in the future. We don't have a clear business model yet, but we're thinking $0/month + usage, along with a free tier (with a fair usage policy), would be a good start.
 
 Having built hundreds of side-projects ourselves, we're committed to making Replexica an affordable / free tool for indie hackers and hobbyists building side-projects. In the end, that's where we come from, and that's where our heart is.
 
@@ -371,4 +371,4 @@ Lastly, we've recently created a [Discord channel](https://discord.gg/P2J3dGUM):
 
 ## Questions
 
-If you found a bug, or have a feature request, please [create an issue](https://github.com/replexica/replexica/issues) and post the link in the Discord channel. We'll take a look as soon as we can!
+If you found a bug, or have a feature request, please [create an issue](https://github.com/replexica/replexica/issues) and post the link in the Discord channel.
