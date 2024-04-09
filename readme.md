@@ -6,7 +6,7 @@
 # Replexica
 
 [![Discord](https://img.shields.io/discord/1193198600298172486?label=discord
-)](https://discord.gg/P2J3dGUM)
+)](https://discord.gg/GeK6AuSqzw)
 ![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
@@ -30,7 +30,7 @@ The best part - *you don't even have to deal with JSON files!* (You can though, 
 
 ### Does Replexica work with ... ?
 
-Please drop by our new [Discord channel](https://discord.gg/P2J3dGUM) and ask! Our co-founder Max is online almost 24/7.
+Please drop by our new [Discord channel](https://discord.gg/GeK6AuSqzw) and ask! Our co-founder Max is online almost 24/7.
 
 ## API
 
@@ -367,7 +367,7 @@ Also the special one:
 
 * **Complaints** - if you're unhappy with *ANYTHING* about your current i18n approach, and you just need to vent, we're (our co-founder Max specifically) here to listen!
 
-Lastly, we've recently created a [Discord channel](https://discord.gg/P2J3dGUM): come say hi! 👋
+Lastly, we've recently created a [Discord channel](https://discord.gg/GeK6AuSqzw): come say hi! 👋
 
 ## Questions
 
