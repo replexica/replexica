@@ -1,5 +1,15 @@
 # replexica
 
+## 0.19.0
+
+### Minor Changes
+
+- [#42](https://github.com/replexica/replexica/pull/42) [`7e22c15`](https://github.com/replexica/replexica/commit/7e22c157a39e8b33441aabe0f263e79650c04914) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `replexica auth` cli command for cli<>api authentication
+
+### Patch Changes
+
+- [`d1e4039`](https://github.com/replexica/replexica/commit/d1e403916d249f83aa32be262ed71ca8b562dcbe) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix cli error message
+
 ## 0.18.0
 
 ### Minor Changes
