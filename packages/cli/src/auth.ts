@@ -1,110 +1,83 @@
 import { Command } from "commander";
-import os from "os";
-import fs from "fs";
-import path from "path";
 import Ora from 'ora';
-import Z from 'zod';
-import Ini from 'ini';
 import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-
-const settingsFile = ".replexicarc";
-const homedir = os.homedir();
-const settingsFilePath = path.join(homedir, settingsFile);
-
-const ConfigFileSchema = Z.object({
-  auth: Z.object({
-    apiKey: Z.string(),
-  }),
-});
+import { getEnv } from './services/env.js';
+import { loadSettings, saveSettings } from "./services/settings.js";
 
 export default new Command()
   .command("auth")
-  .description("Authenticate with Replexica")
+  .description("Authenticate with Replexica API")
   .helpOption("-h, --help", "Show help")
   .option("-d, --delete", "Delete existing authentication")
-  .option("-f, --force", "Force re-authentication")
+  .option("-l, --login", "Authenticate with Replexica API")
   .action(async (options) => {
     if (options.delete) {
       await logout();
-    } else if (options.force) {
-      await logout();
-      await login();
-    } else {
+    }
+    if (options.login) {
       await login();
     }
+    await checkLogin();
   });
+
+async function checkLogin() {
+  const spinner = Ora().start('Checking login status');
+  const apiKey = await loadApiKey();
+
+  const env = await getEnv();
+  const finalApiKey = env.REPLEXICA_API_KEY || apiKey;
+  const isFinalApiKeyFromEnv = !!env.REPLEXICA_API_KEY;
+
+  const whoami = await fetchWhoami(finalApiKey);
+  if (!whoami) {
+    spinner.warn('Not logged in');
+    return;
+  }
+  
+  let message = `Logged in as ${whoami.email}`;
+  if (isFinalApiKeyFromEnv) {
+    message += ' (from env var)';
+  }
+  spinner.succeed(message);
+}
 
 async function logout() {
   const spinner = Ora().start('Logging out');
-  await deleteSettings();
+  await saveApiKey(null);
   spinner.succeed('Logged out');
 }
 
 async function login() {
-  const settingsSpinner = Ora().start('Loading settings');
-  let config = await loadSettings();
-  settingsSpinner.succeed('Settings loaded');
-  if (config?.auth.apiKey) {
-    // We have the config file so we make a request to the API to retrieve the user's email
-    // and display it to the user. If the apikey is invalid, we delete the config file,
-    // display the warning message and ask for the email.
-    const statusSpinner = Ora().start('Checking auth status');
-    const whoami = await fetchWhoami(config.auth.apiKey);
-    if (whoami?.email) {
-      statusSpinner.succeed(`Logged in as ${whoami.email}`);
-      return;
-    } else {
-      statusSpinner.warn(`Couldn't check auth status.`);
-      config = await deleteSettings();
-    }
-  }
-  
-  if (!config?.auth.apiKey) {
-    // No config file, so we need to ask for the email,
-    // launch a listener on a ephemeral port, trigger the magic email link sending,
-    // and wait for the API key to be sent back.
-    await readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    }).question('Press Enter to open the browser');
-    const loginSpinner = Ora().start('Waiting for the API key');
-    const apiKey = await waitForApiKey(async (port) => {
-      await open(`https://replexica.com/app/cli?port=${port}`, { wait: false });
-    });
-    loginSpinner.succeed('API key received');
+  await readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  }).question('Press Enter to open the browser and authenticate');
 
-    const saveSpinner = Ora().start('Saving settings');
-    config = {
-      auth: {
-        apiKey,
-      },
-    };
-    await saveSettings(config);
-    saveSpinner.succeed('Settings saved');
-
-    const statusSpinner = Ora().start('Checking auth status');
-    const whoami = await fetchWhoami(apiKey);
-    statusSpinner.succeed(`Logged in as ${whoami.email}`);
-  }
+  const spinner = Ora().start('Waiting for the API key');
+  const apiKey = await waitForApiKey(async (port) => {
+    await open(`http://localhost:8788/app/cli?port=${port}`, { wait: false });
+  });
+  spinner.succeed('API key received');
+  await saveApiKey(apiKey);
 }
 
-async function fetchWhoami(apiKey: string) {
+async function fetchWhoami(apiKey: string | null) {
   const res = await fetch(`https://engine.replexica.com/whoami`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          ContentType: "application/json",
-        },
-      });
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      ContentType: "application/json",
+    },
+  });
 
-      if (res.ok) {
-        return res.json();
-      }
+  if (res.ok) {
+    return res.json();
+  }
 
-      return null;
+  return null;
 }
 
 async function waitForApiKey(cb: (port: string) => void): Promise<string> {
@@ -130,25 +103,13 @@ async function waitForApiKey(cb: (port: string) => void): Promise<string> {
   });
 }
 
-async function loadSettings() {
-  const authFileExists = fs.existsSync(settingsFilePath);
-  if (!authFileExists) { return null; }
-
-  const fileContents = fs.readFileSync(settingsFilePath, "utf8");
-  const parsed = Ini.parse(fileContents);
-  const result = ConfigFileSchema.parse(parsed);
-  return result;
+async function loadApiKey() {
+  const settings = await loadSettings();
+  return settings.auth.apiKey || null;
 }
 
-async function saveSettings(config: Z.infer<typeof ConfigFileSchema>) {
-  const serialized = Ini.stringify(config);
-  fs.writeFileSync(settingsFilePath, serialized);
-}
-
-async function deleteSettings() {
-  const authFileExists = fs.existsSync(settingsFilePath);
-  if (!authFileExists) { return null; }
-
-  fs.rmSync(settingsFilePath);
-  return null;
+async function saveApiKey(apiKey: string | null) {
+  const settings = await loadSettings();
+  settings.auth.apiKey = apiKey;
+  await saveSettings(settings);
 }
