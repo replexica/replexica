@@ -1,5 +1,11 @@
 # @replexica/react
 
+## 0.1.2
+
+### Patch Changes
+
+- [`4b2a9bf`](https://github.com/replexica/replexica/commit/4b2a9bf2dc20cd32c7975f3ae10bf85fdb17ec2c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix client react components export
+
 ## 0.1.1
 
 ### Patch Changes
