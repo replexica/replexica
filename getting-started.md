@@ -194,6 +194,26 @@ document.cookie = "REPLEXICA_LOCALE=en; path=/;";
 location.reload();
 ```
 
+## How to Switch Between Languages
+
+Different apps use different strategies for switching between supported languages. Here are a few approaches we've seen:
+
+* Cookie value (get/set cookie value)
+* Subdomain (`en.myapp.com` / `es.myapp.com`)
+* TLD domain (`myapp.com` / `myapp.es`)
+* Pathname segments (`myapp.com/en` / `myapp.com/es`)
+
+... and so on.
+
+To support every possible strategy, now and in the future, Replexica does the following:
+
+*Replexica reads the value of the `REPLEXICA_LOCALE` cookie to determine the currently selected locale*
+
+So, whatever approach you choose for switching between locales, just be sure to update the value of the `REPLEXICA_LOCALE` cookie, and Replexica will handle the rest.
+
+> [!WARNING]
+> Be sure to drop by our Discord (link at the bottom) if you have an opinion on how Replexica should be handling the locale detection. Even if your idea is exotic or feels unfeasible, we'd love to hear it! 🙏 (feel free to send in private, if you want).
+
 ## Conclusion
 
 That's it! You've successfully set up Replexica with Nextjs!
