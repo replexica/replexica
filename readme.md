@@ -281,7 +281,7 @@ export default async function RootLayout({
 
 ```bash
 # If you haven't already, authenticate with the Replexica platform
-pnpm replexica auth
+pnpm replexica auth --login
 
 # Build the app, without translations
 pnpm run build
