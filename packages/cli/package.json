@@ -26,8 +26,11 @@
     "@inquirer/prompts": "^4.3.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "commander": "^12.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "flat": "^6.0.1",
+    "ini": "^4.1.2",
     "lodash": "^4.17.21",
     "open": "^10.1.0",
     "ora": "^8.0.1",
@@ -37,6 +40,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/ini": "^4.1.0",
     "@types/lodash": "^4.17.0",
     "@types/node": "^20"
   }
