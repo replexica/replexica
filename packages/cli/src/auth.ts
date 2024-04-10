@@ -4,8 +4,10 @@ import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-import { getEnv } from './services/env.js';
 import { loadSettings, saveSettings } from "./services/settings.js";
+import { getEnv } from "./services/env.js";
+import { checkAuth } from "./services/check-auth.js";
+import { saveApiKey } from "./services/api-key.js";
 
 export default new Command()
   .command("auth")
@@ -14,35 +16,19 @@ export default new Command()
   .option("-d, --delete", "Delete existing authentication")
   .option("-l, --login", "Authenticate with Replexica API")
   .action(async (options) => {
+    const env = getEnv();
+    let config = await loadSettings();
+
     if (options.delete) {
       await logout();
     }
     if (options.login) {
-      await login();
+      await login(env.REPLEXICA_WEB_URL);
+      config = await loadSettings();
     }
-    await checkLogin();
+
+    await checkAuth();
   });
-
-async function checkLogin() {
-  const spinner = Ora().start('Checking login status');
-  const apiKey = await loadApiKey();
-
-  const env = await getEnv();
-  const finalApiKey = env.REPLEXICA_API_KEY || apiKey;
-  const isFinalApiKeyFromEnv = !!env.REPLEXICA_API_KEY;
-
-  const whoami = await fetchWhoami(finalApiKey);
-  if (!whoami) {
-    spinner.warn('Not logged in');
-    return;
-  }
-  
-  let message = `Logged in as ${whoami.email}`;
-  if (isFinalApiKeyFromEnv) {
-    message += ' (from env var)';
-  }
-  spinner.succeed(message);
-}
 
 async function logout() {
   const spinner = Ora().start('Logging out');
@@ -50,34 +36,18 @@ async function logout() {
   spinner.succeed('Logged out');
 }
 
-async function login() {
+async function login(apiUrl: string) {
   await readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-  }).question('Press Enter to open the browser and authenticate');
+  }).question('Press Enter to open the browser for authentication\n');
 
   const spinner = Ora().start('Waiting for the API key');
   const apiKey = await waitForApiKey(async (port) => {
-    await open(`http://localhost:8788/app/cli?port=${port}`, { wait: false });
+    await open(`${apiUrl}/app/cli?port=${port}`, { wait: false });
   });
   spinner.succeed('API key received');
   await saveApiKey(apiKey);
-}
-
-async function fetchWhoami(apiKey: string | null) {
-  const res = await fetch(`https://engine.replexica.com/whoami`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      ContentType: "application/json",
-    },
-  });
-
-  if (res.ok) {
-    return res.json();
-  }
-
-  return null;
 }
 
 async function waitForApiKey(cb: (port: string) => void): Promise<string> {
@@ -101,15 +71,4 @@ async function waitForApiKey(cb: (port: string) => void): Promise<string> {
       });
     });
   });
-}
-
-async function loadApiKey() {
-  const settings = await loadSettings();
-  return settings.auth.apiKey || null;
-}
-
-async function saveApiKey(apiKey: string | null) {
-  const settings = await loadSettings();
-  settings.auth.apiKey = apiKey;
-  await saveSettings(settings);
 }

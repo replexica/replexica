@@ -3,41 +3,32 @@ import fs from 'fs';
 import Ini from 'ini';
 import os from 'os';
 import path from 'path';
-import { getEnv } from './env.js';
 
 const settingsFile = ".replexicarc";
 const homedir = os.homedir();
 const settingsFilePath = path.join(homedir, settingsFile);
-const env = getEnv();
 
 const SettingsFileSchema = Z.object({
-  api: Z.object({
-    url: Z.string().default(env.REPLEXICA_API_URL),
-  }),
   auth: Z.object({
-    apiKey: Z.string().nullable().default(env.REPLEXICA_API_KEY),
+    apiKey: Z.string().nullable(),
   }),
 });
 
 export async function loadSettings() {
   const authFileExists = fs.existsSync(settingsFilePath);
-  if (!authFileExists) { return createEmptySettings(); }
+  let rawSettings = createEmptySettings(); 
 
-  const fileContents = fs.readFileSync(settingsFilePath, "utf8");
-  const parsed = Ini.parse(fileContents);
-  const settings = SettingsFileSchema.parse(parsed);
-
-  const env = await getEnv();
-  settings.auth.apiKey = env.REPLEXICA_API_KEY || settings.auth.apiKey;
+  if (authFileExists) {
+    const fileContents = fs.readFileSync(settingsFilePath, "utf8");
+    rawSettings = Ini.parse(fileContents) as any;
+  }
+  const settings = SettingsFileSchema.parse(rawSettings);
 
   return settings;
 }
 
-async function createEmptySettings(): Promise<Z.infer<typeof SettingsFileSchema>> {
+function createEmptySettings(): Z.infer<typeof SettingsFileSchema> {
   return {
-    api: {
-      url: env.REPLEXICA_API_URL,
-    },
     auth: {
       apiKey: null,
     },

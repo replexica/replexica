@@ -4,6 +4,8 @@ import { getEnv } from './services/env.js';
 import path from 'path';
 import fs from 'fs/promises';
 import { createId } from '@paralleldrive/cuid2';
+import { checkAuth } from './services/check-auth.js';
+import { loadApiKey } from './services/api-key.js';
 
 const buildDataDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
 const buildDataFilePath = path.resolve(buildDataDir, '.replexica.json');
@@ -13,6 +15,11 @@ export default new Command()
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
   .action(async () => {
+    const authStatus = await checkAuth();
+    if (!authStatus) {
+      return process.exit(1);
+    }
+
     const spinner = Ora();
     spinner.start('Loading Replexica build data...');
     const buildData = await loadBuildData();
@@ -77,12 +84,13 @@ async function processI18n(
   data: any,
 ) {
   const env = getEnv();
+  const apiKey = await loadApiKey();
 
   const res = await fetch(`${env.REPLEXICA_API_URL}/i18n`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.REPLEXICA_API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       params,
