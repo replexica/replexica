@@ -40,7 +40,7 @@ That's why we teamed up build a React compiler coupled with an AI-powered API, t
 
 Please drop by our new [Discord channel](https://discord.gg/GeK6AuSqzw) and ask! Our co-founder Max is online almost 24/7.
 
-## A sneak peek
+## Quick Start
 
 > [!NOTE]
 > This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
@@ -73,6 +73,10 @@ export default replexica.next(
 
 ```
 
+## Getting Started
+
+We've prepared a [Getting Started](/getting-started.md) guide that walks you through the process of setting up Replexica Compiler with Next.js App Router. Check it out!
+
 ## What's under the hood
 
 Replexica is a full-stack LLM-powered i18n tool for React, and it consists of **two main parts**:
@@ -94,10 +98,6 @@ Replexica is a full-stack LLM-powered i18n tool for React, and it consists of **
     The i18n engine uses AI to translate the text, and the more it's used, the better it gets. The very first version used plain gpt-3.5, though currently it's more like a mix of Llama + Google Vertex AI + GPT + Mixtral, and we're switching between models regularly as we improve the API.
 
 The core idea behind Replexica is simple: apps must be multi-language by default, from day one. **The Internet is global, and so must be any software that runs on it.**
-
-## Getting Started
-
-We've prepared a [Getting Started](/getting-started.md) guide that walks you through the process of setting up Replexica Compiler with Next.js App Router. Check it out!
 
 ## The Replexica Rule
 
