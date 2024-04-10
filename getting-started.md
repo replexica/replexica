@@ -1,6 +1,6 @@
 # Getting Started
 
-As mentioned in the [README](README.md), today Replexica works incredibly well only with Nextjs (App Router).
+As mentioned in the [README](/README.md), today Replexica works incredibly well only with Nextjs (App Router).
 
 While we're working hard to make it work with other frameworks, let's see how to get started with Nextjs!
 

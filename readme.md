@@ -18,6 +18,8 @@ It ships in two parts:
 1. **Replexica Compiler** - an open-source compiler plugin for React;
 1. **Replexica API** - an i18n API in the cloud that performs translations, using AI models.
 
+_Looking to jump right in? Check out the [Getting Started](/getting-started.md) guide for Next.js App Router!_
+
 ## Why
 
 75% of the world doesn't speak English. So, if the app is multilingual, it can reach many more users!
@@ -26,7 +28,7 @@ But, making an app multilingual is a headache: extracting text, managing JSON fi
 
 That's where Replexica comes in: it's an AI-powered i18n engine, that integrates with React, to make the app multilingual right during the build, and scale to more international users much faster.
 
-The best part - *you don't even have to deal with JSON files!* (You can though, if you want to, Replexica supports that too.)
+The best part - _you don't even have to deal with JSON files!_ (You can though, if you want to, Replexica supports that too.)
 
 ### Does Replexica work with ... ?
 
@@ -247,7 +249,7 @@ export default replexica.next(
 > [!NOTE]
 > This guide is for Next.js App Router apps only. Guides for other setups are coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
 
-If you plan on having `'use client'` components *at least somewhere* in your app (you probably do), you'll need to also wrap your entire component tree in `<ReplexicaProvider />`:
+If you plan on having `'use client'` components _at least somewhere_ in your app (you probably do), you'll need to also wrap your entire component tree in `<ReplexicaProvider />`:
 
 ```jsx
 // src/app/layout.tsx
@@ -365,7 +367,7 @@ You can contribute in the form of:
 
 Also the special one:
 
-* **Complaints** - if you're unhappy with *ANYTHING* about your current i18n approach, and you just need to vent, we're (our co-founder Max specifically) here to listen!
+* **Complaints** - if you're unhappy with _ANYTHING_ about your current i18n approach, and you just need to vent, we're (our co-founder Max specifically) here to listen!
 
 Lastly, we've recently created a [Discord channel](https://discord.gg/GeK6AuSqzw): come say hi! 👋
 
