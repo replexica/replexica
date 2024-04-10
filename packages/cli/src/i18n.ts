@@ -24,25 +24,25 @@ export default new Command()
     spinner.start('Loading Replexica build data...');
     const buildData = await loadBuildData();
     if (!buildData) {
-      spinner.fail(`Couldn't load Replexica build data. Did you forget to run 'replexica i18n'?`);
+      spinner.fail(`Couldn't load Replexica build data. Did you forget to build your app?`);
       return process.exit(1);
     }
 
     const localeSource = buildData.settings?.locale?.source;
     if (!localeSource) {
-      spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
+      spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and try again.`);
       return process.exit(1);
     }
 
     const localeTargets = buildData.settings?.locale?.targets || [];
     if (!localeTargets.length) {
-      spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and run 'replexica i18n' again.`);
+      spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and try again.`);
       return process.exit(1);
     }
 
     const localeSourceData = await loadLocaleData(localeSource);
     if (!localeSourceData) {
-      spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to run 'replexica i18n'?`);
+      spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to build your app?`);
       return process.exit(1);
     }
 
