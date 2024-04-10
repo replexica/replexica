@@ -16,7 +16,7 @@ Replexica is an i18n compiler for React. It doesn't require extracting text into
 It comes in two parts:
 
 1. **Replexica Compiler** - an open-source compiler plugin for React;
-1. **Replexica API** - an i18n API in the cloud that performs translations, using LLMs. (Usage based, has a free tier.)
+1. **Replexica API** - an i18n API in the cloud that performs translations using LLMs. (Usage based, has a free tier.)
 
 Replexica supports several i18n formats:
 
@@ -28,19 +28,19 @@ _Looking to jump right in? Check out the [Getting Started](/getting-started.md) 
 
 ## Why
 
-Having built tens of side-projects, over the years, we found one thing to be particularly annoying: adding i18n to the app. We wanted to **ship, and ship fast**, not to mess with JSON files or extraction scripts.
+Having built tens of side-projects / micro-startups over the years, we found one thing to be particularly annoying: adding i18n to the app. We wanted to **ship, and ship fast**, not to mess with JSON files or extraction scripts.
 
 So it got us thinking: why not build a tool that makes multi-language apps simpler? I mean, anyone who's tried to add i18n to their project knows it's a headache.
 
-And after we found out [~80%](https://www.statista.com/chart/26884/languages-on-the-internet/#:~:text=The%201.46%20billion%20people%20who%20speak%20English%20still%20make%20up%20less%20than%2020%20percent%20of%20the%20world%20population) aren't fluent in English - that seemed like a missed opportunity, since i18n could be a shortcut to reaching more users.
+And after we found out [~80%](https://www.statista.com/chart/26884/languages-on-the-internet/#:~:text=The%201.46%20billion%20people%20who%20speak%20English%20still%20make%20up%20less%20than%2020%20percent%20of%20the%20world%20population) aren't fluent in English - that seemed like a missed opportunity, since i18n could be a shortcut to reaching more users, if only it was easier.
 
-That's why we teamed up to build Replexica: a compiler plus an AI-powered API, designed to make the app multilingual really fast.
+That's why we teamed up build a React compiler coupled with an AI-powered API, to make i18n as simple as possible, at the most fundamental level.
 
 ### Does Replexica work with ... ?
 
 Please drop by our new [Discord channel](https://discord.gg/GeK6AuSqzw) and ask! Our co-founder Max is online almost 24/7.
 
-## API
+## A sneak peek
 
 > [!NOTE]
 > This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
@@ -73,7 +73,7 @@ export default replexica.next(
 
 ```
 
-## What is Replexica
+## What's under the hood
 
 Replexica is a full-stack LLM-powered i18n tool for React, and it consists of **two main parts**:
 
@@ -83,25 +83,21 @@ Replexica is a full-stack LLM-powered i18n tool for React, and it consists of **
     * Infers metadata and user-facing text from the app;
     * Prepares the content for further context-aware translation.
 
+    The compiler hooks into the build process, infers metadata from the app, such as the text that needs to be translated and the context it's in. The Abstract Syntax Tree (AST) is traversed to gather the metadata, the context, and the text that needs to be translated. This metadata is then stored alongside the build artifacts.
+
 1. **Replexica i18n API** ([replexica.com](https://replexica.com)) - an i18n API in the cloud that translates apps into multiple languages, using LLMs, fast:
     * ~~$0/mo + usage, with free tier;~~ Entirely free, during the launch period;
     * Full context awareness + brand voice;
     * State-of-the-art quality translations (adding more new languages soon!) via a mix of open-source and proprietary AI models;
     * API is open, so anyone could build their own translation engine (self-hosting guide coming soon).
 
+    The i18n engine uses AI to translate the text, and the more it's used, the better it gets. The very first version used plain gpt-3.5, though currently it's more like a mix of Llama + Google Vertex AI + GPT + Mixtral, and we're switching between models regularly as we improve the API.
+
 The core idea behind Replexica is simple: apps must be multi-language by default, from day one. **The Internet is global, and so must be any software that runs on it.**
 
-## How it Works
+## Getting Started
 
-Replexica Compiler integrates with the build system, collecting all user-facing text in the app and preparing it for translation with the Replexica Cloud.
-
-Here's how it works:
-
-1. **Infers** metadata from the app, such as the text that needs to be translated and its context. This metadata is then stored alongside the build artifacts. The Abstract Syntax Tree (AST) is traversed to gather the metadata, the context, and the text that needs to be translated.
-1. **Translates** the text using the CLI that connects to the Replexica API. The i18n engine uses AI to translate the text, and the more it's used, the better it gets. The very first version used plain gpt-3.5, right now we're using a mix  of Llama + Google Vertex AI + GPT + Mixtral, and we're switching between models regularly as we improve the API. Also, the API is open, so that everyone can build their own translation engine if desired.
-1. **Injects** the translations back into the app, so that the translated text is displayed to the user, based on their locale, when React renders the app.
-
-So, with Replexica, everyone can now build multi-language apps, while still shipping fast.
+We've prepared a [Getting Started](/getting-started.md) guide that walks you through the process of setting up Replexica Compiler with Next.js App Router. Check it out!
 
 ## The Replexica Rule
 
@@ -194,30 +190,6 @@ The more detailed roadmap is below:
   * [x] CLI for Replexica Platform
   * [x] Open-source API schema
   * [ ] GitHub Actions integration
-
-## Getting Started
-
-We've prepared a [Getting Started](/getting-started.md) guide that walks you through the process of setting up Replexica Compiler with Next.js App Router. Check it out!
-
-## How to Switch Between Languages
-
-Different apps use different strategies for switching between supported languages. Here are a few approaches we've seen:
-
-* Cookie value (get/set cookie value)
-* Subdomain (`en.myapp.com` / `es.myapp.com`)
-* TLD domain (`myapp.com` / `myapp.es`)
-* Pathname segments (`myapp.com/en` / `myapp.com/es`)
-
-... and so on.
-
-To support every possible strategy, now and in the future, Replexica does the following:
-
-*Replexica reads the value of the `REPLEXICA_LOCALE` cookie to determine the currently selected locale*
-
-So, whatever approach you choose for switching between locales, just be sure to update the value of the `REPLEXICA_LOCALE` cookie, and Replexica will handle the rest.
-
-> [!WARNING]
-> Be sure to drop by our Discord (link at the bottom) if you have an opinion on how Replexica should be handling the locale detection. Even if your idea is exotic or feels unfeasible, we'd love to hear it! 🙏 (feel free to send in private, if you want).
 
 ## Core Team
 
