@@ -11,9 +11,9 @@
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
-Replexica is an i18n compiler for React. It doesn't require extracting text into JSON files, and is designed to help ship multi-language apps fast.
+Replexica is an i18n compiler for React. It doesn't require extracting text into JSON files, and allows shipping multi-language apps fast, using an AI-powered API.
 
-It ships in two parts:
+It comes in two parts:
 
 1. **Replexica Compiler** - an open-source compiler plugin for React;
 1. **Replexica API** - an i18n API in the cloud that performs translations, using LLMs. (Usage based, has a free tier.)
