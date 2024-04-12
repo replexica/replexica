@@ -137,7 +137,7 @@ const menuItems = [
 In this case, you can still follow The Replexica Rule by simply wrapping the text in JSX! Here's how:
 
 ```jsx
-const menuItesm = [
+const menuItems = [
   {
     title: <>Home</>,
     url: '/',
