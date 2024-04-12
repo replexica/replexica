@@ -87,6 +87,10 @@ Finally, let's start the app:
 pnpm run start
 ```
 
+### How to authorize CLI in CI/CD
+
+To authorize CLI in your CI/CD workflows, put your API key in an env variable called `REPLEXICA_API_KEY`. The API key can be found in your [replexica.com dashboard](https://replexica.com/app).
+
 ## Test
 
 Now, let's test the app by visiting [http://localhost:3000](http://localhost:3000) in your browser.
