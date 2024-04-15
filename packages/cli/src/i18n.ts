@@ -15,38 +15,39 @@ export default new Command()
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
   .option('--cache-only', 'Only use cached data, and fail if there is new i18n data to process')
+  .option('--skip-cache', 'Skip using cached data and process all i18n data')
   .action(async (options) => {
     const spinner = Ora();
 
     try {
+      if (options.cacheOnly && options.skipCache) {
+        throw new Error(`Cannot use both --cache-only and --skip-cache options at the same time.`);
+      }
+
       const authStatus = await checkAuth();
       if (!authStatus) {
-        return process.exit(1);
+        throw new Error(`You are not authenticated. Please run 'replexica auth' to authenticate.`);
       }
   
       spinner.start('Loading Replexica build data...');
       const buildData = await loadBuildData();
       if (!buildData) {
-        spinner.fail(`Couldn't load Replexica build data. Did you forget to build your app?`);
-        return process.exit(1);
+        throw new Error(`Couldn't load Replexica build data. Did you forget to build your app?`);
       }
   
       const localeSource = buildData.settings?.locale?.source;
       if (!localeSource) {
-        spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and try again.`);
-        return process.exit(1);
+        throw new Error(`No source locale found in Replexica build data. Please check your Replexica configuration and try again.`);
       }
   
       const localeTargets = buildData.settings?.locale?.targets || [];
       if (!localeTargets.length) {
-        spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and try again.`);
-        return process.exit(1);
+        throw new Error(`No target locales found in Replexica build data. Please check your Replexica configuration and try again.`);
       }
   
       const localeSourceData = await loadLocaleData(localeSource);
       if (!localeSourceData) {
-        spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to build your app?`);
-        return process.exit(1);
+        throw new Error(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to build your app?`);
       }
   
       spinner.succeed('Replexica data loaded!');
@@ -63,7 +64,7 @@ export default new Command()
   
           const partialLocaleData = { [localeFileId]: localeFileData };
           const result = await processI18n(
-            { workflowId, cacheOnly: !!options.cacheOnly },
+            { workflowId, cacheOnly: !!options.cacheOnly, skipCache: !!options.skipCache },
             { source: localeSource, target: targetLocale },
             buildData.meta,
             partialLocaleData,
@@ -79,13 +80,13 @@ export default new Command()
   
       spinner.succeed('Replexica processing complete!');
     } catch (error: any) {
-      spinner.fail(`Failed to process i18n: ${error.message}`);
+      spinner.fail(error.message);
       return process.exit(1);
     }
   });
 
 async function processI18n(
-  params: { workflowId: string, cacheOnly: boolean },
+  params: { workflowId: string, cacheOnly: boolean, skipCache: boolean },
   locale: { source: string, target: string },
   meta: any,
   data: any,
