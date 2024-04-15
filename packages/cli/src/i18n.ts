@@ -14,71 +14,78 @@ export default new Command()
   .command('i18n')
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
-  .action(async () => {
-    const authStatus = await checkAuth();
-    if (!authStatus) {
-      return process.exit(1);
-    }
-
+  .option('--cache-only', 'Only use cached data, and fail if there is new i18n data to process')
+  .action(async (options) => {
     const spinner = Ora();
-    spinner.start('Loading Replexica build data...');
-    const buildData = await loadBuildData();
-    if (!buildData) {
-      spinner.fail(`Couldn't load Replexica build data. Did you forget to build your app?`);
-      return process.exit(1);
-    }
 
-    const localeSource = buildData.settings?.locale?.source;
-    if (!localeSource) {
-      spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and try again.`);
-      return process.exit(1);
-    }
-
-    const localeTargets = buildData.settings?.locale?.targets || [];
-    if (!localeTargets.length) {
-      spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and try again.`);
-      return process.exit(1);
-    }
-
-    const localeSourceData = await loadLocaleData(localeSource);
-    if (!localeSourceData) {
-      spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to build your app?`);
-      return process.exit(1);
-    }
-
-    spinner.succeed('Replexica build data loaded!');
-
-    const workflowId = createId();
-    for (let i = 0; i < localeTargets.length; i++) {
-      const targetLocale = localeTargets[i];
-      const resultData: any = {};
-
-      const localeEntries = Object.entries(localeSourceData || {});
-      for (let j = 0; j < localeEntries.length; j++) {
-        const [localeFileId, localeFileData] = localeEntries[j];
-        spinner.start(`[${targetLocale}] Processing file ${j + 1}/${localeEntries.length}...`);
-
-        const partialLocaleData = { [localeFileId]: localeFileData };
-        const result = await processI18n(
-          { workflowId },
-          { source: localeSource, target: targetLocale },
-          buildData.meta,
-          partialLocaleData,
-        );
-        resultData[localeFileId] = result.data[localeFileId];
-
-        spinner.succeed(`[${targetLocale}] File ${j + 1}/${localeEntries.length} processed!`);
+    try {
+      const authStatus = await checkAuth();
+      if (!authStatus) {
+        return process.exit(1);
       }
-
-      await saveFullLocaleData(targetLocale, resultData);
-      await saveClientLocaleData(targetLocale, resultData, buildData.meta);
+  
+      spinner.start('Loading Replexica build data...');
+      const buildData = await loadBuildData();
+      if (!buildData) {
+        spinner.fail(`Couldn't load Replexica build data. Did you forget to build your app?`);
+        return process.exit(1);
+      }
+  
+      const localeSource = buildData.settings?.locale?.source;
+      if (!localeSource) {
+        spinner.fail(`No source locale found in Replexica build data. Please check your Replexica configuration and try again.`);
+        return process.exit(1);
+      }
+  
+      const localeTargets = buildData.settings?.locale?.targets || [];
+      if (!localeTargets.length) {
+        spinner.fail(`No target locales found in Replexica build data. Please check your Replexica configuration and try again.`);
+        return process.exit(1);
+      }
+  
+      const localeSourceData = await loadLocaleData(localeSource);
+      if (!localeSourceData) {
+        spinner.fail(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to build your app?`);
+        return process.exit(1);
+      }
+  
+      spinner.succeed('Replexica data loaded!');
+  
+      const workflowId = createId();
+      for (let i = 0; i < localeTargets.length; i++) {
+        const targetLocale = localeTargets[i];
+        const resultData: any = {};
+  
+        const localeEntries = Object.entries(localeSourceData || {});
+        for (let j = 0; j < localeEntries.length; j++) {
+          const [localeFileId, localeFileData] = localeEntries[j];
+          spinner.start(`[${targetLocale}] Processing file ${j + 1}/${localeEntries.length}...`);
+  
+          const partialLocaleData = { [localeFileId]: localeFileData };
+          const result = await processI18n(
+            { workflowId, cacheOnly: !!options.cacheOnly },
+            { source: localeSource, target: targetLocale },
+            buildData.meta,
+            partialLocaleData,
+          );
+          resultData[localeFileId] = result.data[localeFileId];
+  
+          spinner.succeed(`[${targetLocale}] File ${j + 1}/${localeEntries.length} processed.`);
+        }
+  
+        await saveFullLocaleData(targetLocale, resultData);
+        await saveClientLocaleData(targetLocale, resultData, buildData.meta);
+      }
+  
+      spinner.succeed('Replexica processing complete!');
+    } catch (error: any) {
+      spinner.fail(`Failed to process i18n: ${error.message}`);
+      return process.exit(1);
     }
-
-    spinner.succeed('Replexica i18n processing complete!');
   });
 
 async function processI18n(
-  params: { workflowId: string },
+  params: { workflowId: string, cacheOnly: boolean },
   locale: { source: string, target: string },
   meta: any,
   data: any,
@@ -101,7 +108,7 @@ async function processI18n(
   });
   if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(`Failed to process i18n: ${errorText}`);
+    throw new Error(errorText);
   }
   const payload = await res.json();
   return payload;
