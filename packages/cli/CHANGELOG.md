@@ -1,5 +1,11 @@
 # replexica
 
+## 0.20.1
+
+### Patch Changes
+
+- [`64aff94`](https://github.com/replexica/replexica/commit/64aff9402b446e6220d977d8257686df54910a8f) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - rename logout cli flag
+
 ## 0.20.0
 
 ### Minor Changes
