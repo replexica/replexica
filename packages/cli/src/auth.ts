@@ -13,13 +13,13 @@ export default new Command()
   .command("auth")
   .description("Authenticate with Replexica API")
   .helpOption("-h, --help", "Show help")
-  .option("-d, --delete", "Delete existing authentication")
-  .option("-l, --login", "Authenticate with Replexica API")
+  .option("--logout", "Delete existing authentication")
+  .option("--login", "Authenticate with Replexica API")
   .action(async (options) => {
     const env = getEnv();
     let config = await loadSettings();
 
-    if (options.delete) {
+    if (options.logout) {
       await logout();
     }
     if (options.login) {
