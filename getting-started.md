@@ -218,6 +218,26 @@ So, whatever approach you choose for switching between locales, just be sure to 
 > [!WARNING]
 > Be sure to drop by our Discord (link at the bottom) if you have an opinion on how Replexica should be handling the locale detection. Even if your idea is exotic or feels unfeasible, we'd love to hear it! 🙏 (feel free to send in private, if you want).
 
+## Replexica CLI
+
+## `replexica auth`
+
+* `replexica auth` - Check current authentication status.
+* `replexica auth --login` - (Re-)Authenticate with Replexica API.
+* `replexica auth --logout` - Log out from Replexica API.
+
+## `replexica i18n`
+
+* `replexica i18n` - Fetch translations from Replexica API, and save new translations to the cache.
+* `replexica i18n --cache-only` - Fetch translations from the cache only, and fails if some translations are missing. Useful for CI/CD workflows, when deterministic builds are required.
+* `replexica i18n --skip-cache` - Fetch translations from Replexica API, and rewrite the cache entirely. Useful when you want to force-fetch translations from the API.
+
+## Recognized environment variables
+
+Replexica CLI recognizes certain environment variables, either through the `.env` file or through the system environment variables:
+
+* `REPLEXICA_API_KEY` - API key for Replexica API. Can be used in CI/CD workflows, as an alternative to the interactive login.
+
 ## Conclusion
 
 That's it! You've successfully set up Replexica with Nextjs!
