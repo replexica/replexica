@@ -1,5 +1,13 @@
 # replexica
 
+## 0.20.0
+
+### Minor Changes
+
+- [#52](https://github.com/replexica/replexica/pull/52) [`9de14df`](https://github.com/replexica/replexica/commit/9de14dfd9ca7f24837e990eed9f22df23c33bf12) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add --cache-only flag for working with API's cache mode
+
+- [#54](https://github.com/replexica/replexica/pull/54) [`7dce52c`](https://github.com/replexica/replexica/commit/7dce52c25de73c9982bd9731dcd39f22fd05f14b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add --skip-cache flag to cli
+
 ## 0.19.0
 
 ### Minor Changes
