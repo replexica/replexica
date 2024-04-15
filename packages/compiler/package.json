@@ -24,7 +24,7 @@
     "@babel/parser": "^7.24.1",
     "@babel/types": "^7.24.0",
     "object-hash": "^3.0.0",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.5",
     "unplugin": "^1.10.1",
     "vitest": "^1.4.0",
     "zod": "^3.22.4"
