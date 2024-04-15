@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.24.4",
-    "@babel/generator": "^7.24.1",
+    "@babel/generator": "^7.24.4",
     "@babel/parser": "^7.24.4",
     "@babel/types": "^7.24.0",
     "object-hash": "^3.0.0",
