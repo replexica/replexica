@@ -30,6 +30,9 @@ importers:
 
   demo/next-app:
     dependencies:
+      '@replexica/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       next:
         specifier: 14.2.1
         version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
@@ -43,9 +46,6 @@ importers:
       '@replexica/compiler':
         specifier: workspace:*
         version: link:../../packages/compiler
-      '@replexica/react':
-        specifier: workspace:*
-        version: link:../../packages/react
       '@types/node':
         specifier: ^20
         version: 20.12.5
@@ -73,6 +73,9 @@ importers:
 
   demo/next-pages:
     dependencies:
+      '@replexica/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       next:
         specifier: 14.2.1
         version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
@@ -83,6 +86,9 @@ importers:
         specifier: ^18
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@replexica/compiler':
+        specifier: workspace:*
+        version: link:../../packages/compiler
       '@types/node':
         specifier: ^20
         version: 20.12.5
@@ -95,6 +101,9 @@ importers:
       postcss:
         specifier: ^8
         version: 8.4.37
+      replexica:
+        specifier: workspace:*
+        version: link:../../packages/cli
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.3

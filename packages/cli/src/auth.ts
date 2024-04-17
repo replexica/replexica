@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-import { loadSettings, saveSettings } from "./services/settings.js";
+import { loadSettings } from "./services/settings.js";
 import { getEnv } from "./services/env.js";
 import { checkAuth } from "./services/check-auth.js";
 import { saveApiKey } from "./services/api-key.js";
@@ -16,18 +16,23 @@ export default new Command()
   .option("--logout", "Delete existing authentication")
   .option("--login", "Authenticate with Replexica API")
   .action(async (options) => {
-    const env = getEnv();
-    let config = await loadSettings();
-
-    if (options.logout) {
-      await logout();
+    try {
+      const env = getEnv();
+      let config = await loadSettings();
+  
+      if (options.logout) {
+        await logout();
+      }
+      if (options.login) {
+        await login(env.REPLEXICA_WEB_URL);
+        config = await loadSettings();
+      }
+  
+      await checkAuth();
+    } catch (error: any) {
+      Ora().fail(error.message);
+      process.exit(1);
     }
-    if (options.login) {
-      await login(env.REPLEXICA_WEB_URL);
-      config = await loadSettings();
-    }
-
-    await checkAuth();
   });
 
 async function logout() {
