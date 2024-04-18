@@ -1,6 +1,6 @@
 > [!NOTE]
-> We've just gone live! 
-> Today, Replexica Compiler supports the Next.js App Router, and Replexica API supports English 🇺🇸 and Spanish 🇪🇸. We're releasing Next.js Pages Router + French 🇫🇷 language support next! For real-time updates on our progress, please [join our Discord](https://discord.gg/GeK6AuSqzw).
+> We've just gone live! <br /><br />
+> Today, Replexica Compiler supports the Next.js App Router, and Replexica API supports English 🇺🇸 and Spanish 🇪🇸. <br /> We're releasing Next.js Pages Router + French 🇫🇷 language support next! For real-time updates on our progress, please [join our Discord](https://discord.gg/GeK6AuSqzw).
 
 <p align="center">
 <img src="./content/banner.light.png#gh-light-mode-only">
