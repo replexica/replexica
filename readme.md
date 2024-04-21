@@ -1,5 +1,5 @@
 > [!NOTE]
-> **We're LIVE!** <br /><br />
+> **We're LIVE!** ([working example](/getting-started.md)) <br /><br />
 > Today, Replexica Compiler supports **Next.js App Router**, and Replexica API supports **English 🇺🇸 and Spanish 🇪🇸**. We're releasing **Next.js Pages Router + French 🇫🇷 language support next**! <br /> <br /> For real-time updates on our progress, please [join our Discord](https://discord.gg/GeK6AuSqzw).
 
 <p align="center">
