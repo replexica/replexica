@@ -67,6 +67,8 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
     const localHelperName = isServer ? 'ReplexicaServerChunk' : 'ReplexicaClientChunk';
 
     for (const chunk of this._chunks) {
+      if (chunk.isPlaceholder) { continue; }
+
       let helperName = getImportName(programNode, packageName, localHelperName);
       if (!helperName) {
         helperName = injectImport(programNode, packageName, localHelperName);
