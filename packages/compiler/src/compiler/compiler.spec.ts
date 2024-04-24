@@ -195,12 +195,12 @@ describe('Compiles content', () => {
               hint: null,
             }],
             data: {
-              chunkId_1: 'Goodbye, world!',
-              chunkId_2: 'You can say',
+              chunkId_1: ' Goodbye, world! ',
+              chunkId_2: ' You can say ',
               chunkId_3: 'hello',
-              chunkId_4: 'again by clicking',
+              chunkId_4: ' again by clicking ',
               chunkId_5: 'here',
-              chunkId_6: '.',
+              chunkId_6: '. ',
             },
           },
         },
@@ -238,7 +238,7 @@ describe('Compiles content', () => {
               hint: null,
             }],
             data: {
-              chunkId_0: 'Goodbye, world!',
+              chunkId_0: ' Goodbye, world! ',
             },
           },
           scopeId_1: {
