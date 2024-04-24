@@ -8,8 +8,7 @@ export const basePlugin = createUnplugin<Partial<ReplexicaConfig>>((_options) =>
   name: '@replexica/compiler',
   enforce: 'pre',
   transformInclude(id) {
-    // .tsx and .jsx files
-    return /\.(t|j)sx$/.test(id);
+    return /\.(t|j)sx?$/.test(id); // js, ts, jsx, tsx
   },
   transform(code, absoluteFilePath) {
     const options = parseOptions(_options);
