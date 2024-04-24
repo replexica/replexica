@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { trimSafely } from './text1';
+import { trimSafely } from './text';
 
 describe('trimSafely', () => {
   it('should coalesce leading/trailing spaces', () => {
