@@ -1,15 +1,25 @@
 export function trimSafely(inputText: string) {
-  let outputText = inputText;
+  let result = inputText;
 
-  outputText = inputText.trimStart();
-  if (outputText.length !== inputText.length) {
-    outputText = ' ' + outputText;
+  const leadingNbspCount = (inputText.match(/^\u00A0+/) || [''])[0].length;
+  
+  // Trim start
+  let resultWithTrimmedStart = result.trimStart();
+  resultWithTrimmedStart = '\u00A0'.repeat(leadingNbspCount) + result;
+  if (resultWithTrimmedStart.length !== result.length) {
+    resultWithTrimmedStart = ' ' + result;
   }
+  result = resultWithTrimmedStart;
 
-  outputText = outputText.trimEnd();
-  if (outputText.length !== inputText.length) {
-    outputText = outputText + ' ';
+  const trailingNbspCount = (inputText.match(/\u00A0+$/) || [''])[0].length;
+
+  // Trim end
+  let resultWithTrimmedEnd = result.trimEnd();
+  resultWithTrimmedEnd = result + '\u00A0'.repeat(trailingNbspCount);
+  if (resultWithTrimmedEnd.length !== result.length) {
+    resultWithTrimmedEnd = result + ' ';
   }
+  result = resultWithTrimmedEnd;
 
-  return outputText;
+  return result;
 }
