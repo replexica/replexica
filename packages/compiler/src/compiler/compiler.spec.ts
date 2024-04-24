@@ -195,12 +195,12 @@ describe('Compiles content', () => {
               hint: null,
             }],
             data: {
-              chunkId_1: 'Goodbye, world!',
-              chunkId_2: 'You can say',
+              chunkId_1: ' Goodbye, world! ',
+              chunkId_2: ' You can say ',
               chunkId_3: 'hello',
-              chunkId_4: 'again by clicking',
+              chunkId_4: ' again by clicking ',
               chunkId_5: 'here',
-              chunkId_6: '.',
+              chunkId_6: '. ',
             },
           },
         },
@@ -238,7 +238,7 @@ describe('Compiles content', () => {
               hint: null,
             }],
             data: {
-              chunkId_0: 'Goodbye, world!',
+              chunkId_0: ' Goodbye, world! ',
             },
           },
           scopeId_1: {
@@ -494,7 +494,7 @@ describe('Adds hints added explicitly with `data-replexica-hint`', () => {
 
 function createCompiler(inputCode: string) {
   return ReplexicaCompiler
-    .fromCode(inputCode, '/path/to/file.tsx', '../../i18n')
+    .fromCode(inputCode, '/path/to/file.tsx', true)
     .withScope(ReplexicaSkipScope)
     .withScope(ReplexicaContentScope)
     .withScope(ReplexicaAttributeScope)
