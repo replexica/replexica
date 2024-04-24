@@ -256,6 +256,9 @@ importers:
       '@babel/types':
         specifier: ^7.24.0
         version: 7.24.0
+      ignore-walk:
+        specifier: ^6.0.4
+        version: 6.0.4
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
@@ -278,6 +281,9 @@ importers:
       '@types/babel__generator':
         specifier: ^7.6.8
         version: 7.6.8
+      '@types/ignore-walk':
+        specifier: ^4.0.3
+        version: 4.0.3
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
@@ -2071,6 +2077,12 @@ packages:
 
   /@types/http-errors@2.0.4:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
+    dev: true
+
+  /@types/ignore-walk@4.0.3:
+    resolution: {integrity: sha512-6V7wDsk0nz8LtRC7qeC0GfXadFLT4FdCtVbXhxoIGRdkn2kLr20iMLupRGiBhlZ79WWWqaObIdR3nkXfUrBPdQ==}
+    dependencies:
+      '@types/node': 20.12.5
     dev: true
 
   /@types/ini@4.1.0:
@@ -3882,6 +3894,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
+    dev: false
+
+  /ignore-walk@6.0.4:
+    resolution: {integrity: sha512-t7sv42WkwFkyKbivUCglsQW5YWMskWtbEf4MNKX5u/CCWHKSPzN4FtBQGsQZgCLbxOzpVlcbWVK5KB3auIOjSw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      minimatch: 9.0.3
     dev: false
 
   /ignore@5.3.1:
