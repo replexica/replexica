@@ -10,7 +10,7 @@ export default function Page() {
       <p className="leading-normal text-muted-foreground sm:text-xl sm:leading-8">
         <Highlight>Chrome Extension</Highlight> —{" "}
         <Highlight>Save Time</Highlight> and{" "}
-        <Highlight>Gain Insights</Highlight> Effortlessly
+        <Highlight>Gain Insights</Highlight> Effortlessly {someNumber}
       </p>
       <br />
       <CtaReviews maxReviews={5} reviews={[]} />
