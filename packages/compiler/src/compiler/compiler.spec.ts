@@ -494,7 +494,7 @@ describe('Adds hints added explicitly with `data-replexica-hint`', () => {
 
 function createCompiler(inputCode: string) {
   return ReplexicaCompiler
-    .fromCode(inputCode, '/path/to/file.tsx', '../../i18n')
+    .fromCode(inputCode, '/path/to/file.tsx', true)
     .withScope(ReplexicaSkipScope)
     .withScope(ReplexicaContentScope)
     .withScope(ReplexicaAttributeScope)
