@@ -11,8 +11,14 @@ export const transformFile = (code: string, absoluteFilePath: string, _options: 
   try {
     const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
 
-    const compiler = ReplexicaCompiler
-      .fromCode(code, relativeFilePath, options.rsc)
+    const compiler = ReplexicaCompiler.fromCode(code, relativeFilePath, options.rsc);  
+    const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
+    
+      if (options.debug) {
+        outputProcessor.saveAst(compiler.ast, 'pre');
+      }
+    
+      compiler
       .withScope(ReplexicaSkipScope)
       .withScope(ReplexicaAttributeScope)
       .withScope(ReplexicaContentScope)
@@ -20,14 +26,13 @@ export const transformFile = (code: string, absoluteFilePath: string, _options: 
 
     const result = compiler.generate();
 
-    const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
     outputProcessor.saveBuildData(compiler.data);
     outputProcessor.saveFullSourceLocaleData(compiler.data);
     outputProcessor.saveClientSourceLocaleData(compiler.data);
     outputProcessor.saveStubLocaleData();
 
     if (options.debug) {
-      outputProcessor.saveAst(compiler.ast);
+      outputProcessor.saveAst(compiler.ast, 'post');
       outputProcessor.saveOutput(result.code);
     }
 
