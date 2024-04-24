@@ -1,5 +1,12 @@
 # @replexica/demo/node
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`e324c0f`](https://github.com/replexica/replexica/commit/e324c0f22224e102bda6b516014fae82f7bfca32), [`9c3dc98`](https://github.com/replexica/replexica/commit/9c3dc9896b96d755a4d7de8c81a12638c456653c)]:
+  - @replexica/compiler@0.2.1
+
 ## 0.0.3
 
 ### Patch Changes
