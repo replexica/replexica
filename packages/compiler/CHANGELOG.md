@@ -1,5 +1,13 @@
 # @replexica/compiler
 
+## 0.2.1
+
+### Patch Changes
+
+- [#70](https://github.com/replexica/replexica/pull/70) [`e324c0f`](https://github.com/replexica/replexica/commit/e324c0f22224e102bda6b516014fae82f7bfca32) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix how trimSafely handles &nbsp
+
+- [#67](https://github.com/replexica/replexica/pull/67) [`9c3dc98`](https://github.com/replexica/replexica/commit/9c3dc9896b96d755a4d7de8c81a12638c456653c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Improved support for shadcn/ui components, fixed inline variables handling, improved &nbsp; support.
+
 ## 0.2.0
 
 ### Minor Changes
