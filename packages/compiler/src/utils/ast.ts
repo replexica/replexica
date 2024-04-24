@@ -23,7 +23,7 @@ export function findImmediateJsxParent(path: NodePath<t.Node>): NodePath<t.JSXEl
 }
 
 export function hasJsxTextChildren(jsxElement: NodePath<t.JSXElement | t.JSXFragment>): boolean {
-  return jsxElement.node.children.some(child => t.isJSXText(child) && trimSafely(child.value).length > 0);
+  return jsxElement.node.children.some(child => t.isJSXText(child) && trimSafely(child.value).trim().length > 0);
 }
 
 export function getJsxParentLine(path: NodePath<t.JSXElement | t.JSXFragment>, parentLine: NodePath<t.JSXElement | t.JSXFragment>[] = [path]): NodePath<t.JSXElement | t.JSXFragment>[] {

@@ -100,8 +100,8 @@ export class ReplexicaOutputProcessor {
     this._saveObject(filePath, newLocaleData);
   }
 
-  public saveAst(ast: File) {
-    const filePath = path.join(this._debugDir, this.relativeFilePath + '.json');
+  public saveAst(ast: File, phase: 'pre' | 'post') {
+    const filePath = path.join(this._debugDir, this.relativeFilePath + `.${phase}` + '.json');
     this._saveObject(filePath, ast);
   }
 
