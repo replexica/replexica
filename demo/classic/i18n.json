@@ -7,26 +7,26 @@
       "es"
     ]
   },
-  "projects": [
+  "content": [
     {
       "type": "json",
-      "dictionary": "json/[lang].json"
+      "path": "json/[lang].json"
     },
     {
       "type": "xcode",
-      "dictionary": "xcode/Localizable.xcstrings"
+      "path": "xcode/Localizable.xcstrings"
     },
     {
       "type": "yaml",
-      "dictionary": "yaml/[lang].yml"
+      "path": "yaml/[lang].yml"
     },
     {
       "type": "yaml-root-key",
-      "dictionary": "yaml-root-key/[lang].yml"
+      "path": "yaml-root-key/[lang].yml"
     },
     {
       "type": "markdown",
-      "dictionary": "markdown/[lang].md"
+      "path": "markdown/[lang].md"
     }
   ]
 }
