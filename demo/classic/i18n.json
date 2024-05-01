@@ -6,5 +6,27 @@
     "targets": [
       "es"
     ]
-  }
+  },
+  "projects": [
+    {
+      "type": "json",
+      "dictionary": "json/[lang].json"
+    },
+    {
+      "type": "xcode",
+      "dictionary": "xcode/Localizable.xcstrings"
+    },
+    {
+      "type": "yaml",
+      "dictionary": "yaml/[lang].yml"
+    },
+    {
+      "type": "yaml-root-key",
+      "dictionary": "yaml-root-key/[lang].yml"
+    },
+    {
+      "type": "markdown",
+      "dictionary": "markdown/[lang].md"
+    }
+  ]
 }

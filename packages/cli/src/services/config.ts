@@ -5,13 +5,21 @@ import path from 'path';
 const configFile = "i18n.json";
 const configFilePath = path.join(process.cwd(), configFile);
 
+const localeSchema = Z.object({
+  source: Z.string(),
+  targets: Z.array(Z.string()),
+});
+
+const projectSchema = Z.object({
+  type: Z.enum(["json", "markdown", "yaml", "xcode", "yaml-root-key"]),
+  dictionary: Z.string(),
+});
+
 const configFileSchema = Z.object({
   version: Z.literal(1),
   debug: Z.boolean().default(false),
-  locale: Z.object({
-    source: Z.string(),
-    targets: Z.array(Z.string()),
-  }),
+  locale: localeSchema,
+  projects: Z.array(projectSchema).default([]).optional(),
 });
 
 export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | null> {
