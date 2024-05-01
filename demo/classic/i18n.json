@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "debug": false,
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es"
+    ]
+  }
+}
