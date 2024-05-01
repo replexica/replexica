@@ -1,33 +1,21 @@
-import { z } from 'zod';
+import Z from 'zod';
+import { sourceLocaleSchema, targetLocaleSchema, projectTypeSchema } from '@replexica/spec';
 
-const supportedLanguages = z.enum(['en', 'es', 'ca', 'fr', 'it', 'de', 'ja', 'ko', 'zh-CN', 'ru']);
-
-const supportedProjectTypes = z.enum(['json', 'xcode', 'yaml', 'yaml-root-key', 'markdown']);
-
-const languageSchema = z.object({
-  source: supportedLanguages,
-  target: z.array(supportedLanguages).transform((val) => {
-    if (val.length === 0) {
-      throw new Error('target languages must not be empty');
-    }
-    const uniqueTargetLangs = [...new Set(val)];
-    if (uniqueTargetLangs.length !== val.length) {
-      throw new Error('target languages must be unique');
-    }
-    return uniqueTargetLangs;
-  }),
+const languageSchema = Z.object({
+  source: sourceLocaleSchema,
+  target: Z.array(targetLocaleSchema),
 });
 
-const projectSchema = z.object({
-  name: z.string(),
-  type: supportedProjectTypes.optional().default('json'),
-  dictionary: z.string(),
+const projectSchema = Z.object({
+  name: Z.string(),
+  type: projectTypeSchema.optional().default('json'),
+  dictionary: Z.string(),
 });
 
-export const configSchema = z.object({
-  version: z.literal(1),
+export const configSchema = Z.object({
+  version: Z.literal(1),
   languages: languageSchema,
-  projects: z.array(projectSchema),
+  projects: Z.array(projectSchema),
 });
 
-export type ConfigSchema = z.infer<typeof configSchema>;
+export type ConfigSchema = Z.infer<typeof configSchema>;

@@ -186,6 +186,9 @@ importers:
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
+      '@replexica/spec':
+        specifier: workspace:*
+        version: link:../spec
       commander:
         specifier: ^12.0.0
         version: 12.0.0
@@ -256,6 +259,9 @@ importers:
       '@babel/types':
         specifier: ^7.24.0
         version: 7.24.0
+      '@replexica/spec':
+        specifier: workspace:*
+        version: link:../spec
       ignore-walk:
         specifier: ^6.0.4
         version: 6.0.4

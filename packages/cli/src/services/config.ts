@@ -1,17 +1,18 @@
 import Z from 'zod';
 import fs from 'fs';
 import path from 'path';
+import { projectTypeSchema, sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
 
 const configFile = "i18n.json";
 const configFilePath = path.join(process.cwd(), configFile);
 
 const localeSchema = Z.object({
-  source: Z.string(),
-  targets: Z.array(Z.string()),
+  source: sourceLocaleSchema,
+  targets: Z.array(targetLocaleSchema),
 });
 
 const projectSchema = Z.object({
-  type: Z.enum(["json", "markdown", "yaml", "xcode", "yaml-root-key"]),
+  type: projectTypeSchema,
   dictionary: Z.string(),
 });
 
@@ -26,7 +27,7 @@ export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | n
   const configFileExists = await fs.existsSync(configFilePath);
   if (!configFileExists) { return null; }
 
-    const fileContents = fs.readFileSync(configFilePath, "utf8");
+  const fileContents = fs.readFileSync(configFilePath, "utf8");
   const rawConfig = JSON.parse(fileContents);
   const config = configFileSchema.parse(rawConfig);
 
