@@ -28,6 +28,12 @@ importers:
         specifier: latest
         version: 1.13.0
 
+  demo/classic:
+    dependencies:
+      replexica:
+        specifier: workspace:*
+        version: link:../../packages/cli
+
   demo/next-app:
     dependencies:
       '@replexica/react':
@@ -171,12 +177,6 @@ importers:
       typescript:
         specifier: ^5
         version: 5.4.5
-
-  demo/node:
-    dependencies:
-      '@replexica/compiler':
-        specifier: workspace:*
-        version: link:../../packages/compiler
 
   packages/cli:
     dependencies:
