@@ -18,7 +18,7 @@ const contentItemSchema = Z.object({
 
 const configFileSchema = Z.object({
   version: Z.literal(1),
-  debug: Z.boolean().default(false),
+  debug: Z.boolean().default(false).optional(),
   locale: localeSchema,
   content: Z.array(contentItemSchema).default([]).optional(),
 });
@@ -37,7 +37,6 @@ export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | n
 export async function createEmptyConfig(): Promise<Z.infer<typeof configFileSchema>> {
   return {
     version: 1,
-    debug: false,
     locale: {
       source: 'en',
       targets: ['es'],
