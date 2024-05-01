@@ -1,0 +1,29 @@
+{
+  "name": "@replexica/spec",
+  "version": "0.0.0",
+  "description": "Replexica open specification",
+  "private": false,
+  "type": "module",
+  "main": "build/index.cjs",
+  "types": "build/index.d.ts",
+  "module": "build/index.mjs",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub && tsc -w --noEmit",
+    "build": "unbuild",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.4.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0"
+  }
+}

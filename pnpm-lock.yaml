@@ -307,6 +307,22 @@ importers:
         specifier: ^14
         version: 14.1.4(react-dom@18.2.0)(react@18.2.0)
 
+  packages/spec:
+    dependencies:
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ^1.4.0
+        version: 1.4.0(@types/node@20.12.5)
+      zod:
+        specifier: ^3.23.0
+        version: 3.23.0
+    devDependencies:
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.4.5)
+
 packages:
 
   /@alloc/quick-lru@5.2.0:
