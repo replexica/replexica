@@ -1,6 +1,5 @@
 import { Command } from 'commander';
 import Ora from 'ora';
-import { getEnv } from './services/env.js';
 import Z from 'zod';
 import { loadConfig } from './services/config.js';
 import { createBucketProcessor, createTranslator } from './services/bucket/core.js';
@@ -19,12 +18,11 @@ export default new Command()
     try {
       const flags = await loadFlags(options);
       const settings = await loadSettings();
-      const env = getEnv();
       const config = await loadConfiguration();
 
       spinner = Ora().start('Authenticating...');
       const auth = await loadAuth({
-        apiUrl: env.REPLEXICA_API_URL,
+        apiUrl: settings.auth.apiUrl,
         apiKey: settings.auth.apiKey!,
       });
       spinner.succeed(`Authenticated as ${auth.email}.`);
@@ -48,7 +46,7 @@ export default new Command()
           for (const targetLocale of targetLocales) {
             bucketSpinner.start(`Translating from ${sourceLocale} to ${targetLocale}...`);
             const translatorFn = createTranslator({
-              apiUrl: env.REPLEXICA_API_URL,
+              apiUrl: settings.auth.apiUrl,
               apiKey: settings.auth.apiKey!,
               skipCache: flags.skipCache,
               cacheOnly: flags.cacheOnly,

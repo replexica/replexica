@@ -6,7 +6,7 @@ export type LoadAuthParams = {
 export async function loadAuth(params: LoadAuthParams) {
   const whoami = await fetchWhoami(params.apiUrl, params.apiKey);
   if (!whoami) {
-    throw new Error("Failed to authenticate");
+    throw new Error(`Not authenticated. Please login using 'replexica auth --login'.`);
   }
 
   return {
