@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import Ora from 'ora';
-import { createEmptyConfig, loadConfig, saveConfig } from "./services/config.js";
+import { loadConfig, saveConfig } from "./services/config.js";
+import { defaultConfig } from "@replexica/spec";
 
 export default new Command()
   .command("init")
@@ -15,8 +16,7 @@ export default new Command()
       return process.exit(1);
     }
 
-    config = await createEmptyConfig();
-    await saveConfig(config);
+    await saveConfig(defaultConfig);
 
     spinner.succeed('Replexica project initialized');
   });

@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import Z from 'zod';
 import { ReplexicaBucketProcessor } from './replexica.js';
-import { contentTypes, contentTypeSchema } from '@replexica/spec';
+import { bucketTypeSchema } from '@replexica/spec';
 import { JsonBucketProcessor } from './json.js';
 import { createId } from '@paralleldrive/cuid2';
 import { YamlBucketProcessor } from './yaml.js';
@@ -24,11 +23,6 @@ export interface IBucketProcessor {
   translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload>;
   save(locale: string, payload: BucketPayload): Promise<BucketPayload>;
 }
-
-
-export const bucketTypes = [...contentTypes, 'replexica'] as const;
-
-export const bucketTypeSchema = Z.union([Z.literal('replexica'), contentTypeSchema]);
 
 export function createBucketProcessor(
   bucketType: typeof bucketTypeSchema._type, 
