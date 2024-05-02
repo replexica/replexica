@@ -4,6 +4,9 @@ import { ReplexicaBucketProcessor } from './replexica.js';
 import { contentTypes, contentTypeSchema } from '@replexica/spec';
 import { JsonBucketProcessor } from './json.js';
 import { createId } from '@paralleldrive/cuid2';
+import { YamlBucketProcessor } from './yaml.js';
+import { YamlRootKeyBucketProcessor } from './yaml-root-key.js';
+import { XcodeBucketProcessor } from './xcode.js';
 
 // Bucket processor
 
@@ -19,7 +22,7 @@ export type BucketTranslatorFn = {
 export interface IBucketProcessor {
   load(locale: string): Promise<BucketPayload>;
   translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload>;
-  save(locale: string, payload: BucketPayload): Promise<void>;
+  save(locale: string, payload: BucketPayload): Promise<BucketPayload>;
 }
 
 
@@ -36,6 +39,9 @@ export function createBucketProcessor(
     default: throw new Error(`Unknown bucket type: ${bucketType}`);
     case 'replexica': return new ReplexicaBucketProcessor(bucketPath, translator);
     case 'json': return new JsonBucketProcessor(bucketPath, translator);
+    case 'yaml': return new YamlBucketProcessor(bucketPath, translator);
+    case 'yaml-root-key': return new YamlRootKeyBucketProcessor(bucketPath, translator);
+    case 'xcode': return new XcodeBucketProcessor(bucketPath, translator);
   }
 }
 

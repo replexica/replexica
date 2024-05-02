@@ -1,60 +1,28 @@
 import path from "path";
 import fs from "fs";
-import { IBucketProcessor, BucketTranslatorFn, BucketPayload } from "./core.js";
+import { IBucketProcessor, BucketPayload } from "./core.js";
+import { BaseBucketProcessor } from "./base.js";
 
-export class ReplexicaBucketProcessor implements IBucketProcessor {
-  constructor(
-    private bucketPath: string,
-    private translator: BucketTranslatorFn,
-  ) {
+export class ReplexicaBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
+  protected override _validateBucketPath(bucketPath: string): void {
     if (bucketPath !== '') {
       throw new Error(`Unknown bucket path: ${bucketPath}. Replexica bucket path must be an empty string: ''.`);
     }
   }
 
-  async load(locale: string): Promise<BucketPayload> {
-    const [
-      meta,
-      data,
-    ] = await Promise.all([
-      this._loadMeta(),
-      this._loadData(locale),
-    ]);
-
-    return { data, meta };
+  protected _resolveDataFilePath(locale: string): string {
+    return path.resolve(process.cwd(), 'node_modules', '@replexica/translations', `${locale}.json`);
   }
 
-  async translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload> {
-    const resultData: any = {};
-    // Currently the split is done by fileId, but as files can
-    // get quite large, we might want to split by a certain number
-    // of files' scopes instead.
-    for (const [fileId, fileData] of Object.entries(payload.data)) {
-      const partialLocaleData = { [fileId]: fileData };
-      // TODO: data is partial, but meta is full. That's not optimal.
-      const partialPayload = { data: partialLocaleData, meta: payload.meta };
-      const partialResult = await this.translator(
-        sourceLocale,
-        targetLocale,
-        partialPayload,
-      );
-      resultData[fileId] = partialResult.data[fileId];
-    }
-
-    return {
-      data: resultData,
-      meta: payload.meta,
-    };
+  protected _deserializeData(content: string): Promise<Record<string, any>> {
+    return Promise.resolve(JSON.parse(content));
   }
 
-  async save(locale: string, payload: BucketPayload): Promise<void> {
-    await Promise.all([
-      this._saveFullData(locale, payload),
-      this._saveClientData(locale, payload),
-    ]);
+  protected _serializeDataContent(data: Record<string, any>): Promise<string> {
+    return Promise.resolve(JSON.stringify(data, null, 2));
   }
 
-  private async _loadMeta(): Promise<BucketPayload['meta']> {
+  protected override async _loadMeta(): Promise<BucketPayload['meta']> {
     const bucketDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
     const metaFilePath = path.resolve(bucketDir, '.replexica.json');
 
@@ -68,36 +36,20 @@ export class ReplexicaBucketProcessor implements IBucketProcessor {
     return meta;
   }
 
-  private async _loadData(locale: string): Promise<BucketPayload['data']> {
-    const bucketDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
-    const dataFilePath = path.resolve(bucketDir, `${locale}.json`);
-
-    const exists = await fs.existsSync(dataFilePath);
-    if (!exists) { return {}; }
-
-    const rawData = await fs.readFileSync(dataFilePath, 'utf8');
-    const data = JSON.parse(rawData);
-
-    return data;
+  protected override async _saveData(locale: string, data: Record<string, any>): Promise<Record<string, any>> {
+    const savedFullData = await super._saveData(locale, data); // Save full data
+    await this._saveClientData(locale, savedFullData); // Save client data
+    return savedFullData;
   }
 
-  private async _saveFullData(locale: string, payload: BucketPayload): Promise<void> {
-    const bucketDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
-    const dataFilePath = path.resolve(bucketDir, `${locale}.json`);
+  private async _saveClientData(locale: string, data: Record<string, any>): Promise<Record<string, any>> {
+    const fullDataFilePath = this._resolveDataFilePath(locale);
+    const clientDataFilePath = fullDataFilePath.replace('.json', '.client.json');
 
-    const content = JSON.stringify(payload.data, null, 2);
-    await fs.writeFileSync(dataFilePath, content);
-  }
+    const meta = await this._loadMeta();
+    const newData = { ...data };
 
-  private async _saveClientData(locale: string, payload: BucketPayload): Promise<void> {
-    const bucketDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
-    const dataFilePath = path.resolve(bucketDir, `${locale}.client.json`);
-
-    const newData = {
-      ...payload.data,
-    };
-
-    for (const [fileId, fileData] of Object.entries(payload.meta.files || {})) {
+    for (const [fileId, fileData] of Object.entries(meta.files || {})) {
       const isClient = (fileData as any).isClient;
 
       if (!isClient) {
@@ -105,7 +57,9 @@ export class ReplexicaBucketProcessor implements IBucketProcessor {
       }
     }
 
-    const content = JSON.stringify(newData, null, 2);
-    await fs.writeFileSync(dataFilePath, content);
+    const content = await this._serializeDataContent(newData);
+    await fs.writeFileSync(clientDataFilePath, content);
+
+    return newData;
   }
 }
