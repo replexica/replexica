@@ -1,27 +1,6 @@
-import path from 'path';
-import fs from 'fs';
-
-export function createBucketProcessor(bucketType: string, bucketPath: string, translator: BucketTranslatorFn) {
-  switch (bucketType) {
-    default: throw new Error(`Unknown bucket type: ${bucketType}`);
-    case 'replexica': return new ReplexicaBucketProcessor(bucketPath, translator);
-  }
-}
-
-export type BucketPayload = {
-  data: Record<string, any>;
-  meta: any;
-};
-
-export type BucketTranslatorFn = {
-  (sourceLocale: string, targetLocale: string, data: BucketPayload['data'], meta: BucketPayload['meta']): Promise<BucketPayload['data']>;
-}
-
-export interface IBucketProcessor {
-  load(locale: string): Promise<BucketPayload>;
-  translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload['data']>;
-  save(locale: string, data: BucketPayload['data']): Promise<void>;
-}
+import path from "path";
+import fs from "fs";
+import { IBucketProcessor, BucketTranslatorFn, BucketPayload } from "./core.js";
 
 export class ReplexicaBucketProcessor implements IBucketProcessor {
   constructor(
@@ -47,6 +26,9 @@ export class ReplexicaBucketProcessor implements IBucketProcessor {
 
   async translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload> {
     const resultData: any = {};
+    // Currently the split is done by fileId, but as files can
+    // get quite large, we might want to split by a certain number
+    // of files' scopes instead.
     for (const [fileId, fileData] of Object.entries(payload.data)) {
       const partialLocaleData = { [fileId]: fileData };
       const partialResult = await this.translator(

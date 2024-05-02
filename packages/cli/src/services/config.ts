@@ -1,7 +1,8 @@
 import Z from 'zod';
 import fs from 'fs';
 import path from 'path';
-import { contentTypeSchema, sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
+import { sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
+import { bucketTypeSchema } from './bucket/core.js';
 
 const configFile = "i18n.json";
 const configFilePath = path.join(process.cwd(), configFile);
@@ -11,16 +12,11 @@ const localeSchema = Z.object({
   targets: Z.array(targetLocaleSchema),
 });
 
-const bucketsSchema = Z.record(
-  Z.string(),
-  Z.union([Z.literal('replexica'), contentTypeSchema]),
-);
-
 const configFileSchema = Z.object({
   version: Z.literal(1),
   debug: Z.boolean().default(false).optional(),
   locale: localeSchema,
-  buckets: bucketsSchema.default({}).optional(),
+  buckets: Z.record(Z.string(), bucketTypeSchema).default({}).optional(),
 });
 
 export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | null> {

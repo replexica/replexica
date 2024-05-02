@@ -3,7 +3,7 @@ import Ora from 'ora';
 import { getEnv } from './services/env.js';
 import Z from 'zod';
 import { loadConfig } from './services/config.js';
-import { createBucketProcessor } from './services/bucket.js';
+import { createBucketProcessor } from './services/bucket/core.js';
 import { createTranslator } from './services/translator.js';
 import { loadSettings } from './services/settings.js';
 import { loadAuth } from './services/auth.js';
@@ -42,9 +42,12 @@ export default new Command()
       } else {
         spinner = Ora().start(`Translating ${bucketEntries.length} buckets to ${targetLocales.length} locales...`);
         for (const [bucketPath, bucketType] of bucketEntries) {
-          const bucketSpinner = Ora({ indent: 1 }).start(`Translating ${bucketType} bucket ${bucketPath}...`);
+          let spinnerPrefix = `[${bucketType}]`;
+          if (bucketPath) { spinnerPrefix += `(${bucketPath})`; }
+          const bucketSpinner = Ora({ prefixText: spinnerPrefix });
+
           for (const targetLocale of targetLocales) {
-            const localeSpinner = Ora({ indent: 2 }).start(`Translating from ${sourceLocale} to ${targetLocale}...`);
+            bucketSpinner.start(`Translating from ${sourceLocale} to ${targetLocale}...`);
             const translatorFn = createTranslator({
               apiUrl: env.REPLEXICA_API_URL,
               apiKey: settings.auth.apiKey!,
@@ -57,9 +60,9 @@ export default new Command()
             const translated = await processor.translate(translatable, sourceLocale, targetLocale);
   
             await processor.save(targetLocale, translated);
-            localeSpinner.succeed(`Translation from ${sourceLocale} to ${targetLocale} completed.`);
+            bucketSpinner.succeed(`Translation from ${sourceLocale} to ${targetLocale} completed.`);
           }
-          bucketSpinner.succeed(`Bucket ${bucketPath} translated.`);
+          bucketSpinner.succeed(`Bucket translated.`);
         }
         spinner.succeed('Translations completed successfully!');
       }
