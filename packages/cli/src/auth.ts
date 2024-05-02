@@ -6,8 +6,8 @@ import open from 'open';
 import readline from 'readline/promises';
 import { loadSettings } from "./services/settings.js";
 import { getEnv } from "./services/env.js";
-import { checkAuth } from "./services/check-auth.js";
 import { saveApiKey } from "./services/api-key.js";
+import { loadAuth } from "./services/auth.js";
 
 export default new Command()
   .command("auth")
@@ -28,7 +28,15 @@ export default new Command()
         config = await loadSettings();
       }
   
-      await checkAuth();
+      const auth = await loadAuth({
+        apiUrl: env.REPLEXICA_API_URL,
+        apiKey: config.auth.apiKey!,
+      });
+      if (!auth) {
+        Ora().warn('Not authenticated');
+      } else {
+        Ora().succeed(`Authenticated as ${auth.email}`);
+      }
     } catch (error: any) {
       Ora().fail(error.message);
       process.exit(1);

@@ -1,21 +1,21 @@
 import Z from 'zod';
-import { sourceLocaleSchema, targetLocaleSchema, projectTypeSchema } from '@replexica/spec';
+import { sourceLocaleSchema, targetLocaleSchema, contentTypeSchema } from '@replexica/spec';
 
 const languageSchema = Z.object({
   source: sourceLocaleSchema,
   target: Z.array(targetLocaleSchema),
 });
 
-const projectSchema = Z.object({
+const contentItemSchema = Z.object({
   name: Z.string(),
-  type: projectTypeSchema.optional().default('json'),
-  dictionary: Z.string(),
+  type: contentTypeSchema.optional().default('json'),
+  path: Z.string(),
 });
 
 export const configSchema = Z.object({
   version: Z.literal(1),
   languages: languageSchema,
-  projects: Z.array(projectSchema),
+  projects: Z.array(contentItemSchema).default([]).optional(),
 });
 
 export type ConfigSchema = Z.infer<typeof configSchema>;

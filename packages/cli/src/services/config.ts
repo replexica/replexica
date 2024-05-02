@@ -11,16 +11,16 @@ const localeSchema = Z.object({
   targets: Z.array(targetLocaleSchema),
 });
 
-const contentItemSchema = Z.object({
-  type: contentTypeSchema,
-  path: Z.string(),
-});
+const bucketsSchema = Z.record(
+  Z.string(),
+  Z.union([Z.literal('replexica'), contentTypeSchema]),
+);
 
 const configFileSchema = Z.object({
   version: Z.literal(1),
   debug: Z.boolean().default(false).optional(),
   locale: localeSchema,
-  content: Z.array(contentItemSchema).default([]).optional(),
+  buckets: bucketsSchema.default({}).optional(),
 });
 
 export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | null> {
@@ -41,7 +41,7 @@ export async function createEmptyConfig(): Promise<Z.infer<typeof configFileSche
       source: 'en',
       targets: ['es'],
     },
-    content: [],
+    buckets: {},
   };
 }
 

@@ -79,7 +79,8 @@ export class ReplexicaBucketProcessor implements IBucketProcessor {
     if (!exists) { return null; }
 
     const rawMeta = await fs.readFileSync(metaFilePath, 'utf8');
-    const meta = JSON.parse(rawMeta);
+    const metaObj = JSON.parse(rawMeta);
+    const meta = metaObj?.meta || {};
 
     return meta;
   }

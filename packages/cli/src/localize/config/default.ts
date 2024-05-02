@@ -10,9 +10,9 @@ export const defaultPaths = {
 
 export const defaultConfig: ConfigSchema = {
   version: 1,
-  languages: { source: 'en', target: ['es', 'fr'] },
+  languages: { source: 'en', target: ['es'] },
   projects: [
-    { name: 'demo', type: 'json', dictionary: defaultPaths.dictionaryPattern },
+    { name: 'demo', type: 'json', path: defaultPaths.dictionaryPattern },
   ],
 };
 

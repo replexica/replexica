@@ -32,12 +32,16 @@ export function createTranslator(options: CreateTranslatorOptions): TranslatorFn
         },
         meta,
         data,
-      }),
+      }, null, 2),
     });
 
     if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(errorText);
+      if (res.status === 400) {
+        throw new Error(`Invalid request: ${res.statusText}`);
+      } else {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
     }
 
     const payload = await res.json();
