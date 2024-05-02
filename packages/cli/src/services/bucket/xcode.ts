@@ -98,6 +98,9 @@ export class XcodeBucketProcessor extends BaseBucketProcessor implements IBucket
       }
     }
 
-    return langDataToMerge;
+    return {
+      data: langDataToMerge,
+      meta: payload.meta,
+    };
   }
 }

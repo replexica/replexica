@@ -4,8 +4,8 @@ import { BaseBucketProcessor } from "./base.js";
 
 export class YamlBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
   protected override _validateBucketPath(bucketPath: string): void {
-    if (!bucketPath.includes('[lang]')) {
-      throw new Error(`Invalid bucket path: ${bucketPath}. The path must include the [lang] placeholder.`);
+    if (!bucketPath.includes('[locale]')) {
+      throw new Error(`Invalid bucket path: ${bucketPath}. The path must include the [locale] placeholder.`);
     }
 
     const supportedExtensions = ['.yaml', '.yml'];
@@ -15,7 +15,7 @@ export class YamlBucketProcessor extends BaseBucketProcessor implements IBucketP
   }
 
   protected override _resolveDataFilePath(locale: string): string {
-    return this.bucketPath.replace('[lang]', locale);
+    return this.bucketPath.replace('[locale]', locale);
   }
 
   protected _deserializeData(content: string): Promise<Record<string, any>> {
