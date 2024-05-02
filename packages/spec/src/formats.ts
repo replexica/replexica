@@ -1,5 +1,5 @@
 import Z from 'zod';
 
-export const contentTypes = ['json', 'markdown', 'yaml', 'xcode', 'yaml-root-key'] as const;
+export const bucketTypes = ['replexica', 'json', 'markdown', 'yaml', 'xcode', 'yaml-root-key'] as const;
 
-export const contentTypeSchema = Z.enum(contentTypes);
+export const bucketTypeSchema = Z.enum(bucketTypes);
