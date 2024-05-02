@@ -23,13 +23,16 @@ export abstract class JsonLikeBucketProcessor implements IBucketProcessor {
     const rawContent = await fs.readFileSync(filePath, 'utf8');
     const data = JSON.parse(rawContent);
 
-    return {
-      data,
-      meta: null,
-    };
+    const rawResult = { data, meta: null };
+    const result = await this.postLoad(rawResult, locale);
+    return result;
   }
 
-  async translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<Record<string, any>> {
+  async postLoad(payload: BucketPayload, locale: string): Promise<BucketPayload> {
+    return payload;
+  }
+
+  async translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload> {
     // The data contains key-value pairs, so let's translate
     // the values in batches of 20 keys max.
     const resultData: Record<string, any> = {};
@@ -38,16 +41,24 @@ export abstract class JsonLikeBucketProcessor implements IBucketProcessor {
     const batches = _.chunk(keys, 20);
     for (const batch of batches) {
       const partialData = _.pick(payload.data, batch);
-      const partialResult = await this.translator(sourceLocale, targetLocale, partialData, payload.meta);
+      const partialPayload = { data: partialData, meta: payload.meta };
+      const partialResult = await this.translator(sourceLocale, targetLocale, partialPayload);
       _.merge(resultData, partialResult);
     }
     
-    return resultData;
+    const result = { data: resultData, meta: payload.meta };
+    return result;
   }
 
-  async save(locale: string, data: Record<string, any>): Promise<void> {
+  async preSave(payload: BucketPayload, locale: string): Promise<BucketPayload> {
+    return payload;
+  }
+
+  async save(locale: string, rawPayload: BucketPayload): Promise<void> {
+    const payload = await this.preSave(rawPayload, locale);
+
     const filePath = this.bucketPath.replace('[lang]', locale);
-    const content = JSON.stringify(data, null, 2);
+    const content = JSON.stringify(payload.data, null, 2);
     await fs.writeFileSync(filePath, content);
   }
 }

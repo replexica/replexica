@@ -3,8 +3,7 @@ import Ora from 'ora';
 import { getEnv } from './services/env.js';
 import Z from 'zod';
 import { loadConfig } from './services/config.js';
-import { createBucketProcessor } from './services/bucket/core.js';
-import { createTranslator } from './services/translator.js';
+import { createBucketProcessor, createTranslator } from './services/bucket/core.js';
 import { loadSettings } from './services/settings.js';
 import { loadAuth } from './services/auth.js';
 

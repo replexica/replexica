@@ -3,6 +3,25 @@ import Z from 'zod';
 import { ReplexicaBucketProcessor } from './replexica.js';
 import { contentTypes, contentTypeSchema } from '@replexica/spec';
 import { JsonBucketProcessor } from './json.js';
+import { createId } from '@paralleldrive/cuid2';
+
+// Bucket processor
+
+export type BucketPayload = {
+  data: Record<string, any>;
+  meta: any;
+};
+
+export type BucketTranslatorFn = {
+  (sourceLocale: string, targetLocale: string, payload: BucketPayload): Promise<BucketPayload>;
+}
+
+export interface IBucketProcessor {
+  load(locale: string): Promise<BucketPayload>;
+  translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload>;
+  save(locale: string, payload: BucketPayload): Promise<void>;
+}
+
 
 export const bucketTypes = [...contentTypes, 'replexica'] as const;
 
@@ -20,17 +39,51 @@ export function createBucketProcessor(
   }
 }
 
-export type BucketPayload = {
-  data: Record<string, any>;
-  meta: any;
+
+// Translator
+
+
+export type CreateTranslatorOptions = {
+  apiUrl: string;
+  apiKey: string;
+  skipCache: boolean;
+  cacheOnly: boolean;
 };
 
-export type BucketTranslatorFn = {
-  (sourceLocale: string, targetLocale: string, data: BucketPayload['data'], meta: BucketPayload['meta']): Promise<BucketPayload['data']>;
-}
+export function createTranslator(options: CreateTranslatorOptions): BucketTranslatorFn {
+  return async (sourceLocale, targetLocale, payload) => {
+    const workflowId = createId();
+    const res = await fetch(`${options.apiUrl}/i18n`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${options.apiKey}`,
+      },
+      body: JSON.stringify({
+        params: {
+          workflowId,
+          cacheOnly: options.cacheOnly,
+          skipCache: options.skipCache,
+        },
+        locale: {
+          source: sourceLocale,
+          target: targetLocale,
+        },
+        meta: payload.meta,
+        data: payload.data,
+      }, null, 2),
+    });
 
-export interface IBucketProcessor {
-  load(locale: string): Promise<BucketPayload>;
-  translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload['data']>;
-  save(locale: string, data: BucketPayload['data']): Promise<void>;
+    if (!res.ok) {
+      if (res.status === 400) {
+        throw new Error(`Invalid request: ${res.statusText}`);
+      } else {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
+    }
+
+    const result = await res.json();
+    return result;
+  };
 }

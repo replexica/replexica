@@ -31,11 +31,12 @@ export class ReplexicaBucketProcessor implements IBucketProcessor {
     // of files' scopes instead.
     for (const [fileId, fileData] of Object.entries(payload.data)) {
       const partialLocaleData = { [fileId]: fileData };
+      // TODO: data is partial, but meta is full. That's not optimal.
+      const partialPayload = { data: partialLocaleData, meta: payload.meta };
       const partialResult = await this.translator(
         sourceLocale,
         targetLocale,
-        partialLocaleData,
-        payload.meta,
+        partialPayload,
       );
       resultData[fileId] = partialResult.data[fileId];
     }
