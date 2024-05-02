@@ -28,6 +28,12 @@ importers:
         specifier: latest
         version: 1.13.0
 
+  demo/classic:
+    dependencies:
+      replexica:
+        specifier: workspace:*
+        version: link:../../packages/cli
+
   demo/next-app:
     dependencies:
       '@replexica/react':
@@ -172,12 +178,6 @@ importers:
         specifier: ^5
         version: 5.4.5
 
-  demo/node:
-    dependencies:
-      '@replexica/compiler':
-        specifier: workspace:*
-        version: link:../../packages/compiler
-
   packages/cli:
     dependencies:
       '@inquirer/prompts':
@@ -186,6 +186,9 @@ importers:
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
+      '@replexica/spec':
+        specifier: workspace:*
+        version: link:../spec
       commander:
         specifier: ^12.0.0
         version: 12.0.0
@@ -207,6 +210,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      object-hash:
+        specifier: ^3.0.0
+        version: 3.0.0
       open:
         specifier: ^10.1.0
         version: 10.1.0
@@ -241,6 +247,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.11.30
+      '@types/object-hash':
+        specifier: ^3.0.6
+        version: 3.0.6
 
   packages/compiler:
     dependencies:
@@ -256,9 +265,15 @@ importers:
       '@babel/types':
         specifier: ^7.24.0
         version: 7.24.0
+      '@replexica/spec':
+        specifier: workspace:*
+        version: link:../spec
       ignore-walk:
         specifier: ^6.0.4
         version: 6.0.4
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
@@ -284,6 +299,9 @@ importers:
       '@types/ignore-walk':
         specifier: ^4.0.3
         version: 4.0.3
+      '@types/lodash':
+        specifier: ^4.17.0
+        version: 4.17.0
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
@@ -306,6 +324,22 @@ importers:
       next:
         specifier: ^14
         version: 14.1.4(react-dom@18.2.0)(react@18.2.0)
+
+  packages/spec:
+    dependencies:
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ^1.4.0
+        version: 1.4.0(@types/node@20.12.5)
+      zod:
+        specifier: ^3.23.0
+        version: 3.23.0
+    devDependencies:
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.4.5)
 
 packages:
 

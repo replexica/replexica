@@ -1,14 +1,11 @@
 import { Command } from 'commander';
 import Ora from 'ora';
-import { getEnv } from './services/env.js';
-import path from 'path';
-import fs from 'fs/promises';
-import { createId } from '@paralleldrive/cuid2';
-import { checkAuth } from './services/check-auth.js';
-import { loadApiKey } from './services/api-key.js';
-
-const buildDataDir = path.resolve(process.cwd(), 'node_modules', '@replexica/translations');
-const buildDataFilePath = path.resolve(buildDataDir, '.replexica.json');
+import Z from 'zod';
+import { loadConfig, saveConfig } from './services/config.js';
+import { createBucketProcessor, createTranslator } from './services/bucket/core.js';
+import { loadSettings } from './services/settings.js';
+import { loadAuth } from './services/auth.js';
+import { defaultConfig } from '@replexica/spec';
 
 export default new Command()
   .command('i18n')
@@ -17,147 +14,85 @@ export default new Command()
   .option('--cache-only', 'Only use cached data, and fail if there is new i18n data to process')
   .option('--skip-cache', 'Skip using cached data and process all i18n data')
   .action(async (options) => {
-    const spinner = Ora();
+    let spinner = Ora();
 
     try {
-      if (options.cacheOnly && options.skipCache) {
-        throw new Error(`Cannot use both --cache-only and --skip-cache options at the same time.`);
-      }
+      const flags = await loadFlags(options);
+      const settings = await loadSettings();
+      const config = await loadConfiguration();
 
-      const authStatus = await checkAuth();
-      if (!authStatus) {
-        throw new Error(`You are not authenticated. Please run 'replexica auth' to authenticate.`);
-      }
+      spinner = Ora().start('Authenticating...');
+      const auth = await loadAuth({
+        apiUrl: settings.auth.apiUrl,
+        apiKey: settings.auth.apiKey!,
+      });
+      spinner.succeed(`Authenticated as ${auth.email}.`);
+
+
+      const sourceLocale = config.locale.source;
+      const targetLocales = config.locale.targets;
+      const bucketEntries = Object.entries(config.buckets!);
+
+      if (!targetLocales.length) {
+        spinner.warn('No target locales found in configuration. Please add at least one target locale.');
+      } else if (!bucketEntries.length) {
+        spinner.warn('No buckets found in configuration. Please add at least one bucket.');
+      } else {
+        spinner = Ora().start(`Translating ${bucketEntries.length} buckets to ${targetLocales.length} locales...`);
+        for (const [bucketPath, bucketType] of bucketEntries) {
+          let spinnerPrefix = `[${bucketType}]`;
+          if (bucketPath) { spinnerPrefix += `(${bucketPath})`; }
+          const bucketSpinner = Ora({ prefixText: spinnerPrefix });
+
+          for (const targetLocale of targetLocales) {
+            bucketSpinner.start(`Translating from ${sourceLocale} to ${targetLocale}...`);
+            const translatorFn = createTranslator({
+              apiUrl: settings.auth.apiUrl,
+              apiKey: settings.auth.apiKey!,
+              skipCache: flags.skipCache,
+              cacheOnly: flags.cacheOnly,
+            });
+            const processor = createBucketProcessor(bucketType, bucketPath, translatorFn);
   
-      spinner.start('Loading Replexica build data...');
-      const buildData = await loadBuildData();
-      if (!buildData) {
-        throw new Error(`Couldn't load Replexica build data. Did you forget to build your app?`);
-      }
+            const translatable = await processor.load(sourceLocale);
+            const translated = await processor.translate(translatable, sourceLocale, targetLocale);
   
-      const localeSource = buildData.settings?.locale?.source;
-      if (!localeSource) {
-        throw new Error(`No source locale found in Replexica build data. Please check your Replexica configuration and try again.`);
-      }
-  
-      const localeTargets = buildData.settings?.locale?.targets || [];
-      if (!localeTargets.length) {
-        throw new Error(`No target locales found in Replexica build data. Please check your Replexica configuration and try again.`);
-      }
-  
-      const localeSourceData = await loadLocaleData(localeSource);
-      if (!localeSourceData) {
-        throw new Error(`Couldn't load source locale data for source locale ${localeSource}. Did you forget to build your app?`);
-      }
-  
-      spinner.succeed('Replexica data loaded!');
-  
-      const workflowId = createId();
-      for (let i = 0; i < localeTargets.length; i++) {
-        const targetLocale = localeTargets[i];
-        const resultData: any = {};
-  
-        const localeEntries = Object.entries(localeSourceData || {});
-        for (let j = 0; j < localeEntries.length; j++) {
-          const [localeFileId, localeFileData] = localeEntries[j];
-          spinner.start(`[${targetLocale}] Processing file ${j + 1}/${localeEntries.length}...`);
-  
-          const partialLocaleData = { [localeFileId]: localeFileData };
-          const result = await processI18n(
-            { workflowId, cacheOnly: !!options.cacheOnly, skipCache: !!options.skipCache },
-            { source: localeSource, target: targetLocale },
-            buildData.meta,
-            partialLocaleData,
-          );
-          resultData[localeFileId] = result.data[localeFileId];
-  
-          spinner.succeed(`[${targetLocale}] File ${j + 1}/${localeEntries.length} processed.`);
+            await processor.save(targetLocale, translated);
+            bucketSpinner.succeed(`Translation from ${sourceLocale} to ${targetLocale} completed.`);
+          }
+          bucketSpinner.succeed(`Bucket translated.`);
         }
-  
-        await saveFullLocaleData(targetLocale, resultData);
-        await saveClientLocaleData(targetLocale, resultData, buildData.meta);
+        spinner.succeed('Translations completed successfully!');
       }
-  
-      spinner.succeed('Replexica processing complete!');
     } catch (error: any) {
       spinner.fail(error.message);
       return process.exit(1);
     }
   });
 
-async function processI18n(
-  params: { workflowId: string, cacheOnly: boolean, skipCache: boolean },
-  locale: { source: string, target: string },
-  meta: any,
-  data: any,
-) {
-  const env = getEnv();
-  const apiKey = await loadApiKey();
 
-  const res = await fetch(`${env.REPLEXICA_API_URL}/i18n`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      params,
-      locale,
-      meta,
-      data,
-    }),
-  });
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(errorText);
+async function loadFlags(options: any) {
+  try {
+    const flags = Z.object({
+      cacheOnly: Z.boolean().optional().default(false),
+      skipCache: Z.boolean().optional().default(false),
+    })
+      .passthrough()
+      .parse(options);
+    return flags;
+  } catch {
+    throw new Error(`Couldn't parse flags. Please check your input and try again.`)
   }
-  const payload = await res.json();
-  return payload;
 }
 
-async function loadBuildData() {
-  const fileExists = await fs.access(
-    buildDataFilePath,
-    fs.constants.F_OK,
-  ).then(() => true).catch(() => false);
-  if (!fileExists) { return null; }
-
-  const buildDataFile = await fs.readFile(buildDataFilePath, 'utf-8');
-  const buildData = JSON.parse(buildDataFile);
-  return buildData;
-}
-
-async function loadLocaleData(locale: string) {
-  const localeFilePath = path.resolve(buildDataDir, `${locale}.json`);
-  const fileExists = await fs.access(
-    localeFilePath,
-    fs.constants.F_OK,
-  ).then(() => true).catch(() => false);
-  if (!fileExists) { return null; }
-
-  const localeFile = await fs.readFile(localeFilePath, 'utf-8');
-  const localeData = JSON.parse(localeFile);
-  return localeData;
-}
-
-async function saveFullLocaleData(locale: string, data: any) {
-  const localeFilePath = path.resolve(buildDataDir, `${locale}.json`);
-  await fs.writeFile(localeFilePath, JSON.stringify(data, null, 2));
-}
-
-async function saveClientLocaleData(locale: string, data: any, meta: any) {
-  const newData = {
-    ...data,
-  };
-
-  for (const [fileId, fileData] of Object.entries(meta.files || {})) {
-    const isClient = (fileData as any).isClient;
-
-    if (!isClient) {
-      delete newData[fileId];
-    }
+async function loadConfiguration() {
+  const spinner = Ora().start('Loading i18n configuration...');
+  let config = await loadConfig();
+  if (!config) {
+    config = defaultConfig;
+    spinner.succeed('No i18n.json config found. Using default configuration.');
+  } else {
+    spinner.succeed('Configuration loaded.');
   }
-
-  const localeFilePath = path.resolve(buildDataDir, `${locale}.client.json`);
-  await fs.writeFile(localeFilePath, JSON.stringify(newData, null, 2));
+  return config;
 }

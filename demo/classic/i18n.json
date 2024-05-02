@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es"
+    ]
+  },
+  "buckets": {
+    "": "replexica",
+    "json/[locale].json": "json",
+    "xcode/Localizable.xcstrings": "xcode",
+    "yaml/[locale].yml": "yaml",
+    "yaml-root-key/[locale].yml": "yaml-root-key",
+    "markdown/[locale].md": "markdown"
+  }
+}

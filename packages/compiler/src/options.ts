@@ -1,10 +1,10 @@
 import Z from 'zod';
+import { sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
 
-const supportedLocale = Z.enum(['en', 'es']);
 const optionsSchema = Z.object({
   locale: Z.object({
-    source: supportedLocale,
-    targets: Z.array(supportedLocale),
+    source: sourceLocaleSchema,
+    targets: Z.array(targetLocaleSchema),
   }),
   rsc: Z.boolean().optional().default(true),
   debug: Z.boolean().optional().default(false),
