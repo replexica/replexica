@@ -7,7 +7,6 @@
     ]
   },
   "buckets": {
-    "": "replexica",
     "json/[locale].json": "json",
     "xcode/Localizable.xcstrings": "xcode",
     "yaml/[locale].yml": "yaml",
