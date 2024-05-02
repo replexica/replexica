@@ -1,10 +1,11 @@
 import { Command } from 'commander';
 import Ora from 'ora';
 import Z from 'zod';
-import { loadConfig } from './services/config.js';
+import { loadConfig, saveConfig } from './services/config.js';
 import { createBucketProcessor, createTranslator } from './services/bucket/core.js';
 import { loadSettings } from './services/settings.js';
 import { loadAuth } from './services/auth.js';
+import { defaultConfig } from '@replexica/spec';
 
 export default new Command()
   .command('i18n')
@@ -85,9 +86,13 @@ async function loadFlags(options: any) {
 }
 
 async function loadConfiguration() {
-  const config = await loadConfig();
+  const spinner = Ora().start('Loading i18n configuration...');
+  let config = await loadConfig();
   if (!config) {
-    throw new Error(`Couldn't load i18n configuration. Please run 'replexica init' to initialize your Replexica project.`);
+    config = defaultConfig;
+    spinner.succeed('No i18n.json config found. Using default configuration.');
+  } else {
+    spinner.succeed('Configuration loaded.');
   }
   return config;
 }
