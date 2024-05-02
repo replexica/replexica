@@ -1,32 +1,17 @@
 {
   "version": 1,
-  "debug": false,
   "locale": {
     "source": "en",
     "targets": [
       "es"
     ]
   },
-  "content": [
-    {
-      "type": "json",
-      "path": "json/[lang].json"
-    },
-    {
-      "type": "xcode",
-      "path": "xcode/Localizable.xcstrings"
-    },
-    {
-      "type": "yaml",
-      "path": "yaml/[lang].yml"
-    },
-    {
-      "type": "yaml-root-key",
-      "path": "yaml-root-key/[lang].yml"
-    },
-    {
-      "type": "markdown",
-      "path": "markdown/[lang].md"
-    }
-  ]
+  "buckets": {
+    "": "replexica",
+    "json/[locale].json": "json",
+    "xcode/Localizable.xcstrings": "xcode",
+    "yaml/[locale].yml": "yaml",
+    "yaml-root-key/[locale].yml": "yaml-root-key",
+    "markdown/[locale].md": "markdown"
+  }
 }
