@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { BucketPayload, IBucketProcessor } from "./core.js";
 import { BaseBucketProcessor } from "./base.js";
 
@@ -49,6 +50,8 @@ export class XcodeBucketProcessor extends BaseBucketProcessor implements IBucket
   }
 
   protected async _preSave(payload: BucketPayload, locale: string): Promise<BucketPayload> {
+    const existingLangData = await this._loadData(locale);
+
     const langDataToMerge: any = {};
     langDataToMerge.strings = {};
 
@@ -98,8 +101,10 @@ export class XcodeBucketProcessor extends BaseBucketProcessor implements IBucket
       }
     }
 
+    const resultData = _.merge({}, existingLangData, langDataToMerge);
+
     return {
-      data: langDataToMerge,
+      data: resultData,
       meta: payload.meta,
     };
   }
