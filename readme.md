@@ -13,71 +13,20 @@
 
 Replexica is an i18n toolkit for React, to ship multi-language apps fast.
 
-It doesn't require extracting text into JSON files, and uses AI-powered API for content processing.
-
 It comes in two parts:
 
-1. **Replexica Compiler** - an open-source compiler plugin for React;
-1. **Replexica API** - an i18n API in the cloud that performs translations using LLMs. (Usage based, has a free tier.)
+1. **Replexica Compiler** - an open-source compiler plugin for React (experimental, Next.js App Router only);
+1. **Replexica API** - an i18n API in the cloud that performs translations using context-aware LLMs (Usage based, has a free tier.).
 
 Replexica supports several i18n formats:
 
-1. JSON-free Replexica compiler format;
+1. JSON-free, experimental Replexica Compiler format;
 1. `.md` files for Markdown content;
-1. Legacy JSON and YAML-based formats.
-
-_Looking to jump right in? Check out the [Getting Started](/getting-started.md) guide for Next.js App Router!_
-
-## Why
-
-Having built tens of side-projects / micro-startups over the years, we found one thing to be particularly annoying: adding i18n to the app. We wanted to **ship, and ship fast**, not to mess with JSON files or extraction scripts.
-
-So it got us thinking: why not build a tool that makes multi-language apps simpler? I mean, anyone who's tried to add i18n to their project knows it's a headache.
-
-And after we found out [~80%](https://www.statista.com/chart/26884/languages-on-the-internet/#:~:text=The%201.46%20billion%20people%20who%20speak%20English%20still%20make%20up%20less%20than%2020%20percent%20of%20the%20world%20population) aren't fluent in English - that seemed like a missed opportunity, since i18n could be a shortcut to reaching more users, if only it was easier.
-
-That's why we teamed up build a React compiler coupled with an AI-powered API, to make i18n as simple as possible, at the most fundamental level.
-
-### Does Replexica work with ... ?
-
-Please drop by our new [Discord channel](https://discord.gg/GeK6AuSqzw) and ask! Our co-founder Max is online almost 24/7.
-
-## Quick Start
-
-> [!NOTE]
-> This guide is for Next.js App Router apps only. Support for other setups is coming soon (ETA April 2024). <https://github.com/replexica/replexica/issues/25>
-
-To give a general idea behind Replexica, here's **the only change that's needed** to the basic Next.js app to make it multi-language:
-
-```js
-// next.config.mjs
-
-// Import Replexica Compiler
-import replexica from '@replexica/compiler';
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-// Define Replexica configuration
-/** @type {import('@replexica/compiler').ReplexicaConfig} */
-const replexicaConfig = {
-  locale: {
-    source: 'en',
-    targets: ['es'],
-  },
-};
-
-// Wrap Next.js config with Replexica Compiler
-export default replexica.next(
-  replexicaConfig,
-  nextConfig,
-);
-
-```
+1. Classic JSON and YAML-based formats.
 
 ## Getting Started
 
-We've prepared a [Getting Started](/getting-started.md) guide that walks you through the process of setting up Replexica Compiler with Next.js App Router. Check it out!
+Check out our [Docs](https://github.com/replexica/replexica/wiki) for more detailed guides on how to use Replexica with your app.
 
 ## What's under the hood
 
@@ -101,61 +50,13 @@ Replexica is a full-stack LLM-powered i18n tool for React, and it consists of **
 
 The core idea behind Replexica is simple: apps must be multi-language by default, from day one. **The Internet is global, and so must be any software that runs on it.**
 
-## The Replexica Rule
+## Why
 
-At Replexica, we believe in the elegance of [Convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) principle.
+Having built tens of side-projects / micro-startups over the years, we found one thing to be particularly annoying: adding i18n to the app. We wanted to **ship, and ship fast**, not to mess with JSON files or extraction scripts.
 
-Therefore, there's one important rule to remember when using Replexica:
+So it got us thinking: why not build a tool that makes multi-language apps simpler? I mean, anyone who's tried to add i18n to their project knows it's a headache.
 
-**Always put translatable text inside `JSX`.**
-
-**As long as you follow this rule**, the Replexica Compiler **will** automatically infer the metadata from your app and prepare the text inside JSX for translation.
-
-**If you don't follow the rule** and decide to store some of your translatable content in variables, that **can** be translated too, but you'll need to manually wrap that text in a helper function.
-
-So, if you want a hassle-free i18n on autopilot, **follow The Replexica Rule** whenever possible.
-
-### Dynamic content
-
-There's a common scenario, when you have an array of items that you render in a list:
-
-```jsx
-const menuItems = [
-  {
-    title: 'Home',
-    url: '/',
-  },
-  {
-    title: 'About',
-    url: '/about',
-  },
-  {
-    title: 'Contact',
-    url: '/contact',
-  },
-];
-```
-
-In this case, you can still follow The Replexica Rule by simply wrapping the text in JSX! Here's how:
-
-```jsx
-const menuItems = [
-  {
-    title: <>Home</>,
-    url: '/',
-  },
-  {
-    title: <>About</>,
-    url: '/about',
-  },
-  {
-    title: <>Contact</>,
-    url: '/contact',
-  },
-];
-```
-
-The Replexica Compiler will automatically infer the metadata from the JSX and prepare the text for translation.
+That's why we teamed up build a React compiler coupled with an AI-powered API, to make i18n as simple as possible, at the most fundamental level.
 
 ## Roadmap
 
@@ -200,7 +101,7 @@ We're a lean team of two:
 * **[Veronica](https://github.com/vrcprl)** - Product, Data Science, and LLMs.
 * **[Max](https://github.com/maxprilutskiy)** - React, Typescript, and Compilers.
 
-We've also got a few (11 to be precise) contributors who signed up to help us with the project, and we're always looking for more. If you're interested in contributing, please drop by our Discord channel and say hi!
+We've also got a few (11 at the moment) contributors who signed up to help us with the project, and we're always looking for more. If you're interested in contributing, please drop by our Discord channel and say hi!
 
 ## Contributing
 
