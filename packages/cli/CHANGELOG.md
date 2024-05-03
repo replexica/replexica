@@ -1,5 +1,11 @@
 # replexica
 
+## 0.21.3
+
+### Patch Changes
+
+- [`d9979b9`](https://github.com/replexica/replexica/commit/d9979b91c0d2b688f8e746eda5f25892b5f16e9e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix auth redirect url in cli
+
 ## 0.21.2
 
 ### Patch Changes
