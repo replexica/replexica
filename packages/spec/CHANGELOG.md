@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.3.0
+
+### Minor Changes
+
+- [`830d4a4`](https://github.com/replexica/replexica/commit/830d4a441c4d1177c9356756a9e9afc170a386d6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add support for shyriiwook language
+
 ## 0.2.0
 
 ### Minor Changes

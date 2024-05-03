@@ -1,5 +1,12 @@
 # replexica
 
+## 0.21.2
+
+### Patch Changes
+
+- Updated dependencies [[`830d4a4`](https://github.com/replexica/replexica/commit/830d4a441c4d1177c9356756a9e9afc170a386d6)]:
+  - @replexica/spec@0.3.0
+
 ## 0.21.1
 
 ### Patch Changes
