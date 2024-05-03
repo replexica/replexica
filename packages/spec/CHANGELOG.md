@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.2.0
+
+### Minor Changes
+
+- [#76](https://github.com/replexica/replexica/pull/76) [`69d487c`](https://github.com/replexica/replexica/commit/69d487c0b4c8e22f9c86867ebf6cc55ea2875dbf) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - enable french, catalan in source/target mode, and czech in source-only mode
+
 ## 0.1.0
 
 ### Minor Changes

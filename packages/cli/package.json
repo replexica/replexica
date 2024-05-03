@@ -1,6 +1,6 @@
 {
   "name": "replexica",
-  "version": "0.21.0",
+  "version": "0.21.1",
   "description": "Replexica CLI",
   "private": false,
   "type": "module",
