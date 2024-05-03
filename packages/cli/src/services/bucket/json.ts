@@ -1,10 +1,10 @@
-import { BucketTranslatorFn, IBucketProcessor } from "./core.js";
+import { IBucketProcessor } from "./core.js";
 import { BaseBucketProcessor } from "./base.js";
 
 export class JsonBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
   protected override _validateBucketPath(bucketPath: string): void {
-    if (!bucketPath.includes('[lang]')) {
-      throw new Error(`Invalid bucket path: ${bucketPath}. The path must include the [lang] placeholder.`);
+    if (!bucketPath.includes('[locale]')) {
+      throw new Error(`Invalid bucket path: ${bucketPath}. The path must include the [locale] placeholder.`);
     }
     if (!bucketPath.endsWith('.json')) {
       throw new Error(`Invalid bucket path: ${bucketPath}. The path must have a .json file extension.`);
@@ -12,7 +12,7 @@ export class JsonBucketProcessor extends BaseBucketProcessor implements IBucketP
   }
 
   protected override _resolveDataFilePath(locale: string): string {
-    return this.bucketPath.replace('[lang]', locale);
+    return this.bucketPath.replace('[locale]', locale);
   }
 
   protected override async _deserializeData(content: string): Promise<Record<string, any>> {

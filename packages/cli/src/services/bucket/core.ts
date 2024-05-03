@@ -6,6 +6,7 @@ import { createId } from '@paralleldrive/cuid2';
 import { YamlBucketProcessor } from './yaml.js';
 import { YamlRootKeyBucketProcessor } from './yaml-root-key.js';
 import { XcodeBucketProcessor } from './xcode.js';
+import { MarkdownBucketProcessor } from './markdown.js';
 
 // Bucket processor
 
@@ -36,6 +37,7 @@ export function createBucketProcessor(
     case 'yaml': return new YamlBucketProcessor(bucketPath, translator);
     case 'yaml-root-key': return new YamlRootKeyBucketProcessor(bucketPath, translator);
     case 'xcode': return new XcodeBucketProcessor(bucketPath, translator);
+    case 'markdown': return new MarkdownBucketProcessor(bucketPath, translator);
   }
 }
 
@@ -83,7 +85,8 @@ export function createTranslator(options: CreateTranslatorOptions): BucketTransl
       }
     }
 
-    const result = await res.json();
+    const jsonResponse = await res.json();
+    const result = jsonResponse.data || null;
     return result;
   };
 }
