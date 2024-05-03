@@ -85,7 +85,8 @@ export function createTranslator(options: CreateTranslatorOptions): BucketTransl
       }
     }
 
-    const result = await res.json();
+    const jsonResponse = await res.json();
+    const result = jsonResponse.data || null;
     return result;
   };
 }
