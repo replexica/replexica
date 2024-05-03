@@ -84,8 +84,9 @@ The more detailed roadmap is below:
   * [ ] Supported locales (production-ready, state-of-the-art quality)
     * [x] English
     * [x] Spanish
-    * [ ] French (April 2024)
-    * [ ] German (April 2024)
+    * [x] French
+    * [x] Catalan
+    * [ ] Italian (Coming in May 2024)
     * [ ] 10+ more languages to be announced (June 2024)
     * [ ] (Create a GitHub issue to request a new language!)
   * [ ] Self-hosting guides / docs
