@@ -22,7 +22,7 @@ export default new Command()
         await saveSettings(settings);
       }
       if (options.login) {
-        const apiKey = await login(settings.auth.apiUrl);
+        const apiKey = await login(settings.auth.webUrl);
         settings.auth.apiKey = apiKey;
         await saveSettings(settings);
         settings = await loadSettings();
@@ -43,7 +43,7 @@ export default new Command()
     }
   });
 
-async function login(apiUrl: string) {
+async function login(webAppUrl: string) {
   await readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -51,7 +51,7 @@ async function login(apiUrl: string) {
 
   const spinner = Ora().start('Waiting for the API key');
   const apiKey = await waitForApiKey(async (port) => {
-    await open(`${apiUrl}/app/cli?port=${port}`, { wait: false });
+    await open(`${webAppUrl}/app/cli?port=${port}`, { wait: false });
   });
   spinner.succeed('API key received');
 
