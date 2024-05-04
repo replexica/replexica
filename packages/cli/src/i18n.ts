@@ -13,6 +13,7 @@ export default new Command()
   .helpOption('-h, --help', 'Show help')
   .option('--cache-only', 'Only use cached data, and fail if there is new i18n data to process')
   .option('--skip-cache', 'Skip using cached data and process all i18n data')
+  .option('--locale <locale>', 'Locale to process')
   .action(async (options) => {
     let spinner = Ora();
 
@@ -28,11 +29,18 @@ export default new Command()
       });
       spinner.succeed(`Authenticated as ${auth.email}.`);
 
-
       const sourceLocale = config.locale.source;
-      const targetLocales = config.locale.targets;
+      let targetLocales = config.locale.targets;
       const bucketEntries = Object.entries(config.buckets!);
 
+      if (flags.locale) {
+        if (!targetLocales.includes(flags.locale as any)) {
+          spinner.warn(`Target locale ${flags.locale} not found in configuration. Skipping...`);
+          targetLocales = [];
+        } else {
+          targetLocales = [flags.locale as any];
+        }
+      }
       if (!targetLocales.length) {
         spinner.warn('No target locales found in configuration. Please add at least one target locale.');
       } else if (!bucketEntries.length) {
@@ -75,6 +83,7 @@ async function loadFlags(options: any) {
     const flags = Z.object({
       cacheOnly: Z.boolean().optional().default(false),
       skipCache: Z.boolean().optional().default(false),
+      locale: Z.string().optional(),
     })
       .passthrough()
       .parse(options);
