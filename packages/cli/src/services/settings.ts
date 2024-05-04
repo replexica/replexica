@@ -12,7 +12,7 @@ const settingsFilePath = path.join(homedir, settingsFile);
 
 const settingsSchema = Z.object({
   auth: Z.object({
-    apiKey: Z.string().nullable(),
+    apiKey: Z.string().optional(),
     apiUrl: Z.string().default('https://engine.replexica.com'),
     webUrl: Z.string().default('https://replexica.com'),
   }),
