@@ -1,5 +1,11 @@
 # replexica
 
+## 0.22.0
+
+### Minor Changes
+
+- [#83](https://github.com/replexica/replexica/pull/83) [`3cfc94b`](https://github.com/replexica/replexica/commit/3cfc94b894411f25ce222e50b16fcab042d6c01c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add --locale flag to cli to run translations on specific locales only
+
 ## 0.21.5
 
 ### Patch Changes
