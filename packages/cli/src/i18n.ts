@@ -38,7 +38,6 @@ export default new Command()
       } else if (!bucketEntries.length) {
         spinner.warn('No buckets found in configuration. Please add at least one bucket.');
       } else {
-        spinner = Ora().start(`Translating ${bucketEntries.length} buckets to ${targetLocales.length} locales...`);
         for (const [bucketPath, bucketType] of bucketEntries) {
           let spinnerPrefix = `[${bucketType}]`;
           if (bucketPath) { spinnerPrefix += `(${bucketPath})`; }
@@ -62,7 +61,7 @@ export default new Command()
           }
           bucketSpinner.succeed(`Bucket translated.`);
         }
-        spinner.succeed('Translations completed successfully!');
+        spinner = Ora().succeed('Translations completed successfully!');
       }
     } catch (error: any) {
       spinner.fail(error.message);
