@@ -1,5 +1,11 @@
 # replexica
 
+## 0.21.5
+
+### Patch Changes
+
+- [`7a7be7f`](https://github.com/replexica/replexica/commit/7a7be7f7f9fbf210d9293a65c0c9c811dbfe1942) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix ~/.replexicarc apiKey nullability issue when loading settings
+
 ## 0.21.4
 
 ### Patch Changes
