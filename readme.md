@@ -20,7 +20,7 @@ Replexica is an i18n toolkit for React, to ship multi-language apps fast.
 
 It comes in two parts:
 
-1. **Replexica Compiler** - an open-source compiler plugin for React (experimental, Next.js App Router only);
+1. [Experimental] **Replexica Compiler** - an open-source compiler plugin for React (experimental, Next.js App Router only);
 1. **Replexica API** - an i18n API in the cloud that performs translations using context-aware LLMs (Usage based, has a free tier.).
 
 Replexica supports several i18n formats:
