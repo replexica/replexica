@@ -1,5 +1,11 @@
 # replexica
 
+## 0.21.4
+
+### Patch Changes
+
+- [`a15b08d`](https://github.com/replexica/replexica/commit/a15b08d7d15cb98c12e0edc5778876c1cab98df6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix loading indicator jumps
+
 ## 0.21.3
 
 ### Patch Changes
