@@ -18,7 +18,7 @@ export default new Command()
       let settings = await loadSettings();
   
       if (options.logout) {
-        settings.auth.apiKey = null;
+        delete settings.auth.apiKey;
         await saveSettings(settings);
       }
       if (options.login) {
