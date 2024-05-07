@@ -67,16 +67,13 @@ That's why we teamed up build a React compiler coupled with an AI-powered API, t
 
 Here are the main features we're working on next:
 
-* **Next.js** - Replexica Compiler currently supports only Next.js App Router. Support for other setups is coming soon (ETA April 2024).
-* **New Languages** - Replexica Cloud currently supports only English and Spanish. More languages are coming soon (ETA April 2024).
-
 The more detailed roadmap is below:
 
 * [x] Replexica Compiler
   * [x] Next.js App Router
-  * [ ] Next.js Pages Router (April 2024)
-  * [ ] Remix (May 2024)
-  * [ ] Create React App (May 2024)
+  * [ ] Next.js Pages Router
+  * [ ] Remix
+  * [ ] Create React App
 * [x] Replexica Framework
   * [x] Core JSX translation
   * [x] Custom context hints
@@ -91,8 +88,8 @@ The more detailed roadmap is below:
     * [x] Spanish
     * [x] French
     * [x] Catalan
-    * [ ] Italian (Coming in May 2024)
-    * [ ] 10+ more languages to be announced (June 2024)
+    * [ ] Italian
+    * [ ] 20+ more languages comfing soon
     * [ ] (Create a GitHub issue to request a new language!)
   * [ ] Self-hosting guides / docs
 * [x] Replexica CLI
