@@ -12,10 +12,6 @@ The Replexica Compiler is an open-source compiler plugin for React. It is curren
 - **Automated Compilation**: Automatically compiles language resources, reducing manual effort and potential for human error.
 - **Open Source**: Encourages community contributions and collaboration to continuously improve the compiler's capabilities.
 
-## Getting Started
-
-To get started with the Replexica Compiler, please follow the instructions provided in the main [Replexica repository](https://github.com/replexica/replexica).
-
 ## Contributing
 
 We welcome contributions to the Replexica Compiler. If you're interested in contributing, please read our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) for more information on how to get started.

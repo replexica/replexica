@@ -12,16 +12,6 @@ The Replexica React package provides React components and hooks that make it eas
 - **Customizable**: Flexible API to customize your i18n setup to fit your project's needs.
 - **Performance Optimized**: Built with performance in mind to ensure a seamless user experience.
 
-## Getting Started
-
-To get started with the Replexica React package, install it via npm:
-
-```bash
-npm install @replexica/react
-```
-
-Then, import and use the provided components and hooks in your React application. For detailed usage instructions, please refer to the [documentation](https://github.com/replexica/replexica/wiki/React-Package-Documentation).
-
 ## Contributing
 
 We welcome contributions to the Replexica React package. If you're interested in contributing, please read our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) for more information on how to get started.

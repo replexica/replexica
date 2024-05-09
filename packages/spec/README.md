@@ -12,10 +12,6 @@ The Replexica Spec package contains the specifications and schemas used by the R
 - **Schema Validation**: Ensures that your i18n resources meet the required specifications, preventing errors in translation implementation.
 - **Integration Ready**: Designed to work seamlessly with the Replexica toolkit, allowing for easy integration into your workflow.
 
-## Getting Started
-
-To utilize the Replexica Spec package, refer to the [documentation](https://github.com/replexica/replexica/wiki/Spec-Package-Documentation) for detailed instructions on implementing the specifications in your project.
-
 ## Contributing
 
 Contributions to the Replexica Spec package are encouraged. If you would like to contribute, please review our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) for detailed instructions.

@@ -12,16 +12,6 @@ The Replexica CLI is a command-line interface for interacting with the Replexica
 - **Integration with Replexica API**: Seamlessly interact with the Replexica API to fetch and push translation data.
 - **Automation**: Automate repetitive tasks related to internationalization, saving time and reducing errors.
 
-## Getting Started
-
-To begin using the Replexica CLI, install it globally via npm:
-
-```bash
-npm install -g @replexica/cli
-```
-
-After installation, you can run the `replexica` command to access the full suite of tools. For detailed usage instructions, please refer to the [documentation](https://github.com/replexica/replexica/wiki/CLI-Documentation).
-
 ## Contributing
 
 Contributions to the Replexica CLI are welcome! Please read our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) to learn how you can help improve this tool.
