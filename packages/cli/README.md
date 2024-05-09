@@ -4,6 +4,30 @@ This package is part of the [Replexica](https://github.com/replexica/replexica) 
 
 ## Overview
 
-The Replexica CLI is a command-line interface for interacting with the Replexica platform. It provides a set of tools to manage translations and integrate with the Replexica API.
+The Replexica CLI is a command-line interface for interacting with the Replexica platform. It provides a set of tools to manage translations and integrate with the Replexica API, streamlining the process of internationalizing your React applications.
+
+## Features
+
+- **Translation Management**: Simplify the process of adding, updating, and deleting translations across your projects.
+- **Integration with Replexica API**: Seamlessly interact with the Replexica API to fetch and push translation data.
+- **Automation**: Automate repetitive tasks related to internationalization, saving time and reducing errors.
+
+## Getting Started
+
+To begin using the Replexica CLI, install it globally via npm:
+
+```bash
+npm install -g @replexica/cli
+```
+
+After installation, you can run the `replexica` command to access the full suite of tools. For detailed usage instructions, please refer to the [documentation](https://github.com/replexica/replexica/wiki/CLI-Documentation).
+
+## Contributing
+
+Contributions to the Replexica CLI are welcome! Please read our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) to learn how you can help improve this tool.
+
+## License
+
+The Replexica CLI is released under the [MIT License](https://github.com/replexica/replexica/blob/main/LICENSE). Feel free to use and modify the code in accordance with this license.
 
 For more information and usage instructions, please refer to the main [Replexica repository](https://github.com/replexica/replexica).
