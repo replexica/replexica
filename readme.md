@@ -50,16 +50,12 @@ The core idea behind Replexica is simple: apps must be multi-language by default
 * **[Veronica](https://github.com/vrcprl)** - Data Science, and LLMs.
 * **[Max](https://github.com/maxprilutskiy)** - React, Typescript, and Compilers.
 
-## Contributing
+## Community
 
-If you're building a side-project, or a startup, or you're working at a big company that uses Replexica - we'd love to hear from you!
+If you're building a side-project, a startup, or you're working at a big company that uses Replexica - we'd love to hear from you!
 
-* **Feedback** - tell us what you like, what you don't like, what you'd like to see next.
-* **Feature requests** - tell us what you need, and we'll do our best to build it.
-* **Bug reports** - if you find a bug, please let us know, and we'll fix it as soon as we physically can.
-
-* **Contributions** - if you're a developer, and you'd like to contribute to Replexica, please check out our [Contributing Guide](./CONTRIBUTING.md).
-
-## Questions
-
-If you found a bug, or have a feature request, please [create an issue](https://github.com/replexica/replexica/issues) or [drop by our Discord channel](https://discord.gg/GeK6AuSqzw) and ask!
+-   🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
+-   🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
+-   🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
+-   𝕏 Follow us on [𝕏](https://x.com/replexica).
+-   🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
