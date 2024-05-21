@@ -1,5 +1,12 @@
 # @replexica/demo/classic
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - replexica@0.22.1
+
 ## 0.0.7
 
 ### Patch Changes

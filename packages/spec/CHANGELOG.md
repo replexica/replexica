@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.4.0
+
+### Minor Changes
+
+- [#87](https://github.com/replexica/replexica/pull/87) [`07657c6`](https://github.com/replexica/replexica/commit/07657c611306797d605718e13ce6b2c920a5a94e) Thanks [@vrcprl](https://github.com/vrcprl)! - added new core locales : ja de pt it ru uk hi zh ko tr ar and source locales yue pl sk th
+
 ## 0.3.0
 
 ### Minor Changes
