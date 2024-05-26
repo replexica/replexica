@@ -70,6 +70,30 @@ export function getImportName(programNode: NodePath<t.Program>, libName: string,
   return found ? localName : null;
 }
 
+export function getDefaultImportName(programNode: NodePath<t.Program>, libName: string): string | null {
+  let found = false;
+  let defaultImportName: string | null = null;
+
+  programNode.traverse({
+    ImportDeclaration(path) {
+      const source = path.node.source.value;
+      if (source !== libName) { return; }
+
+      const defaultSpecifier = path.node.specifiers.find((specifier) =>
+        t.isImportDefaultSpecifier(specifier) &&
+        t.isIdentifier(specifier.local)
+      );
+
+      if (defaultSpecifier) {
+        found = true;
+        defaultImportName = defaultSpecifier.local.name;
+      }
+    },
+  });
+
+  return found ? defaultImportName : null;
+}
+
 export function injectImport(programNode: NodePath<t.Program>, libName: string, localName: string): string {
   let libImportName = `_${localName}`;
 
@@ -88,6 +112,25 @@ export function injectImport(programNode: NodePath<t.Program>, libName: string, 
   programNode.node.body.unshift(importStatement);
 
   return libImportName;
+}
+
+// injects default import if it doesn't exist
+export function injectDefaultImport(programNode: NodePath<t.Program>, libName: string, localName: string): string {
+  let defaultImportName = getDefaultImportName(programNode, libName);
+  if (defaultImportName) { return defaultImportName; }
+
+  let uniqueId = 0;
+  while (programNode.scope.hasBinding(localName)) {
+    localName = `${localName}${++uniqueId}`;
+  }
+
+  const importStatement = t.importDeclaration(
+    [t.importDefaultSpecifier(t.identifier(localName))],
+    t.stringLiteral(libName),
+  );
+  programNode.node.body.unshift(importStatement);
+
+  return localName;
 }
 
 export function findJsxParentForTheAttribute(path: NodePath<t.JSXAttribute>): NodePath<t.JSXElement> | null {

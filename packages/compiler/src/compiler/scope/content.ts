@@ -1,11 +1,14 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
 import { IReplexicaScope } from "./types";
-import { findImmediateJsxParent, getImportName, hasJsxTextChildren, injectImport } from './../../utils/ast';
+import { findImmediateJsxParent, getDefaultImportName, getImportName, hasJsxTextChildren, injectDefaultImport, injectImport } from './../../utils/ast';
 import { ReplexicaChunk } from './chunk';
 import { generateScopeId } from '../../utils/id';
 import { ReplexicaScopeData, ReplexicaScopeHint } from '../types';
 import { ReplexicaBaseScope } from './base';
+
+// TODO: @/i18n should be a relative import, in case
+// @ isn't mapped to the project root
 
 export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplexicaScope {
   public static fromNode(path: NodePath<t.Node>): IReplexicaScope[] {
@@ -64,7 +67,7 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
     if (!programNode) { throw new Error(`Couldn't find file node`); }
 
     const packageName = isServer ? '@replexica/react/server' : '@replexica/react/client';
-    const localHelperName = isServer ? 'ReplexicaServerChunk' : 'ReplexicaClientChunk';
+    const localHelperName = 'I18nChunk';
 
     for (const chunk of this._chunks) {
       if (chunk.isPlaceholder) { continue; }
@@ -86,58 +89,19 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
 
       if (isServer) {
         // make sure the following import is available in the file:
-        // import { loadLocaleFromCookie } from '@replexica/react/next';
-        let localeLoaderImportName = getImportName(programNode, '@replexica/react/next', 'loadLocaleFromCookie');
-        if (!localeLoaderImportName) {
-          localeLoaderImportName = injectImport(programNode, '@replexica/react/next', 'loadLocaleFromCookie');
-        }
-        // add the following props to the injected element:
-        // loadLocale={loadLocaleFromCookie}
-        injectedElement.attributes.push(
-          t.jsxAttribute(
-            t.jsxIdentifier('loadLocale'), 
-            t.jsxExpressionContainer(t.identifier(localeLoaderImportName)),
-          )
-        );
-        // make sure the following import is available in the file:
-        // import { loadLocaleData } from '@replexica/react/next';
-        let localeDataLoaderImportName = getImportName(programNode, '@replexica/react/next', 'loadLocaleData');
+        // import i18n from '@/i18n';
+        let localeDataLoaderImportName = getDefaultImportName(programNode, '@/i18n');
         if (!localeDataLoaderImportName) {
-          localeDataLoaderImportName = injectImport(programNode, '@replexica/react/next', 'loadLocaleData');
+          localeDataLoaderImportName = injectDefaultImport(programNode, '@/i18n', 'i18n');
         }
-        // add the following props to the injected element:
-        // loadLocaleData={(locale) => loadLocaleData(i18nImportPrefix, locale)}
-        // injectedElement.attributes.push(
-        //   t.jsxAttribute(
-        //     t.jsxIdentifier('loadLocaleData'), 
-        //     t.jsxExpressionContainer(
-        //       t.arrowFunctionExpression(
-        //         [t.identifier('locale')],
-        //         t.callExpression(
-        //           t.identifier(localeDataLoaderImportName),
-        //           [t.stringLiteral(i18nImportPrefix), t.identifier('locale')],
-        //         ),
-        //       ),
-        //     ),
-        //   )
-        // );
 
         // add the following props to the injected element:
-        // loadLocaleData={(locale) => import(`@replexica/translations/${locale}.json`)}
+        // loadLocaleData={localeDataLoaderImportName.loadData}
         injectedElement.attributes.push(
           t.jsxAttribute(
-            t.jsxIdentifier('loadLocaleData'), 
+            t.jsxIdentifier('i18n'),
             t.jsxExpressionContainer(
-              t.arrowFunctionExpression(
-                [t.identifier('locale')],
-                t.callExpression(
-                  t.identifier('import'),
-                  [t.templateLiteral([
-                    t.templateElement({ raw: `@replexica/translations/`, cooked: `@replexica/translations/` }, false),
-                    t.templateElement({ raw: '.json', cooked: '.json' }, true),
-                  ], [t.identifier('locale')])],
-                ),
-              ),
+              t.identifier(localeDataLoaderImportName),
             ),
           )
         );

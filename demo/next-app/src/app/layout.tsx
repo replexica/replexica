@@ -1,3 +1,3 @@
-export default function RooLayout({ children }: any) {
-  return <>{children}</>;
-}
+import RootLayout from './[locale]/layout';
+
+export default (props: any) => <RootLayout {...props} />

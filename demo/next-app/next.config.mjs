@@ -1,16 +1,6 @@
 import replexica from '@replexica/compiler';
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  redirects: async () => {
-    return [
-      {
-        source: '/',
-        destination: '/en',
-        permanent: false,
-      },
-    ];
-  }
-};
+const nextConfig = {};
 
-export default replexica.next()(nextConfig);
+export default replexica.next({ debug: true })(nextConfig);

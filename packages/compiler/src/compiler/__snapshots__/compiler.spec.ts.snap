@@ -1,48 +1,48 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Compiles attribute values > compiles attribute values 1`] = `
-"import { ReplexicaServerProxy as _ReplexicaServerProxy } from "@replexica/react/server";
+"import { I18nProxy as _I18nProxy } from "@replexica/react/server";
 import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <_ReplexicaServerProxy title="Hello!" _ReplexicaComponent="span" _ReplexicaAttributes={{
+  <_I18nProxy title="Hello!" $$Component="span" $$Attributes={{
     "title": {
       "fileId": "fileId_0",
       "scopeId": "scopeId_1",
       "chunkId": "chunkId_1"
     }
-  }} loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)}><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></_ReplexicaServerProxy>
+  }} loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)}><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></_I18nProxy>
 </div>;"
 `;
 
 exports[`Compiles content > jsx assigned to jsx attribute 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <div data-test={<span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>}><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></div>
+  <div data-test={<span><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>}><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></div>
 </div>;"
 `;
 
 exports[`Compiles content > multiple basic spans 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
-  <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+  <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+  <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
 </div>;"
 `;
 
 exports[`Compiles content > nested basic spans 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+  <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
   <div>
-    <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+    <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
   </div>
 </div>;"
 `;
@@ -50,26 +50,26 @@ import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/
 exports[`Compiles content > nested elements mixed with text 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
-  <div><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /><br /><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_2" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /><b><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_3" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></b><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_4" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /><a href="#"><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_5" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></a><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_6" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></div>
+  <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+  <div><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_1" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /><br /><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_2" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /><b><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_3" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></b><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_4" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /><a href="#"><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_5" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></a><_I18nChunk fileId="fileId_0" scopeId="scopeId_1" chunkId="chunkId_6" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></div>
 </div>;"
 `;
 
 exports[`Compiles content > one basic span 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
-<span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>;"
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
+<span><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>;"
 `;
 
 exports[`Skips nodes marked with \`data-replexica-skip\` > skips a single node 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+  <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
   <div data-replexica-skip>
     Goodbye, world!
   </div>
@@ -79,9 +79,9 @@ import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/
 exports[`Skips nodes marked with \`data-replexica-skip\` > skips entire subtree 1`] = `
 "import { loadLocaleData as _loadLocaleData } from "@replexica/react/next";
 import { loadLocaleFromCookie as _loadLocaleFromCookie } from "@replexica/react/next";
-import { ReplexicaServerChunk as _ReplexicaServerChunk } from "@replexica/react/server";
+import { I18nChunk as _I18nChunk } from "@replexica/react/server";
 <div>
-  <span><_ReplexicaServerChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
+  <span><_I18nChunk fileId="fileId_0" scopeId="scopeId_0" chunkId="chunkId_0" loadLocale={_loadLocaleFromCookie} loadLocaleData={locale => import(\`@replexica/translations/\${locale}.json\`)} /></span>
   <div data-replexica-skip>
     Goodbye, world!
     <br />
