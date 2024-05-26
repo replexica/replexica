@@ -10,20 +10,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@replexica/react": "workspace:*",
+    "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.1",
-    "@replexica/react": "workspace:*"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "replexica": "workspace:*",
     "@replexica/compiler": "workspace:*",
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "postcss": "^8",
-    "tailwindcss": "^3.4.3"
+    "replexica": "workspace:*",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5"
   }
 }
