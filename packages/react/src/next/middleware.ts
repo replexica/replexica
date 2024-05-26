@@ -33,7 +33,8 @@ export const createI18nMiddleware = (i18n: CreateI18nResult, params = defaultPar
       );
 
       const correctUrl = new LocalizedURL(req.url, undefined, i18n.params.supportedLocales);
-      if (finalLocale === i18n.params.defaultLocale && params.explicitDefaultLocale) {
+
+      if (finalLocale === i18n.params.defaultLocale && !params.explicitDefaultLocale) {
         correctUrl.locale = null;
       } else {
         correctUrl.locale = finalLocale;

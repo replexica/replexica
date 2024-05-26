@@ -13,7 +13,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <I18nProvider params={i18n.params} data={i18n.data}>
       <html lang={i18n.params.currentLocale}>
-        <title>Create Next App</title>
         <body className={inter.className}>{children}</body>
       </html>
     </I18nProvider>

@@ -72,7 +72,7 @@ export class ReplexicaAttributeScope extends ReplexicaBaseScope implements IRepl
       throw new Error(`Couldn't find JSX element for attribute ${this.path.get("name").toString()}`);
     }
 
-    const packageName = isServer ? '@replexica/react/server' : '@replexica/react/client';
+    const packageName = isServer ? '@replexica/react/next' : '@replexica/react/client';
     const localHelperName = 'I18nProxy';
 
     let helperName = getImportName(programNode, packageName, localHelperName);

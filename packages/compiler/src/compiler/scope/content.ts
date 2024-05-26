@@ -66,7 +66,7 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
     const programNode = this.path.findParent((p) => p.isProgram()) as NodePath<t.Program> | null;
     if (!programNode) { throw new Error(`Couldn't find file node`); }
 
-    const packageName = isServer ? '@replexica/react/server' : '@replexica/react/client';
+    const packageName = isServer ? '@replexica/react/next' : '@replexica/react/client';
     const localHelperName = 'I18nChunk';
 
     for (const chunk of this._chunks) {
