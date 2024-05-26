@@ -25,6 +25,17 @@ export function createI18n<S, T>(
         return currentLocale;
       },
     },
+    async loadLocale(locale: string) {
+      if (!localeLoaders[locale]) {
+        throw new Error(`Could not find loader for locale "${locale}"`);
+      }
+
+      currentLocale = locale;
+      const dataModule = await localeLoaders[locale]();
+      currentData = dataModule.default;
+
+      return currentData;
+    },
     async init() {
       currentLocale = await loadLocale() || baseI18n.params.defaultLocale;
 

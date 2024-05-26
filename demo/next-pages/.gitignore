@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.debug
 
 # testing
 /coverage
