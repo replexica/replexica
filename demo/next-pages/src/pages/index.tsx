@@ -7,7 +7,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       i18n: {
-        data: await i18n.loadLocale(context.locale!),
+        data: await i18n.loadLocale(context.locale! === '$' ? 'en' : context.locale!),
       },
     }
   };
