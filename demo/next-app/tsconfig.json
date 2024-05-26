@@ -26,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "node_modules/@replexica/translations/**/*.json"
+    "node_modules/@replexica/translations/**/*.*"
   ],
   "exclude": ["node_modules"]
 }

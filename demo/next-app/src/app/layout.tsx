@@ -1,3 +1,1 @@
-import RootLayout from './[locale]/layout';
-
-export default (props: any) => <RootLayout {...props} />
+export { default as default } from './[locale]/layout';

@@ -1,3 +1,1 @@
-import RootPage from './[locale]/page';
-
-export default (props: any) => <RootPage {...props} />;
+export { default as default } from './[locale]/page';
