@@ -12,7 +12,7 @@ const I18nContext = createContext<CreateI18nResult>({
   data: {},
 });
 
-export const useI18n = () => useContext(I18nContext);
+const useI18n = () => useContext(I18nContext);
 
 export type I18nProviderProps = {
   params: CreateI18nResult['params'];
