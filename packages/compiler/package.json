@@ -22,7 +22,7 @@
     "@babel/core": "^7.24.4",
     "@babel/generator": "^7.24.4",
     "@babel/parser": "^7.24.4",
-    "@babel/types": "^7.24.0",
+    "@babel/types": "^7.24.6",
     "@replexica/spec": "workspace:*",
     "ignore-walk": "^6.0.4",
     "lodash": "^4.17.21",
