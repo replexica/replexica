@@ -1,61 +1,66 @@
 'use server';
 
+import { GetStaticPropsContext } from "next";
 import { loadLocale } from "./utils";
-import { createBaseI18n, CreateBaseI18nConfig } from '../shared'
 
-export type CreateI18nConfig = CreateBaseI18nConfig;
+export type I18nFactoryParams<C> = {
+  resolver: (ctx: C) => Promise<string | null>;
+  locales: Record<string, () => Promise<any>>,
+};
 
-export function createI18n<S, T>(
-  config: CreateI18nConfig,
-  localeLoaders: Record<string, () => Promise<{ default: any }>>
-) {
-  const baseI18n = createBaseI18n(config);
+export const localeResolvers = {
+  cookie: async function (ctx: void) {
+    const locale = await loadLocale();
+    return locale;
+  },
+  staticProps: async function (ctx: GetStaticPropsContext) {
+    const locale = ctx.locale || null;
+    return locale;
+  },
+};
 
-  let currentLocale: typeof config.locale.source;
-  let currentData: any;
+export function createI18nLoader<C = string>(params: I18nFactoryParams<C>) {
+  return async function load(ctx: C) {
+    const supportedLocales = Object.keys(params.locales);
+    const defaultLocale = supportedLocales[0]!;
+    const currentLocale = await params.resolver(ctx) || defaultLocale;
+    const data = await params.locales[currentLocale]?.()
+      .then((mod) => mod.default) || {};
 
-  return {
-    ...baseI18n,
-    params: {
-      ...baseI18n.params,
-      get currentLocale() {
-        if (!currentLocale) {
-          throw createNotInitializedError();
-        }
-        return currentLocale;
-      },
-    },
-    async loadLocale(locale: string) {
-      if (!localeLoaders[locale]) {
-        throw new Error(`Could not find loader for locale "${locale}"`);
-      }
-
-      currentLocale = locale;
-      const dataModule = await localeLoaders[locale]();
-      currentData = dataModule.default;
-
-      return currentData;
-    },
-    async init() {
-      currentLocale = await loadLocale() || baseI18n.params.defaultLocale;
-
-      const localeDataLoader = localeLoaders[currentLocale];
-      if (!localeDataLoader) {
-        throw new Error(`Could not find loader for locale "${currentLocale}"`);
-      }
-
-      const dataModule = await localeDataLoader();
-      currentData = dataModule.default;
-    },
-    get data() {
-      if (!currentData) {
-        throw createNotInitializedError();
-      }
-      return currentData;
-    },
-  };
+    return {
+      supportedLocales,
+      defaultLocale,
+      currentLocale,
+      data,
+    };
+  }
 }
 
-function createNotInitializedError() {
-  return new Error(`I18n is not initialized. Did you forget to call "await i18n.init()"?`);
+export async function loadI18nFromStaticProps(
+  ctx: GetStaticPropsContext,
+  locales: I18nFactoryParams<GetStaticPropsContext>['locales'],
+) {
+  return createI18nLoader({
+    resolver: localeResolvers.staticProps,
+    locales,
+  })(ctx);
+}
+
+export async function loadI18nFromCookie(
+  locales: I18nFactoryParams<void>['locales'],
+) {
+  return createI18nLoader({
+    resolver: localeResolvers.cookie,
+    locales,
+  })();
+}
+
+export async function loadI18nFromString(
+  locale: string,
+  locales: I18nFactoryParams<string>['locales'],
+) {
+  return createI18nLoader({
+    resolver: async (str) => str,
+    locales,
+  })(locale);
 }

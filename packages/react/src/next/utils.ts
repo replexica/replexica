@@ -4,7 +4,7 @@ import Cookie from 'cookie';
 import Negotiator from 'negotiator';
 import { cookies } from 'next/headers';
 
-const LOCALE_COOKIE = 'replexica-locale';
+const LOCALE_COOKIE = 'locale';
 
 export function createLocaleExtractor(req: Request, supportedLocales: string[]) {
   return {

@@ -9,7 +9,6 @@ const localeSchema = Z.object({
 
 export const configFileSchema = Z.object({
   version: Z.literal(1),
-  debug: Z.boolean().default(false).optional(),
   locale: localeSchema,
   buckets: Z.record(Z.string(), bucketTypeSchema).default({}).optional(),
 });

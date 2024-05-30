@@ -92,14 +92,14 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
         // import i18n from '@/i18n';
         let localeDataLoaderImportName = getDefaultImportName(programNode, '@/i18n');
         if (!localeDataLoaderImportName) {
-          localeDataLoaderImportName = injectDefaultImport(programNode, '@/i18n', 'i18n');
+          localeDataLoaderImportName = injectDefaultImport(programNode, '@/i18n', 'loadI18n');
         }
 
         // add the following props to the injected element:
         // loadLocaleData={localeDataLoaderImportName.loadData}
         injectedElement.attributes.push(
           t.jsxAttribute(
-            t.jsxIdentifier('i18n'),
+            t.jsxIdentifier('loadI18n'),
             t.jsxExpressionContainer(
               t.identifier(localeDataLoaderImportName),
             ),
