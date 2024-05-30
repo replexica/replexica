@@ -3,21 +3,39 @@ import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 import { basePlugin, shouldTransformFile, transformFile } from './base';
-import { configFileSchema, defaultConfig } from '@replexica/spec';
+import { configFileSchema } from '@replexica/spec';
+import { ReplexicaConfig } from '../options';
 
-export function nextPlugin(partialReplexicaConfig?: Partial<typeof configFileSchema._type>) {
-  const replexicaFileConfig = loadReplexicaFileConfig();
-  const finalReplexicaConfig = _.merge(
+export type ReplexicaNextCompilerConfig = {
+  rsc?: boolean;
+  debug?: boolean;
+};
+
+const defaultNextCompilerConfig: ReplexicaNextCompilerConfig = {
+  rsc: true,
+  debug: false,
+};
+
+export function nextPlugin(partialNextCompilerConfig = defaultNextCompilerConfig) {
+  const i18nConfig = loadI18nConfig();
+  const compilerConfig = _.merge(
     {},
-    defaultConfig,
-    replexicaFileConfig,
-    partialReplexicaConfig,
+    defaultNextCompilerConfig,
+    partialNextCompilerConfig,
   );
   return (nextConfig: any) => {
     return {
       ...nextConfig,
       webpack(config: any, ctx: any) {
-        const plugin = basePlugin.webpack(finalReplexicaConfig);
+        const replexicaConfig: ReplexicaConfig = {
+          rsc: !!compilerConfig.rsc,
+          debug: !!compilerConfig.debug,
+          locale: {
+            source: i18nConfig.locale.source,
+            targets: i18nConfig.locale.targets,
+          },
+        };
+        const plugin = basePlugin.webpack(replexicaConfig);
         config.plugins.unshift(plugin);
   
         const files = walk.sync({
@@ -29,7 +47,7 @@ export function nextPlugin(partialReplexicaConfig?: Partial<typeof configFileSch
   
         for (const file of files) {
           const code = fs.readFileSync(file, 'utf-8');
-          transformFile(code, file, finalReplexicaConfig);
+          transformFile(code, file, replexicaConfig);
         }
   
         if (typeof nextConfig.webpack === 'function') {
@@ -42,12 +60,13 @@ export function nextPlugin(partialReplexicaConfig?: Partial<typeof configFileSch
   }
 }
 
-function loadReplexicaFileConfig(): any {
+function loadI18nConfig() {
   const replexicaConfigPath = path.resolve(process.cwd(), 'i18n.json');
   const fileExists = fs.existsSync(replexicaConfigPath);
-  if (!fileExists) { return undefined; }
+  if (!fileExists) { throw new Error('i18n.json file not found'); }
 
   const fileContent = fs.readFileSync(replexicaConfigPath, 'utf-8');
   const replexicaFileConfig = JSON.parse(fileContent);
-  return replexicaFileConfig;
+
+  return configFileSchema.parse(replexicaFileConfig);
 }

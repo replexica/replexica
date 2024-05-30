@@ -1,4 +1,4 @@
-import i18n from '@/i18n';
 import { createI18nMiddleware } from '@replexica/react/next';
+import i18nConfig from './../i18n.json';
 
-export default createI18nMiddleware(i18n)();
+export default createI18nMiddleware(i18nConfig as any)();

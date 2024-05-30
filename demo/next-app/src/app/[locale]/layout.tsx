@@ -1,19 +1,18 @@
 import { Inter } from "next/font/google";
-import i18n from '@/i18n';
-
 import { I18nProvider } from '@replexica/react/client';
+import loadI18n from '@/i18n';
 
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  await i18n.init();
+export default async function RootLayout(props: any) {
+  const i18n = await loadI18n();
 
   return (
-    <I18nProvider params={i18n.params} data={i18n.data}>
-      <html lang={i18n.params.currentLocale}>
-        <body className={inter.className}>{children}</body>
+    <I18nProvider i18n={i18n}>
+      <html lang={i18n.currentLocale}>
+        <body className={inter.className}>{props.children}</body>
       </html>
     </I18nProvider>
   );

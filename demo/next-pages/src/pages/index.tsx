@@ -1,16 +1,11 @@
 'use client';
 
 import { GetStaticPropsContext } from 'next';
-import i18n from '../../i18n.mjs';
+import loadI18n from '@/i18n';
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  return {
-    props: {
-      i18n: {
-        data: await i18n.loadLocale(context.locale! === '$' ? 'en' : context.locale!),
-      },
-    }
-  };
+  const i18n = await loadI18n(context);
+  return { props: { i18n } };
 }
 
 export default function Home() {
