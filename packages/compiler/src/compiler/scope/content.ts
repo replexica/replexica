@@ -89,6 +89,8 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
         // 1. use loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') }) to pass into the component props
         // 2. find and replace loadI18nFromCookie() with loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') })
         // 3. find and replace loadI18nFromParam() with loadI18nFromParam({ en: () => import ('./src/i18n/en.json') })
+        // 4. Enable Attribute scopes and Skip scopes
+        // 5. Move everything into the replexica package
 
         // make sure the following import is available in the file:
         // import i18n from '@/i18n';
