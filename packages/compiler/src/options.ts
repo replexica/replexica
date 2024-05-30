@@ -2,6 +2,7 @@ import Z from 'zod';
 import { sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
 
 const optionsSchema = Z.object({
+  bucketPath: Z.string(),
   locale: Z.object({
     source: sourceLocaleSchema,
     targets: Z.array(targetLocaleSchema),

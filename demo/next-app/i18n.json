@@ -1,5 +1,4 @@
 {
-  "version": 1,
   "locale": {
     "source": "en",
     "targets": [
@@ -7,6 +6,7 @@
     ]
   },
   "buckets": {
-    "": "replexica"
+    "src/i18n": "i18n",
+    "docs/[locale]/*.md": "markdown"
   }
 }

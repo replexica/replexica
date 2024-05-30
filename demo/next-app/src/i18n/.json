@@ -1,0 +1,49 @@
+{
+  "settings": {
+    "locale": {
+      "source": "en",
+      "targets": [
+        "es"
+      ]
+    }
+  },
+  "meta": {
+    "files": {
+      "9c7f9d879699": {
+        "isClient": false
+      },
+      "82726b21145b": {
+        "isClient": false
+      },
+      "36acca4d4279": {
+        "isClient": true
+      },
+      "0ab0dddbe287": {
+        "isClient": false
+      },
+      "1e449ab7d570": {
+        "isClient": false
+      }
+    },
+    "scopes": {
+      "81c37e7e1abb": {
+        "hints": [
+          {
+            "type": "element",
+            "name": "p",
+            "hint": null
+          }
+        ]
+      },
+      "48818123f035": {
+        "hints": [
+          {
+            "type": "element",
+            "name": "span",
+            "hint": null
+          }
+        ]
+      }
+    }
+  }
+}

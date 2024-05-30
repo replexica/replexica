@@ -7,9 +7,6 @@ import { generateScopeId } from '../../utils/id';
 import { ReplexicaScopeData, ReplexicaScopeHint } from '../types';
 import { ReplexicaBaseScope } from './base';
 
-// TODO: @/i18n should be a relative import, in case
-// @ isn't mapped to the project root
-
 export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplexicaScope {
   public static fromNode(path: NodePath<t.Node>): IReplexicaScope[] {
     if (!path.isJSXElement() && !path.isJSXFragment()) { return []; }
@@ -88,6 +85,11 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
       );
 
       if (isServer) {
+        // TODO: instead of the below code, we should be able to do the following:
+        // 1. use loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') }) to pass into the component props
+        // 2. find and replace loadI18nFromCookie() with loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') })
+        // 3. find and replace loadI18nFromParam() with loadI18nFromParam({ en: () => import ('./src/i18n/en.json') })
+
         // make sure the following import is available in the file:
         // import i18n from '@/i18n';
         let localeDataLoaderImportName = getDefaultImportName(programNode, '@/i18n');

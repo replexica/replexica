@@ -27,7 +27,16 @@ export function nextPlugin(partialNextCompilerConfig = defaultNextCompilerConfig
     return {
       ...nextConfig,
       webpack(config: any, ctx: any) {
+        const compilerBucketPath = Object.entries(i18nConfig.buckets || {})
+          .filter(([_, value]) => value === 'i18n')
+          ?.map(([key]) => key)
+          ?.[0];
+
+        // If there's not compiler's bucket path, we don't need to do anything
+        if (!compilerBucketPath) { return config; }
+
         const replexicaConfig: ReplexicaConfig = {
+          bucketPath: compilerBucketPath,
           rsc: !!compilerConfig.rsc,
           debug: !!compilerConfig.debug,
           locale: {

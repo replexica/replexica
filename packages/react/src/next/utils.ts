@@ -55,7 +55,7 @@ export function parseLocaleCookie(cookieHeader: string) {
   return cookie[LOCALE_COOKIE] || null;
 }
 
-export const loadLocale = async () => {
+export const loadLocaleFromCookie = async () => {
   const cookieMgr = cookies();
   const localeCookieValue = parseLocaleCookie(cookieMgr.toString());
   return localeCookieValue || null;
