@@ -1,10 +1,10 @@
 'use client';
 
 import { GetStaticPropsContext } from 'next';
-import loadI18n from '@/i18n';
+import { loadI18nFromParam } from '@replexica/react/next';
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const i18n = await loadI18n(context);
+  const i18n = await loadI18nFromParam(context.locale);
   return { props: { i18n } };
 }
 

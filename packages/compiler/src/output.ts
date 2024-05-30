@@ -13,13 +13,16 @@ export class ReplexicaOutputProcessor {
   private constructor(
     private readonly relativeFilePath: string,
     private readonly options: ReplexicaConfig,
-  ) { }
+  ) {
+    this._outDir = path.join(process.cwd(), options.bucketPath);
+    this._debugDir = path.join(this._outDir, '.debug/replexica');
+  }
 
-  private _outDir = path.join(process.cwd(), `node_modules/@replexica/translations`);
-  private _debugDir = path.join(process.cwd(), '.debug/replexica');
+  private _outDir: string;
+  private _debugDir: string;
 
   public saveBuildData(data: ReplexicaCompilerData) {
-    const filePath = path.join(this._outDir, '.replexica.json');
+    const filePath = path.join(this._outDir, '.json');
     const existingData: ReplexicaData = this._loadObject<ReplexicaData>(filePath) || this._createEmptyData();
     const newData: ReplexicaData = {
       ...existingData,
@@ -43,12 +46,12 @@ export class ReplexicaOutputProcessor {
   }
 
   public saveClientSourceLocaleData(data: ReplexicaCompilerData) {
-    const fileName = `${this.options.locale.source}.client.json`;
-    this._saveSourceLocaleData(
-      data,
-      fileName,
-      (fileData) => fileData.context.isClient,
-    );
+    // const fileName = `${this.options.locale.source}.client.json`;
+    // this._saveSourceLocaleData(
+    //   data,
+    //   fileName,
+    //   (fileData) => fileData.context.isClient,
+    // );
   }
 
   public saveStubLocaleData() {
@@ -58,10 +61,10 @@ export class ReplexicaOutputProcessor {
         fs.writeFileSync(fullLocaleDataFilePath, '{}', 'utf-8');
       }
 
-      const clientLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.client.json`);
-      if (!fs.existsSync(clientLocaleDataFilePath)) {
-        fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
-      }
+      // const clientLocaleDataFilePath = path.join(this._outDir, `${targetLocale}.client.json`);
+      // if (!fs.existsSync(clientLocaleDataFilePath)) {
+      //   fs.writeFileSync(clientLocaleDataFilePath, '{}', 'utf-8');
+      // }
     }
   }
 

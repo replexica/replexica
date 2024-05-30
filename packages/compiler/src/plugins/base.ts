@@ -19,8 +19,8 @@ export const transformFile = (code: string, absoluteFilePath: string, _options: 
       }
     
       compiler
-      .withScope(ReplexicaSkipScope)
-      .withScope(ReplexicaAttributeScope)
+      // .withScope(ReplexicaSkipScope)
+      // .withScope(ReplexicaAttributeScope)
       .withScope(ReplexicaContentScope)
       .injectIntl();
 
