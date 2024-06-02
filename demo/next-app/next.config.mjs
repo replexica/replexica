@@ -4,4 +4,4 @@ import replexica from '@replexica/compiler';
 const nextConfig = {
 };
 
-export default replexica.next({ rsc: true })(nextConfig);
+export default replexica.next({ rsc: true, debug: true })(nextConfig);

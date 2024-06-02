@@ -2,7 +2,6 @@
 
 import Cookie from 'cookie';
 import Negotiator from 'negotiator';
-import { cookies } from 'next/headers';
 
 const LOCALE_COOKIE = 'locale';
 
@@ -50,13 +49,14 @@ export function createLocaleCookieString(locale: string) {
   return `${LOCALE_COOKIE}=${locale}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${10 * 365 * 24 * 60 * 60};`;
 }
 
-export function parseLocaleCookie(cookieHeader: string) {
-  const cookie = Cookie.parse(cookieHeader);
+export function parseLocaleCookie(cookieHeader: string | undefined) {
+  const cookie = Cookie.parse(cookieHeader || '');
   return cookie[LOCALE_COOKIE] || null;
 }
 
 export const loadLocaleFromCookie = async () => {
-  const cookieMgr = cookies();
+  const cookiesModule = await import('next/headers').then((m) => m.cookies);
+  const cookieMgr = cookiesModule();
   const localeCookieValue = parseLocaleCookie(cookieMgr.toString());
   return localeCookieValue || null;
 }
