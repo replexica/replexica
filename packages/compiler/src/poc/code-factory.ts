@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import { generateCodeFromBabelAst, parseCodeIntoBabelAst } from '../utils/babel';
-import { CodeImporter } from './code-importer';
-import { ICodeWorker, CodeWorkerParams, CodeWorkerContext } from './code-worker/base';
+import { CodeImporter } from './services/importer';
+import { ICodeWorker, CodeWorkerParams, CodeWorkerContext } from './workers/base';
 
 export class CodeFactory {
   private _workers: Set<ICodeWorker> = new Set();
