@@ -3,53 +3,59 @@ import { ReplexicaAttributeScope, ReplexicaCompiler, ReplexicaContentScope, Repl
 import { ReplexicaOutputProcessor } from "./../output";
 import path from 'path';
 import { ReplexicaConfig, parseOptions } from "../options";
+import { runPocCompiler } from "../poc";
 
 export const shouldTransformFile = (absoluteFilePath: string) => /\.(t|j)sx$/.test(absoluteFilePath); // jsx, tsx
 
 export const transformFile = (code: string, absoluteFilePath: string, _options: Partial<ReplexicaConfig>) => {
   const options = parseOptions(_options);
-  try {
-    const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
 
-    const compiler = ReplexicaCompiler.fromCode(code, relativeFilePath, options.rsc);
-    const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
+  return runPocCompiler(code, {
+    filePath: absoluteFilePath,
+    supportedLocales: [...new Set([options.locale.source, ...options.locale.targets])],
+  });
+  // try {
+  //   const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
 
-    if (options.debug) {
-      outputProcessor.saveAst(compiler.ast, 'pre');
-    }
+  //   const compiler = ReplexicaCompiler.fromCode(code, relativeFilePath, options.rsc);
+  //   const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
 
-    const supportedLocales = [...new Set([options.locale.source, ...options.locale.targets])];
-    compiler
-      // .withScope(ReplexicaSkipScope)
-      // .withScope(ReplexicaAttributeScope)
-      .withScope(ReplexicaContentScope)
-      .injectIntl(supportedLocales);
+  //   if (options.debug) {
+  //     outputProcessor.saveAst(compiler.ast, 'pre');
+  //   }
 
-    const result = compiler.generate();
+  //   const supportedLocales = [...new Set([options.locale.source, ...options.locale.targets])];
+  //   compiler
+  //     // .withScope(ReplexicaSkipScope)
+  //     // .withScope(ReplexicaAttributeScope)
+  //     .withScope(ReplexicaContentScope)
+  //     .injectIntl(supportedLocales);
 
-    outputProcessor.saveBuildData(compiler.data);
-    outputProcessor.saveFullSourceLocaleData(compiler.data);
-    outputProcessor.saveStubLocaleData();
+  //   const result = compiler.generate();
 
-    if (options.debug) {
-      outputProcessor.saveAst(compiler.ast, 'post');
-      outputProcessor.saveOutput(result.code);
-    }
+  //   outputProcessor.saveBuildData(compiler.data);
+  //   outputProcessor.saveFullSourceLocaleData(compiler.data);
+  //   outputProcessor.saveStubLocaleData();
 
-    return {
-      code: result.code,
-      map: result.map,
-    };
-  } catch (error: any) {
-    throw new ReplexicaError(error.message);
-  }
+  //   if (options.debug) {
+  //     outputProcessor.saveAst(compiler.ast, 'post');
+  //     outputProcessor.saveOutput(result.code);
+  //   }
+
+  //   return {
+  //     code: result.code,
+  //     map: result.map,
+  //   };
+  // } catch (error: any) {
+  //   throw new ReplexicaError(error.message);
+  // }
 };
 
 export const basePlugin = createUnplugin<Partial<ReplexicaConfig>>((_options) => ({
   name: '@replexica/compiler',
   enforce: 'pre',
   transformInclude(id) {
-    const result = shouldTransformFile(id);
+    const result = shouldTransformFile(id) && id.endsWith('welcome.tsx');
     return result;
   },
   transform(code, absoluteFilePath) {
