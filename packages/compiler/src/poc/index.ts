@@ -1,8 +1,13 @@
-import { CodeWorkerParams, CodeWorker } from './workers/base';
-import { I18nLoader } from './workers/i18n-loader';
+import { CodeWorkerParams, createContext } from "./worker/base";
+import worker from './worker';
+import { generateAstFromCode, generateCodeFromAst } from "../utils/babel";
 
-export const runPocCompiler = (code: string, params: CodeWorkerParams) =>
-  CodeWorker
-    .fromCode(code, params)
-    .register(I18nLoader)
-    .generate();
+export const runPocCompiler = (code: string, params: CodeWorkerParams) => {
+  const ast = generateAstFromCode(code);
+  const ctx = createContext({ ast, code }, params);
+
+  worker(ast, ctx);
+
+  const result = generateCodeFromAst(ast, code);
+  return result;
+};

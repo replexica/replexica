@@ -1,6 +1,6 @@
 import * as t from "@babel/types";
 import { traverse } from '@babel/core';
-import { generateCodeFromBabelAst, parseCodeIntoBabelAst } from "../utils/babel";
+import { generateCodeFromAst, generateAstFromCode } from "../utils/babel";
 import { generateFileId } from "../utils/id";
 import { GeneratorResult } from "@babel/generator";
 import { hasDirective } from "../utils/ast";
@@ -9,7 +9,7 @@ import { ReplexicaScopeExtractor } from "./scope";
 
 export class ReplexicaCompiler {
   public static fromCode(code: string, relativeFilePath: string, rsc: boolean) {
-    const ast = parseCodeIntoBabelAst(code);
+    const ast = generateAstFromCode(code);
     const isServer = !rsc ? false : !hasDirective(ast, 'use client');
 
     return new ReplexicaCompiler(relativeFilePath, code, ast, isServer);
@@ -73,6 +73,6 @@ export class ReplexicaCompiler {
   }
 
   public generate(): GeneratorResult {
-    return generateCodeFromBabelAst(this.code, this.ast);
+    return generateCodeFromAst(this.ast, this.code);
   }
 }
