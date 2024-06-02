@@ -1,10 +1,10 @@
 import { NodePath } from '@babel/core';
 import * as t from '@babel/types';
-import { CodeWorker, CodeWorkerContext } from './base';
+import { CodeWorker } from './base';
 
 export class I18nLoader extends CodeWorker<t.MemberExpression> {
-  public shouldRun(nodePath: NodePath<t.Node>, ctx: CodeWorkerContext) {
-    const i18nImport = ctx.importer.upsertNamedImport('@replexica/react/next', 'I18n');
+  public shouldRun(nodePath: NodePath<t.Node>) {
+    const i18nImport = this.ctx.importer.upsertNamedImport('@replexica/react/next', 'I18n');
 
     return t.isMemberExpression(nodePath.node)
       && t.isIdentifier(nodePath.node.object)
@@ -13,8 +13,8 @@ export class I18nLoader extends CodeWorker<t.MemberExpression> {
       && nodePath.node.property.name === 'fromRscContext';
   }
 
-  public async run(path: NodePath<t.MemberExpression>, ctx: CodeWorkerContext) {
-    const i18nImport = ctx.importer.upsertNamedImport('@replexica/react/next', 'I18n');
+  public async process(path: NodePath<t.MemberExpression>) {
+    const i18nImport = this.ctx.importer.upsertNamedImport('@replexica/react/next', 'I18n');
 
     path.replaceWith(
       t.callExpression(
@@ -26,7 +26,7 @@ export class I18nLoader extends CodeWorker<t.MemberExpression> {
             ),
             [
               t.objectExpression(
-                ctx.params.supportedLocales.map((locale) => {
+                this.ctx.params.supportedLocales.map((locale) => {
                   return t.objectProperty(
                     t.identifier(locale),
                     t.arrowFunctionExpression(
@@ -46,5 +46,7 @@ export class I18nLoader extends CodeWorker<t.MemberExpression> {
         [],
       ),
     );
+
+    return super.process(path);
   }
 }

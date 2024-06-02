@@ -12,32 +12,43 @@ export type CodeWorkerContext = {
   params: CodeWorkerParams;
 };
 
-export class CodeWorker<T extends t.Node = t.Node> {
-  protected _workers: Set<CodeWorker>;
+export abstract class CodeWorker<T extends t.Node = t.Node> {
+  private workers: CodeWorker<t.Node>[] = [];
 
-  protected constructor(
-    ...workers: CodeWorker[]
-  ) {
-    this._workers = new Set(workers);
-  }
+  public constructor(
+    protected ctx: CodeWorkerContext,
+  ) { }
 
-  public shouldRun(nodePath: NodePath<t.Node>, ctx: CodeWorkerContext) {
+  public register(workerFactory: new (ctx: CodeWorkerContext) => CodeWorker<T>) {
+    const worker = new workerFactory(this.ctx);
+    this.workers.push(worker);
+    return this;
+  };
+
+  protected shouldRun(nodePath: NodePath<t.Node>) {
     return true;
   }
 
-  public run(path: NodePath<T>, ctx: CodeWorkerContext) {
+  protected shouldSkipChildren(nodePath: NodePath<t.Node>) {
+    return true;
+  }
+
+  protected process(rootPath: NodePath<T>): void {
     const self = this;
-    path.traverse({
+    rootPath.traverse({
       enter(path) {
-        self._workers.forEach((worker) => {
-          const shouldRun = worker.shouldRun(path, ctx);
+        self.workers.forEach((worker) => {
+          const shouldRun = worker.shouldRun(path);
           if (shouldRun) {
-            worker.run(path, ctx);
+            worker.process(path);
+          }
+
+          const shouldSkipChildren = worker.shouldSkipChildren(path);
+          if (shouldSkipChildren) {
+            path.skip();
           }
         });
       },
     });
   }
 }
-
-

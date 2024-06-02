@@ -1,29 +1,38 @@
 import * as t from '@babel/types';
 import { CodeImporter } from '../services/importer';
 import { generateCodeFromBabelAst, parseCodeIntoBabelAst, resolveNodePath } from '../../utils/babel';
-import { I18nLoader } from './i18n-loader';
 import { CodeWorker, CodeWorkerParams, CodeWorkerContext } from './base';
 
 export class RootWorker extends CodeWorker {
-  public static run(code: string, params: CodeWorkerParams) {
+  public static fromCode(code: string, params: CodeWorkerParams) {
     const ast = parseCodeIntoBabelAst(code);
-    const programPath = resolveNodePath(ast, (path) => t.isProgram(path.node));
+    return new RootWorker(code, ast, params);
+  }
+
+  private constructor(
+    private code: string,
+    private ast: t.File,
+    private params: CodeWorkerParams,
+  ) {
+    const ctx = createContext(ast, params);
+
+    super(ctx);
+  }
+
+  public run() {
+    const programPath = resolveNodePath(this.ast, (path) => t.isProgram(path.node));
     if (!programPath) { throw new Error('Program not found'); }
 
-    const ctx: CodeWorkerContext = {
-      importer: new CodeImporter(ast),
-      params,
-    };
+    this.process(programPath);
 
-    new RootWorker().run(programPath, ctx);
-
-    const result = generateCodeFromBabelAst(code, ast);
+    const result = generateCodeFromBabelAst(this.code, this.ast);
     return result;
   }
+}
 
-  private constructor() {
-    super(
-      new I18nLoader,
-    );
-  }
+function createContext(ast: t.File, params: CodeWorkerParams): CodeWorkerContext {
+  return {
+    importer: new CodeImporter(ast),
+    params,
+  };
 }
