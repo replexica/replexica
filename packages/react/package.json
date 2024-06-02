@@ -5,9 +5,7 @@
   "private": false,
   "main": "./build/index.js",
   "exports": {
-    ".": "./build/index.js",
-    "./client": "./build/client/index.js",
-    "./server": "./build/server/index.js",
+    ".": "./build/client/index.js",
     "./next": "./build/next/index.js"
   },
   "types": "build/index.d.ts",
