@@ -1,9 +1,8 @@
-import { CodeWorkerParams } from './workers/base';
+import { CodeWorkerParams, CodeWorker } from './workers/base';
 import { I18nLoader } from './workers/i18n-loader';
-import { RootWorker } from './workers/root';
 
 export const runPocCompiler = (code: string, params: CodeWorkerParams) =>
-  RootWorker
+  CodeWorker
     .fromCode(code, params)
     .register(I18nLoader)
-    .run();
+    .generate();

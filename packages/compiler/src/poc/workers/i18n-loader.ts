@@ -13,7 +13,7 @@ export class I18nLoader extends CodeWorker<t.MemberExpression> {
       && nodePath.node.property.name === 'fromRscContext';
   }
 
-  public async process(path: NodePath<t.MemberExpression>) {
+  public async run(path: NodePath<t.MemberExpression>) {
     const i18nImport = this.ctx.importer.upsertNamedImport('@replexica/react/next', 'I18n');
 
     path.replaceWith(
@@ -46,7 +46,5 @@ export class I18nLoader extends CodeWorker<t.MemberExpression> {
         [],
       ),
     );
-
-    return super.process(path);
   }
 }
