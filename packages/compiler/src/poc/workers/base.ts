@@ -1,4 +1,4 @@
-import { NodePath, traverse } from '@babel/core';
+import { NodePath } from '@babel/core';
 import * as t from '@babel/types';
 import { CodeImporter } from '../services/importer';
 
@@ -12,26 +12,32 @@ export type CodeWorkerContext = {
   params: CodeWorkerParams;
 };
 
-export interface ICodeWorker {
-  walk(ast: t.File, ctx: CodeWorkerContext): Promise<void>;
-}
+export class CodeWorker<T extends t.Node = t.Node> {
+  protected _workers: Set<CodeWorker>;
 
-export abstract class CodeWorker<T extends t.Node> implements ICodeWorker {
+  protected constructor(
+    ...workers: CodeWorker[]
+  ) {
+    this._workers = new Set(workers);
+  }
+
   public shouldRun(nodePath: NodePath<t.Node>, ctx: CodeWorkerContext) {
     return true;
   }
 
-  public async walk(ast: t.File, ctx: CodeWorkerContext) {
+  public run(path: NodePath<T>, ctx: CodeWorkerContext) {
     const self = this;
-    traverse(ast, {
+    path.traverse({
       enter(path) {
-        const shouldRun = self.shouldRun(path, ctx);
-        if (shouldRun) {
-          self.run(path as any, ctx);
-        }
+        self._workers.forEach((worker) => {
+          const shouldRun = worker.shouldRun(path, ctx);
+          if (shouldRun) {
+            worker.run(path, ctx);
+          }
+        });
       },
     });
   }
-
-  public abstract run(path: NodePath<T>, ctx: CodeWorkerContext): Promise<void>;
 }
+
+
