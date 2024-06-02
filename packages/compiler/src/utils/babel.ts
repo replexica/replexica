@@ -3,15 +3,15 @@ import { parse } from '@babel/parser';
 import generate from '@babel/generator';
 import { NodePath, traverse } from '@babel/core';
 
-export function parseCodeIntoBabelAst(code: string) {
+export function generateAstFromCode(code: string) {
   return parse(code, {
     sourceType: 'module',
     plugins: ['jsx', 'typescript'],
   });
 }
 
-export function generateCodeFromBabelAst(code: string, ast: t.File) {
-  return generate(ast, {}, code);
+export function generateCodeFromAst(ast: t.File, originalCode: string) {
+  return generate(ast, {}, originalCode);
 }
 
 export function resolveNodePath<T extends t.Node>(node: T, predicate: (path: NodePath<t.Node>) => boolean): NodePath<t.Node> | null {
