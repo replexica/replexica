@@ -86,11 +86,15 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
 
       if (isServer) {
         // TODO: instead of the below code, we should be able to do the following:
+        // 0. Decide if i18n files must be in project or seamlessly in node modules
         // 1. use loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') }) to pass into the component props
         // 2. find and replace loadI18nFromCookie() with loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') })
         // 3. find and replace loadI18nFromParam() with loadI18nFromParam({ en: () => import ('./src/i18n/en.json') })
         // 4. Enable Attribute scopes and Skip scopes
         // 5. Move everything into the replexica package
+        // 6. Perform i18n during the production build
+        // 7. Show i18n data missing screen during development
+        // 8. Provide a command to export hidden i18n data
 
         // make sure the following import is available in the file:
         // import i18n from '@/i18n';
