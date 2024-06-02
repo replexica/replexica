@@ -63,7 +63,7 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
     const programNode = this.path.findParent((p) => p.isProgram()) as NodePath<t.Program> | null;
     if (!programNode) { throw new Error(`Couldn't find file node`); }
 
-    const packageName = isServer ? '@replexica/react/next' : '@replexica/react/client';
+    const packageName = isServer ? '@replexica/react/next' : '@replexica/react';
     const localHelperName = 'I18nChunk';
 
     for (const chunk of this._chunks) {
@@ -92,21 +92,53 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
           localeDataLoaderImportName = injectImport(programNode, '@replexica/react/next', 'I18n');
         }
 
-        // Assign loadI18n prop to I18n.fromRscContext
+        // Assign loadI18n prop to () => I18n
+        //     .withLoaders({
+        //       [key in supportedLocales]: () => import(`@replexica/.cache/${key}.json`),
+        //     })
+        //     .fromRscContext();
+        const withLoadersCall = t.callExpression(
+          t.memberExpression(
+            t.identifier(localeDataLoaderImportName),
+            t.identifier('withLoaders'),
+          ),
+          [
+            t.objectExpression(
+              supportedLocales.map((locale) => {
+                return t.objectProperty(
+                  t.identifier(locale),
+                  t.arrowFunctionExpression(
+                    [],
+                    t.callExpression(
+                      t.identifier('import'),
+                      [t.stringLiteral(`@replexica/.cache/${locale}.json`)],
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ],
+        );
+
+        const fromRscContextCall = t.callExpression(
+          t.memberExpression(
+            withLoadersCall,
+            t.identifier('fromRscContext'),
+          ),
+          [],
+        );
+
         injectedElement.attributes.push(
           t.jsxAttribute(
             t.jsxIdentifier('loadI18n'),
-            t.jsxExpressionContainer(
-              t.memberExpression(
-                t.identifier(localeDataLoaderImportName),
-                t.identifier('fromRscContext'),
+            t.jSXExpressionContainer(
+              t.arrowFunctionExpression(
+                [],
+                fromRscContextCall,
               ),
             ),
           ),
         );
-
-        // 1. Check if I18n.init() call exists in the file
-        // 2. If not, inject it
       }
 
       chunk.path.replaceWith(
