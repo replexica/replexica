@@ -4,9 +4,5 @@
     "targets": [
       "es"
     ]
-  },
-  "buckets": {
-    "src/i18n": "i18n",
-    "docs/[locale]/*.md": "markdown"
   }
 }

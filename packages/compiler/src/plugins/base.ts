@@ -28,7 +28,6 @@ export const transformFile = (code: string, absoluteFilePath: string, _options: 
 
     outputProcessor.saveBuildData(compiler.data);
     outputProcessor.saveFullSourceLocaleData(compiler.data);
-    outputProcessor.saveClientSourceLocaleData(compiler.data);
     outputProcessor.saveStubLocaleData();
 
     if (options.debug) {
