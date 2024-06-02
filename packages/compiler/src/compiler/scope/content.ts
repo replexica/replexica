@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
 import { IReplexicaScope } from "./types";
-import { findImmediateJsxParent, getDefaultImportName, getImportName, hasJsxTextChildren, injectDefaultImport, injectImport } from './../../utils/ast';
+import { findImmediateJsxParent, getImportName, hasJsxTextChildren, injectImport } from './../../utils/ast';
 import { ReplexicaChunk } from './chunk';
 import { generateScopeId } from '../../utils/id';
 import { ReplexicaScopeData, ReplexicaScopeHint } from '../types';
@@ -57,7 +57,7 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
     return this._id;
   }
 
-  public injectIntl(fileId: string, isServer: boolean): ReplexicaScopeData {
+  public injectIntl(fileId: string, isServer: boolean, supportedLocales: string[]): ReplexicaScopeData {
     const result: ReplexicaScopeData = {};
 
     const programNode = this.path.findParent((p) => p.isProgram()) as NodePath<t.Program> | null;
@@ -85,34 +85,28 @@ export class ReplexicaContentScope extends ReplexicaBaseScope implements IReplex
       );
 
       if (isServer) {
-        // TODO: instead of the below code, we should be able to do the following:
-        // 0. Decide if i18n files must be in project or seamlessly in node modules
-        // 1. use loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') }) to pass into the component props
-        // 2. find and replace loadI18nFromCookie() with loadI18nFromCookie({ en: () => import ('./src/i18n/en.json') })
-        // 3. find and replace loadI18nFromParam() with loadI18nFromParam({ en: () => import ('./src/i18n/en.json') })
-        // 4. Enable Attribute scopes and Skip scopes
-        // 5. Move everything into the replexica package
-        // 6. Perform i18n during the production build
-        // 7. Show i18n data missing screen during development
-        // 8. Provide a command to export hidden i18n data
-
         // make sure the following import is available in the file:
-        // import i18n from '@/i18n';
-        let localeDataLoaderImportName = getDefaultImportName(programNode, '@/i18n');
+        // import { loadI18n } from "@replexica/react/next";
+        let localeDataLoaderImportName = getImportName(programNode, '@replexica/react/next', 'I18n');
         if (!localeDataLoaderImportName) {
-          localeDataLoaderImportName = injectDefaultImport(programNode, '@/i18n', 'loadI18n');
+          localeDataLoaderImportName = injectImport(programNode, '@replexica/react/next', 'I18n');
         }
 
-        // add the following props to the injected element:
-        // loadLocaleData={localeDataLoaderImportName.loadData}
+        // Assign loadI18n prop to I18n.fromRscContext
         injectedElement.attributes.push(
           t.jsxAttribute(
             t.jsxIdentifier('loadI18n'),
             t.jsxExpressionContainer(
-              t.identifier(localeDataLoaderImportName),
+              t.memberExpression(
+                t.identifier(localeDataLoaderImportName),
+                t.identifier('fromRscContext'),
+              ),
             ),
-          )
+          ),
         );
+
+        // 1. Check if I18n.init() call exists in the file
+        // 2. If not, inject it
       }
 
       chunk.path.replaceWith(

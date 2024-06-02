@@ -34,7 +34,7 @@ export class ReplexicaCompiler {
     return this;
   }
 
-  public injectIntl(): this {
+  public injectIntl(supportedLocales: string[]): this {
     const _compiler = this;
     traverse(this.ast, {
       enter(path) {
@@ -43,7 +43,11 @@ export class ReplexicaCompiler {
             const scopes = extractor.fromNode(path);
             for (const scope of scopes) {
               const hints = scope.extractHints();
-              const data = scope.injectIntl(_compiler.fileId, _compiler.isServer);
+              const data = scope.injectIntl(
+                _compiler.fileId, 
+                _compiler.isServer,
+                supportedLocales,
+              );
               _compiler._data[scope.id] = { hints, data };
             }
           }

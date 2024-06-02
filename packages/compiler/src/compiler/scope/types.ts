@@ -4,7 +4,7 @@ import { ReplexicaScopeData, ReplexicaScopeHint } from '../types';
 
 export interface IReplexicaScope {
   get id(): string;
-  injectIntl(fileId: string, isServer: boolean): ReplexicaScopeData;
+  injectIntl(fileId: string, isServer: boolean, supportedLocales: string[]): ReplexicaScopeData;
   extractHints(): ReplexicaScopeHint[];
 }
 

@@ -1,23 +1,27 @@
 'use server';
 
-import { loadLocaleFromCookie } from "./utils";
+import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
 import { I18nInstance } from "../shared";
+import { loadLocaleFromCookie, parseLocaleCookie } from "./utils";
 
-export type I18nFactoryParams<C> = {
-  resolver: (ctx: C) => Promise<string | null>;
-  locales: Record<string, () => Promise<any>>,
-};
+class I18n {
+  public static create() {
+    return new I18n();
+  }
 
-function createI18nLoader<C>(params: I18nFactoryParams<C>) {
-  return async function load(ctx: C): Promise<I18nInstance> {
-    const supportedLocales = Object.keys(params.locales);
+  private constructor(
+    private _locales: Record<string, () => Promise<any>> = {},
+  ) {}
+
+  private async _load<C>(locale: string | undefined | null): Promise<I18nInstance> {
+    const supportedLocales = Object.keys(this._locales);
     if (supportedLocales.length === 0) {
       throw new Error('No locale dictionaries provided.');
     }
 
     const defaultLocale = supportedLocales[0];
-    const currentLocale = await params.resolver(ctx) || defaultLocale;
-    const data = await params.locales[currentLocale]?.()
+    const currentLocale = locale || defaultLocale;
+    const data = await this._locales[currentLocale]?.()
       .then((mod) => mod.default) || {};
 
     return {
@@ -27,29 +31,41 @@ function createI18nLoader<C>(params: I18nFactoryParams<C>) {
       data,
     };
   }
+
+  public setLoaders(locales: Record<string, () => Promise<any>>) {
+    this._locales = locales;
+    return this;
+  }
+
+  public withLoaders(locales: Record<string, () => Promise<any>>) {
+    return new I18n(locales);
+  }
+
+  public async fromRscContext() {
+    const locale = await loadLocaleFromCookie();
+    const i18n = await this._load(locale);
+    return i18n;
+  }
+
+  public async fromRouteProps(props: { params: { locale: string } }) {
+    const i18n = await this._load(props.params.locale);
+    return i18n;
+  }
+
+  public async fromStaticContext(ctx: GetStaticPropsContext) {
+    const i18n = await this._load(ctx.locale);
+    return i18n;
+  }
+
+  public async fromServerSideContext(ctx: GetServerSidePropsContext) {
+    const locale = parseLocaleCookie(ctx.req.headers.cookie);
+    const i18n = await this._load(locale);
+    return i18n;
+  }
 }
 
-export async function loadI18nFromParam(
-  locale: string | undefined,
-  locales: Record<string, () => Promise<any>> = {},
-) {
-  const loader = createI18nLoader({
-    resolver: async (ctx: string | null) => ctx,
-    locales,
-  });
+const i18nInstance = I18n.create();
 
-  const i18n = await loader(locale || null);
-  return i18n;
-}
-
-export async function loadI18nFromCookie(
-  locales: Record<string, () => Promise<any>> = {},
-) {
-  const loader = createI18nLoader<void>({
-    resolver: () => loadLocaleFromCookie(),
-    locales,
-  });
-
-  const i18n = await loader();
-  return i18n;
-}
+export {
+  i18nInstance as I18n,
+};

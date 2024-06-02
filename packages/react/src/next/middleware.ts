@@ -44,17 +44,6 @@ export const createI18nMiddleware = (i18nConfig: typeof configFileSchema._type, 
       const needsCookieSetting = savedLocale !== finalLocale;
       const needsUrlUpdate = req.url !== correctUrl.toString();
 
-      console.log({
-        potentialLocale,
-        savedLocale,
-        browserLocale,
-        finalLocale,
-        needsCookieSetting,
-        needsUrlUpdate,
-        originalUrl: req.url,
-        correctUrl: correctUrl.toString(),
-      });
-
       if (needsCookieSetting || needsUrlUpdate) {
         const cookieValue = createLocaleCookieString(finalLocale);
         return NextResponse.redirect(correctUrl.toString(), {

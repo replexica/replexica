@@ -11,18 +11,19 @@ export const transformFile = (code: string, absoluteFilePath: string, _options: 
   try {
     const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
 
-    const compiler = ReplexicaCompiler.fromCode(code, relativeFilePath, options.rsc);  
+    const compiler = ReplexicaCompiler.fromCode(code, relativeFilePath, options.rsc);
     const outputProcessor = ReplexicaOutputProcessor.create(relativeFilePath, options);
-    
-      if (options.debug) {
-        outputProcessor.saveAst(compiler.ast, 'pre');
-      }
-    
-      compiler
+
+    if (options.debug) {
+      outputProcessor.saveAst(compiler.ast, 'pre');
+    }
+
+    const supportedLocales = [...new Set([options.locale.source, ...options.locale.targets])];
+    compiler
       // .withScope(ReplexicaSkipScope)
       // .withScope(ReplexicaAttributeScope)
       .withScope(ReplexicaContentScope)
-      .injectIntl();
+      .injectIntl(supportedLocales);
 
     const result = compiler.generate();
 

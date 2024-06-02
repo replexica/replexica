@@ -15,7 +15,7 @@ export class ReplexicaOutputProcessor {
     private readonly options: ReplexicaConfig,
   ) {
     this._outDir = path.join(process.cwd(), 'node_modules', '@replexica/.cache');
-    this._debugDir = path.join(this._outDir, '.debug/replexica');
+    this._debugDir = path.join(process.cwd(), '.debug/replexica');
   }
 
   private _outDir: string;
