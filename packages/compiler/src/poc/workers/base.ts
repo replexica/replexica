@@ -1,6 +1,6 @@
 import { NodePath, traverse } from '@babel/core';
 import * as t from '@babel/types';
-import { CodeImporter } from '../code-importer';
+import { CodeImporter } from '../services/importer';
 
 export type CodeWorkerParams = {
   supportedLocales: string[];
