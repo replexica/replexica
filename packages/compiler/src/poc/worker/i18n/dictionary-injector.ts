@@ -1,23 +1,26 @@
 import * as t from '@babel/types';
 import { createWorker } from '../base';
+import { CodeImporter } from '../../services/importer';
 
 /**
  * Injects dictionary loaders into I18n loader calls.
  */
 export default createWorker({
-  shouldRun: ({ ctx, path }) => {
-    const i18nImport = ctx.importer.findNamedImport('@replexica/react/next', 'I18n');
+  shouldRun: ({ ctx, nodePath }) => {
+    const importer = new CodeImporter(ctx.ast);
+    const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
     if (!i18nImport) { return false; }
 
-    return t.isMemberExpression(path.node)
-      && t.isIdentifier(path.node.object)
-      && path.node.object.name === i18nImport.name
-      && t.isIdentifier(path.node.property)
-      && path.node.property.name === 'fromRscContext';
+    return t.isMemberExpression(nodePath.node)
+      && t.isIdentifier(nodePath.node.object)
+      && nodePath.node.object.name === i18nImport.name
+      && t.isIdentifier(nodePath.node.property)
+      && nodePath.node.property.name === 'fromRscContext';
   },
 
-  run: ({ ctx, path }) => {
-    const i18nImport = ctx.importer.findNamedImport('@replexica/react/next', 'I18n');
+  run: ({ ctx, nodePath: path }) => {
+    const importer = new CodeImporter(ctx.ast);
+    const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
     if (!i18nImport) {
       throw new Error('Failed to find I18n import');
     }
@@ -31,7 +34,7 @@ export default createWorker({
           ),
           [
             t.objectExpression(
-              ctx.params.supportedLocales.map((locale) => {
+              ctx.supportedLocales.map((locale) => {
                 return t.objectProperty(
                   t.identifier(locale),
                   t.arrowFunctionExpression(
