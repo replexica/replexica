@@ -1,13 +1,22 @@
-import { CodeWorkerParams, createContext } from "./worker/base";
 import worker from './worker';
 import { generateAstFromCode, generateCodeFromAst } from "../utils/babel";
+import { CodeWorkerContext } from './worker/base';
+import { traverse } from '@babel/core';
 
-export const runPocCompiler = (code: string, params: CodeWorkerParams) => {
-  const ast = generateAstFromCode(code);
-  const ctx = createContext({ ast, code }, params);
+export default (args: Omit<CodeWorkerContext, 'ast'>) => {
+  const ast = generateAstFromCode(args.code);
+  const ctx: CodeWorkerContext = { ...args, ast };
+  const transformAst = worker();
 
-  worker(ast, ctx);
+  traverse(ast, {
+    enter(nodePath) {
+      transformAst({ ctx, nodePath, phase: 'pre' });
+    },
+    exit(nodePath) {
+      transformAst({ ctx, nodePath, phase: 'post' });
+    },
+  });
 
-  const result = generateCodeFromAst(ast, code);
+  const result = generateCodeFromAst(ctx.ast, ctx.code);
   return result;
 };

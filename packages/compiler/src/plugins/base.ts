@@ -1,16 +1,14 @@
 import { createUnplugin } from "unplugin"
-import { ReplexicaAttributeScope, ReplexicaCompiler, ReplexicaContentScope, ReplexicaSkipScope } from "./../compiler";
-import { ReplexicaOutputProcessor } from "./../output";
-import path from 'path';
 import { ReplexicaConfig, parseOptions } from "../options";
-import { runPocCompiler } from "../poc";
+import poc from "../poc";
 
 export const shouldTransformFile = (absoluteFilePath: string) => /\.(t|j)sx$/.test(absoluteFilePath); // jsx, tsx
 
 export const transformFile = (code: string, absoluteFilePath: string, _options: Partial<ReplexicaConfig>) => {
   const options = parseOptions(_options);
 
-  return runPocCompiler(code, {
+  return poc({
+    code,
     filePath: absoluteFilePath,
     supportedLocales: [...new Set([options.locale.source, ...options.locale.targets])],
   });
