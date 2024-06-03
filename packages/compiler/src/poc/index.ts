@@ -11,7 +11,7 @@ export default (args: Omit<CodeWorkerContext, 'ast'>) => {
 
   traverse(ast, {
     enter(nodePath) {
-      transformAst({ ctx, nodePath, phase: 'pre' });
+      transformAst({ nodePath, ctx, phase: 'pre' });
     },
     exit(nodePath) {
       transformAst({ ctx, nodePath, phase: 'post' });

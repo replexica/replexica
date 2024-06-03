@@ -3,9 +3,8 @@ import debug from "./debug";
 import i18n from "./i18n";
 
 export default createWorker({
-  phase: true,
-  run: composeWorkers(
+  next: composeWorkers(
     debug(),
-    i18n(),
+    i18n()
   ),
 });

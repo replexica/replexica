@@ -12,5 +12,4 @@ const localizableAttributes: Record<string, string[]> = {
  * Extracts I18n fragments from JSXElements that have an attribute with a localizable value.
  */
 export default createWorker<t.JSXElement>({
-  phase: 'post',
 });
