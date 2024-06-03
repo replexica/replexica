@@ -7,7 +7,11 @@ export type CodeImporterItem = {
 };
 
 export class CodeImporter {
-  public constructor(
+  public static fromAst(ast: t.File): CodeImporter {
+    return new CodeImporter(ast);
+  }
+
+  private constructor(
     private readonly _ast: t.File,
   ) {}
 

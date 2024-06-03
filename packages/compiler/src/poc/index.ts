@@ -1,10 +1,11 @@
 import worker from './worker';
-import { generateAstFromCode, generateCodeFromAst } from "../utils/babel";
 import { CodeWorkerContext } from './worker/base';
 import { traverse } from '@babel/core';
+import { CodeConverter } from './services/converter';
 
 export default (args: Omit<CodeWorkerContext, 'ast'>) => {
-  const ast = generateAstFromCode(args.code);
+  const converter = CodeConverter.fromCode(args.code);
+  const { ast } = converter.generateAst();
   const ctx: CodeWorkerContext = { ...args, ast };
   const transformAst = worker();
 
@@ -17,6 +18,6 @@ export default (args: Omit<CodeWorkerContext, 'ast'>) => {
     },
   });
 
-  const result = generateCodeFromAst(ctx.ast, ctx.code);
+  const result = converter.generateUpdatedCode(ast);
   return result;
 };

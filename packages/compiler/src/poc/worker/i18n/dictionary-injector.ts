@@ -7,7 +7,7 @@ import { CodeImporter } from '../../services/importer';
  */
 export default createWorker({
   shouldRun: ({ ctx, nodePath }) => {
-    const importer = new CodeImporter(ctx.ast);
+    const importer = CodeImporter.fromAst(ctx.ast);
     const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
     if (!i18nImport) { return false; }
 
@@ -19,7 +19,7 @@ export default createWorker({
   },
 
   run: ({ ctx, nodePath: path }) => {
-    const importer = new CodeImporter(ctx.ast);
+    const importer = CodeImporter.fromAst(ctx.ast);
     const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
     if (!i18nImport) {
       throw new Error('Failed to find I18n import');
