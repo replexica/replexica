@@ -3,18 +3,23 @@ import { parse } from '@babel/parser';
 import generate from '@babel/generator';
 
 export class CodeConverter {
-  constructor(
+  public static fromCode(code: string) {
+    return new CodeConverter(code);
+  }
+
+  private constructor(
     private readonly originalCode: string,
   ) { }
 
-  public generateAstFromCode(code: string) {
-    return parse(code, {
+  public generateAst() {
+    const ast = parse(this.originalCode, {
       sourceType: 'module',
       plugins: ['jsx', 'typescript'],
     });
+    return { ast };
   }
 
-  public generateCodeFromAst(ast: t.File) {
+  public generateUpdatedCode(ast: t.File) {
     return generate(ast, {}, this.originalCode);
   }
 }
