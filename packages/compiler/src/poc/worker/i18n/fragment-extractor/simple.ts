@@ -6,7 +6,6 @@ import { FRAGMENT_LABEL_ATTRIBUTE } from './_types';
  * Extracts I18n fragments from JSX elements with a single non-empty JSXText child.
  */
 export default createWorker<t.JSXElement>({
-  phase: 'post',
   shouldRun: ({ nodePath }) => {
     const isJsxElem = t.isJSXElement(nodePath.node);
     if (!isJsxElem) { return false; }
@@ -18,7 +17,7 @@ export default createWorker<t.JSXElement>({
 
     return true;
   },
-  run: ({ nodePath }) => {
+  post: ({ nodePath }) => {
     nodePath.node.openingElement.attributes.push(
       t.jsxAttribute(
         t.jsxIdentifier(FRAGMENT_LABEL_ATTRIBUTE),

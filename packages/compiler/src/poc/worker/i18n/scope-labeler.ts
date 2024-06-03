@@ -23,7 +23,7 @@ export default createWorker<t.JSXElement>({
 
     return true;
   },
-  run: ({ nodePath }) => {
+  pre: ({ nodePath }) => {
     // add data-replexica-been-here attribute to the title element
     nodePath.node.openingElement.attributes.push(
       t.jsxAttribute(

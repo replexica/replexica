@@ -11,16 +11,21 @@ export type CodeWorkerContext = {
 
 export type CodeWorkerArgs<T extends t.Node> = {
   nodePath: NodePath<T>;
-  phase: 'pre' | 'post';
+  phase: CodeWorkerPhase;
   ctx: CodeWorkerContext;
 };
 
 export type CodeWorkerPhase = 'pre' | 'post';
 
+export type CodeWorkerHandler<T extends t.Node, C, R> = {
+  (args: CodeWorkerArgs<T>, config: C): R;
+}
+
 export type CodeWorkerDefinition<T extends t.Node, C> = {
-  phase?: 'pre' | 'post' | boolean;
-  shouldRun?: (args: CodeWorkerArgs<T>, config: C) => boolean;
-  run?: (args: CodeWorkerArgs<T>, config: C) => void;
+  shouldRun?: CodeWorkerHandler<T, C, boolean>;
+  pre?: CodeWorkerHandler<T, C, void>;
+  post?: CodeWorkerHandler<T, C, void>;
+  next?: CodeWorkerHandler<T, C, void>;
 };
 
 export type CodeWorker<T extends t.Node> = {
@@ -28,22 +33,27 @@ export type CodeWorker<T extends t.Node> = {
 };
 
 const defaultWorkerDef: CodeWorkerDefinition<t.Node, any> = {
-  phase: 'pre',
   shouldRun: () => true,
-  run: () => {},
+  pre: () => {},
+  post: () => {},
+  next: () => {},
 };
 
 export const createWorker = <T extends t.Node = t.Node, C = void>(_definition: CodeWorkerDefinition<T, C>) => {
   const definition = _.defaults(_definition, defaultWorkerDef);
   return (config: C): CodeWorker<T> =>
     (args: CodeWorkerArgs<T>) => {
-      const phaseMatches = definition.phase === args.phase || definition.phase === true;
-      if (!phaseMatches) { return; }
-
+      const phase = args.phase;
       const shouldRun = definition.shouldRun?.(args, config);
       if (!shouldRun) { return; }
 
-      definition.run?.(args, config);
+      if (phase === 'pre') {
+        definition.pre?.(args, config);
+      } else if (phase === 'post') {
+        definition.post?.(args, config);
+      }
+
+      definition.next?.(args, config);
     }
 };
 

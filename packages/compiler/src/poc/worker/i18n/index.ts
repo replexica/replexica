@@ -11,8 +11,7 @@ import scopeLabeler from "./scope-labeler";
 */
 
 export default createWorker({
-  phase: true,
-  run: composeWorkers(
+  next: composeWorkers(
     scopeLabeler(),
     fragmentExtractor(),
     dictionaryInjector(),

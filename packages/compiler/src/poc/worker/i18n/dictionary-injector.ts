@@ -6,7 +6,6 @@ import { CodeImporter } from '../../services/importer';
  * Injects dictionary loaders into I18n loader calls.
  */
 export default createWorker({
-  phase: 'post',
   shouldRun: ({ ctx, nodePath }) => {
     const importer = CodeImporter.fromAst(ctx.ast);
     const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
@@ -19,7 +18,7 @@ export default createWorker({
       && nodePath.node.property.name === 'fromRscContext';
   },
 
-  run: ({ ctx, nodePath: path }) => {
+  post: ({ ctx, nodePath: path }) => {
     const importer = CodeImporter.fromAst(ctx.ast);
     const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
     if (!i18nImport) {

@@ -7,8 +7,7 @@ import simple from './simple';
  * Labels I18n fragments.
  */
 export default createWorker({
-  phase: 'post',
-  run: composeWorkers(
+  next: composeWorkers(
     simple(),
     naked(),
     attribute(),
