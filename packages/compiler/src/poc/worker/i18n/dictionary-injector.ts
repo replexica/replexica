@@ -30,7 +30,7 @@ export default createWorker({
         t.callExpression(
           t.memberExpression(
             t.identifier(i18nImport.name),
-            t.identifier('setLoaders'),
+            t.identifier('withLoaders'),
           ),
           [
             t.objectExpression(

@@ -53,7 +53,7 @@ export const basePlugin = createUnplugin<Partial<ReplexicaConfig>>((_options) =>
   name: '@replexica/compiler',
   enforce: 'pre',
   transformInclude(id) {
-    const result = shouldTransformFile(id);
+    const result = shouldTransformFile(id) && id.endsWith('[locale]/layout.tsx');
     return result;
   },
   transform(code, absoluteFilePath) {
