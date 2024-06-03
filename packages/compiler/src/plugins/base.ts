@@ -6,12 +6,29 @@ export const shouldTransformFile = (absoluteFilePath: string) => /\.(t|j)sx$/.te
 
 export const transformFile = (code: string, absoluteFilePath: string, _options: Partial<ReplexicaConfig>) => {
   const options = parseOptions(_options);
+  const codeOverride = `
+  <>
+    <title>Next App Demo</title>
+    <meta name="description" content="Next.js App Router Demo" />
+    <div>
+      Introducing
+      <h1>Next.js App Router Demo</h1>
+      <p>With <b>i18n</b> support</p>
+    </div>
+  </>
+  `
 
-  return poc({
-    code,
+  const result = poc({
+    code: codeOverride,
     filePath: absoluteFilePath,
     supportedLocales: [...new Set([options.locale.source, ...options.locale.targets])],
   });
+
+  if (1 > 0.1) {
+    throw new Error('Stop.');
+  }
+
+  return result;
   // try {
   //   const relativeFilePath = path.relative(process.cwd(), absoluteFilePath);
 

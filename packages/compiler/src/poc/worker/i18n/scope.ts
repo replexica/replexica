@@ -3,7 +3,8 @@ import { createWorker } from "../base";
 import { NodePath } from '@babel/core';
 
 export default createWorker<t.JSXElement>({
-  shouldRun: ({ nodePath }) => {
+  name: 'scope',
+  runIf: ({ nodePath }) => {
     // - The node is a JSXElement
     const isJsxElem = t.isJSXElement(nodePath.node);
     if (!isJsxElem) { return false; }
