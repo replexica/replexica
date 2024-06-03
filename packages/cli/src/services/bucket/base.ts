@@ -2,6 +2,8 @@ import _ from "lodash";
 import fs from 'fs';
 import { BucketPayload, BucketTranslatorFn, IBucketProcessor } from "./core.js";
 
+const CHUNK_SIZE = 25;
+
 export abstract class BaseBucketProcessor implements IBucketProcessor {
   constructor(
     protected bucketPath: string,
@@ -24,20 +26,26 @@ export abstract class BaseBucketProcessor implements IBucketProcessor {
     return result;
   }
 
-  async translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload> {
+  async translate(payload: BucketPayload, sourceLocale: string, targetLocale: string, onProgress?: (progress: number) => void): Promise<BucketPayload> {
     // The data contains key-value pairs, so let's translate
-    // the values in batches of 20 keys max.
     const resultData: Record<string, any> = {};
 
     const keys = Object.keys(payload.data);
-    const batches = _.chunk(keys, 20);
+    const batches = _.chunk(keys, CHUNK_SIZE);
+    const totalBatches = batches.length;
+
+    let completedBatches = 0;
+
     for (const batch of batches) {
       const partialData = _.pick(payload.data, batch);
       const partialPayload = { data: partialData, meta: payload.meta };
       const partialResult = await this.translator(sourceLocale, targetLocale, partialPayload);
       _.merge(resultData, partialResult);
+      completedBatches++;
+
+      const progress = (completedBatches / totalBatches) * 100;
+      onProgress?.(progress);
     }
-    
     const result = { data: resultData, meta: payload.meta };
     return result;
   }
@@ -57,7 +65,7 @@ export abstract class BaseBucketProcessor implements IBucketProcessor {
   protected async _preSave(payload: BucketPayload, locale: string): Promise<BucketPayload> {
     return payload;
   }
-  
+
   protected async _loadData(locale: string): Promise<Record<string, any>> {
     const filePath = this._resolveDataFilePath(locale);
     const exists = await fs.existsSync(filePath);

@@ -21,7 +21,7 @@ export type BucketTranslatorFn = {
 
 export interface IBucketProcessor {
   load(locale: string): Promise<BucketPayload>;
-  translate(payload: BucketPayload, sourceLocale: string, targetLocale: string): Promise<BucketPayload>;
+  translate(payload: BucketPayload, sourceLocale: string, targetLocale: string, onProgress?: (progress: number) => void): Promise<BucketPayload>;
   save(locale: string, payload: BucketPayload): Promise<BucketPayload>;
 }
 

@@ -62,7 +62,9 @@ export default new Command()
             const processor = createBucketProcessor(bucketType, bucketPath, translatorFn);
   
             const translatable = await processor.load(sourceLocale);
-            const translated = await processor.translate(translatable, sourceLocale, targetLocale);
+            const translated = await processor.translate(translatable, sourceLocale, targetLocale, progress => {
+              bucketSpinner.text = `Translating from ${sourceLocale} to ${targetLocale}... ${progress.toFixed(1)}%`;
+            });
   
             await processor.save(targetLocale, translated);
             bucketSpinner.succeed(`Translation from ${sourceLocale} to ${targetLocale} completed.`);
