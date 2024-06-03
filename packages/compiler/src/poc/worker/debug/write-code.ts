@@ -5,7 +5,8 @@ import { CodeWorkerContext, CodeWorkerPhase, createWorker } from "../base";
 import { generateCodeFromAst } from '../../../utils/babel';
 
 export default createWorker<t.Program>({
-  shouldRun: ({ nodePath }) => nodePath.isProgram(),
+  name: 'writeCode',
+  runIf: ({ nodePath }) => nodePath.isProgram(),
   pre: ({ ctx, phase }) => writeFile(ctx, phase),
   post: ({ ctx, phase }) => writeFile(ctx, phase),
 });

@@ -3,23 +3,32 @@ import { I18nProvider } from '@replexica/react';
 
 import "./globals.css";
 import { I18n, I18nFragment } from "@replexica/react/next";
+import { createElement, ReactNode, ReactElement } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout(props: any) {
-  const i18n = await I18n.fromRscContext();
-
+  // const i18n = await I18n.fromRscContext();
   return (
-    <I18nProvider i18n={i18n}>
-      <html lang={i18n.currentLocale}>
+    // <I18nProvider i18n={i18n}>
+      <html>
         <title>Next App Demo</title>
         <body className={inter.className}>
-          {props.children}
+          {<ProxyEl.div data-testid="title">this is inside a proxy component</ProxyEl.div>}
         </body>
       </html>
-    </I18nProvider>
+    // </I18nProvider>
   );
 }
+
+const ProxyEl: {[key: string]: (props: any) => ReactElement} = new Proxy({}, {
+  get: function(target: {}, prop: string) {
+    return function(props: any): ReactElement {
+      console.log(`Creating element: ${prop}`);
+      return createElement(prop, props);
+    }
+  }
+});
 
 const oldSimpleEl = <div data-testid="title">Next.js App Router Demo</div>;
 const newSimpleEl = (

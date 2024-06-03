@@ -6,7 +6,8 @@ import { CodeImporter } from '../../services/importer';
  * Injects dictionary loaders into I18n loader calls.
  */
 export default createWorker({
-  shouldRun: ({ ctx, nodePath }) => {
+  name: 'dictionary',
+  runIf: ({ ctx, nodePath }) => {
     const importer = CodeImporter.fromAst(ctx.ast);
     const i18nImport = importer.findNamedImport('@replexica/react/next', 'I18n');
     if (!i18nImport) { return false; }
