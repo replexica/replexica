@@ -1,0 +1,1 @@
+export const FRAGMENT_LABEL_ATTRIBUTE = 'data-replexica-fragment';

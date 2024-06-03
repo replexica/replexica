@@ -1,6 +1,7 @@
 import { composeWorkers, createWorker } from "../base";
 import dictionaryInjector from "./dictionary-injector";
-import titleProxy from "./title-proxy";
+import fragmentExtractor from "./fragment-extractor";
+import scopeLabeler from "./scope-labeler";
 
 /*
   Rules:
@@ -10,8 +11,10 @@ import titleProxy from "./title-proxy";
 */
 
 export default createWorker({
+  phase: true,
   run: composeWorkers(
+    scopeLabeler(),
+    fragmentExtractor(),
     dictionaryInjector(),
-    titleProxy(),
   ),
 });
