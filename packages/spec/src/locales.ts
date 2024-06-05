@@ -67,8 +67,6 @@ const sourceFullLocales = [
     ...sourceOnlyFullLocales,
 ] as const;
 
-export const sourceFullLocaleSchema = Z.enum(sourceFullLocales);
-
 const sourceShortcutLocales = [
     ...coreShortcutLocales,
     ...sourceOnlyShortcutLocales,
@@ -79,7 +77,7 @@ const sourceLocales = [
     ...sourceOnlyLocales,
 ] as const;
 
-export const sourceLocaleSchema = Z.enum(sourceLocales);
+
 
 // Target locales
 const targetOnlyFullLocales = [
@@ -97,7 +95,6 @@ const targetFullLocales = [
     ...targetOnlyFullLocales,
 ] as const;
 
-export const targetFullLocaleSchema = Z.enum(targetFullLocales);
 
 const targetShortcutLocales = [
     ...coreShortcutLocales,
@@ -108,27 +105,6 @@ const targetLocales = [
     ...targetOnlyLocales,
 ] as const;
 
-export const targetLocaleSchema = Z.enum(targetLocales);
-
-// All locales
-
-export const shortcutLocales = [
-    ...coreShortcutLocales,
-    ...sourceOnlyShortcutLocales,
-    ...targetOnlyShortcutLocales,
-] as const;
-
-export const fullLocales = [
-    ...coreFullLocales,
-    ...sourceOnlyFullLocales,
-    ...targetOnlyFullLocales,
-] as const;
-
-export const allLocales = [
-    ...coreLocales,
-    ...sourceOnlyLocales,
-    ...targetOnlyLocales,
-] as const;
 
 // Locale resolution map
 
@@ -162,31 +138,69 @@ const sourceOnlyLocaleResolutionMap: Record<typeof sourceOnlyShortcutLocales[num
 const targetOnlyLocaleResolutionMap: Record<typeof targetOnlyShortcutLocales[number], typeof targetOnlyFullLocales[number]> = {
 };
 
-export const sourceLocaleResolutionMap: Record<typeof sourceShortcutLocales[number], typeof sourceFullLocales[number]> = {
+const sourceLocaleResolutionMap: Record<typeof sourceShortcutLocales[number], typeof sourceFullLocales[number]> = {
     ...coreLocaleResolutionMap,
     ...sourceOnlyLocaleResolutionMap,
 };
 
-export const targetLocaleResolutionMap: Record<typeof targetShortcutLocales[number], typeof targetFullLocales[number]> = {
+const targetLocaleResolutionMap: Record<typeof targetShortcutLocales[number], typeof targetFullLocales[number]> = {
     ...coreLocaleResolutionMap,
     ...targetOnlyLocaleResolutionMap,
 };
 
-export const localeResolutionMap: Record<typeof shortcutLocales[number], typeof fullLocales[number]> = {
+const localeResolutionMap: Record<typeof shortcutLocales[number], typeof fullLocales[number]> = {
     ...sourceLocaleResolutionMap,
     ...targetLocaleResolutionMap,
 };
 
-export const resolveSourceLocale = (locale: typeof sourceLocales[number]) => {
+// Exports
+
+// All locales
+
+export const shortcutLocales = [
+    ...coreShortcutLocales,
+    ...sourceOnlyShortcutLocales,
+    ...targetOnlyShortcutLocales,
+] as const;
+
+export const fullLocales = [
+    ...coreFullLocales,
+    ...sourceOnlyFullLocales,
+    ...targetOnlyFullLocales,
+] as const;
+
+export const allLocales = [
+    ...coreLocales,
+    ...sourceOnlyLocales,
+    ...targetOnlyLocales,
+] as const;
+
+// Schemas
+
+export const sourceFullLocaleSchema = Z.enum(sourceFullLocales);
+export const sourceLocaleSchema = Z.enum(sourceLocales);
+export const targetFullLocaleSchema = Z.enum(targetFullLocales);
+export const targetLocaleSchema = Z.enum(targetLocales);
+
+// Shortcut resolvers
+
+export const resolveSourceLocale = (locale: typeof sourceLocales[number]): typeof sourceFullLocales[number] => {
     if (sourceFullLocales.includes(locale as typeof sourceFullLocales[number])) {
         return locale as typeof sourceFullLocales[number];
     }
     return sourceLocaleResolutionMap[locale as typeof sourceShortcutLocales[number]];
 };
 
-export const resolveTargetLocale = (locale: typeof targetLocales[number]) => {
+export const resolveTargetLocale = (locale: typeof targetLocales[number]): typeof targetFullLocales[number] => {
     if (targetFullLocales.includes(locale as typeof targetFullLocales[number])) {
         return locale as typeof targetFullLocales[number];
     }
     return targetLocaleResolutionMap[locale as typeof targetShortcutLocales[number]];
 };
+
+export const resolveLocale = (locale: typeof allLocales[number]): typeof fullLocales[number] => {
+    if (fullLocales.includes(locale as typeof fullLocales[number])) {
+        return locale as typeof fullLocales[number];
+    }
+    return localeResolutionMap[locale as typeof shortcutLocales[number]];
+}
