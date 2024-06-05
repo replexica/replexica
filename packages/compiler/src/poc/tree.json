@@ -1,0 +1,120 @@
+{
+  "id": "",
+  "type": "program",
+  "label": "",
+  "value": "",
+  "nodes": [
+    {
+      "id": "0",
+      "type": "dom",
+      "label": "h1",
+      "value": "",
+      "nodes": [
+        {
+          "id": "0.0",
+          "type": "text",
+          "label": "",
+          "value": "My app",
+          "nodes": []
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "type": "dom",
+      "label": "p",
+      "value": "",
+      "nodes": [
+        {
+          "id": "1.0",
+          "type": "text",
+          "label": "",
+          "value": "This is a demo app",
+          "nodes": []
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "type": "dom",
+      "label": "p",
+      "value": "",
+      "nodes": [
+        {
+          "id": "2.0",
+          "type": "text",
+          "label": "",
+          "value": "Click",
+          "nodes": []
+        },
+        {
+          "id": "2.1",
+          "type": "dom",
+          "label": "a",
+          "value": "",
+          "nodes": [
+            {
+              "id": "2.1.0",
+              "type": "text",
+              "label": "",
+              "value": "here",
+              "nodes": []
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "type": "text",
+          "label": "",
+          "value": "to learn more",
+          "nodes": []
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "type": "dom",
+      "label": "p",
+      "value": "",
+      "nodes": [
+        {
+          "id": "3.0",
+          "type": "text",
+          "label": "",
+          "value": "Some text",
+          "nodes": []
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "type": "dom",
+      "label": "p",
+      "value": "",
+      "nodes": [
+        {
+          "id": "4.0",
+          "type": "text",
+          "label": "",
+          "value": "Some other text",
+          "nodes": []
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "type": "dom",
+      "label": "p",
+      "value": "",
+      "nodes": [
+        {
+          "id": "5.0",
+          "type": "text",
+          "label": "",
+          "value": "© 2030",
+          "nodes": []
+        }
+      ]
+    }
+  ]
+}
