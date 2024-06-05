@@ -1,18 +1,18 @@
 {
   "id": "",
-  "type": "program",
+  "role": "context",
   "label": "",
   "value": "",
   "nodes": [
     {
       "id": "0",
-      "type": "dom",
+      "role": "scope",
       "label": "h1",
       "value": "",
       "nodes": [
         {
           "id": "0.0",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "My app",
           "nodes": []
@@ -21,13 +21,13 @@
     },
     {
       "id": "1",
-      "type": "dom",
+      "role": "scope",
       "label": "p",
       "value": "",
       "nodes": [
         {
           "id": "1.0",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "This is a demo app",
           "nodes": []
@@ -36,26 +36,26 @@
     },
     {
       "id": "2",
-      "type": "dom",
+      "role": "scope",
       "label": "p",
       "value": "",
       "nodes": [
         {
           "id": "2.0",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "Click",
           "nodes": []
         },
         {
           "id": "2.1",
-          "type": "dom",
+          "role": "scope",
           "label": "a",
           "value": "",
           "nodes": [
             {
               "id": "2.1.0",
-              "type": "text",
+              "role": "fragment",
               "label": "",
               "value": "here",
               "nodes": []
@@ -64,7 +64,7 @@
         },
         {
           "id": "2.2",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "to learn more",
           "nodes": []
@@ -73,13 +73,13 @@
     },
     {
       "id": "3",
-      "type": "dom",
+      "role": "scope",
       "label": "p",
       "value": "",
       "nodes": [
         {
           "id": "3.0",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "Some text",
           "nodes": []
@@ -88,13 +88,13 @@
     },
     {
       "id": "4",
-      "type": "dom",
+      "role": "scope",
       "label": "p",
       "value": "",
       "nodes": [
         {
           "id": "4.0",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "Some other text",
           "nodes": []
@@ -103,13 +103,13 @@
     },
     {
       "id": "5",
-      "type": "dom",
+      "role": "scope",
       "label": "p",
       "value": "",
       "nodes": [
         {
           "id": "5.0",
-          "type": "text",
+          "role": "fragment",
           "label": "",
           "value": "© 2030",
           "nodes": []
