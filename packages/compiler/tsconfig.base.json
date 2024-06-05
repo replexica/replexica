@@ -12,6 +12,9 @@
     "jsx": "react-jsx",
     "moduleResolution": "Node",
     "module": "ESNext",
-    "target": "ESNext"
+    "target": "ESNext",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }
