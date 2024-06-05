@@ -1,5 +1,12 @@
 # @replexica/compiler
 
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`abab45c`](https://github.com/replexica/replexica/commit/abab45cc91675f507499bf84350b080cd647c464)]:
+  - @replexica/spec@0.4.1
+
 ## 0.3.3
 
 ### Patch Changes
