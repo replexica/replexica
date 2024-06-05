@@ -1,4 +1,4 @@
-import { composeParsers } from "../_core";
+import { composeParsers } from "../_utils";
 import { fromNonEmptyJsxText } from "./jsx-text";
 
 export default composeParsers(

@@ -1,14 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-
-export type I18nNodeRole = 'context' | 'scope' | 'fragment';
-
-export type I18nNode = {
-  id: string;
-  role: I18nNodeRole;
-  value: string;
-  nodes: I18nNode[];
-}
+import { I18nNode, I18nNodeRole } from './_types';
 
 export type I18nNodeExtractor = {
   (path: NodePath<t.Node>): I18nNode | null;
@@ -24,13 +16,13 @@ export const composeExtractors = (...extractors: I18nNodeExtractor[]): I18nNodeE
 }
 
 export type I18nNodeParser = {
-  (path: NodePath<t.Node>, id: string): Omit<I18nNode, 'role'> | null;
+  (path: NodePath<t.Node>): Omit<I18nNode, 'role'> | null;
 };
-export const composeParsers = (role: I18nNodeRole, ...parsers: I18nNodeParser[]): I18nNodeParser => {
-  return (path, id) => {
+export const composeParsers = (role: I18nNodeRole, ...parsers: I18nNodeParser[]): I18nNodeExtractor => {
+  return (path) => {
     for (const parser of parsers) {
-      const node = parser(path, id);
-      if (node) { return { ...node, role }; }
+      const node = parser(path);
+      if (node) { return { role, ...node }; }
     }
     return null;
   }

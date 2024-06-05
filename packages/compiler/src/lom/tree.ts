@@ -1,9 +1,10 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
 import _ from 'lodash';
+import extractI18nNode, { I18nNode } from './extract';
 
 export const createI18nNode = (rootNodePath: NodePath<t.Node>, idPath: number[] = []): I18nNode | null => {
-  const rootNode = extractNode(rootNodePath, idPath.join('.'));
+  const rootNode = extractI18nNode(rootNodePath);
   if (!rootNode) { return null; }
 
   if (rootNode.role === 'fragment') { return rootNode; }

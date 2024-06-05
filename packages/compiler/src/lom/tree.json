@@ -1,118 +1,130 @@
 {
-  "id": "",
-  "role": "context",
-  "label": "",
-  "value": "",
-  "nodes": [
+  "role": "scope",
+  "type": "js/program",
+  "hint": "",
+  "explicit": false,
+  "fragments": [],
+  "scopes": [
     {
-      "id": "0",
       "role": "scope",
-      "label": "h1",
-      "value": "",
-      "nodes": [
+      "type": "jsx/element/title",
+      "hint": "",
+      "explicit": false,
+      "fragments": [
         {
-          "id": "0.0",
           "role": "fragment",
-          "label": "",
-          "value": "My app",
-          "nodes": []
+          "type": "text",
+          "value": "My app"
         }
-      ]
+      ],
+      "scopes": []
     },
     {
-      "id": "1",
       "role": "scope",
-      "label": "p",
-      "value": "",
-      "nodes": [
+      "type": "jsx/element/header",
+      "hint": "",
+      "explicit": true,
+      "fragments": [],
+      "scopes": [
         {
-          "id": "1.0",
-          "role": "fragment",
-          "label": "",
-          "value": "This is a demo app",
-          "nodes": []
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "role": "scope",
-      "label": "p",
-      "value": "",
-      "nodes": [
-        {
-          "id": "2.0",
-          "role": "fragment",
-          "label": "",
-          "value": "Click",
-          "nodes": []
-        },
-        {
-          "id": "2.1",
           "role": "scope",
-          "label": "a",
-          "value": "",
-          "nodes": [
+          "type": "jsx/element/h1",
+          "hint": "",
+          "explicit": false,
+          "fragments": [
             {
-              "id": "2.1.0",
               "role": "fragment",
-              "label": "",
-              "value": "here",
-              "nodes": []
+              "type": "text",
+              "value": "My app"
             }
-          ]
+          ],
+          "scopes": []
         },
         {
-          "id": "2.2",
-          "role": "fragment",
-          "label": "",
-          "value": "to learn more",
-          "nodes": []
+          "role": "scope",
+          "type": "jsx/element/p",
+          "hint": "",
+          "explicit": false,
+          "fragments": [
+            {
+              "role": "fragment",
+              "type": "text",
+              "value": "This is a demo app"
+            }
+          ],
+          "scopes": []
         }
       ]
     },
     {
-      "id": "3",
       "role": "scope",
-      "label": "p",
-      "value": "",
-      "nodes": [
+      "type": "jsx/element/p",
+      "hint": "",
+      "explicit": false,
+      "fragments": [
         {
-          "id": "3.0",
           "role": "fragment",
-          "label": "",
-          "value": "Some text",
-          "nodes": []
+          "type": "text",
+          "value": "Some other text"
+        },
+        {
+          "role": "fragment",
+          "type": "text",
+          "value": "© 2030"
         }
-      ]
+      ],
+      "scopes": []
     },
     {
-      "id": "4",
       "role": "scope",
-      "label": "p",
-      "value": "",
-      "nodes": [
+      "type": "jsx/element/p",
+      "hint": "",
+      "explicit": false,
+      "fragments": [
         {
-          "id": "4.0",
           "role": "fragment",
-          "label": "",
-          "value": "Some other text",
-          "nodes": []
+          "type": "text",
+          "value": "Click"
+        },
+        {
+          "role": "fragment",
+          "type": "text",
+          "value": "here"
+        },
+        {
+          "role": "fragment",
+          "type": "text",
+          "value": "to learn more"
         }
-      ]
+      ],
+      "scopes": []
     },
     {
-      "id": "5",
       "role": "scope",
-      "label": "p",
-      "value": "",
-      "nodes": [
+      "type": "jsx/element/span",
+      "hint": "",
+      "explicit": false,
+      "fragments": [
         {
-          "id": "5.0",
           "role": "fragment",
-          "label": "",
-          "value": "© 2030",
-          "nodes": []
+          "type": "text",
+          "value": "Some text"
+        }
+      ],
+      "scopes": [
+        {
+          "role": "scope",
+          "type": "jsx/attribute/title",
+          "hint": "",
+          "explicit": false,
+          "fragments": [
+            {
+              "role": "fragment",
+              "type": "text",
+              "value": "Some text for the span"
+            }
+          ],
+          "scopes": []
         }
       ]
     }
