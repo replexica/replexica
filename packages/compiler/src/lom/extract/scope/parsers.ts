@@ -1,8 +1,8 @@
 import * as t from '@babel/types';
 import { getJsxElementName } from '../../_ast';
-import { I18nNodeParser } from '../_core';
+import { I18nNodeParser } from '../_utils';
 
-export const fromJsxElement: I18nNodeParser = (path, id) => {
+export const fromJsxElement: I18nNodeParser = (path) => {
   const jsxEl = t.isJSXElement(path.node) || t.isJSXFragment(path.node) ? path.node : null;
   if (!jsxEl) { return null; }
 
@@ -14,7 +14,6 @@ export const fromJsxElement: I18nNodeParser = (path, id) => {
   const elementName = getJsxElementName(jsxEl);
 
   return {
-    id,
     value: elementName,
     nodes: [],
   };
