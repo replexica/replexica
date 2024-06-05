@@ -1,5 +1,14 @@
 # replexica
 
+## 0.22.2
+
+### Patch Changes
+
+- [#91](https://github.com/replexica/replexica/pull/91) [`38e0003`](https://github.com/replexica/replexica/commit/38e000306514e6527b1d5ccc55c6309bb13f9eee) Thanks [@vrcprl](https://github.com/vrcprl)! - show progress in percent while translating
+
+- Updated dependencies [[`abab45c`](https://github.com/replexica/replexica/commit/abab45cc91675f507499bf84350b080cd647c464)]:
+  - @replexica/spec@0.4.1
+
 ## 0.22.1
 
 ### Patch Changes

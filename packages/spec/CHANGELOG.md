@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.4.1
+
+### Patch Changes
+
+- [#94](https://github.com/replexica/replexica/pull/94) [`abab45c`](https://github.com/replexica/replexica/commit/abab45cc91675f507499bf84350b080cd647c464) Thanks [@vrcprl](https://github.com/vrcprl)! - Locales mapping (ex. en -> en-US)
+
 ## 0.4.0
 
 ### Minor Changes
