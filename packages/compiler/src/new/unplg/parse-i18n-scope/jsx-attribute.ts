@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import { createScopeParser, isLocalizableAttributeName, isSystemAttributeName } from "./_utils";
 import { NodePath } from '@babel/core';
-import { I18nFragment } from './_types';
+import { I18nFragment } from './../_types';
 
 const parseAttributeFragments = (nodePath: NodePath<t.JSXAttribute>): I18nFragment[] => {
   if (!t.isJSXAttribute(nodePath.node)) { return []; }

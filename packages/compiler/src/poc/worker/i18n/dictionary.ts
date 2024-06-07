@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { createWorker } from '../base';
-import { CodeImporter } from '../../services/importer';
+import { CodeImporter } from '../../../new/unplg/services/importer';
 
 /**
  * Injects dictionary loaders into I18n loader calls.
