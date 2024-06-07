@@ -1,6 +1,7 @@
 import * as t from '@babel/types';
-import { I18nFragment, I18nScope, I18nScopeParser, I18nScopeType } from "./_types";
+import { I18nFragment, I18nScope, I18nScopeType } from "./../_types";
 import { NodePath } from '@babel/core';
+import { I18nScopeParser } from './_types';
 
 export const composeScopeParsers = (...parsers: I18nScopeParser<any>[]): I18nScopeParser<t.Node> => {
   return (nodePath) => {

@@ -1,7 +1,7 @@
 import * as t from '@babel/types';
 import { createScopeParser } from "./_utils";
 import { NodePath } from '@babel/core';
-import { I18nFragment } from './_types';
+import { I18nFragment } from './../_types';
 
 const parseJsxTextFragments = (nodePath: NodePath<t.JSXElement | t.JSXFragment>): I18nFragment[] => {
   const result: I18nFragment[] = [];

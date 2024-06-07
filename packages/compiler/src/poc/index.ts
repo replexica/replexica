@@ -2,7 +2,7 @@ import * as t from '@babel/types';
 import worker from './worker';
 import { CodeWorker, CodeWorkerContext } from './worker/base';
 import { NodePath, traverse } from '@babel/core';
-import { CodeConverter } from './services/converter';
+import { CodeConverter } from '../new/unplg/services/converter';
 import { findScopes } from './scope-worker';
 
 export default (params: Omit<CodeWorkerContext, 'ast'>) => {

@@ -1,5 +1,4 @@
 import * as t from '@babel/types';
-import { NodePath } from '@babel/core';
 
 export type I18nNode<R extends 'scope' | 'fragment'> = {
   role: R;
@@ -25,11 +24,3 @@ export type I18nFragment = I18nNode<'fragment'> & {
   type: I18nFragmentType;
   value: string;
 };
-
-export type I18nScopeParser<T extends t.Node> = {
-  (nodePath: NodePath<T>): I18nScope<T> | null;
-};
-
-export type I18nFragmentsParser<T extends t.Node> = {
-  (nodePath: NodePath<T>): I18nFragment[];
-}

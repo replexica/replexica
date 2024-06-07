@@ -4,9 +4,9 @@
   "description": "Replexica compiler",
   "private": false,
   "type": "module",
-  "main": "build/index.cjs",
-  "types": "build/index.d.ts",
-  "module": "build/index.mjs",
+  "main": "build/new/index.cjs",
+  "types": "build/new/index.d.ts",
+  "module": "build/new/index.mjs",
   "files": [
     "build"
   ],
@@ -38,6 +38,8 @@
     "@types/ignore-walk": "^4.0.3",
     "@types/lodash": "^4.17.0",
     "@types/object-hash": "^3.0.6",
+    "@types/webpack": "^5.28.5",
+    "next": "^14.2.3",
     "unbuild": "^2.0.0"
   }
 }
