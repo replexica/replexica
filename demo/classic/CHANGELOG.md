@@ -1,5 +1,12 @@
 # @replexica/demo/classic
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`38e0003`](https://github.com/replexica/replexica/commit/38e000306514e6527b1d5ccc55c6309bb13f9eee)]:
+  - replexica@0.22.2
+
 ## 0.0.8
 
 ### Patch Changes
