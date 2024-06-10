@@ -7,7 +7,7 @@ import { explicitJsxElementScopeParser, jsxElementScopeParser } from './jsx-elem
 import { jsxAttributeScopeParser } from './jsx-attribute';
 
 export * from './_types';
-export function parseI18nScopeFromPath(nodePath: NodePath<t.Node>): I18nScope<t.Node> | null {
+export function parseI18nScopeFromPath(nodePath: NodePath<t.Node>): I18nScope | null {
   return composeScopeParsers(
     programScopeParser(parseI18nScopeFromPath),
     jsxElementScopeParser(parseI18nScopeFromPath),
@@ -16,8 +16,8 @@ export function parseI18nScopeFromPath(nodePath: NodePath<t.Node>): I18nScope<t.
   )(nodePath);
 };
 
-export function parseI18nScopeFromAst(fileNode: t.File): I18nScope<t.File> | null {
-  let scope: I18nScope<t.File> | null = null;
+export function parseI18nScopeFromAst(fileNode: t.File): I18nScope | null {
+  let scope: I18nScope | null = null;
 
   traverse(fileNode, {
     Program(programPath) {

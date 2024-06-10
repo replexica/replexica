@@ -1,7 +1,8 @@
 import * as t from '@babel/types';
-import { I18nFragment, I18nScope, I18nScopeType } from "./../_types";
+import { I18nFragment, I18nNode, I18nScope, I18nScopeType } from "./../_types";
 import { NodePath } from '@babel/core';
 import { I18nScopeParser } from './_types';
+import _ from 'lodash';
 
 export const composeScopeParsers = (...parsers: I18nScopeParser<any>[]): I18nScopeParser<t.Node> => {
   return (nodePath) => {
@@ -28,7 +29,7 @@ export const createScopeParser = <T extends t.Node>(params: CreateScopeParserPar
       if (!isMatch) { return null; }
 
       const fragments = params.parseFragments(nodePath);
-      const scopes: I18nScope<t.Node>[] = [];
+      const scopes: I18nScope[] = [];
 
       nodePath.traverse({
         enter(childPath) {
@@ -40,14 +41,13 @@ export const createScopeParser = <T extends t.Node>(params: CreateScopeParserPar
         }
       });
 
-      return {
-        role: 'scope',
+      return createI18nScope(nodePath.node, {
         type: params.type,
         hint: '',
         explicit: params.explicit,
         fragments,
         scopes,
-      };
+      });
     };
 
 export const isLocalizableAttributeName = (name: string) => {
@@ -69,3 +69,31 @@ export const isSystemAttributeName = (name: string) => {
 
   return false;
 };
+
+export const createI18nNode = <T extends I18nNode<any>>(
+  node: t.Node,
+  role: I18nNode<any>['role'],
+  data: Omit<T, 'node' | 'role'>
+): T => {
+  return {
+    ...data as any,
+    role,
+    node,
+    toJSON() {
+      const keysToOmit: (keyof T)[] = ['role', 'node'];
+      const dataCopy = _.omit(this, keysToOmit) as any;
+      return {
+        ...dataCopy,
+        type: this.role,
+      };
+    }
+  };
+};
+
+export const createI18nScope = (node: t.Node, data: Omit<I18nScope, 'node' | 'role'>): I18nScope => {
+  return createI18nNode<I18nScope>(node, 'scope', data);
+}
+
+export const createI18nFragment = (node: t.Node, data: Omit<I18nFragment, 'node' | 'role'>): I18nFragment => {
+  return createI18nNode<I18nFragment>(node, 'fragment', data);
+}

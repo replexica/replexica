@@ -1,27 +1,7 @@
 import * as t from '@babel/types';
-import { createScopeParser } from "./_utils";
+import { createI18nFragment, createScopeParser } from "./_utils";
 import { NodePath } from '@babel/core';
 import { I18nFragment } from './../_types';
-
-const parseJsxTextFragments = (nodePath: NodePath<t.JSXElement | t.JSXFragment>): I18nFragment[] => {
-  const result: I18nFragment[] = [];
-
-  nodePath.traverse({
-    JSXText(childPath: NodePath<t.JSXText>) {
-      const jsxText = childPath.node;
-      const value = jsxText.value.trim();
-      if (!value) { return null; }
-    
-      result.push({
-        role: 'fragment',
-        type: 'text',
-        value,
-      });
-    },
-  });
-
-  return result;
-};
 
 export const jsxElementScopeParser = createScopeParser({
   selector: (nodePath) => {
@@ -41,7 +21,24 @@ export const jsxElementScopeParser = createScopeParser({
 
     return true;
   },
-  parseFragments: parseJsxTextFragments,
+  parseFragments: (nodePath: NodePath<t.JSXElement | t.JSXFragment>): I18nFragment[] => {
+    const result: I18nFragment[] = [];
+
+    nodePath.traverse({
+      JSXText(childPath: NodePath<t.JSXText>) {
+        const jsxText = childPath.node;
+        const value = jsxText.value.trim();
+        if (!value) { return null; }
+
+        result.push(createI18nFragment(jsxText, {
+          type: 'text',
+          value,
+        }));
+      },
+    });
+
+    return result;
+  },
   type: 'jsx/element',
   explicit: false,
 });
