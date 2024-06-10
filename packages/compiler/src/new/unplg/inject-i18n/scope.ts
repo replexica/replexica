@@ -3,15 +3,16 @@ import { I18nFragment, I18nScope } from '../_types';
 import createCodeWriter from '../services/writer';
 import { NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './_const';
 
-export default function createFragmentInjector(ast: t.File) {
+export default function createScopeInjector(ast: t.File, fileId: string) {
   return (i18nTree: I18nScope) => {
     _traverseI18nTree(i18nTree, (fragmentOrScope) => {
       if (fragmentOrScope.role !== 'fragment') { return; }
 
+      const writer = createCodeWriter(ast);
+      const importName = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME);
+
       const fragment = fragmentOrScope as I18nFragment;
       if (fragment.type === 'jsx/text') {
-        const writer = createCodeWriter(ast);
-        const importName = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME);
 
         const id = 'test-id';
         const fragmentComponent = t.jsxElement(

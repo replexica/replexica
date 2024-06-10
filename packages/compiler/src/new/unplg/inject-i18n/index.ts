@@ -1,14 +1,14 @@
 import * as t from "@babel/types";
 import createLoaderInjector from "./loader";
-import createFragmentInjector from "./fragment";
+import createScopeInjector from "./scope";
 
 export type I18nInjectorParams = {
   supportedLocales: string[];
 };
 
-export default function createI18nInjector(ast: t.File, params: I18nInjectorParams) {
+export default function createI18nInjector(ast: t.File, fileId: string, params: I18nInjectorParams) {
   return {
     injectLoaders: createLoaderInjector(ast, params),
-    injectFragments: createFragmentInjector(ast),
+    injectScopes: createScopeInjector(ast, fileId),
   };
 }
