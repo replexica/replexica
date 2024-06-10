@@ -1,42 +1,41 @@
 import fs from 'fs';
 import path from 'path';
 import { I18nScope } from '../_types';
-import crypto from 'crypto';
 import { generateFileIdHash } from '@/utils/id';
 
 // functional version below
 
-export default function createArtifactor(fileId: string) {
+export default function createArtifactor(filePath: string) {
   const artifactsDir = path.resolve(process.cwd(), 'node_modules', '@replexica/.cache');
   const i18nTreePath = path.resolve(artifactsDir, '.json');
   const debugDir = path.resolve(process.cwd(), '.replexica');
-  const relativeFileId = path.relative(process.cwd(), fileId);
+  const relativeFileId = path.relative(process.cwd(), filePath);
 
   return {
     storeMetadata(i18nTree: I18nScope) {
-      const fileIdHash = generateFileIdHash(fileId);
+      const fileId = generateFileIdHash(filePath);
       const payload = {
-        [fileIdHash]: i18nTree,
+        [fileId]: i18nTree,
       };
       _mergeAsJson(i18nTreePath, payload);
     },
     storeSourceDictionary(i18nTree: I18nScope, sourceLocale: string) {
       const defaultLocalePath = path.resolve(artifactsDir, `${sourceLocale}.json`);
 
-      const fileIdHash = generateFileIdHash(fileId);
+      const fileId = generateFileIdHash(filePath);
 
-      const payload = _extractDictionary(i18nTree, {}, fileIdHash);
+      const payload = _extractDictionary(i18nTree, {}, fileId);
 
       _mergeAsJson(defaultLocalePath, payload);
     },
     storeStubDictionaries(targetLocales: string[]) {
-      const fileIdHash = generateFileIdHash(fileId);
+      const fileId = generateFileIdHash(filePath);
 
       for (const targetLocale of targetLocales) {
         const targetLocalePath = path.resolve(artifactsDir, `${targetLocale}.json`);
 
         const payload = {
-          [fileIdHash]: {},
+          [fileId]: {},
         };
 
         _mergeAsJson(targetLocalePath, payload);
