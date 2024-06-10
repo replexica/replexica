@@ -27,15 +27,28 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => ({
     const i18nTree = parseI18nScopeFromAst(ast);
     if (!i18nTree) { throw new Error(`Failed to parse i18n tree from code located at ${fileId}`); }
 
-    const artifactor = createArtifactor({ fileId, sourceLocale: config.locale.source });
+    const artifactor = createArtifactor(fileId);
     artifactor.storeMetadata(i18nTree);
-    artifactor.storeDefaultDictionary(i18nTree);
+    artifactor.storeSourceDictionary(i18nTree, config.locale.source);
+    artifactor.storeStubDictionaries(config.locale.targets);
 
-    const i18nInjector = createI18nInjector(ast);
+    if (config.debug) {
+      artifactor.storeOriginalCode(code);
+      artifactor.storeI18nTree(i18nTree);
+    }
+
+    const i18nInjector = createI18nInjector(ast, {
+      supportedLocales: [...new Set([config.locale.source, ...config.locale.targets])],
+    });
     i18nInjector.injectLoaders();
     i18nInjector.injectFragments(i18nTree);
 
     const result = converter.generateUpdatedCode(ast);
+
+    if (config.debug) {
+      artifactor.storeTransformedCode(result.code);
+    }
+
     return {
       code: result.code,
       map: result.map,
