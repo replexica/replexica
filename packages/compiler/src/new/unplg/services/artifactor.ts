@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { I18nScope } from '../_types';
 import crypto from 'crypto';
+import { generateFileIdHash } from '@/utils/id';
 
 // functional version below
 
@@ -13,7 +14,7 @@ export default function createArtifactor(fileId: string) {
 
   return {
     storeMetadata(i18nTree: I18nScope) {
-      const fileIdHash = _generateFileIdHash(fileId);
+      const fileIdHash = generateFileIdHash(fileId);
       const payload = {
         [fileIdHash]: i18nTree,
       };
@@ -22,14 +23,14 @@ export default function createArtifactor(fileId: string) {
     storeSourceDictionary(i18nTree: I18nScope, sourceLocale: string) {
       const defaultLocalePath = path.resolve(artifactsDir, `${sourceLocale}.json`);
 
-      const fileIdHash = _generateFileIdHash(fileId);
+      const fileIdHash = generateFileIdHash(fileId);
 
       const payload = _extractDictionary(i18nTree, {}, fileIdHash);
 
       _mergeAsJson(defaultLocalePath, payload);
     },
     storeStubDictionaries(targetLocales: string[]) {
-      const fileIdHash = _generateFileIdHash(fileId);
+      const fileIdHash = generateFileIdHash(fileId);
 
       for (const targetLocale of targetLocales) {
         const targetLocalePath = path.resolve(artifactsDir, `${targetLocale}.json`);
@@ -113,12 +114,6 @@ export default function createArtifactor(fileId: string) {
 
     return dictionary;
   }
-
-function _generateFileIdHash(fileId: string): string {
-  const hash = crypto.createHash('md5');
-  hash.update(fileId);
-  return hash.digest('base64').substring(0, 12);
-}
 
   function _mergeAsJson(filePath: string, data: any) {
     const existingData = _loadAsJson(filePath);
