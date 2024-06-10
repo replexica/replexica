@@ -1,4 +1,11 @@
 import createObjectHash from 'object-hash';
+import crypto from 'crypto';
+
+export function generateFileIdHash(fileId: string): string {
+  const hash = crypto.createHash('md5');
+  hash.update(fileId);
+  return hash.digest('base64').substring(0, 12);
+}
 
 export function generateChunkId(text: string, nonce: number): string {
   return createHash({ text, nonce });

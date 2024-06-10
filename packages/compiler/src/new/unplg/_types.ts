@@ -1,8 +1,9 @@
+import { NodePath } from '@babel/core';
 import * as t from '@babel/types';
 
 export type I18nNode<R extends 'scope' | 'fragment'> = {
   role: R;
-  node: t.Node;
+  nodePath: NodePath<t.Node>;
 };
 
 export type I18nScopeType =
@@ -19,7 +20,8 @@ export type I18nScope = I18nNode<'scope'> & {
 };
 
 export type I18nFragmentType =
-  | 'text'
+  | 'js/text'
+  | 'jsx/text'
 ;
 export type I18nFragment = I18nNode<'fragment'> & {
   type: I18nFragmentType;

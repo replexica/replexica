@@ -25,8 +25,8 @@ export const jsxAttributeScopeParser = createScopeParser({
     if (!t.isStringLiteral(jsxAttrValue)) { return []; }
 
     return [
-      createI18nFragment(jsxAttrValue, {
-        type: 'text',
+      createI18nFragment(nodePath, {
+        type: 'js/text',
         value: jsxAttrValue.value,
       }),
     ];

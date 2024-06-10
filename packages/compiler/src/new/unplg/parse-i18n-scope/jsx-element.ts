@@ -30,10 +30,11 @@ export const jsxElementScopeParser = createScopeParser({
         const value = jsxText.value.trim();
         if (!value) { return null; }
 
-        result.push(createI18nFragment(jsxText, {
-          type: 'text',
+        const fragment = createI18nFragment(childPath, {
+          type: 'jsx/text',
           value,
-        }));
+        });
+        result.push(fragment);
       },
     });
 

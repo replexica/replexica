@@ -41,7 +41,7 @@ export const createScopeParser = <T extends t.Node>(params: CreateScopeParserPar
         }
       });
 
-      return createI18nScope(nodePath.node, {
+      return createI18nScope(nodePath, {
         type: params.type,
         hint: '',
         explicit: params.explicit,
@@ -71,16 +71,16 @@ export const isSystemAttributeName = (name: string) => {
 };
 
 export const createI18nNode = <T extends I18nNode<any>>(
-  node: t.Node,
+  nodePath: NodePath<t.Node>,
   role: I18nNode<any>['role'],
-  data: Omit<T, 'node' | 'role'>
+  data: Omit<T, 'nodePath' | 'role'>
 ): T => {
   return {
     ...data as any,
     role,
-    node,
+    nodePath,
     toJSON() {
-      const keysToOmit: (keyof T)[] = ['role', 'node'];
+      const keysToOmit: (keyof T)[] = ['role', 'nodePath'];
       const dataCopy = _.omit(this, keysToOmit) as any;
       return {
         ...dataCopy,
@@ -90,10 +90,10 @@ export const createI18nNode = <T extends I18nNode<any>>(
   };
 };
 
-export const createI18nScope = (node: t.Node, data: Omit<I18nScope, 'node' | 'role'>): I18nScope => {
-  return createI18nNode<I18nScope>(node, 'scope', data);
+export const createI18nScope = (nodePath: NodePath<t.Node>, data: Omit<I18nScope, 'nodePath' | 'role'>): I18nScope => {
+  return createI18nNode<I18nScope>(nodePath, 'scope', data);
 }
 
-export const createI18nFragment = (node: t.Node, data: Omit<I18nFragment, 'node' | 'role'>): I18nFragment => {
-  return createI18nNode<I18nFragment>(node, 'fragment', data);
+export const createI18nFragment = (nodePath: NodePath<t.Node>, data: Omit<I18nFragment, 'nodePath' | 'role'>): I18nFragment => {
+  return createI18nNode<I18nFragment>(nodePath, 'fragment', data);
 }
