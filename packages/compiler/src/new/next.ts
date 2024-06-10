@@ -7,7 +7,6 @@ import { Configuration as WebpackConfig } from 'webpack';
 
 import { I18nConfig } from "./config";
 import unplg from './unplg';
-import { CodeArtifactor } from './unplg/services/artifactor';
 
 const nextCompilerConfigSchema = Z.object({
   rsc: Z.boolean().optional().default(false),

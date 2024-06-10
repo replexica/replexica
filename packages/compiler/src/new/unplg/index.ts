@@ -1,9 +1,9 @@
 import { createUnplugin } from 'unplugin';
 import Z from 'zod';
 import { localeSchema } from '@replexica/spec';
-import { CodeConverter } from './services/converter';
 import { parseI18nScopeFromAst } from './parse-i18n-scope';
-import { CodeArtifactor } from './services/artifactor';
+import createCodeConverter from './services/converter';
+import createArtifactor from './services/artifactor';
 
 const unplgConfigSchema = Z.object({
   rsc: Z.boolean().optional().default(false),
@@ -15,27 +15,25 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => ({
   name: 'replexica',
   enforce: 'pre',
   transformInclude(id) {
-    // ts, tsx, js, jsx
-    return /\.(t|j)sx?$/.test(id);
+    // - tsx, jsx
+    // - exclude node_modules
+    return /\.(tsx|jsx)$/.test(id) && !/node_modules/.test(id);
   },
   transform(code, fileId) {
     const config = unplgConfigSchema.parse(_config);
-    const codeConverter = CodeConverter.fromCode(code);
-    const { ast } = codeConverter.generateAst();
-    
+    const converter = createCodeConverter(code);
+    const { ast } = converter.generateAst();
     const i18nTree = parseI18nScopeFromAst(ast);
     if (!i18nTree) { throw new Error(`Failed to parse i18n tree from code located at ${fileId}`); }
 
-    const artifactor = CodeArtifactor.create({
-      fileId,
-      sourceLocale: config.locale.source,
-    });
-    artifactor.produceLocaleMeta(i18nTree);
-    artifactor.produceDefaultLocaleData();
+    const artifactor = createArtifactor({ fileId, sourceLocale: config.locale.source });
+    artifactor.storeMetadata(i18nTree);
+    artifactor.storeDefaultDictionary(i18nTree);
 
+    const result = converter.generateUpdatedCode(ast);
     return {
-      code: code,
-      map: null,
+      code: result.code,
+      map: result.map,
     };
   },
 }));
