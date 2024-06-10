@@ -2,61 +2,99 @@ import fs from 'fs';
 import path from 'path';
 import { sourceLocaleSchema } from '@replexica/spec';
 import { I18nScope } from '../_types';
+import crypto from 'crypto';
 
 export type CodeArtifactorParams = {
   fileId: string;
   sourceLocale: typeof sourceLocaleSchema._type;
 };
 
-export class CodeArtifactor {
-  private static artifactsDir = path.resolve(process.cwd(), 'node_modules', '@replexica/.cache');
-  private static i18nTreePath = path.resolve(CodeArtifactor.artifactsDir, '.json');
+// functional version below
 
-  public static create(params: CodeArtifactorParams) {
-    return new CodeArtifactor(params);
+export default function createArtifactor(params: CodeArtifactorParams) {
+  const artifactsDir = path.resolve(process.cwd(), 'node_modules', '@replexica/.cache');
+  const i18nTreePath = path.resolve(artifactsDir, '.json');
+  const defaultLocalePath = path.resolve(artifactsDir, `${params.sourceLocale}.json`);
+
+  // ensure the artifacts directory exists
+  if (!fs.existsSync(artifactsDir)) {
+    fs.mkdirSync(artifactsDir, { recursive: true });
   }
 
-  public static reset() {
-    fs.rmSync(CodeArtifactor.artifactsDir, { recursive: true, force: true });
-  }
+  return {
+    storeMetadata(i18nTree: I18nScope) {
+      const fileIdHash = _generateFileIdHash(params.fileId);
+      const payload = {
+        [fileIdHash]: i18nTree,
+      };
+      _mergeAsJson(i18nTreePath, payload);
+    },
+    storeDefaultDictionary(i18nTree: I18nScope) {
+      const fileIdHash = _generateFileIdHash(params.fileId);
 
+      const payload = _extractDictionary(i18nTree, {}, fileIdHash);
 
-  private defaultLocalePath: string;
+      _mergeAsJson(defaultLocalePath, payload);
+    },
+  };
 
-  private constructor(
-    private params: CodeArtifactorParams,
-  ) {
-    // ensure the artifacts directory exists
-    if (!fs.existsSync(CodeArtifactor.artifactsDir)) {
-      fs.mkdirSync(CodeArtifactor.artifactsDir, { recursive: true });
+  // helper functions
+
+  function _extractDictionary(i18nTree: I18nScope, rootDictionary: Record<string, string[]> = {}, rootKey = '') {
+    const dictionary: Record<string, string[]> = {
+      ...rootDictionary,
+      [rootKey]: [],
+    };
+
+    for (let i = 0; i < i18nTree.fragments.length; i++) {
+      const fragment = i18nTree.fragments[i];
+
+      dictionary[rootKey].push(fragment.value);
     }
 
-    this.defaultLocalePath = path.resolve(CodeArtifactor.artifactsDir, `${this.params.sourceLocale}.json`);
+    for (let i = 0; i < i18nTree.scopes.length; i++) {
+      const scope = i18nTree.scopes[i];
+
+      const key = [
+        rootKey,
+        String(i),
+      ]
+      .filter(Boolean)
+      .join('.');
+
+      const childDictionary = _extractDictionary(scope, dictionary, key);
+      Object.assign(dictionary, childDictionary);
+    }
+
+    for (const [key, value] of Object.entries(dictionary)) {
+      if (value.length === 0) {
+        delete dictionary[key];
+      }
+    }
+
+    return dictionary;
   }
 
-  public produceLocaleMeta(i18nTree: I18nScope) {
-    const payload = {
-      [this.params.fileId]: i18nTree,
-    };
-    this._mergeAsJson(CodeArtifactor.i18nTreePath, payload);
-  }
+  // helper functions
 
-  public produceDefaultLocaleData() {
-    this._writeAsJson(this.defaultLocalePath, this.params.sourceLocale);
-  }
+function _generateFileIdHash(fileId: string): string {
+  const hash = crypto.createHash('md5');
+  hash.update(fileId);
+  return hash.digest('base64').substring(0, 12);
+}
 
-  private _mergeAsJson(filePath: string, data: any) {
-    const existingData = this._loadAsJson(filePath);
+  function _mergeAsJson(filePath: string, data: any) {
+    const existingData = _loadAsJson(filePath);
     const mergedData = { ...existingData, ...data };
-    this._writeAsJson(filePath, mergedData);
+    _writeAsJson(filePath, mergedData);
   }
 
-  private _writeAsJson(filePath: string, data: any) {
+  function _writeAsJson(filePath: string, data: any) {
     const jsonString = JSON.stringify(data, null, 2);
     fs.writeFileSync(filePath, jsonString);
   }
 
-  private _loadAsJson(filePath: string): any {
+  function _loadAsJson(filePath: string): any {
     const exists = fs.existsSync(filePath);
     if (!exists) { return null; }
 
