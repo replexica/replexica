@@ -4,8 +4,7 @@ import { localeSchema } from '@replexica/spec';
 import { parseI18nScopeFromAst } from './parse-i18n-scope';
 import createCodeConverter from './services/converter';
 import createArtifactor from './services/artifactor';
-import createCodeWriter from './services/writer';
-import injectI18n from './inject-i18n';
+import createI18nInjector from './inject-i18n';
 
 const unplgConfigSchema = Z.object({
   rsc: Z.boolean().optional().default(false),
@@ -32,7 +31,9 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => ({
     artifactor.storeMetadata(i18nTree);
     artifactor.storeDefaultDictionary(i18nTree);
 
-    injectI18n(i18nTree);
+    const i18nInjector = createI18nInjector(ast);
+    i18nInjector.injectLoaders();
+    i18nInjector.injectFragments(i18nTree);
 
     const result = converter.generateUpdatedCode(ast);
     return {
