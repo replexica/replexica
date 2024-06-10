@@ -2,6 +2,7 @@ import * as t from '@babel/types';
 
 export type I18nNode<R extends 'scope' | 'fragment'> = {
   role: R;
+  node: t.Node;
 };
 
 export type I18nScopeType =
@@ -9,12 +10,12 @@ export type I18nScopeType =
   | 'jsx/element'
   | 'jsx/attribute'
 ;
-export type I18nScope<T extends t.Node = t.Node> = I18nNode<'scope'> & {
+export type I18nScope = I18nNode<'scope'> & {
   type: I18nScopeType;
   hint: string;
   explicit: boolean;
   fragments: I18nFragment[];
-  scopes: I18nScope<T>[];
+  scopes: I18nScope[];
 };
 
 export type I18nFragmentType =
