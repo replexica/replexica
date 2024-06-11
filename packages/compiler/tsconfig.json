@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "include": [
     "src/**/*.ts"
-  ],
+, "src/new/unplg/iom/.scope.ts", "src/new/unplg/iom/.node.ts", "src/new/unplg/iom/.fragment.ts", "src/new/unplg/inject-i18n/.const.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { I18nScope } from '../_types';
 import { generateFileIdHash } from '@/utils/id';
+import { I18nScope } from '../iom';
 
 // functional version below
 
@@ -88,7 +88,7 @@ export default function createArtifactor(filePath: string) {
     for (let i = 0; i < i18nTree.fragments.length; i++) {
       const fragment = i18nTree.fragments[i];
 
-      dictionary[rootKey].push(fragment.value);
+      dictionary[rootKey].push(fragment.data.value);
     }
 
     for (let i = 0; i < i18nTree.scopes.length; i++) {

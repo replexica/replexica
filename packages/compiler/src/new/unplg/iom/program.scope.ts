@@ -1,14 +1,41 @@
-import * as t from "@babel/types";
-import createCodeWriter from "../services/writer";
-import { traverse, NodePath } from "@babel/core";
-import { I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_ACCESS_METHOD, I18N_LOADER_METHOD } from "./_const";
+import * as t from '@babel/types';
+import { NodePath, traverse } from '@babel/core';
+import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import createCodeWriter from '../workers/writer';
+import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_LOADER_METHOD } from './.const';
 
-export type LoaderInjectorParams = {
-  supportedLocales: string[];
-};
+export class ProgramScope extends I18nScope<'js/program', never> {
+  public static fromNodePath(
+    rootExtractor: I18nScopeExtractor,
 
-export default function createLoaderInjector(ast: t.File, params: LoaderInjectorParams) {
-  return () => {
+  ) {
+    return (
+      nodePath: NodePath<t.Node>,
+      id: string,
+    ) => {
+      if (!nodePath.isProgram()) { return null; }
+
+      return new ProgramScope(nodePath, {
+        role: 'scope',
+        type: 'js/program',
+        id,
+        hint: '',
+        explicit: false,
+      }, rootExtractor);
+    };
+  }
+
+  private constructor(
+    public nodePath: NodePath<t.Node>,
+    public data: I18nScopeData<'js/program', never>,
+    public rootExtractor: I18nScopeExtractor,
+  ) {
+    super(nodePath, data, rootExtractor);
+  }
+
+  // helper functions
+
+  protected injectOwnI18n(ast: t.File, supportedLocales: string[]) {
     const writer = createCodeWriter(ast);
     const i18nImport = writer.findNamedImport(I18N_IMPORT_MODULE, I18N_IMPORT_NAME);
     // Early return if I18n import is not found
@@ -31,7 +58,7 @@ export default function createLoaderInjector(ast: t.File, params: LoaderInjector
               ),
               [
                 t.objectExpression(
-                  params.supportedLocales.map((locale) => {
+                  supportedLocales.map((locale) => {
                     return t.objectProperty(
                       t.identifier(locale),
                       t.arrowFunctionExpression(
@@ -51,5 +78,5 @@ export default function createLoaderInjector(ast: t.File, params: LoaderInjector
         );
       },
     });
-  };
-};
+  }
+}
