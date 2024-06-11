@@ -12,7 +12,7 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "fragments": [
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "My app",
         },
       ],
@@ -32,7 +32,7 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
           "fragments": [
             {
               "role": "fragment",
-              "type": "text",
+              "type": "jsx/text",
               "value": "My app",
             },
           ],
@@ -46,7 +46,7 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
           "fragments": [
             {
               "role": "fragment",
-              "type": "text",
+              "type": "jsx/text",
               "value": "This is a demo app",
             },
           ],
@@ -63,12 +63,12 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "fragments": [
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "Some other text",
         },
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "© 2030",
         },
       ],
@@ -82,17 +82,17 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "fragments": [
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "Click",
         },
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "here",
         },
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "to learn more",
         },
       ],
@@ -106,7 +106,7 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "fragments": [
         {
           "role": "fragment",
-          "type": "text",
+          "type": "jsx/text",
           "value": "Some text",
         },
       ],
@@ -118,7 +118,7 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
           "fragments": [
             {
               "role": "fragment",
-              "type": "text",
+              "type": "js/text",
               "value": "Some text for the span",
             },
           ],
