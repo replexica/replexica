@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import { I18nBaseChunk, I18nBaseChunkProps, I18nInstance } from "../shared";
+import { I18nBaseFragment, I18nBaseFragmentProps, I18nInstance } from "../shared";
 
 const I18nContext = createContext<I18nInstance>({
   currentLocale: 'en',
@@ -26,13 +26,13 @@ export function I18nProvider(props: I18nProviderProps) {
   );
 }
 
-export type I18nChunkProps = Omit<I18nBaseChunkProps, 'data'>;
+export type I18nChunkProps = Omit<I18nBaseFragmentProps, 'data'>;
 
 export function I18nChunk(props: I18nChunkProps) {
   const i18n = useI18n();
 
   return (
-    <I18nBaseChunk
+    <I18nBaseFragment
       data={i18n.data}
       fileId={props.fileId}
       scopeId={props.scopeId}

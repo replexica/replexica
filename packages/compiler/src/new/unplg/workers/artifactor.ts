@@ -20,7 +20,7 @@ export default function createArtifactor(filePath: string, fileId: string) {
     storeSourceDictionary(i18nTree: I18nScope, sourceLocale: string) {
       const defaultLocalePath = path.resolve(artifactsDir, `${sourceLocale}.json`);
 
-      const payload = _extractDictionary(i18nTree, {}, fileId);
+      const payload = _extractDictionary(i18nTree);
 
       _mergeAsJson(defaultLocalePath, payload);
     },
@@ -28,9 +28,7 @@ export default function createArtifactor(filePath: string, fileId: string) {
       for (const targetLocale of targetLocales) {
         const targetLocalePath = path.resolve(artifactsDir, `${targetLocale}.json`);
 
-        const payload = {
-          [fileId]: {},
-        };
+        const payload = {};
 
         _mergeAsJson(targetLocalePath, payload);
       }
@@ -73,36 +71,22 @@ export default function createArtifactor(filePath: string, fileId: string) {
     return path.resolve(fileDir, fileBase);
   }
 
-  function _extractDictionary(i18nTree: I18nScope, rootDictionary: Record<string, string[]> = {}, rootKey = '') {
-    const dictionary: Record<string, string[]> = {
-      ...rootDictionary,
-      [rootKey]: [],
-    };
+  function _extractDictionary(scope: I18nScope) {
+    const dictionary: Record<string, string> = {};
 
-    for (let i = 0; i < i18nTree.fragments.length; i++) {
-      const fragment = i18nTree.fragments[i];
-
-      dictionary[rootKey].push(fragment.data.value);
-    }
-
-    for (let i = 0; i < i18nTree.scopes.length; i++) {
-      const scope = i18nTree.scopes[i];
-
+    for (const fragment of scope.fragments) {
       const key = [
-        rootKey,
+        fileId,
         scope.data.id,
-      ]
-      .filter(Boolean)
-      .join('#');
+        fragment.data.id,
+      ].join('#');
 
-      const childDictionary = _extractDictionary(scope, dictionary, key);
-      Object.assign(dictionary, childDictionary);
+      dictionary[key] = fragment.data.value;
     }
 
-    for (const [key, value] of Object.entries(dictionary)) {
-      if (value.length === 0) {
-        delete dictionary[key];
-      }
+    for (const childScope of scope.scopes) {
+      const childDictionary = _extractDictionary(childScope);
+      Object.assign(dictionary, childDictionary);
     }
 
     return dictionary;

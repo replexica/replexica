@@ -1,16 +1,16 @@
 'use server';
 
-import { I18nBaseChunk, I18nBaseChunkProps, I18nBaseProxy, I18nBaseProxyProps, I18nInstance } from "../shared";
+import { I18nBaseFragment, I18nBaseFragmentProps, I18nBaseProxy, I18nBaseProxyProps, I18nInstance } from "../shared";
 
-export type I18nChunkProps = Omit<I18nBaseChunkProps, 'data'> & {
+export type I18nFragmentProps = Omit<I18nBaseFragmentProps, 'data'> & {
   loadI18n: () => Promise<I18nInstance>;
 };
 
-export async function I18nChunk(props: I18nChunkProps) {
+export async function I18nFragment(props: I18nFragmentProps) {
   const i18n = await props.loadI18n();
 
   return (
-    <I18nBaseChunk
+    <I18nBaseFragment
       data={i18n.data}
       fileId={props.fileId}
       scopeId={props.scopeId}
