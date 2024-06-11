@@ -54,12 +54,15 @@ export abstract class I18nScope<
 
   private initScopes() {
     const self = this;
+    let index = 0;
     this.nodePath.traverse({
       enter(childPath) {
-        const childScope = self.rootExtractor(childPath, '');
+        const childKey = [self.data.id, String(index)].filter(Boolean).join('.');
+        const childScope = self.rootExtractor(childPath, childKey);
         if (childScope) {
           self.nodePath.skip();
           self.scopes.push(childScope);
+          index += 1;
         }
       }
     });

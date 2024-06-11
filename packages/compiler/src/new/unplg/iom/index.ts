@@ -12,7 +12,7 @@ export function extractI18n(fileNode: t.File): I18nScope | null {
 
   traverse(fileNode, {
     Program(programPath) {
-      scope = extractI18nScopeFromPath(programPath);
+      scope = extractI18nScopeFromPath(programPath, '');
       programPath.stop();
     }
   });
@@ -33,11 +33,11 @@ function composeScopeExtractors(...parsers: I18nScopeExtractor[]): I18nScopeExtr
   };
 }
 
-function extractI18nScopeFromPath(nodePath: NodePath<t.Node>): I18nScope | null {
+function extractI18nScopeFromPath(nodePath: NodePath<t.Node>, id: string): I18nScope | null {
   return composeScopeExtractors(
     ProgramScope.fromNodePath(extractI18nScopeFromPath),
     JsxElementScope.fromNodePath(extractI18nScopeFromPath),
     JsxElementScope.fromExplicitNodePath(extractI18nScopeFromPath),
     JsxAttributeScope.fromNodePath(extractI18nScopeFromPath),
-  )(nodePath, '');
+  )(nodePath, id);
 }

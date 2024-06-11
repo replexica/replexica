@@ -5,18 +5,21 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
   "explicit": false,
   "fragments": [],
   "hint": "",
+  "id": "",
   "role": "scope",
   "scopes": [
     {
       "explicit": false,
       "fragments": [
         {
+          "id": "0",
           "role": "fragment",
           "type": "jsx/text",
           "value": "My app",
         },
       ],
       "hint": "",
+      "id": "0",
       "role": "scope",
       "scopes": [],
       "type": "jsx/element",
@@ -25,18 +28,21 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "explicit": true,
       "fragments": [],
       "hint": "",
+      "id": "1",
       "role": "scope",
       "scopes": [
         {
           "explicit": false,
           "fragments": [
             {
+              "id": "0",
               "role": "fragment",
               "type": "jsx/text",
               "value": "My app",
             },
           ],
           "hint": "",
+          "id": "1.0",
           "role": "scope",
           "scopes": [],
           "type": "jsx/element",
@@ -45,12 +51,14 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
           "explicit": false,
           "fragments": [
             {
+              "id": "0",
               "role": "fragment",
               "type": "jsx/text",
               "value": "This is a demo app",
             },
           ],
           "hint": "",
+          "id": "1.1",
           "role": "scope",
           "scopes": [],
           "type": "jsx/element",
@@ -62,17 +70,20 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "explicit": false,
       "fragments": [
         {
+          "id": "0",
           "role": "fragment",
           "type": "jsx/text",
           "value": "Some other text",
         },
         {
+          "id": "1",
           "role": "fragment",
           "type": "jsx/text",
           "value": "© 2030",
         },
       ],
       "hint": "",
+      "id": "2",
       "role": "scope",
       "scopes": [],
       "type": "jsx/element",
@@ -81,22 +92,26 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "explicit": false,
       "fragments": [
         {
+          "id": "0",
           "role": "fragment",
           "type": "jsx/text",
           "value": "Click",
         },
         {
+          "id": "1",
           "role": "fragment",
           "type": "jsx/text",
           "value": "here",
         },
         {
+          "id": "2",
           "role": "fragment",
           "type": "jsx/text",
           "value": "to learn more",
         },
       ],
       "hint": "",
+      "id": "3",
       "role": "scope",
       "scopes": [],
       "type": "jsx/element",
@@ -105,24 +120,28 @@ exports[`parse-i18n-scope > complex nested jsx 1`] = `
       "explicit": false,
       "fragments": [
         {
+          "id": "0",
           "role": "fragment",
           "type": "jsx/text",
           "value": "Some text",
         },
       ],
       "hint": "",
+      "id": "4",
       "role": "scope",
       "scopes": [
         {
           "explicit": false,
           "fragments": [
             {
+              "id": "0",
               "role": "fragment",
               "type": "js/text",
               "value": "Some text for the span",
             },
           ],
           "hint": "",
+          "id": "4.0",
           "role": "scope",
           "scopes": [],
           "type": "jsx/attribute",

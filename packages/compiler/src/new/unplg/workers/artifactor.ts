@@ -96,10 +96,10 @@ export default function createArtifactor(filePath: string) {
 
       const key = [
         rootKey,
-        String(i),
+        scope.data.id,
       ]
       .filter(Boolean)
-      .join('.');
+      .join('#');
 
       const childDictionary = _extractDictionary(scope, dictionary, key);
       Object.assign(dictionary, childDictionary);
