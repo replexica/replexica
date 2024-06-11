@@ -3,7 +3,7 @@ import { NodePath } from '@babel/core';
 import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import createCodeWriter from '../workers/writer';
 import { JsxTextFragment } from './jsx-text.fragment';
-import { NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './.const';
+import { NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './_const';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {

@@ -2,7 +2,7 @@ import * as t from '@babel/types';
 import { NodePath, traverse } from '@babel/core';
 import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import createCodeWriter from '../workers/writer';
-import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_LOADER_METHOD } from './.const';
+import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_LOADER_METHOD } from './_const';
 
 export class ProgramScope extends I18nScope<'js/program', never> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
