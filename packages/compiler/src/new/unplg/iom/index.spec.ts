@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parse } from '@babel/parser';
 import * as t from '@babel/types';
-import extractI18nScopeFromAst, { I18nScope } from './classes-poc';
+import { extractI18n } from '.';
 
 describe('parse-i18n-scope', () => {
   function generateAstFromCode(code: string): t.File {
@@ -12,7 +12,7 @@ describe('parse-i18n-scope', () => {
     const code = `<title>My app</title>`;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -43,7 +43,7 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -93,7 +93,7 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -122,7 +122,7 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -159,7 +159,7 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -201,7 +201,7 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -266,7 +266,7 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18nScopeFromAst(ast);
+    const scope = extractI18n(ast);
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toMatchSnapshot();
