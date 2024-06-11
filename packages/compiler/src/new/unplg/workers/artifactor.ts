@@ -1,11 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { generateFileIdHash } from '@/utils/id';
 import { I18nScope } from '../iom';
 
 // functional version below
 
-export default function createArtifactor(filePath: string) {
+export default function createArtifactor(filePath: string, fileId: string) {
   const artifactsDir = path.resolve(process.cwd(), 'node_modules', '@replexica/.cache');
   const i18nTreePath = path.resolve(artifactsDir, '.json');
   const debugDir = path.resolve(process.cwd(), '.replexica');
@@ -13,7 +12,6 @@ export default function createArtifactor(filePath: string) {
 
   return {
     storeMetadata(i18nTree: I18nScope) {
-      const fileId = generateFileIdHash(filePath);
       const payload = {
         [fileId]: i18nTree,
       };
@@ -22,15 +20,11 @@ export default function createArtifactor(filePath: string) {
     storeSourceDictionary(i18nTree: I18nScope, sourceLocale: string) {
       const defaultLocalePath = path.resolve(artifactsDir, `${sourceLocale}.json`);
 
-      const fileId = generateFileIdHash(filePath);
-
       const payload = _extractDictionary(i18nTree, {}, fileId);
 
       _mergeAsJson(defaultLocalePath, payload);
     },
     storeStubDictionaries(targetLocales: string[]) {
-      const fileId = generateFileIdHash(filePath);
-
       for (const targetLocale of targetLocales) {
         const targetLocalePath = path.resolve(artifactsDir, `${targetLocale}.json`);
 

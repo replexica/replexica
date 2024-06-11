@@ -27,7 +27,7 @@ export class ProgramScope extends I18nScope<'js/program', never> {
     super(nodePath, data, rootExtractor);
   }
 
-  protected injectOwnI18n(ast: t.File, supportedLocales: string[]) {
+  protected injectOwnI18n(fileId: string, ast: t.File, supportedLocales: string[]) {
     const writer = createCodeWriter(ast);
     const i18nImport = writer.findNamedImport(I18N_IMPORT_MODULE, I18N_IMPORT_NAME);
     // Early return if I18n import is not found
