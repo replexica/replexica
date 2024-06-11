@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parse } from '@babel/parser';
 import * as t from '@babel/types';
-import { I18nScope, parseScopeFromAst } from '.';
+import extractI18nScopeFromAst, { I18nScope } from './classes-poc';
 
 describe('parse-i18n-scope', () => {
   function generateAstFromCode(code: string): t.File {
@@ -12,9 +12,10 @@ describe('parse-i18n-scope', () => {
     const code = `<title>My app</title>`;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toEqual({
+    expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
       explicit: false,
@@ -26,11 +27,11 @@ describe('parse-i18n-scope', () => {
         explicit: false,
         hint: '',
         fragments: [
-          { role: 'fragment', type: 'text', value: 'My app' }
+          { role: 'fragment', type: 'jsx/text', value: 'My app' }
         ],
         scopes: [],
       }],
-    } satisfies I18nScope);
+    });
   });
 
   it('jsx element with explicit data-i18n attribute', () => {
@@ -42,9 +43,10 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toEqual({
+    expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
       explicit: false,
@@ -63,7 +65,7 @@ describe('parse-i18n-scope', () => {
             explicit: false,
             hint: '',
             fragments: [
-              { role: 'fragment', type: 'text', value: 'My app' }
+              { role: 'fragment', type: 'jsx/text', value: 'My app' }
             ],
             scopes: [],
           },
@@ -73,13 +75,13 @@ describe('parse-i18n-scope', () => {
             explicit: false,
             hint: '',
             fragments: [
-              { role: 'fragment', type: 'text', value: 'This is a demo app' }
+              { role: 'fragment', type: 'jsx/text', value: 'This is a demo app' }
             ],
             scopes: [],
           }
         ],
       }],
-    } satisfies I18nScope);
+    });
   });
 
   it('jsx element with text and sub-elements', () => {
@@ -91,9 +93,10 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toEqual({
+    expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
       explicit: false,
@@ -105,12 +108,12 @@ describe('parse-i18n-scope', () => {
         explicit: false,
         hint: '',
         fragments: [
-          { role: 'fragment', type: 'text', value: 'Some other text' },
-          { role: 'fragment', type: 'text', value: '© 2030' }
+          { role: 'fragment', type: 'jsx/text', value: 'Some other text' },
+          { role: 'fragment', type: 'jsx/text', value: '© 2030' }
         ],
         scopes: [],
       }],
-    } satisfies I18nScope);
+    });
   });
 
   it('explicit data-18n doesnt trigger a scope if the element would be a scope anyway', () => {
@@ -119,9 +122,10 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toEqual({
+    expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
       explicit: false,
@@ -133,11 +137,11 @@ describe('parse-i18n-scope', () => {
         explicit: false,
         hint: '',
         fragments: [
-          { role: 'fragment', type: 'text', value: 'Something' }
+          { role: 'fragment', type: 'jsx/text', value: 'Something' }
         ],
         scopes: [],
       }],
-    } satisfies I18nScope);
+    });
   });
 
   it('nested jsx elements', () => {
@@ -155,9 +159,10 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toEqual({
+    expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
       explicit: false,
@@ -170,9 +175,9 @@ describe('parse-i18n-scope', () => {
           explicit: false,
           hint: '',
           fragments: [
-            { role: 'fragment', type: 'text', value: 'Click' },
-            { role: 'fragment', type: 'text', value: 'here' },
-            { role: 'fragment', type: 'text', value: 'to learn more' }
+            { role: 'fragment', type: 'jsx/text', value: 'Click' },
+            { role: 'fragment', type: 'jsx/text', value: 'here' },
+            { role: 'fragment', type: 'jsx/text', value: 'to learn more' }
           ],
           scopes: [],
         },
@@ -182,23 +187,24 @@ describe('parse-i18n-scope', () => {
           explicit: false,
           hint: '',
           fragments: [
-            { role: 'fragment', type: 'text', value: 'Some text' }
+            { role: 'fragment', type: 'jsx/text', value: 'Some text' }
           ],
           scopes: [],
         }
       ],
-    } satisfies I18nScope);
+    });
   });
 
   it('jsx element with an commonly localizable attribute', () => {
     const code = `
-      <span title="Some text for the span">Some text</span>
+      <span title="Some label for the span">Some text</span>
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toEqual({
+    expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
       explicit: false,
@@ -211,7 +217,7 @@ describe('parse-i18n-scope', () => {
           explicit: false,
           hint: '',
           fragments: [
-            { role: 'fragment', type: 'text', value: 'Some text' }
+            { role: 'fragment', type: 'jsx/text', value: 'Some text' }
           ],
           scopes: [
             {
@@ -220,14 +226,14 @@ describe('parse-i18n-scope', () => {
               explicit: false,
               hint: '',
               fragments: [
-                { role: 'fragment', type: 'text', value: 'Some text for the span' }
+                { role: 'fragment', type: 'js/text', value: 'Some label for the span' }
               ],
               scopes: [],
             }
           ],
         }
       ],
-    } satisfies I18nScope);
+    });
   });
 
   it('complex nested jsx', () => {
@@ -260,9 +266,10 @@ describe('parse-i18n-scope', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = parseScopeFromAst(ast);
+    const scope = extractI18nScopeFromAst(ast);
+    const scopeObj = scope?.toJSON();
 
-    expect(scope).toMatchSnapshot();
+    expect(scopeObj).toMatchSnapshot();
   })
 });
 
