@@ -3,10 +3,7 @@ import { NodePath } from '@babel/core';
 import { I18nFragment } from './.fragment';
 
 export class JsTextFragment extends I18nFragment<'js/text'> {
-  public static fromAttributeValue(
-    nodePath: NodePath<t.JSXAttribute>,
-    id: string,
-  ) {
+  public static fromAttributeValue(nodePath: NodePath<t.JSXAttribute>, id: string) {
     if (!nodePath.isJSXAttribute()) { return null; }
 
     const jsxAttrValue = nodePath.node.value;

@@ -15,7 +15,6 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
       if (isSystemAttributeName(jsxAttrName)) { return null; }
 
       const hostJsxElementNodePath = nodePath.parentPath?.parentPath;
-      console.log(hostJsxElementNodePath?.type);
       if (!hostJsxElementNodePath?.isJSXElement()) {
         throw new Error('JSX attribute must be a child of a JSX element.');
       }
@@ -43,7 +42,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
     super(nodePath, data, rootExtractor);
   }
 
-  public injectI18n(ast: t.File): void {
+  public injectOwnI18n(ast: t.File): void {
     // TODO: Replace JSX Element with an I18n Proxy.
   }
 
