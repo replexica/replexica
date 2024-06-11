@@ -5,14 +5,8 @@ import createCodeWriter from '../workers/writer';
 import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_LOADER_METHOD } from './.const';
 
 export class ProgramScope extends I18nScope<'js/program', never> {
-  public static fromNodePath(
-    rootExtractor: I18nScopeExtractor,
-
-  ) {
-    return (
-      nodePath: NodePath<t.Node>,
-      id: string,
-    ) => {
+  public static fromNodePath(rootExtractor: I18nScopeExtractor) {
+    return (nodePath: NodePath<t.Node>, id: string) => {
       if (!nodePath.isProgram()) { return null; }
 
       return new ProgramScope(nodePath, {
@@ -32,8 +26,6 @@ export class ProgramScope extends I18nScope<'js/program', never> {
   ) {
     super(nodePath, data, rootExtractor);
   }
-
-  // helper functions
 
   protected injectOwnI18n(ast: t.File, supportedLocales: string[]) {
     const writer = createCodeWriter(ast);

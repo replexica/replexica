@@ -3,11 +3,10 @@ import { NodePath } from '@babel/core';
 import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import createCodeWriter from '../workers/writer';
 import { JsxTextFragment } from './jsx-text.fragment';
+import { NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './.const';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
-  public static fromNodePath(
-    rootExtractor: I18nScopeExtractor,
-  ) {
+  public static fromNodePath(rootExtractor: I18nScopeExtractor) {
     return (nodePath: NodePath<t.Node>, id: string) => {
       if (!t.isJSXElement(nodePath.node) && !t.isJSXFragment(nodePath.node)) { return null; }
 
@@ -61,11 +60,11 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
     super(nodePath, data, rootExtractor);
   }
 
-  public injectI18n(ast: t.File): void {
+  public injectOwnI18n(ast: t.File): void {
     if (!this.fragments.length) { return; }
 
     const writer = createCodeWriter(ast);
-    const importName = writer.upsertNamedImport('@replexica/react/next', 'I18nFragment');
+    const importName = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME);
 
     for (const fragment of this.fragments) {
       fragment.nodePath.replaceWith(

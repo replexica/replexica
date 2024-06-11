@@ -3,10 +3,7 @@ import { NodePath } from '@babel/core';
 import { I18nFragment } from './.fragment';
 
 export class JsxTextFragment extends I18nFragment<'jsx/text'> {
-  public static fromNodePath(
-    nodePath: NodePath<t.JSXText>,
-    id: string,
-  ) {
+  public static fromNodePath(nodePath: NodePath<t.JSXText>, id: string) {
     const jsxText = nodePath.node;
     const value = jsxText.value.trim();
     if (!value) { return null; }
