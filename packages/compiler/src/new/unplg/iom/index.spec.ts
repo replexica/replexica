@@ -18,16 +18,18 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
+      id: '',
       explicit: false,
       hint: '',
       fragments: [],
       scopes: [{
         role: 'scope',
         type: 'jsx/element',
+        id: '0',
         explicit: false,
         hint: '',
         fragments: [
-          { role: 'fragment', type: 'jsx/text', value: 'My app' }
+          { role: 'fragment', type: 'jsx/text', id: '0', value: 'My app' }
         ],
         scopes: [],
       }],
@@ -49,12 +51,14 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
+      id: '',
       explicit: false,
       hint: '',
       fragments: [],
       scopes: [{
         role: 'scope',
         type: 'jsx/element',
+        id: '0',
         explicit: true,
         hint: '',
         fragments: [],
@@ -62,20 +66,22 @@ describe('parse-i18n-scope', () => {
           {
             role: 'scope',
             type: 'jsx/element',
+            id: '0.0',
             explicit: false,
             hint: '',
             fragments: [
-              { role: 'fragment', type: 'jsx/text', value: 'My app' }
+              { role: 'fragment', type: 'jsx/text', id: '0', value: 'My app' }
             ],
             scopes: [],
           },
           {
             role: 'scope',
             type: 'jsx/element',
+            id: '0.1',
             explicit: false,
             hint: '',
             fragments: [
-              { role: 'fragment', type: 'jsx/text', value: 'This is a demo app' }
+              { role: 'fragment', type: 'jsx/text', id: '0', value: 'This is a demo app' }
             ],
             scopes: [],
           }
@@ -99,17 +105,19 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
+      id: '',
       explicit: false,
       hint: '',
       fragments: [],
       scopes: [{
         role: 'scope',
         type: 'jsx/element',
+        id: '0',
         explicit: false,
         hint: '',
         fragments: [
-          { role: 'fragment', type: 'jsx/text', value: 'Some other text' },
-          { role: 'fragment', type: 'jsx/text', value: '© 2030' }
+          { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some other text' },
+          { role: 'fragment', type: 'jsx/text', id: '1', value: '© 2030' }
         ],
         scopes: [],
       }],
@@ -128,16 +136,18 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
+      id: '',
       explicit: false,
       hint: '',
       fragments: [],
       scopes: [{
         role: 'scope',
         type: 'jsx/element',
+        id: '0',
         explicit: false,
         hint: '',
         fragments: [
-          { role: 'fragment', type: 'jsx/text', value: 'Something' }
+          { role: 'fragment', type: 'jsx/text', id: '0', value: 'Something' }
         ],
         scopes: [],
       }],
@@ -165,6 +175,7 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
+      id: '',
       explicit: false,
       hint: '',
       fragments: [],
@@ -172,22 +183,24 @@ describe('parse-i18n-scope', () => {
         {
           role: 'scope',
           type: 'jsx/element',
+          id: '0',
           explicit: false,
           hint: '',
           fragments: [
-            { role: 'fragment', type: 'jsx/text', value: 'Click' },
-            { role: 'fragment', type: 'jsx/text', value: 'here' },
-            { role: 'fragment', type: 'jsx/text', value: 'to learn more' }
+            { role: 'fragment', type: 'jsx/text', id: '0', value: 'Click' },
+            { role: 'fragment', type: 'jsx/text', id: '1', value: 'here' },
+            { role: 'fragment', type: 'jsx/text', id: '2', value: 'to learn more' }
           ],
           scopes: [],
         },
         {
           role: 'scope',
           type: 'jsx/element',
+          id: '1',
           explicit: false,
           hint: '',
           fragments: [
-            { role: 'fragment', type: 'jsx/text', value: 'Some text' }
+            { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
           ],
           scopes: [],
         }
@@ -207,6 +220,7 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toEqual({
       role: 'scope',
       type: 'js/program',
+      id: '',
       explicit: false,
       hint: '',
       fragments: [],
@@ -214,19 +228,21 @@ describe('parse-i18n-scope', () => {
         {
           role: 'scope',
           type: 'jsx/element',
+          id: '0',
           explicit: false,
           hint: '',
           fragments: [
-            { role: 'fragment', type: 'jsx/text', value: 'Some text' }
+            { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
           ],
           scopes: [
             {
               role: 'scope',
               type: 'jsx/attribute',
+              id: '0.0',
               explicit: false,
               hint: '',
               fragments: [
-                { role: 'fragment', type: 'js/text', value: 'Some label for the span' }
+                { role: 'fragment', type: 'js/text', id: '0', value: 'Some label for the span' }
               ],
               scopes: [],
             }

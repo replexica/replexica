@@ -84,13 +84,14 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
     if (this.data.explicit) { return; }
 
     const self = this;
-
+    let index = 0;
     this.nodePath.traverse({
       JSXText(childPath: NodePath<t.JSXText>) {
-        const fragment = JsxTextFragment.fromNodePath(childPath, '');
-        if (!fragment) { return; }
-
-        self.fragments.push(fragment);
+        const fragment = JsxTextFragment.fromNodePath(childPath, String(index));
+        if (fragment) {
+          self.fragments.push(fragment);
+          index++;
+        }
       },
     });
   }

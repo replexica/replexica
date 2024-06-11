@@ -16,7 +16,7 @@ export abstract class I18nNode<R extends I18nNodeRole = I18nNodeRole> {
   ) { }
 
   public toJSON() {
-    const keysToOmit: (keyof this['data'])[] = ['id'];
+    const keysToOmit: (keyof this['data'])[] = [];
     const result = _.omit(this.data, keysToOmit);
 
     return result;

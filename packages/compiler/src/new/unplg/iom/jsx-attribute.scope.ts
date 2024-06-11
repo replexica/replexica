@@ -47,7 +47,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   }
 
   public initFragments(): void {
-    const fragment = JsTextFragment.fromAttributeValue(this.nodePath, '');
+    const fragment = JsTextFragment.fromAttributeValue(this.nodePath, '0');
     if (!fragment) { return; }
 
     this.fragments.push(fragment);
