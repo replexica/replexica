@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import { JsTextFragment } from './js-text.fragment';
 
 export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
@@ -42,8 +42,9 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
     super(nodePath, data, rootExtractor);
   }
 
-  public injectOwnI18n(fileId: string, ast: t.File): void {
+  public injectOwnI18n(params: I18nInjectionParams): void {
     // TODO: Replace JSX Element with an I18n Proxy.
+    // Do this next ^^
   }
 
   public initFragments(): void {

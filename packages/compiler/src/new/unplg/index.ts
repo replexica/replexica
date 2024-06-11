@@ -5,6 +5,7 @@ import createCodeConverter from './workers/converter';
 import createArtifactor from './workers/artifactor';
 import { extractI18n } from './iom';
 import { generateFileIdHash } from '../../utils/id';
+import createCodeWriter from './workers/writer';
 
 const unplgConfigSchema = Z.object({
   rsc: Z.boolean().optional().default(false),
@@ -23,15 +24,23 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => ({
   transform(code, filePath) {
     const config = unplgConfigSchema.parse(_config);
     const supportedLocales = getSupportedLocales(config.locale);
-
+    
     const converter = createCodeConverter(code);
     const { ast } = converter.generateAst();
+
+    const writer = createCodeWriter(ast);
+    const reactEnv = writer.resolveReactEnv(ast, config.rsc);
 
     const i18nTree = extractI18n(ast);
     if (!i18nTree) { throw new Error(`Failed to parse i18n tree from code located at ${filePath}`); }
 
     const fileId = generateFileIdHash(filePath);
-    i18nTree.injectI18n(fileId, ast, supportedLocales);
+    i18nTree.injectI18n({
+      fileId,
+      supportedLocales,
+      ast,
+      isClientCode: reactEnv === 'client',
+    });
 
     const artifactor = createArtifactor(filePath, fileId);
     artifactor.storeMetadata(i18nTree);

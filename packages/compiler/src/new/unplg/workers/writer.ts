@@ -8,6 +8,14 @@ export type CodeImporterItem = {
 
 export default function createCodeWriter(ast: t.File) {
   return {
+    resolveReactEnv(ast: t.File, rscEnabled: boolean): 'client' | 'server' {
+      if (!rscEnabled) { return 'client'; }
+
+      const hasUseClient = _findDirective(ast, 'use client');
+      if (hasUseClient) { return 'client'; }
+
+      return 'server';
+    },
     findNamedImport(moduleName: string, exportName: string): CodeImporterItem | null {
       return _findImport(
         moduleName,
@@ -113,6 +121,21 @@ export default function createCodeWriter(ast: t.File) {
         }
       },
     });
+    return result;
+  }
+
+  function _findDirective(ast: t.File, directiveName: string): t.Node | null {
+    let result: t.Node | null = null;
+
+    traverse(ast, {
+      DirectiveLiteral(path) {
+        if (path.node.value === directiveName) {
+          result = path.node;
+          path.stop();
+        }
+      },
+    });
+
     return result;
   }
 }
