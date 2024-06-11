@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath, traverse } from '@babel/core';
-import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import createCodeWriter from '../workers/writer';
 import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_LOADER_METHOD } from './_const';
 
@@ -27,13 +27,13 @@ export class ProgramScope extends I18nScope<'js/program', never> {
     super(nodePath, data, rootExtractor);
   }
 
-  protected injectOwnI18n(fileId: string, ast: t.File, supportedLocales: string[]) {
-    const writer = createCodeWriter(ast);
+  protected injectOwnI18n(params: I18nInjectionParams) {
+    const writer = createCodeWriter(params.ast);
     const i18nImport = writer.findNamedImport(I18N_IMPORT_MODULE, I18N_IMPORT_NAME);
     // Early return if I18n import is not found
     if (!i18nImport) { return; }
 
-    traverse(ast, {
+    traverse(params.ast, {
       MemberExpression(nodePath: NodePath<t.MemberExpression>) {
         const isI18nAccess = t.isIdentifier(nodePath.node.object) && nodePath.node.object.name === i18nImport.name;
         if (!isI18nAccess) { return; }
@@ -50,7 +50,7 @@ export class ProgramScope extends I18nScope<'js/program', never> {
               ),
               [
                 t.objectExpression(
-                  supportedLocales.map((locale) => {
+                  params.supportedLocales.map((locale) => {
                     return t.objectProperty(
                       t.identifier(locale),
                       t.arrowFunctionExpression(

@@ -1,9 +1,9 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import createCodeWriter from '../workers/writer';
 import { JsxTextFragment } from './jsx-text.fragment';
-import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18n_LOADER_PROP, NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './_const';
+import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18N_LOADER_PROP, NEXTJS_FRAGMENT_IMPORT_MODULE, FRAGMENT_IMPORT_NAME, CLIENT_IMPORT_MODULE } from './_const';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
@@ -60,41 +60,23 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
     super(nodePath, data, rootExtractor);
   }
 
-  protected injectOwnI18n(fileId: string, ast: t.File): void {
+  protected injectOwnI18n(params: I18nInjectionParams): void {
     if (!this.fragments.length) { return; }
 
-    const writer = createCodeWriter(ast);
-    const fragmentComponentImport = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME);
-    const i18nInstanceImport = writer.upsertNamedImport(I18N_IMPORT_MODULE, I18N_IMPORT_NAME);
+    const writer = createCodeWriter(params.ast);
 
     for (const fragment of this.fragments) {
-      fragment.nodePath.replaceWith(
-        t.jsxElement(
-          t.jsxOpeningElement(
-            t.jsxIdentifier(fragmentComponentImport.name),
-            [
-              t.jsxAttribute(
-                t.jsxIdentifier(I18n_LOADER_PROP),
-                t.jsxExpressionContainer(
-                  t.arrowFunctionExpression(
-                    [],
-                    t.callExpression(
-                      t.memberExpression(t.identifier(i18nInstanceImport.name), t.identifier(I18N_ACCESS_METHOD)),
-                      [],
-                    ),
-                  ),
-                ),
-              ),
-              t.jsxAttribute(t.jsxIdentifier('fileId'), t.stringLiteral(fileId)),
-              t.jsxAttribute(t.jsxIdentifier('scopeId'), t.stringLiteral(this.data.id)),
-              t.jsxAttribute(t.jsxIdentifier('chunkId'), t.stringLiteral(fragment.data.id)),
-            ],
-            true,
-          ),
-          null,
-          [],
-        ),
-      );
+      const fragmentFactory = params.isClientCode
+        ? this._createClientFragmentElement
+        : this._createServerFragmentElement;
+
+      const element = fragmentFactory(writer, {
+        fileId: params.fileId,
+        scopeId: this.data.id,
+        chunkId: fragment.data.id,
+      })
+
+      fragment.nodePath.replaceWith(element);
     }
   }
 
@@ -112,5 +94,61 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         }
       },
     });
+  }
+
+  // helper functions
+
+  private _createClientFragmentElement(
+    writer: ReturnType<typeof createCodeWriter>,
+    params: { fileId: string, scopeId: string, chunkId: string },
+  ) {
+    const fragmentImport = writer.upsertNamedImport(CLIENT_IMPORT_MODULE, FRAGMENT_IMPORT_NAME);
+    const result = this._createFragmentElement(fragmentImport.name, params);
+    return result;
+  }
+
+  private _createServerFragmentElement(
+    writer: ReturnType<typeof createCodeWriter>,
+    params: { fileId: string, scopeId: string, chunkId: string },
+  ) {
+    const fragmentImport = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, FRAGMENT_IMPORT_NAME);
+    const i18nInstanceImport = writer.upsertNamedImport(I18N_IMPORT_MODULE, I18N_IMPORT_NAME);
+
+    const result = this._createFragmentElement(fragmentImport.name, params);
+    result.openingElement.attributes.push(
+      t.jsxAttribute(
+        t.jsxIdentifier(I18N_LOADER_PROP),
+        t.jsxExpressionContainer(
+          t.arrowFunctionExpression(
+            [],
+            t.callExpression(
+              t.memberExpression(t.identifier(i18nInstanceImport.name), t.identifier(I18N_ACCESS_METHOD)),
+              [],
+            ),
+          ),
+        ),
+      )
+    );
+
+    return result;
+  }
+
+  private _createFragmentElement(
+    componentName: string,
+    params: { fileId: string, scopeId: string, chunkId: string },
+  ) {
+    return t.jsxElement(
+      t.jsxOpeningElement(
+        t.jsxIdentifier(componentName),
+        [
+          t.jsxAttribute(t.jsxIdentifier('fileId'), t.stringLiteral(params.fileId)),
+          t.jsxAttribute(t.jsxIdentifier('scopeId'), t.stringLiteral(params.scopeId)),
+          t.jsxAttribute(t.jsxIdentifier('chunkId'), t.stringLiteral(params.chunkId)),
+        ],
+        true,
+      ),
+      null,
+      [],
+    );
   }
 }
