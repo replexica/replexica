@@ -3,7 +3,7 @@ import { NodePath } from '@babel/core';
 import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
 import createCodeWriter from '../workers/writer';
 import { JsxTextFragment } from './jsx-text.fragment';
-import { NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './_const';
+import { I18N_ACCESS_METHOD, I18N_IMPORT_MODULE, I18N_IMPORT_NAME, I18n_LOADER_PROP, NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME } from './_const';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
@@ -60,21 +60,39 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
     super(nodePath, data, rootExtractor);
   }
 
-  public injectOwnI18n(ast: t.File): void {
+  protected injectOwnI18n(fileId: string, ast: t.File): void {
     if (!this.fragments.length) { return; }
 
     const writer = createCodeWriter(ast);
-    const importName = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME);
+    const fragmentComponentImport = writer.upsertNamedImport(NEXTJS_FRAGMENT_IMPORT_MODULE, NEXTJS_FRAGMENT_IMPORT_NAME);
+    const i18nInstanceImport = writer.upsertNamedImport(I18N_IMPORT_MODULE, I18N_IMPORT_NAME);
 
     for (const fragment of this.fragments) {
       fragment.nodePath.replaceWith(
         t.jsxElement(
-          t.jsxOpeningElement(t.jsxIdentifier(importName.name), [
-            t.jsxAttribute(t.jsxIdentifier('id'), t.stringLiteral(fragment.data.id)),
-          ]),
+          t.jsxOpeningElement(
+            t.jsxIdentifier(fragmentComponentImport.name),
+            [
+              t.jsxAttribute(
+                t.jsxIdentifier(I18n_LOADER_PROP),
+                t.jsxExpressionContainer(
+                  t.arrowFunctionExpression(
+                    [],
+                    t.callExpression(
+                      t.memberExpression(t.identifier(i18nInstanceImport.name), t.identifier(I18N_ACCESS_METHOD)),
+                      [],
+                    ),
+                  ),
+                ),
+              ),
+              t.jsxAttribute(t.jsxIdentifier('fileId'), t.stringLiteral(fileId)),
+              t.jsxAttribute(t.jsxIdentifier('scopeId'), t.stringLiteral(this.data.id)),
+              t.jsxAttribute(t.jsxIdentifier('chunkId'), t.stringLiteral(fragment.data.id)),
+            ],
+            true,
+          ),
           null,
           [],
-          true,
         ),
       );
     }

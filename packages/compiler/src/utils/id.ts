@@ -1,9 +1,9 @@
 import createObjectHash from 'object-hash';
 import crypto from 'crypto';
 
-export function generateFileIdHash(fileId: string): string {
+export function generateFileIdHash(filePath: string): string {
   const hash = crypto.createHash('md5');
-  hash.update(fileId);
+  hash.update(filePath);
   return hash.digest('base64').substring(0, 12);
 }
 

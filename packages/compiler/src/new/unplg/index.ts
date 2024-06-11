@@ -4,6 +4,7 @@ import { localeSchema } from '@replexica/spec';
 import createCodeConverter from './workers/converter';
 import createArtifactor from './workers/artifactor';
 import { extractI18n } from './iom';
+import { generateFileIdHash } from '../../utils/id';
 
 const unplgConfigSchema = Z.object({
   rsc: Z.boolean().optional().default(false),
@@ -29,10 +30,13 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => ({
     const i18nTree = extractI18n(ast);
     if (!i18nTree) { throw new Error(`Failed to parse i18n tree from code located at ${filePath}`); }
 
-    i18nTree.injectI18n(ast, supportedLocales);
+    const fileId = generateFileIdHash(filePath);
+    i18nTree.injectI18n(fileId, ast, supportedLocales);
 
-    const artifactor = createArtifactor(filePath);
+    const artifactor = createArtifactor(filePath, fileId);
     artifactor.storeMetadata(i18nTree);
+    artifactor.storeSourceDictionary(i18nTree, config.locale.source);
+    artifactor.storeStubDictionaries(config.locale.targets);
 
     if (config.debug) {
       artifactor.storeOriginalCode(code);

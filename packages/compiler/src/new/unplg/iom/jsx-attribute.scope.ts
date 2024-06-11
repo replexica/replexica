@@ -42,7 +42,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
     super(nodePath, data, rootExtractor);
   }
 
-  public injectOwnI18n(ast: t.File): void {
+  public injectOwnI18n(fileId: string, ast: t.File): void {
     // TODO: Replace JSX Element with an I18n Proxy.
   }
 

@@ -39,16 +39,16 @@ export abstract class I18nScope<
 
   public readonly scopes: I18nScope[] = [];
 
-  public injectI18n(ast: t.File, supportedLocales: string[]) {
-    this.injectOwnI18n(ast, supportedLocales);
-    this.scopes.forEach((s) => s.injectI18n(ast, supportedLocales));
+  public injectI18n(fileId: string, ast: t.File, supportedLocales: string[]) {
+    this.scopes.forEach((s) => s.injectI18n(fileId, ast, supportedLocales));
+    this.injectOwnI18n(fileId, ast, supportedLocales);
   }
 
   public initFragments() {
     // Do nothing in the base class.
   }
 
-  protected injectOwnI18n(ast: t.File, supportedLocales: string[]) {
+  protected injectOwnI18n(fileId: string, ast: t.File, supportedLocales: string[]) {
     // Do nothing in the base class.
   }
 
