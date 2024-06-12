@@ -20,6 +20,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
+      label: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -27,6 +28,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: false,
+        label: '',
         hint: '',
         fragments: [
           { role: 'fragment', type: 'jsx/text', id: '0', value: 'My app' }
@@ -53,6 +55,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
+      label: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -60,6 +63,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: true,
+        label: '',
         hint: '',
         fragments: [],
         scopes: [
@@ -68,6 +72,7 @@ describe('iom', () => {
             type: 'jsx/element',
             id: '0.0',
             explicit: false,
+            label: '',
             hint: '',
             fragments: [
               { role: 'fragment', type: 'jsx/text', id: '0', value: 'My app' }
@@ -79,6 +84,7 @@ describe('iom', () => {
             type: 'jsx/element',
             id: '0.1',
             explicit: false,
+            label: '',
             hint: '',
             fragments: [
               { role: 'fragment', type: 'jsx/text', id: '0', value: 'This is a demo app' }
@@ -107,6 +113,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
+      label: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -114,6 +121,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: false,
+        label: '',
         hint: '',
         fragments: [
           { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some other text' },
@@ -138,6 +146,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
+      label: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -145,6 +154,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: false,
+        label: '',
         hint: '',
         fragments: [
           { role: 'fragment', type: 'jsx/text', id: '0', value: 'Something' }
@@ -177,6 +187,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
+      label: '',
       hint: '',
       fragments: [],
       scopes: [
@@ -185,6 +196,7 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '0',
           explicit: false,
+          label: '',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Click' },
@@ -198,6 +210,7 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '1',
           explicit: false,
+          label: '',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
@@ -222,6 +235,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
+      label: '',
       hint: '',
       fragments: [],
       scopes: [
@@ -230,6 +244,7 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '0',
           explicit: false,
+          label: '',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
@@ -240,6 +255,7 @@ describe('iom', () => {
               type: 'jsx/attribute',
               id: '0.0',
               explicit: false,
+              label: 'title',
               hint: '',
               fragments: [
                 { role: 'fragment', type: 'js/text', id: '0', value: 'Some label for the span' }
@@ -247,6 +263,53 @@ describe('iom', () => {
               scopes: [],
             }
           ],
+        }
+      ],
+    });
+  });
+
+  it('jsx element with a subelement that must be skipped', () => {
+    const code = `
+      <main>
+        <h1 data-i18n={false}>My Brand</h1>
+        <p>Some text</p>
+      </main>
+    `;
+
+    const ast = generateAstFromCode(code);
+    const scope = extractI18n(ast);
+    const scopeObj = scope?.toJSON();
+
+    expect(scopeObj).toEqual({
+      role: 'scope',
+      type: 'js/program',
+      id: '',
+      explicit: false,
+      label: '',
+      hint: '',
+      fragments: [],
+      scopes: [
+        {
+          role: 'scope',
+          type: 'jsx/skip',
+          id: '0',
+          explicit: true,
+          label: '',
+          hint: '',
+          fragments: [],
+          scopes: [],
+        },
+        {
+          role: 'scope',
+          type: 'jsx/element',
+          id: '1',
+          explicit: false,
+          label: '',
+          hint: '',
+          fragments: [
+            { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
+          ],
+          scopes: [],
         }
       ],
     });

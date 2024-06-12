@@ -27,8 +27,9 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
         {
           role: 'scope',
           type: 'jsx/attribute',
+          label: jsxAttrName,
           id,
-          hint: jsxAttrName,
+          hint: '',
           explicit: false,
         },
         rootExtractor,
