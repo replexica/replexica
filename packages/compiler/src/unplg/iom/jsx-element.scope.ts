@@ -22,6 +22,8 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       const hasNonEmptySiblingJsxTextChildren = !!nonEmptySiblingJsxTextChildren?.length;
       if (hasNonEmptySiblingJsxTextChildren) { return null; }
 
+      const elementName = getJsxElementName(jsxEl);
+
       return new JsxElementScope(nodePath, {
         role: 'scope',
         type: 'jsx/element',
@@ -154,5 +156,17 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       null,
       [],
     );
+  }
+}
+
+function getJsxElementName(element: t.JSXFragment | t.JSXElement): string {
+  if (t.isJSXFragment(element)) {
+    return 'Fragment';
+  } else if (t.isJSXIdentifier(element.openingElement.name)) {
+    return element.openingElement.name.name;
+  } else if (t.isJSXNamespacedName(element.openingElement.name)) {
+    return `${element.openingElement.name.namespace.name}:${element.openingElement.name.name.name}`;
+  } else {
+    throw new Error('Could not parse JSX element name: invalid element type');
   }
 }

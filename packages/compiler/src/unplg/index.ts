@@ -1,10 +1,10 @@
 import { createUnplugin } from 'unplugin';
 import Z from 'zod';
+import crypto from 'crypto';
 import { localeSchema } from '@replexica/spec';
 import createCodeConverter from './workers/converter';
 import createArtifactor from './workers/artifactor';
 import { extractI18n } from './iom';
-import { generateFileIdHash } from '../../utils/id';
 import createCodeWriter from './workers/writer';
 
 const unplgConfigSchema = Z.object({
@@ -74,4 +74,10 @@ function getSupportedLocales(localeConfig: Z.infer<typeof unplgConfigSchema>['lo
       ...localeConfig.targets,
     ]),
   ];
+}
+
+export function generateFileIdHash(filePath: string): string {
+  const hash = crypto.createHash('md5');
+  hash.update(filePath);
+  return hash.digest('base64').substring(0, 12);
 }

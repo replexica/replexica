@@ -1,5 +1,8 @@
-import { nextPlugin } from "./plugins/next";
+import { createCompiler } from "./_utils";
+import next from "./next";
+import stub from "./stub";
 
-export default {
-  next: nextPlugin,
-};
+export default createCompiler({
+  next,
+  stub,
+});

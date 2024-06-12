@@ -4,9 +4,9 @@
   "description": "Replexica compiler",
   "private": false,
   "type": "module",
-  "main": "build/new/index.cjs",
-  "types": "build/new/index.d.ts",
-  "module": "build/new/index.mjs",
+  "main": "build/index.cjs",
+  "types": "build/index.d.ts",
+  "module": "build/index.mjs",
   "files": [
     "build"
   ],
