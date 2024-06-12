@@ -8,13 +8,32 @@ export type CodeImporterItem = {
 
 export default function createCodeWriter(ast: t.File) {
   return {
-    resolveReactEnv(ast: t.File, rscEnabled: boolean): 'client' | 'server' {
-      if (!rscEnabled) { return 'client'; }
+    upsertJsxAttribute(element: t.JSXElement, propName: string, propValue: t.Expression) {
+      const prop = this.findJsxAttribute(element, propName);
+      if (prop) { return prop; }
 
-      const hasUseClient = _findDirective(ast, 'use client');
-      if (hasUseClient) { return 'client'; }
+      const result = this.createJsxAttribute(element, propName, propValue);
 
-      return 'server';
+      return result;
+    },
+    findJsxAttribute(element: t.JSXElement, propName: string): t.JSXAttribute | null {
+      const result = element.openingElement.attributes.find((a) => {
+        if (!t.isJSXAttribute(a)) { return false; }
+        return a.name.name === propName;
+      }) as t.JSXAttribute | null;
+      return result;
+    },
+    createJsxAttribute(element: t.JSXElement, propName: string, propValue: t.Expression): t.JSXAttribute {
+      const existingAttribute = this.findJsxAttribute(element, propName);
+      if (existingAttribute) { return existingAttribute; }
+
+      const newAttribute = t.jsxAttribute(
+        t.jsxIdentifier(propName),
+        t.jsxExpressionContainer(propValue),
+      );
+      element.openingElement.attributes.push(newAttribute);
+
+      return newAttribute;
     },
     findNamedImport(moduleName: string, exportName: string): CodeImporterItem | null {
       return _findImport(
@@ -50,6 +69,14 @@ export default function createCodeWriter(ast: t.File) {
       }
 
       return defaultImport;
+    },
+    resolveReactEnv(ast: t.File, rscEnabled: boolean): 'client' | 'server' {
+      if (!rscEnabled) { return 'client'; }
+
+      const hasUseClient = _findDirective(ast, 'use client');
+      if (hasUseClient) { return 'client'; }
+
+      return 'server';
     },
   };
 
