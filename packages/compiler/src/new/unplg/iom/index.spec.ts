@@ -3,7 +3,7 @@ import { parse } from '@babel/parser';
 import * as t from '@babel/types';
 import { extractI18n } from '.';
 
-describe('parse-i18n-scope', () => {
+describe('iom', () => {
   function generateAstFromCode(code: string): t.File {
     return parse(code, { sourceType: 'module', plugins: ['jsx'] });
   }
@@ -288,16 +288,3 @@ describe('parse-i18n-scope', () => {
     expect(scopeObj).toMatchSnapshot();
   })
 });
-
-
-/**
- * TODO:
- * 
- * Start with writing the entrypoint code in a declarative way.
- * Finish with adding unit tests for the LOM tree generation.
- * 
- * - Extract I18n Object Model from JSX AST (Scopes and Fragments) (Generate IDs for each scope and fragment)
- * - Loop through IOM scopes and inject React components for each fragment
- * - Generate a JSON file with the IOM tree
- * - Generate a JSON file with default values for each scope
- */
