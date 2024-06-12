@@ -4,6 +4,7 @@ import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } fro
 import createCodeWriter from '../workers/writer';
 import { JsxTextFragment } from './jsx-text.fragment';
 import { I18N_ACCESS_METHOD, I18N_IMPORT_NAME, I18N_LOADER_PROP, NEXTJS_IMPORT_MODULE, FRAGMENT_IMPORT_NAME, CLIENT_IMPORT_MODULE } from './_const';
+import { getJsxElementName } from './_utils';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
@@ -28,7 +29,7 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         role: 'scope',
         type: 'jsx/element',
         id,
-        label: '',
+        name: elementName,
         hint: '',
         explicit: false,
       }, rootExtractor);
@@ -49,7 +50,7 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         role: 'scope',
         type: 'jsx/element',
         id,
-        label: '',
+        name: '',
         hint: '',
         explicit: true,
       }, rootExtractor);
@@ -156,17 +157,5 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       null,
       [],
     );
-  }
-}
-
-function getJsxElementName(element: t.JSXFragment | t.JSXElement): string {
-  if (t.isJSXFragment(element)) {
-    return 'Fragment';
-  } else if (t.isJSXIdentifier(element.openingElement.name)) {
-    return element.openingElement.name.name;
-  } else if (t.isJSXNamespacedName(element.openingElement.name)) {
-    return `${element.openingElement.name.namespace.name}:${element.openingElement.name.name.name}`;
-  } else {
-    throw new Error('Could not parse JSX element name: invalid element type');
   }
 }
