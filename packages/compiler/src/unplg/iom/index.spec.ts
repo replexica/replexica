@@ -20,7 +20,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -28,7 +28,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: false,
-        label: '',
+        name: 'title',
         hint: '',
         fragments: [
           { role: 'fragment', type: 'jsx/text', id: '0', value: 'My app' }
@@ -55,7 +55,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -63,7 +63,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: true,
-        label: '',
+        name: '',
         hint: '',
         fragments: [],
         scopes: [
@@ -72,7 +72,7 @@ describe('iom', () => {
             type: 'jsx/element',
             id: '0.0',
             explicit: false,
-            label: '',
+            name: 'h1',
             hint: '',
             fragments: [
               { role: 'fragment', type: 'jsx/text', id: '0', value: 'My app' }
@@ -84,7 +84,7 @@ describe('iom', () => {
             type: 'jsx/element',
             id: '0.1',
             explicit: false,
-            label: '',
+            name: 'p',
             hint: '',
             fragments: [
               { role: 'fragment', type: 'jsx/text', id: '0', value: 'This is a demo app' }
@@ -113,7 +113,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -121,7 +121,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: false,
-        label: '',
+        name: 'p',
         hint: '',
         fragments: [
           { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some other text' },
@@ -146,7 +146,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [{
@@ -154,7 +154,7 @@ describe('iom', () => {
         type: 'jsx/element',
         id: '0',
         explicit: false,
-        label: '',
+        name: 'p',
         hint: '',
         fragments: [
           { role: 'fragment', type: 'jsx/text', id: '0', value: 'Something' }
@@ -187,7 +187,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [
@@ -196,7 +196,7 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '0',
           explicit: false,
-          label: '',
+          name: 'p',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Click' },
@@ -210,7 +210,7 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '1',
           explicit: false,
-          label: '',
+          name: 'span',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
@@ -235,7 +235,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [
@@ -244,7 +244,7 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '0',
           explicit: false,
-          label: '',
+          name: 'span',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
@@ -255,7 +255,7 @@ describe('iom', () => {
               type: 'jsx/attribute',
               id: '0.0',
               explicit: false,
-              label: 'title',
+              name: 'title',
               hint: '',
               fragments: [
                 { role: 'fragment', type: 'js/text', id: '0', value: 'Some label for the span' }
@@ -273,6 +273,7 @@ describe('iom', () => {
       <main>
         <h1 data-i18n={false}>My Brand</h1>
         <p>Some text</p>
+        <Text.Label.Prop.here>Some other text</Text.Label.Prop.here>
       </main>
     `;
 
@@ -285,7 +286,7 @@ describe('iom', () => {
       type: 'js/program',
       id: '',
       explicit: false,
-      label: '',
+      name: '',
       hint: '',
       fragments: [],
       scopes: [
@@ -294,7 +295,7 @@ describe('iom', () => {
           type: 'jsx/skip',
           id: '0',
           explicit: true,
-          label: '',
+          name: 'h1',
           hint: '',
           fragments: [],
           scopes: [],
@@ -304,10 +305,22 @@ describe('iom', () => {
           type: 'jsx/element',
           id: '1',
           explicit: false,
-          label: '',
+          name: 'p',
           hint: '',
           fragments: [
             { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some text' }
+          ],
+          scopes: [],
+        },
+        {
+          role: 'scope',
+          type: 'jsx/element',
+          id: '2',
+          explicit: false,
+          name: 'Text.Label.Prop.here',
+          hint: '',
+          fragments: [
+            { role: 'fragment', type: 'jsx/text', id: '0', value: 'Some other text' }
           ],
           scopes: [],
         }

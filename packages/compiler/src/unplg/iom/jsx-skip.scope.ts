@@ -1,6 +1,7 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
 import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import { getJsxElementName } from './_utils';
 
 export class JsxSkipScope extends I18nScope<'jsx/skip', 'jsx/text'> {
   public static fromExplicitNodePath(rootExtractor: I18nScopeExtractor) {
@@ -23,11 +24,14 @@ export class JsxSkipScope extends I18nScope<'jsx/skip', 'jsx/text'> {
       const i18nAttrValue = i18nAttr.value.expression.value;
       if (i18nAttrValue) { return null; }
 
+      // Get JSX element name
+      const elementName = getJsxElementName(nodePath.node);
+
       return new JsxSkipScope(nodePath, {
         role: 'scope',
         type: 'jsx/skip',
         id,
-        label: '',
+        name: elementName,
         hint: '',
         explicit: true,
       }, rootExtractor);

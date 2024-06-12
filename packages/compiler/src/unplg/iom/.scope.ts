@@ -17,7 +17,7 @@ export type I18nScopeData<
   T extends I18nScopeType = I18nScopeType,
   F extends I18nFragmentType = I18nFragmentType,
 > = I18nNodeData<'scope'> & {
-  label: string;
+  name: string;
   type: T;
   hint: string;
   explicit: boolean;

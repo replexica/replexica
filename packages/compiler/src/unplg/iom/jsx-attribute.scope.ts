@@ -4,6 +4,7 @@ import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } fro
 import { JsTextFragment } from './js-text.fragment';
 import createCodeWriter from '../workers/writer';
 import { CLIENT_IMPORT_MODULE, I18N_ACCESS_METHOD, I18N_IMPORT_NAME, I18N_LOADER_PROP, NEXTJS_IMPORT_MODULE, PROXY_IMPORT_NAME } from './_const';
+import { parseMemberExpressionFromJsxMemberExpression } from './_utils';
 
 export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
@@ -26,7 +27,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
         {
           role: 'scope',
           type: 'jsx/attribute',
-          label: jsxAttrName,
+          name: jsxAttrName,
           id,
           hint: '',
           explicit: false,
@@ -79,7 +80,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
           t.identifier('attributes'),
           t.objectExpression([
             t.objectProperty(
-              t.identifier(this.data.hint),
+              t.identifier(this.data.name),
               t.objectExpression([
                 t.objectProperty(
                   t.identifier('fileId'),
@@ -231,22 +232,4 @@ function isSystemAttributeName(name: string) {
   ].includes(name)) { return true; }
 
   return false;
-}
-
-function parseMemberExpressionFromJsxMemberExpression(
-  jsxMemberExpression: t.JSXMemberExpression,
-): t.MemberExpression {
-  if (t.isJSXIdentifier(jsxMemberExpression.object)) {
-    return t.memberExpression(
-      t.identifier(jsxMemberExpression.object.name),
-      t.identifier(jsxMemberExpression.property.name),
-    );
-  } else if (t.isJSXMemberExpression(jsxMemberExpression.object)) {
-    return t.memberExpression(
-      parseMemberExpressionFromJsxMemberExpression(jsxMemberExpression.object),
-      t.identifier(jsxMemberExpression.property.name),
-    );
-  } else {
-    throw new Error(`Unsupported JSXMemberExpression object type.`);
-  }
 }
