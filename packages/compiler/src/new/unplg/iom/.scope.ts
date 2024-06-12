@@ -7,6 +7,7 @@ import { I18nFragment, I18nFragmentType } from "./.fragment";
 export type I18nScopeType =
   | 'js/program'
   | 'jsx/element'
+  | 'jsx/skip'
   | 'jsx/attribute'
   ;
 
@@ -16,6 +17,7 @@ export type I18nScopeData<
   T extends I18nScopeType = I18nScopeType,
   F extends I18nFragmentType = I18nFragmentType,
 > = I18nNodeData<'scope'> & {
+  label: string;
   type: T;
   hint: string;
   explicit: boolean;

@@ -5,6 +5,7 @@ import { I18nScopeExtractor, I18nScope } from './.scope';
 import { ProgramScope } from './program.scope';
 import { JsxElementScope } from './jsx-element.scope';
 import { JsxAttributeScope } from './jsx-attribute.scope';
+import { JsxSkipScope } from './jsx-skip.scope';
 
 export * from './.scope';
 export function extractI18n(fileNode: t.File): I18nScope | null {
@@ -36,6 +37,7 @@ function composeScopeExtractors(...parsers: I18nScopeExtractor[]): I18nScopeExtr
 function extractI18nScopeFromPath(nodePath: NodePath<t.Node>, id: string): I18nScope | null {
   return composeScopeExtractors(
     ProgramScope.fromNodePath(extractI18nScopeFromPath),
+    JsxSkipScope.fromExplicitNodePath(extractI18nScopeFromPath),
     JsxElementScope.fromNodePath(extractI18nScopeFromPath),
     JsxElementScope.fromExplicitNodePath(extractI18nScopeFromPath),
     JsxAttributeScope.fromNodePath(extractI18nScopeFromPath),

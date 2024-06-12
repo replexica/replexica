@@ -13,6 +13,7 @@ export class ProgramScope extends I18nScope<'js/program', never> {
         role: 'scope',
         type: 'js/program',
         id,
+        label: '',
         hint: '',
         explicit: false,
       }, rootExtractor);

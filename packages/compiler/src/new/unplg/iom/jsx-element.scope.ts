@@ -26,6 +26,7 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         role: 'scope',
         type: 'jsx/element',
         id,
+        label: '',
         hint: '',
         explicit: false,
       }, rootExtractor);
@@ -46,6 +47,7 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         role: 'scope',
         type: 'jsx/element',
         id,
+        label: '',
         hint: '',
         explicit: true,
       }, rootExtractor);
