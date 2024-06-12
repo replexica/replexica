@@ -4,7 +4,6 @@ import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } fro
 import { JsTextFragment } from './js-text.fragment';
 import createCodeWriter from '../workers/writer';
 import { CLIENT_IMPORT_MODULE, I18N_ACCESS_METHOD, I18N_IMPORT_NAME, I18N_LOADER_PROP, NEXTJS_IMPORT_MODULE, PROXY_IMPORT_NAME } from './_const';
-import { parseMemberExpressionFromJsxMemberExpression } from '../../../utils/ast';
 
 export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
@@ -234,14 +233,20 @@ function isSystemAttributeName(name: string) {
   return false;
 }
 
-function getJsxElementName(element: t.JSXFragment | t.JSXElement): string {
-  if (t.isJSXFragment(element)) {
-    return 'Fragment';
-  } else if (t.isJSXIdentifier(element.openingElement.name)) {
-    return element.openingElement.name.name;
-  } else if (t.isJSXNamespacedName(element.openingElement.name)) {
-    return `${element.openingElement.name.namespace.name}:${element.openingElement.name.name.name}`;
+function parseMemberExpressionFromJsxMemberExpression(
+  jsxMemberExpression: t.JSXMemberExpression,
+): t.MemberExpression {
+  if (t.isJSXIdentifier(jsxMemberExpression.object)) {
+    return t.memberExpression(
+      t.identifier(jsxMemberExpression.object.name),
+      t.identifier(jsxMemberExpression.property.name),
+    );
+  } else if (t.isJSXMemberExpression(jsxMemberExpression.object)) {
+    return t.memberExpression(
+      parseMemberExpressionFromJsxMemberExpression(jsxMemberExpression.object),
+      t.identifier(jsxMemberExpression.property.name),
+    );
   } else {
-    throw new Error('Could not parse JSX element name: invalid element type');
+    throw new Error(`Unsupported JSXMemberExpression object type.`);
   }
 }
