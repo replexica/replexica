@@ -11,8 +11,8 @@
     "build"
   ],
   "scripts": {
-    "dev": "unbuild --stub && tsc -w --noEmit",
-    "build": "unbuild",
+    "dev": "tsup --watch",
+    "build": "tsup",
     "test": "vitest run"
   },
   "keywords": [],
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@replexica/config": "workspace:*",
+    "tsup": "^8.1.0",
     "unbuild": "^2.0.0"
   }
 }
