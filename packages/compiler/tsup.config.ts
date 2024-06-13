@@ -8,6 +8,8 @@ export default defineConfig({
   format: ["cjs", "esm"],
   dts: true,
   external: ['fs', 'path'],
+  cjsInterop: true,
+  splitting: true,
   outExtension: (ctx) => ({
     js: ctx.format === "cjs" ? ".cjs" : ".mjs",
   }),
