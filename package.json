@@ -1,4 +1,5 @@
 {
+  "name": "@replexica",
   "type": "module",
   "scripts": {
     "prepare": "husky",
@@ -8,13 +9,14 @@
     "new:empty": "changeset --empty"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.2.2",
-    "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "husky": "^9.0.11",
-    "turbo": "latest"
+    "turbo": "^2.0.3"
   },
   "dependencies": {
     "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.1"
-  }
+    "@changesets/cli": "^2.27.5"
+  },
+  "packageManager": "pnpm@9.1.1"
 }

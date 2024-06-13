@@ -1,29 +1,49 @@
 {
   "name": "replexica",
-  "version": "0.2.0",
-  "description": "Replexica CLI",
+  "version": "0.0.0",
+  "description": "Replexica",
   "private": true,
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
-  "exports": {
-    "./react": "./build/react.js",
-    "./compiler": "./build/compiler.js"
+  "type": "module",
+  "bin": {
+    "replexica": "./bin/cli.js"
   },
   "files": [
     "build"
   ],
+  "exports": {
+    "./react-next": {
+      "require": "./build/react-next.cjs",
+      "import": "./build/react-next.mjs",
+      "types": "./build/react-next.d.ts"
+    },
+    "./react": {
+      "require": "./build/react.cjs",
+      "import": "./build/react.mjs",
+      "types": "./build/react.d.ts"
+    },
+    "./compiler": {
+      "require": "./build/compiler.cjs",
+      "import": "./build/compiler.mjs",
+      "types": "./build/compiler.d.ts"
+    }
+  },
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "replexica": "./bin/cli.js",
+    "dev": "unbuild --stub && tsc -w --noEmit",
+    "build": "unbuild",
     "test": "vitest run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@replexica/react": "workspace:*",
+    "@replexica/cli": "workspace:*",
     "@replexica/compiler": "workspace:*",
+    "@replexica/react": "workspace:*",
     "typescript": "^5.4.5",
-    "vitest": "^1.4.0"
+    "vitest": "^1.6.0"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0"
   }
 }

@@ -1,4 +1,4 @@
-import replexica from '@replexica/compiler';
+import replexica from 'replexica/compiler';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
