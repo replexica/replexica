@@ -1,4 +1,3 @@
 packages:
-  - "package"
-  - "packages/*"
-  - "demo/*"
+  - "./package"
+  - "./packages/*"

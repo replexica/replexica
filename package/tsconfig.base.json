@@ -11,8 +11,8 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
-    "moduleResolution": "Node",
-    "module": "CommonJS",
+    "moduleResolution": "Bundler",
+    "module": "Preserve",
     "target": "ESNext"
   }
 }
