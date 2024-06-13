@@ -1,8 +1,8 @@
 import { Inter } from "next/font/google";
 import { I18nProvider } from '@replexica/react';
+import { I18n } from "@replexica/react/next";
 
 import "./globals.css";
-import { I18n } from "@replexica/react/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
