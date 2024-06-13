@@ -5,8 +5,6 @@
 
 # Replexica
 
-[![Discord](https://img.shields.io/discord/1193198600298172486?label=discord
-)](https://discord.gg/GeK6AuSqzw)
 ![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
@@ -54,8 +52,8 @@ The core idea behind Replexica is simple: apps must be multi-language by default
 
 If you're building a side-project, a startup, or you're working at a big company that uses Replexica - we'd love to hear from you!
 
--   🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
--   🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
--   🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
--   𝕏 Follow us on [𝕏](https://x.com/replexica).
--   🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
+* 🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
+* 🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
+* 🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
+* 𝕏 Follow us on [𝕏](https://x.com/replexica).
+* 🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
