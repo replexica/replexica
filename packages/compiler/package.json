@@ -39,7 +39,6 @@
     "@types/lodash": "^4.17.5",
     "@types/webpack": "^5.28.5",
     "next": "^14.2.4",
-    "tsup": "^8.1.0",
-    "unbuild": "^2.0.0"
+    "tsup": "^8.1.0"
   }
 }

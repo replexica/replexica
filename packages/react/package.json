@@ -42,8 +42,7 @@
     "@types/negotiator": "^0.6.3",
     "@types/react": "^18.3.3",
     "next": "^14.2.4",
-    "tsup": "^8.1.0",
-    "unbuild": "^2.0.0"
+    "tsup": "^8.1.0"
   },
   "peerDependencies": {
     "next": "^14"
