@@ -4,16 +4,15 @@
   "description": "Replexica compiler",
   "private": false,
   "type": "module",
-  "main": "build/index.cjs",
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
+  "main": "build/index.cjs",
   "files": [
     "build"
   ],
   "scripts": {
     "dev": "unbuild --stub && tsc -w --noEmit",
-    "build": "unbuild",
-    "test": "vitest run"
+    "build": "unbuild"
   },
   "keywords": [],
   "author": "",

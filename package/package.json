@@ -3,7 +3,23 @@
   "version": "0.22.1",
   "description": "Replexica",
   "private": false,
-  "type": "module",
+  "exports": {
+    "./compiler": {
+      "import": "./build/compiler.mjs",
+      "require": "./build/compiler.cjs",
+      "types": "./build/compiler.d.ts"
+    },
+    "./react": {
+      "import": "./build/react/index.mjs",
+      "require": "./build/react/index.cjs",
+      "types": "./build/react/index.d.ts"
+    },
+    "./react-next": {
+      "import": "./build/react/next.mjs",
+      "require": "./build/react/next.cjs",
+      "types": "./build/react/next.d.ts"
+    }
+  },
   "bin": {
     "replexica": "./bin/cli.js"
   },
@@ -11,32 +27,16 @@
     "bin",
     "build"
   ],
-  "exports": {
-    "./react-next": {
-      "require": "./build/react-next.cjs",
-      "import": "./build/react-next.mjs",
-      "types": "./build/react-next.d.ts"
-    },
-    "./react": {
-      "require": "./build/react.cjs",
-      "import": "./build/react.mjs",
-      "types": "./build/react.d.ts"
-    },
-    "./compiler": {
-      "require": "./build/compiler.cjs",
-      "import": "./build/compiler.mjs",
-      "types": "./build/compiler.d.ts"
-    }
-  },
   "scripts": {
     "replexica": "./bin/cli.js",
-    "dev": "unbuild --stub && tsc -w --noEmit",
+    "dev": "tsc -w",
     "build": "unbuild"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@replexica/config": "workspace:*",
     "@replexica/cli": "workspace:*",
     "@replexica/compiler": "workspace:*",
     "@replexica/react": "workspace:*",
