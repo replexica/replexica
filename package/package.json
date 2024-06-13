@@ -8,6 +8,7 @@
     "replexica": "./bin/cli.js"
   },
   "files": [
+    "bin",
     "build"
   ],
   "exports": {
@@ -30,8 +31,7 @@
   "scripts": {
     "replexica": "./bin/cli.js",
     "dev": "unbuild --stub && tsc -w --noEmit",
-    "build": "unbuild",
-    "test": "vitest run"
+    "build": "unbuild"
   },
   "keywords": [],
   "author": "",
@@ -40,8 +40,7 @@
     "@replexica/cli": "workspace:*",
     "@replexica/compiler": "workspace:*",
     "@replexica/react": "workspace:*",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "unbuild": "^2.0.0"
