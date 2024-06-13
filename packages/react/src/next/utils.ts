@@ -1,5 +1,3 @@
-'use server';
-
 import Cookie from 'cookie';
 import Negotiator from 'negotiator';
 

@@ -1,5 +1,3 @@
-'use server';
-
 import { GetServerSidePropsContext, GetStaticPropsContext } from "next";
 import { I18nInstance } from "../shared";
 import { loadLocaleFromCookie, parseLocaleCookie } from "./utils";
