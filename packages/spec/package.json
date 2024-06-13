@@ -24,6 +24,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@replexica/config": "workspace:*",
     "unbuild": "^2.0.0"
   }
 }
