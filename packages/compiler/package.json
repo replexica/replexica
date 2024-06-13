@@ -17,7 +17,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@babel/core": "^7.24.7",
     "@babel/generator": "^7.24.7",

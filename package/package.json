@@ -1,8 +1,8 @@
 {
   "name": "replexica",
-  "version": "0.0.0",
+  "version": "0.22.1",
   "description": "Replexica",
-  "private": true,
+  "private": false,
   "type": "module",
   "bin": {
     "replexica": "./bin/cli.js"
@@ -35,7 +35,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@replexica/cli": "workspace:*",
     "@replexica/compiler": "workspace:*",
