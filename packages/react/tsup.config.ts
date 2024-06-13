@@ -9,8 +9,10 @@ export default defineConfig({
   },
   outDir: "build",
   format: ["cjs", "esm"],
-  dts: true,
   external: ['react'],
+  dts: true,
+  cjsInterop: true,
+  splitting: true,
   outExtension: (ctx) => ({
     js: ctx.format === "cjs" ? ".cjs" : ".mjs",
   }),
