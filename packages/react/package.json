@@ -4,18 +4,24 @@
   "description": "Replexica React components",
   "private": false,
   "type": "module",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
   "exports": {
-    ".": "./build/client/index.js",
-    "./next": "./build/next/index.js"
+    ".": {
+      "import": "./build/client/index.mjs",
+      "require": "./build/client/index.cjs",
+      "types": "./build/client/index.d.ts"
+    },
+    "./next": {
+      "import": "./build/next/index.mjs",
+      "require": "./build/next/index.cjs",
+      "types": "./build/next/index.d.ts"
+    }
   },
   "files": [
     "build"
   ],
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "dev": "unbuild --stub && tsc -w --noEmit",
+    "build": "unbuild",
     "test": "vitest run"
   },
   "keywords": [],
@@ -34,7 +40,8 @@
     "@types/cookie": "^0.6.0",
     "@types/negotiator": "^0.6.3",
     "@types/react": "^18.3.3",
-    "next": "^14.2.4"
+    "next": "^14.2.4",
+    "unbuild": "^2.0.0"
   },
   "peerDependencies": {
     "next": "^14"

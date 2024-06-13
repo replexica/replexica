@@ -1,15 +1,31 @@
-import { defineBuildConfig } from "unbuild";
+import { BuildEntry, MkdistBuildEntry, defineBuildConfig } from "unbuild";
 
 export default defineBuildConfig({
-  rollup: {
-    output: {
-      exports: 'named',
-    }
-  },
-  name: 'replexica',
-  outDir: "build",
-  externals: [
-    '@replexica/react',
-    '@replexica/compiler',
+  entries: [
+    ...dualOutput({
+      input: "./src",
+      outDir: "./build",
+    }),
   ],
+  outDir: "build",
+  declaration: 'compatible',
 });
+
+function dualOutput(
+  config: Omit<MkdistBuildEntry, "builder" | "format">
+): BuildEntry[] {
+  return [
+    {
+      builder: "mkdist",
+      format: "esm",
+      ext: 'mjs',
+      ...config,
+    },
+    {
+      builder: "mkdist",
+      format: "cjs",
+      ext: 'cjs',
+      ...config,
+    },
+  ];
+}
