@@ -142,13 +142,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
             [],
             t.callExpression(
               t.memberExpression(
-                t.callExpression(
-                  t.memberExpression(
-                    t.identifier(i18nInstanceImport.name),
-                    t.identifier(I18N_ACCESS_METHOD),
-                  ),
-                  [],
-                ),
+                t.identifier(i18nInstanceImport.name),
                 t.identifier(I18N_ACCESS_METHOD),
               ),
               [],
