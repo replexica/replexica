@@ -32,11 +32,11 @@ export function createBucketProcessor(
 ): IBucketProcessor {
   switch (bucketType) {
     default: throw new Error(`Unknown bucket type: ${bucketType}`);
-    case 'replexica': return new ReplexicaBucketProcessor(bucketPath, translator);
-    case 'json': return new JsonBucketProcessor(bucketPath, translator);
-    case 'yaml': return new YamlBucketProcessor(bucketPath, translator);
-    case 'yaml-root-key': return new YamlRootKeyBucketProcessor(bucketPath, translator);
-    case 'xcode': return new XcodeBucketProcessor(bucketPath, translator);
+    // case 'replexica': return new ReplexicaBucketProcessor(bucketPath, translator);
+    // case 'json': return new JsonBucketProcessor(bucketPath, translator);
+    // case 'yaml': return new YamlBucketProcessor(bucketPath, translator);
+    // case 'yaml-root-key': return new YamlRootKeyBucketProcessor(bucketPath, translator);
+    // case 'xcode': return new XcodeBucketProcessor(bucketPath, translator);
     case 'markdown': return new MarkdownBucketProcessor(bucketPath, translator);
   }
 }
