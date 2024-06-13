@@ -4,19 +4,13 @@
   "description": "Replexica CLI",
   "private": false,
   "type": "module",
-  "module": "build/index.js",
-  "types": "build/index.d.ts",
-  "bin": {
-    "replexica": "./bin/cli.js"
-  },
   "files": [
-    "build",
-    "bin"
+    "build"
   ],
   "scripts": {
-    "replexica": "tsc && ./bin/cli.js",
-    "dev": "tsc -w",
-    "build": "tsc",
+    "replexica": "./build/index.js",
+    "dev": "tsup --watch",
+    "build": "tsup",
     "test": "vitest run"
   },
   "keywords": [],
@@ -48,6 +42,7 @@
     "@types/ini": "^4.1.1",
     "@types/lodash": "^4.17.5",
     "@types/node": "^20.14.2",
-    "@types/object-hash": "^3.0.6"
+    "@types/object-hash": "^3.0.6",
+    "tsup": "^8.1.0"
   }
 }

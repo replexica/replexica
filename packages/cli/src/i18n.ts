@@ -1,10 +1,10 @@
 import { Command } from 'commander';
 import Ora from 'ora';
 import Z from 'zod';
-import { loadConfig, saveConfig } from './services/config.js';
-import { createBucketProcessor, createTranslator } from './services/bucket/core.js';
-import { loadSettings } from './services/settings.js';
-import { loadAuth } from './services/auth.js';
+import { loadConfig, saveConfig } from './services/config';
+import { createBucketProcessor, createTranslator } from './services/bucket/core';
+import { loadSettings } from './services/settings';
+import { loadAuth } from './services/auth';
 import { defaultConfig } from '@replexica/spec';
 
 export default new Command()

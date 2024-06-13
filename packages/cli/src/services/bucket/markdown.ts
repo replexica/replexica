@@ -1,5 +1,5 @@
-import { IBucketProcessor } from "./core.js";
-import { BaseBucketProcessor } from "./base.js";
+import { IBucketProcessor } from "./core";
+import { BaseBucketProcessor } from "./base";
 import _ from 'lodash';
 
 export class MarkdownBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {

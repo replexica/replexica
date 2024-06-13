@@ -23,7 +23,7 @@
     }
   },
   "bin": {
-    "replexica": "./bin/cli.js"
+    "replexica": "./bin/cli.mjs"
   },
   "files": [
     "bin",

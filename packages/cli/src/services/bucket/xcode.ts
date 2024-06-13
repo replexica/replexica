@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { BucketPayload, IBucketProcessor } from "./core.js";
-import { BaseBucketProcessor } from "./base.js";
+import { BucketPayload, IBucketProcessor } from "./core";
+import { BaseBucketProcessor } from "./base";
 
 export class XcodeBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
   protected override _validateBucketPath(bucketPath: string): void {
