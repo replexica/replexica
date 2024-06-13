@@ -26,9 +26,9 @@ export function I18nProvider(props: I18nProviderProps) {
   );
 }
 
-export type I18nChunkProps = Omit<I18nBaseFragmentProps, 'data'>;
+export type I18nFragmentProps = Omit<I18nBaseFragmentProps, 'data'>;
 
-export function I18nChunk(props: I18nChunkProps) {
+export function I18nFragment(props: I18nFragmentProps) {
   const i18n = useI18n();
 
   return (
