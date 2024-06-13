@@ -1,5 +1,3 @@
-'use server';
-
 import { NextFetchEvent, NextResponse, type NextRequest } from "next/server";
 import { configFileSchema } from '@replexica/spec';
 import { createLocaleCookieString, createLocaleExtractor, createLocalePicker } from "./utils";
@@ -30,7 +28,7 @@ export const createI18nMiddleware = (i18nConfig: typeof configFileSchema._type, 
       const savedLocale = extractor.fromCookie();
       const browserLocale = extractor.fromBrowser();
 
-      const picker = createLocalePicker(supportedLocales, defaultLocale);
+      const picker = createLocalePicker(supportedLocales, defaultLocale); 
 
       const finalLocale = picker.pick(
         potentialLocale,
