@@ -3,8 +3,9 @@
   "version": "0.2.0",
   "description": "Replexica React components",
   "private": false,
+  "type": "module",
   "main": "./build/index.js",
-  "types": "build/index.d.ts",
+  "types": "./build/index.d.ts",
   "exports": {
     ".": "./build/client/index.js",
     "./next": "./build/next/index.js"
@@ -29,6 +30,7 @@
     "vitest": "^1.6.0"
   },
   "devDependencies": {
+    "@replexica/config": "workspace:*",
     "@types/cookie": "^0.6.0",
     "@types/negotiator": "^0.6.3",
     "@types/react": "^18.3.3",
