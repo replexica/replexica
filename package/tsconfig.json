@@ -1,5 +1,5 @@
 {
-  "extends": "@replexica/config",
+  "extends": "../packages/config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "build",

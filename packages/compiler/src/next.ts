@@ -1,9 +1,9 @@
-import { NextConfig } from 'next';
+import type { NextConfig } from 'next';
 import Z from 'zod';
 // import path from 'path';
 // import fs from 'fs';
 // import walk from 'ignore-walk';
-import { Configuration as WebpackConfig } from 'webpack';
+import type { Configuration as WebpackConfig } from 'webpack';
 
 import { I18nConfig } from "./config";
 import unplg from './unplg';

@@ -1,8 +1,8 @@
 import _ from "lodash";
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nNodeData, I18nNode } from "./.node";
-import { I18nFragment, I18nFragmentType } from "./.fragment";
+import { I18nNodeData, I18nNode } from "./_node";
+import { I18nFragment, I18nFragmentType } from "./_fragment";
 
 export type I18nScopeType =
   | 'js/program'

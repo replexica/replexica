@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath, traverse } from '@babel/core';
-import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } from './_scope';
 import createCodeWriter from '../workers/writer';
 import { I18N_ACCESS_METHOD, I18N_IMPORT_NAME, I18N_LOADER_METHOD, NEXTJS_IMPORT_MODULE } from './_const';
 
