@@ -171,6 +171,9 @@ importers:
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
+      tsup:
+        specifier: ^8.1.0
+        version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
 
   packages/compiler:
     dependencies:

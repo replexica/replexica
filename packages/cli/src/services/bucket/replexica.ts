@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
-import { IBucketProcessor, BucketPayload } from "./core.js";
-import { BaseBucketProcessor } from "./base.js";
+import { IBucketProcessor, BucketPayload } from "./core";
+import { BaseBucketProcessor } from "./base";
 
 export class ReplexicaBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
   protected override _validateBucketPath(bucketPath: string): void {

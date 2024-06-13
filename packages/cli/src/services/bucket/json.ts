@@ -1,5 +1,5 @@
-import { IBucketProcessor } from "./core.js";
-import { BaseBucketProcessor } from "./base.js";
+import { IBucketProcessor } from "./core";
+import { BaseBucketProcessor } from "./base";
 
 export class JsonBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
   protected override _validateBucketPath(bucketPath: string): void {

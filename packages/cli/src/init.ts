@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import Ora from 'ora';
-import { loadConfig, saveConfig } from "./services/config.js";
+import { loadConfig, saveConfig } from "./services/config";
 import { defaultConfig } from "@replexica/spec";
 
 export default new Command()

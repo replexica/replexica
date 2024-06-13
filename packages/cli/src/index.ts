@@ -1,9 +1,11 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander';
 
-import i18nCmd from './i18n.js';
-import authCmd from './auth.js';
-import initCmd from './init.js';
-import configCmd from './config.js';
+import i18nCmd from './i18n';
+import authCmd from './auth';
+import initCmd from './init';
+import configCmd from './config';
 
 export default new Command()
   .name('replexica')

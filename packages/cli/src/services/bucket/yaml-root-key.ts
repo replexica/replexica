@@ -1,5 +1,5 @@
-import { IBucketProcessor } from "./core.js";
-import { YamlBucketProcessor } from './yaml.js';
+import { IBucketProcessor } from "./core";
+import { YamlBucketProcessor } from './yaml';
 
 export class YamlRootKeyBucketProcessor extends YamlBucketProcessor implements IBucketProcessor {
   protected override async _loadData(locale: string): Promise<Record<string, any>> {

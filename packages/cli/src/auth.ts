@@ -4,8 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-import { loadSettings, saveSettings } from "./services/settings.js";
-import { loadAuth } from "./services/auth.js";
+import { loadSettings, saveSettings } from "./services/settings";
+import { loadAuth } from "./services/auth";
 
 export default new Command()
   .command("auth")

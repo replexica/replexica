@@ -1,6 +1,6 @@
 import _ from "lodash";
 import fs from 'fs';
-import { BucketPayload, BucketTranslatorFn, IBucketProcessor } from "./core.js";
+import { BucketPayload, BucketTranslatorFn, IBucketProcessor } from "./core";
 
 export abstract class BaseBucketProcessor implements IBucketProcessor {
   constructor(
