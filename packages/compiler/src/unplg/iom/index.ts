@@ -1,13 +1,13 @@
 import { NodePath, traverse } from '@babel/core';
 import * as t from '@babel/types';
 import _ from 'lodash';
-import { I18nScopeExtractor, I18nScope } from './.scope';
+import { I18nScopeExtractor, I18nScope } from './_scope';
 import { ProgramScope } from './program.scope';
 import { JsxElementScope } from './jsx-element.scope';
 import { JsxAttributeScope } from './jsx-attribute.scope';
 import { JsxSkipScope } from './jsx-skip.scope';
 
-export * from './.scope';
+export * from './_scope';
 export function extractI18n(fileNode: t.File): I18nScope | null {
   let scope: I18nScope | null = null;
 

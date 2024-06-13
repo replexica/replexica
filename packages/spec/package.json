@@ -4,6 +4,7 @@
   "description": "Replexica open specification",
   "private": false,
   "type": "module",
+  "sideEffects": false,
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
   "main": "build/index.cjs",

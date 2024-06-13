@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nFragment } from './.fragment';
+import { I18nFragment } from './_fragment';
 
 export class JsTextFragment extends I18nFragment<'js/text'> {
   public static fromAttributeValue(nodePath: NodePath<t.JSXAttribute>, id: string) {

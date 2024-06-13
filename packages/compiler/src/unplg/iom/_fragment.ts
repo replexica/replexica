@@ -1,7 +1,7 @@
 import _ from "lodash";
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nNode, I18nNodeData } from "./.node";
+import { I18nNode, I18nNodeData } from "./_node";
 
 export type I18nFragmentType =
   | 'js/text'

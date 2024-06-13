@@ -4,6 +4,7 @@
   "description": "Replexica compiler",
   "private": false,
   "type": "module",
+  "sideEffects": false,
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
   "main": "build/index.cjs",
@@ -11,8 +12,8 @@
     "build"
   ],
   "scripts": {
-    "dev": "unbuild --stub && tsc -w --noEmit",
-    "build": "unbuild"
+    "dev": "tsup --watch",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +39,7 @@
     "@types/lodash": "^4.17.5",
     "@types/webpack": "^5.28.5",
     "next": "^14.2.4",
+    "tsup": "^8.1.0",
     "unbuild": "^2.0.0"
   }
 }

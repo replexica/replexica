@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nScope, I18nScopeData, I18nScopeExtractor } from './.scope';
+import { I18nScope, I18nScopeData, I18nScopeExtractor } from './_scope';
 import { getJsxElementName } from './_utils';
 
 export class JsxSkipScope extends I18nScope<'jsx/skip', 'jsx/text'> {

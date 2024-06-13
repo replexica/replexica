@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
-import { I18nFragment } from './.fragment';
+import { I18nFragment } from './_fragment';
 
 export class JsxTextFragment extends I18nFragment<'jsx/text'> {
   public static fromNodePath(nodePath: NodePath<t.JSXText>, id: string) {
