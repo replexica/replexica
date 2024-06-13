@@ -4,11 +4,11 @@
   "description": "Replexica React components",
   "private": false,
   "main": "./build/index.js",
+  "types": "build/index.d.ts",
   "exports": {
     ".": "./build/client/index.js",
     "./next": "./build/next/index.js"
   },
-  "types": "build/index.d.ts",
   "files": [
     "build"
   ],

@@ -1,5 +1,5 @@
 {
-  "name": "replexica",
+  "name": "@replexica/cli",
   "version": "0.22.2",
   "description": "Replexica CLI",
   "private": false,

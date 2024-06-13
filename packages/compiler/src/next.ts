@@ -1,4 +1,4 @@
-import { NextConfig } from 'next';
+import type { NextConfig } from 'next';
 import Z from 'zod';
 // import path from 'path';
 // import fs from 'fs';

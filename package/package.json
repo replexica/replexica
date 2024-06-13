@@ -1,0 +1,29 @@
+{
+  "name": "replexica",
+  "version": "0.2.0",
+  "description": "Replexica CLI",
+  "private": true,
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "exports": {
+    "./react": "./build/react.js",
+    "./compiler": "./build/compiler.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@replexica/react": "workspace:*",
+    "@replexica/compiler": "workspace:*",
+    "typescript": "^5.4.5",
+    "vitest": "^1.4.0"
+  }
+}
