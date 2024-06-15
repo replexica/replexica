@@ -24,7 +24,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
      * @param props Route props containing the locale parameter.
      * @returns 
      */
-    async fromRouteProps(props: { params: { locale: string } }) {
+    async fromRouteProps(props: { params: { locale?: string | null } }) {
       const i18n = await _load(props.params.locale);
       return i18n;
     },
