@@ -1,3 +1,4 @@
+import path from 'path';
 import * as t from '@babel/types';
 import { NodePath, traverse } from '@babel/core';
 import { I18nInjectionParams, I18nScope, I18nScopeData, I18nScopeExtractor } from './_scope';
@@ -52,13 +53,14 @@ export class ProgramScope extends I18nScope<'js/program', never> {
               [
                 t.objectExpression(
                   params.supportedLocales.map((locale) => {
+                    const localePath = path.resolve(params.i18nRoot, `${locale}.json`);
                     return t.objectProperty(
                       t.identifier(locale),
                       t.arrowFunctionExpression(
                         [],
                         t.callExpression(
                           t.identifier('import'),
-                          [t.stringLiteral(`@replexica/.cache/${locale}.json`)],
+                          [t.stringLiteral(localePath)],
                         ),
                       ),
                     );

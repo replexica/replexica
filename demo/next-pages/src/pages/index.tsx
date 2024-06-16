@@ -4,7 +4,7 @@ import { GetServerSidePropsContext } from 'next';
 import { I18n } from '@replexica/react/next';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const i18n = I18n.fromServerSideContext(context);
+  const i18n = await I18n.fromServerSideContext(context);
 
   return { props: { i18n } };
 }
