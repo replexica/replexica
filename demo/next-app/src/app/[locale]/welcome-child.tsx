@@ -3,7 +3,7 @@
 export default function WelcomeChild() {
   return <div>
     <span>
-      Welcome Child Component
+      What the actual fuck?
     </span>
   </div>
 }

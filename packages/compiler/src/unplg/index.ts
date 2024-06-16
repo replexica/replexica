@@ -24,7 +24,15 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
   const config = unplgConfigSchema.parse(_config);
   const supportedLocales = getSupportedLocales(config.locale);
 
-  const i18nRoot = path.resolve('/tmp/replexica/.cache');
+  const i18nRoot = path.resolve(process.cwd(), '.replexica');
+  fs.mkdirSync(i18nRoot, { recursive: true });
+  // generate stub dictionaries
+  for (const locale of supportedLocales) {
+    const localeFile = path.resolve(i18nRoot, `${locale}.json`);
+    if (!fs.existsSync(localeFile)) {
+      fs.writeFileSync(localeFile, '{}');
+    }
+  }
 
   return {
     name: 'replexica',
@@ -36,21 +44,23 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
       });
     },
     async load(id) {
-      if (id.endsWith('@replexica/.cache/en.json')) {
+      if (id === path.resolve(i18nRoot, 'en.json')) {
         const data = await i18nServer.pullLocaleData('en');
-        console.log('pulled en.json', data);
+        console.log('Load en.json', data);
         return {
           code: JSON.stringify(data),
+          map: null,
         };
-      } else if (id.endsWith('@replexica/.cache/es.json')) {
+      } else if (id === path.resolve(i18nRoot, 'es.json')) {
         const data = await i18nServer.pullLocaleData('es');
-        console.log('pulled es.json', data);
+        console.log('Load es.json', data);
         return {
           code: JSON.stringify(data),
+          map: null,
         };
-      } else {
-        return null;
       }
+
+      return null;
     },
     transformInclude(id) {
       // - tsx, jsx
