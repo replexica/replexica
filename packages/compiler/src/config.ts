@@ -4,6 +4,7 @@ import fs from 'fs';
 import { configFileSchema } from '@replexica/spec';
 
 const compilerConfigSchema = Z.object({
+  sourceRoot: Z.string().optional().default('src'),
   rsc: Z.boolean().optional().default(false),
   debug: Z.boolean().optional().default(false),
 });

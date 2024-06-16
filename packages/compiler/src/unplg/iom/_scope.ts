@@ -25,6 +25,8 @@ export type I18nScopeData<
 
 export type I18nInjectionParams = {
   fileId: string;
+  filePath: string;
+  i18nRoot: string;
   ast: t.File;
   supportedLocales: string[];
   isClientCode: boolean;

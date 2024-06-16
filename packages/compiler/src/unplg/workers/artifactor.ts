@@ -4,8 +4,7 @@ import { I18nScope } from '../iom';
 
 // functional version below
 
-export default function createArtifactor(filePath: string, fileId: string) {
-  const artifactsDir = path.resolve(process.cwd(), 'node_modules', '@replexica/.cache');
+export default function createArtifactor(filePath: string, fileId: string, artifactsDir: string) {
   const i18nTreePath = path.resolve(artifactsDir, '.json');
   const debugDir = path.resolve(process.cwd(), '.replexica');
   const relativeFileId = path.relative(process.cwd(), filePath);
@@ -22,7 +21,7 @@ export default function createArtifactor(filePath: string, fileId: string) {
 
       const payload = _extractDictionary(i18nTree);
 
-      _mergeAsJson(defaultLocalePath, payload);
+      return _mergeAsJson(defaultLocalePath, payload);
     },
     storeStubDictionaries(targetLocales: string[]) {
       for (const targetLocale of targetLocales) {
@@ -96,6 +95,8 @@ export default function createArtifactor(filePath: string, fileId: string) {
     const existingData = _loadAsJson(filePath);
     const mergedData = { ...existingData, ...data };
     _writeAsJson(filePath, mergedData);
+
+    return mergedData;
   }
 
   function _writeAsJson(filePath: string, data: any) {
