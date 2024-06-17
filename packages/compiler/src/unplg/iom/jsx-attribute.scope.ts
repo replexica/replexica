@@ -8,7 +8,7 @@ import { parseMemberExpressionFromJsxMemberExpression } from './_utils';
 
 export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>, id: string) => {
+    return (nodePath: NodePath<t.Node>) => {
       if (!t.isJSXAttribute(nodePath.node)) { return null; }
 
       const jsxAttr = nodePath.node;
@@ -28,7 +28,6 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
           role: 'scope',
           type: 'jsx/attribute',
           name: jsxAttrName,
-          id,
           hint: '',
           explicit: false,
         },
@@ -54,8 +53,8 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
 
     const idParams = {
       fileId: params.fileId,
-      scopeId: this.data.id,
-      chunkId: this.fragments[0].data.id,
+      scopeId: this.hash,
+      chunkId: this.fragments[0].index.toString(),
     };
 
     const shouldSwapJsxHost = !this._isHostJsxProxied();
@@ -103,7 +102,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   }
 
   public initFragments(): void {
-    const fragment = JsTextFragment.fromAttributeValue(this.nodePath, '0');
+    const fragment = JsTextFragment.fromAttributeValue(this.nodePath, 0);
     if (!fragment) { return; }
 
     this.fragments.push(fragment);

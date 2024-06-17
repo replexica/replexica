@@ -8,7 +8,6 @@ export type RootLayoutProps = { params: { locale?: string }, children: any };
 
 export default async function RootLayout(props: RootLayoutProps) {
   const i18n = await I18n.fromRscContext();
-  console.log(i18n.data);
   return (
     <I18nProvider i18n={i18n}>
       <html>

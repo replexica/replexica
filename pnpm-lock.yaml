@@ -195,6 +195,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      object-hash:
+        specifier: ^3.0.0
+        version: 3.0.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -223,6 +226,9 @@ importers:
       '@types/lodash':
         specifier: ^4.17.5
         version: 4.17.5
+      '@types/object-hash':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/webpack':
         specifier: ^5.28.5
         version: 5.28.5(esbuild@0.21.5)

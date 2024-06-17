@@ -8,7 +8,7 @@ import { getJsxElementName } from './_utils';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>, id: string) => {
+    return (nodePath: NodePath<t.Node>) => {
       if (!t.isJSXElement(nodePath.node) && !t.isJSXFragment(nodePath.node)) { return null; }
 
       const jsxEl = nodePath.node;
@@ -28,7 +28,6 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       return new JsxElementScope(nodePath, {
         role: 'scope',
         type: 'jsx/element',
-        id,
         name: elementName,
         hint: '',
         explicit: false,
@@ -37,7 +36,7 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   }
 
   public static fromExplicitNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>, id: string) => {
+    return (nodePath: NodePath<t.Node>) => {
       if (!t.isJSXElement(nodePath.node)) { return null; }
 
       const i18nAttr = nodePath.node.openingElement.attributes.find((a) => {
@@ -49,7 +48,6 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       return new JsxElementScope(nodePath, {
         role: 'scope',
         type: 'jsx/element',
-        id,
         name: '',
         hint: '',
         explicit: true,
@@ -74,13 +72,13 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       const element = params.isClientCode
         ? this._createClientFragmentElement(writer, {
           fileId: params.fileId,
-          scopeId: this.data.id,
-          chunkId: fragment.data.id,
+          scopeId: this.hash,
+          chunkId: fragment.index.toString(),
         })
         : this._createServerFragmentElement(writer, {
           fileId: params.fileId,
-          scopeId: this.data.id,
-          chunkId: fragment.data.id,
+          scopeId: this.hash,
+          chunkId: fragment.index.toString(),
         });
 
       fragment.nodePath.replaceWith(element);
@@ -94,7 +92,7 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
     let index = 0;
     this.nodePath.traverse({
       JSXText(childPath: NodePath<t.JSXText>) {
-        const fragment = JsxTextFragment.fromNodePath(childPath, String(index));
+        const fragment = JsxTextFragment.fromNodePath(childPath, index);
         if (fragment) {
           self.fragments.push(fragment);
           index++;

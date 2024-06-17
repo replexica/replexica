@@ -5,7 +5,7 @@ import { getJsxElementName } from './_utils';
 
 export class JsxSkipScope extends I18nScope<'jsx/skip', 'jsx/text'> {
   public static fromExplicitNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>, id: string) => {
+    return (nodePath: NodePath<t.Node>) => {
       // Exit if the node is not a JSX element.
       if (!t.isJSXElement(nodePath.node)) { return null; }
 
@@ -30,7 +30,6 @@ export class JsxSkipScope extends I18nScope<'jsx/skip', 'jsx/text'> {
       return new JsxSkipScope(nodePath, {
         role: 'scope',
         type: 'jsx/skip',
-        id,
         name: elementName,
         hint: '',
         explicit: true,

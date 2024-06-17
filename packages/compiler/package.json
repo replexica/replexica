@@ -26,6 +26,7 @@
     "@replexica/spec": "workspace:*",
     "ignore-walk": "^6.0.5",
     "lodash": "^4.17.21",
+    "object-hash": "^3.0.0",
     "typescript": "^5.4.5",
     "unplugin": "^1.10.1",
     "vitest": "^1.6.0",
@@ -37,6 +38,7 @@
     "@types/babel__generator": "^7.6.8",
     "@types/ignore-walk": "^4.0.3",
     "@types/lodash": "^4.17.5",
+    "@types/object-hash": "^3.0.6",
     "@types/webpack": "^5.28.5",
     "next": "^14.2.4",
     "tsup": "^8.1.0"
