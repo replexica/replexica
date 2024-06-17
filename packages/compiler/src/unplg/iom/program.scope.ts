@@ -6,15 +6,14 @@ import createCodeWriter from '../workers/writer';
 import { I18N_ACCESS_METHOD, I18N_IMPORT_NAME, I18N_LOADER_METHOD, NEXTJS_IMPORT_MODULE } from './_const';
 
 export class ProgramScope extends I18nScope<'js/program', never> {
-  public static fromNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>, id: string) => {
+  public static fromNodePath(rootExtractor: I18nScopeExtractor, filePath: string) {
+    return (nodePath: NodePath<t.Node>) => {
       if (!nodePath.isProgram()) { return null; }
 
       return new ProgramScope(nodePath, {
         role: 'scope',
         type: 'js/program',
-        id,
-        name: '',
+        name: filePath,
         hint: '',
         explicit: false,
       }, rootExtractor);

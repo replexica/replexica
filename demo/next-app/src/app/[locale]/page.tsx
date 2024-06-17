@@ -7,7 +7,7 @@ export default function Home(props: any) {
         Hello, World!
       </p>
       <div>
-        What's up?
+        What's up?!
       </div>
       <Welcome />
       <p className="text-4xl font-bold text-center">

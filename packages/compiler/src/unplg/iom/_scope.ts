@@ -3,6 +3,7 @@ import * as t from '@babel/types';
 import { NodePath } from '@babel/core';
 import { I18nNodeData, I18nNode } from "./_node";
 import { I18nFragment, I18nFragmentType } from "./_fragment";
+import createObjectHash from 'object-hash';
 
 export type I18nScopeType =
   | 'js/program'
@@ -11,7 +12,7 @@ export type I18nScopeType =
   | 'jsx/attribute'
   ;
 
-export type I18nScopeExtractor = (nodePath: NodePath<t.Node>, id: string) => I18nScope | null;
+export type I18nScopeExtractor = (nodePath: NodePath<t.Node>) => I18nScope | null;
 
 export type I18nScopeData<
   T extends I18nScopeType = I18nScopeType,
@@ -36,6 +37,8 @@ export abstract class I18nScope<
   T extends I18nScopeType = I18nScopeType,
   F extends I18nFragmentType = I18nFragmentType,
 > extends I18nNode<'scope'> {
+  public hash: string = '';
+
   public constructor(
     public readonly nodePath: NodePath<t.Node>,
     public readonly data: I18nScopeData<T>,
@@ -44,6 +47,7 @@ export abstract class I18nScope<
     super(nodePath, data);
     this.initFragments();
     this.initScopes();
+    this.initHash();
   }
 
   public readonly fragments: I18nFragment<F>[] = [];
@@ -68,8 +72,7 @@ export abstract class I18nScope<
     let index = 0;
     this.nodePath.traverse({
       enter(childPath) {
-        const childKey = [self.data.id, String(index)].filter(Boolean).join('.');
-        const childScope = self.rootExtractor(childPath, childKey);
+        const childScope = self.rootExtractor(childPath);
         if (childScope) {
           self.nodePath.skip();
           self.scopes.push(childScope);
@@ -77,6 +80,15 @@ export abstract class I18nScope<
         }
       }
     });
+  }
+
+  private initHash() {
+    const payload = {
+      data: this.data,
+      fragments: this.fragments.map((f) => f.data.value),
+    };
+
+    this.hash = createObjectHash(payload);
   }
 
   public toJSON(): any {

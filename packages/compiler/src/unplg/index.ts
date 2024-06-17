@@ -6,11 +6,11 @@ import crypto from 'crypto';
 import { localeSchema } from '@replexica/spec';
 import createCodeConverter from './workers/converter';
 import createArtifactor from './workers/artifactor';
-import { extractI18n } from './iom';
+import { I18nScope, extractI18n } from './iom';
 import createCodeWriter from './workers/writer';
-import { FakeI18nServer } from './_fake-server';
 
 const unplgConfigSchema = Z.object({
+  localeServer: Z.any() as Z.ZodType<ILocaleServer>,
   sourceRoot: Z.string(),
   isServer: Z.boolean(),
   rsc: Z.boolean().optional().default(false),
@@ -18,21 +18,17 @@ const unplgConfigSchema = Z.object({
   locale: localeSchema,
 });
 
-const i18nServer = new FakeI18nServer();
+export interface ILocaleServer {
+  pullLocaleData: (locale: string) => Promise<Record<string, string>>;
+  pushIomChunk: (fileId: string, scope: I18nScope) => Promise<boolean>;
+};
 
 export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
   const config = unplgConfigSchema.parse(_config);
   const supportedLocales = getSupportedLocales(config.locale);
-
   const i18nRoot = path.resolve(process.cwd(), '.replexica');
-  fs.mkdirSync(i18nRoot, { recursive: true });
-  // generate stub dictionaries
-  for (const locale of supportedLocales) {
-    const localeFile = path.resolve(i18nRoot, `${locale}.json`);
-    if (!fs.existsSync(localeFile)) {
-      fs.writeFileSync(localeFile, '{}');
-    }
-  }
+
+  initReplexicaDir(i18nRoot, supportedLocales);
 
   return {
     name: 'replexica',
@@ -45,15 +41,18 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
     },
     async load(id) {
       if (id === path.resolve(i18nRoot, 'en.json')) {
-        const data = await i18nServer.pullLocaleData('en');
-        console.log('Load en.json', data);
+        console.log('Loading en.json');
+        const data = await config.localeServer.pullLocaleData('en');
+        console.log('Loaded en.json', data);
+
         return {
           code: JSON.stringify(data),
           map: null,
         };
       } else if (id === path.resolve(i18nRoot, 'es.json')) {
-        const data = await i18nServer.pullLocaleData('es');
-        console.log('Load es.json', data);
+        console.log('Loading es.json');
+        const data = await config.localeServer.pullLocaleData('es');
+        console.log('Loaded es.json', data);
         return {
           code: JSON.stringify(data),
           map: null,
@@ -76,7 +75,7 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
       const writer = createCodeWriter(ast);
       const reactEnv = writer.resolveReactEnv(ast, config.rsc);
 
-      const i18nTree = extractI18n(ast);
+      const i18nTree = extractI18n(ast, filePathLabel);
       if (!i18nTree) { throw new Error(`Failed to parse i18n tree from code located at ${filePath}`); }
 
       const fileId = generateStringHash(filePath);
@@ -89,21 +88,16 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
         isClientCode: reactEnv === 'client',
       });
 
-      const artifactor = createArtifactor(filePath, fileId, i18nRoot);
-      // artifactor.storeMetadata(i18nTree);
-      // artifactor.storeSourceDictionary(i18nTree, config.locale.source);
-      // artifactor.storeStubDictionaries(config.locale.targets);
+      console.log(`[${filePathLabel}] pushing i18n tree to locale server...`);
+      const pushHappened = await config.localeServer.pushIomChunk(fileId, i18nTree);
+      console.log(`[${filePathLabel}] pushed i18n tree (${pushHappened})`);
 
-      await i18nServer.pushIomChunk(fileId, filePathLabel, i18nTree);
-
-      if (i18nTree.scopes.length) {
-        for (const locale of supportedLocales) {
-          const localeFile = path.resolve(i18nRoot, `${locale}.json`);
-          // touch file to trigger watchChange
-          fs.utimesSync(localeFile, new Date(), new Date());
-        }
+      if (pushHappened) {
+        // trigger watcher to reload locale files
+        touchLocaleFiles(i18nRoot, supportedLocales);
       }
 
+      const artifactor = createArtifactor(filePath, fileId, i18nRoot);
       if (config.debug) {
         artifactor.storeOriginalCode(code);
         artifactor.storeI18nTree(i18nTree);
@@ -134,10 +128,30 @@ function getSupportedLocales(localeConfig: Z.infer<typeof unplgConfigSchema>['lo
   ];
 }
 
-export function generateStringHash(text: string): string {
+function generateStringHash(text: string): string {
   const hash = crypto.createHash('md5');
   hash.update(text);
   return hash.digest('base64').substring(0, 12);
 }
 
-// PoC
+function resolveLocaleFile(i18nRoot: string, locale: string) {
+  return path.resolve(i18nRoot, `${locale}.json`);
+}
+
+function initReplexicaDir(i18nRoot: string, supportedLocales: string[]) {
+  fs.mkdirSync(i18nRoot, { recursive: true });
+  // generate stub dictionaries
+  for (const locale of supportedLocales) {
+    const localeFile = resolveLocaleFile(i18nRoot, locale);
+    if (!fs.existsSync(localeFile)) {
+      fs.writeFileSync(localeFile, '{}');
+    }
+  }
+}
+
+function touchLocaleFiles(i18nRoot: string, supportedLocales: string[]) {
+  for (const locale of supportedLocales) {
+    const localeFile = resolveLocaleFile(i18nRoot, locale);
+    fs.utimesSync(localeFile, new Date(), new Date());
+  }
+}

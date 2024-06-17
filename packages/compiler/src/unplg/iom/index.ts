@@ -8,12 +8,13 @@ import { JsxAttributeScope } from './jsx-attribute.scope';
 import { JsxSkipScope } from './jsx-skip.scope';
 
 export * from './_scope';
-export function extractI18n(fileNode: t.File): I18nScope | null {
+export function extractI18n(fileNode: t.File, filePath: string): I18nScope | null {
   let scope: I18nScope | null = null;
+  const extractScope = createI18nScopeExtractor(filePath);
 
   traverse(fileNode, {
     Program(programPath) {
-      scope = extractI18nScopeFromPath(programPath, '');
+      scope = extractScope(programPath);
       programPath.stop();
     }
   });
@@ -24,9 +25,9 @@ export function extractI18n(fileNode: t.File): I18nScope | null {
 // helper functions
 
 function composeScopeExtractors(...parsers: I18nScopeExtractor[]): I18nScopeExtractor {
-  return (nodePath, id) => {
+  return (nodePath) => {
     for (const parser of parsers) {
-      const scope = parser(nodePath, id);
+      const scope = parser(nodePath);
       if (scope) { return scope; }
     }
 
@@ -34,12 +35,14 @@ function composeScopeExtractors(...parsers: I18nScopeExtractor[]): I18nScopeExtr
   };
 }
 
-function extractI18nScopeFromPath(nodePath: NodePath<t.Node>, id: string): I18nScope | null {
-  return composeScopeExtractors(
-    ProgramScope.fromNodePath(extractI18nScopeFromPath),
-    JsxSkipScope.fromExplicitNodePath(extractI18nScopeFromPath),
-    JsxElementScope.fromNodePath(extractI18nScopeFromPath),
-    JsxElementScope.fromExplicitNodePath(extractI18nScopeFromPath),
-    JsxAttributeScope.fromNodePath(extractI18nScopeFromPath),
-  )(nodePath, id);
+function createI18nScopeExtractor(filePath: string) {
+  return function extractI18nScopeFromPath(nodePath: NodePath<t.Node>): I18nScope | null {
+    return composeScopeExtractors(
+      ProgramScope.fromNodePath(extractI18nScopeFromPath, filePath),
+      JsxSkipScope.fromExplicitNodePath(extractI18nScopeFromPath),
+      JsxElementScope.fromNodePath(extractI18nScopeFromPath),
+      JsxElementScope.fromExplicitNodePath(extractI18nScopeFromPath),
+      JsxAttributeScope.fromNodePath(extractI18nScopeFromPath),
+    )(nodePath);
+  }  
 }
