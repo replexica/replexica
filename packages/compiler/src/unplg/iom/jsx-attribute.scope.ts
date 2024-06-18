@@ -8,7 +8,7 @@ import { parseMemberExpressionFromJsxMemberExpression } from './_utils';
 
 export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>) => {
+    return (nodePath: NodePath<t.Node>, index: number) => {
       if (!t.isJSXAttribute(nodePath.node)) { return null; }
 
       const jsxAttr = nodePath.node;
@@ -31,6 +31,7 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
           hint: '',
           explicit: false,
         },
+        index,
         rootExtractor,
         hostJsxElementNodePath.node,
       );
@@ -40,10 +41,11 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
   private constructor(
     public nodePath: NodePath<t.JSXAttribute>,
     public data: I18nScopeData<'jsx/attribute', 'js/text'>,
+    public readonly index: number,
     protected rootExtractor: I18nScopeExtractor,
     private readonly hostJsxElement: t.JSXElement,
   ) {
-    super(nodePath, data, rootExtractor);
+    super(nodePath, data, index, rootExtractor);
   }
 
   public injectOwnI18n(params: I18nInjectionParams): void {

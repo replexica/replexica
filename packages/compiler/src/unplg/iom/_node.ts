@@ -12,12 +12,14 @@ export abstract class I18nNode<R extends I18nNodeRole = I18nNodeRole> {
   public constructor(
     public readonly nodePath: NodePath<t.Node>,
     public readonly data: I18nNodeData<R>,
+    public readonly index: number,
   ) {
   }
 
   public toJSON() {
     return {
       hash: this.hash,
+      index: this.index,
       data: this.data,
     };
   }

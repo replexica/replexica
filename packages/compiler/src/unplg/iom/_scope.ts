@@ -12,7 +12,7 @@ export type I18nScopeType =
   | 'jsx/attribute'
   ;
 
-export type I18nScopeExtractor = (nodePath: NodePath<t.Node>) => I18nScope | null;
+export type I18nScopeExtractor = (nodePath: NodePath<t.Node>, index: number) => I18nScope | null;
 
 export type I18nScopeData<
   T extends I18nScopeType = I18nScopeType,
@@ -42,9 +42,10 @@ export abstract class I18nScope<
   public constructor(
     public readonly nodePath: NodePath<t.Node>,
     public readonly data: I18nScopeData<T>,
+    public readonly index: number,
     protected readonly rootExtractor: I18nScopeExtractor,
   ) {
-    super(nodePath, data);
+    super(nodePath, data, index);
     this.initFragments();
     this.initScopes();
     this.initHash();
@@ -72,7 +73,7 @@ export abstract class I18nScope<
     let index = 0;
     this.nodePath.traverse({
       enter(childPath) {
-        const childScope = self.rootExtractor(childPath);
+        const childScope = self.rootExtractor(childPath, index);
         if (childScope) {
           self.nodePath.skip();
           self.scopes.push(childScope);

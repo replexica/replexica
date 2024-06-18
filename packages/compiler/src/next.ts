@@ -18,41 +18,71 @@ export type NextCompilerConfig = Z.infer<typeof nextCompilerConfigSchema>;
 
 export default function (_compilerConfig: NextCompilerConfig, i18nConfig: I18nConfig) {
   const compilerConfig = nextCompilerConfigSchema.parse(_compilerConfig);
-  const absoluteSourceRoot = path.resolve(compilerConfig.sourceRoot);
-  const localeServer = new LocaleServer();
+  const absoluteSourceRoot = path.resolve(process.cwd(), compilerConfig.sourceRoot);
+  const localeServer = new CachedLocaleServer();
 
   return (nextConfig: NextConfig): NextConfig => ({
     ...nextConfig,
-    webpack(config: WebpackConfig, ctx: any) {
-      config.plugins?.unshift(
-        unplg.webpack({
-          localeServer,
-          sourceRoot: absoluteSourceRoot,
-          isServer: ctx.isServer,
-          rsc: compilerConfig.rsc,
-          debug: compilerConfig.debug,
-          locale: {
-            source: i18nConfig.locale.source,
-            targets: i18nConfig.locale.targets,
-          },
-        }),
-      );
+    webpack(oldWebpackConfig: WebpackConfig, ctx: any) {
+      const newWebpackConfig: WebpackConfig = {
+        ...oldWebpackConfig,
+        plugins: [
+          unplg.webpack({
+            localeServer,
+            sourceRoot: absoluteSourceRoot,
+            isServer: ctx.isServer,
+            rsc: compilerConfig.rsc,
+            debug: compilerConfig.debug,
+            locale: {
+              source: i18nConfig.locale.source,
+              targets: i18nConfig.locale.targets,
+            },
+          }),
+          ...oldWebpackConfig.plugins || [],
+        ],
+      };
 
       return typeof nextConfig.webpack === 'function'
-        ? nextConfig.webpack(config, ctx)
-        : config;
+        ? nextConfig.webpack(newWebpackConfig, ctx)
+        : newWebpackConfig;
     },
   });
 }
 
-class LocaleServer implements ILocaleServer {
+class CachedLocaleServer implements ILocaleServer {
+  private defaultLocale = 'en';
   private iomStorage: Record<string, I18nScope> = {};
-  private pushPromise: Promise<any> = Promise.resolve();
+  private remoteLocaleServer = new RemoteLocaleServer();
 
   async pullLocaleData (locale: string): Promise<Record<string, string>> {
-    // Wait for all ongoing push operations to complete
-    await this.pushPromise;
+    const result: Record<string, string> = {};
 
+    if (locale === this.defaultLocale) {
+      console.log(`Building locale ${locale} from cache`)
+      for (const [fileId, scope] of Object.entries(this.iomStorage)) {
+        const dictionary = extractDictionary(fileId, scope);
+        Object.assign(result, dictionary);
+      }
+    } else {
+      console.log(`Building locale ${locale} from remote`)
+      const remoteResult = await this.remoteLocaleServer.pullLocaleData(locale);
+      Object.assign(result, remoteResult);
+    }
+
+    return result;
+  }
+
+  async pushIomChunk(fileId: string, scope: I18nScope<I18nScopeType, I18nFragmentType>): Promise<boolean> {
+    this.iomStorage[fileId] = scope;
+    return await this.remoteLocaleServer.pushIomChunk(fileId, scope);
+  }
+}
+
+class RemoteLocaleServer implements ILocaleServer {
+  private iomStorage: Record<string, I18nScope> = {};
+
+  async pullLocaleData (locale: string): Promise<Record<string, string>> {
+    // for demo only
     if (locale !== 'en') { return {}; }
 
     const result: Record<string, string> = {};
@@ -64,28 +94,16 @@ class LocaleServer implements ILocaleServer {
 
     // wait 1 second to simulate network latency
     await new Promise((resolve) => setTimeout(resolve, 1000));
-
     return result;
   }
 
   async pushIomChunk(fileId: string, scope: I18nScope<I18nScopeType, I18nFragmentType>): Promise<boolean> {
-    if (this.iomStorage[scope.hash] && this.iomStorage[scope.hash].hash === scope.hash) {
-      return false;
-    }
+    // wait 1 second to simulate network latency
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Create a new promise that represents this push operation
-    const pushOperation = new Promise<boolean>(async (resolve) => {
-      // wait 1 second to simulate network latency
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    this.iomStorage[fileId] = scope;
 
-      this.iomStorage[fileId] = scope;
-      resolve(true);
-    });
-
-    // Update the pushPromise to include this new operation
-    this.pushPromise = Promise.all([this.pushPromise, pushOperation]);
-
-    return pushOperation;
+    return true;
   }
 }
 
@@ -95,7 +113,7 @@ function extractDictionary(fileId: string, scope: I18nScope) {
   for (const fragment of scope.fragments) {
     const key = [
       fileId,
-      scope.hash,
+      scope.index,
       fragment.index,
     ].join('#');
 

@@ -8,13 +8,13 @@ import { JsxAttributeScope } from './jsx-attribute.scope';
 import { JsxSkipScope } from './jsx-skip.scope';
 
 export * from './_scope';
-export function extractI18n(fileNode: t.File, filePath: string): I18nScope | null {
+export function extractI18n(fileNode: t.File, fileName: string): I18nScope | null {
   let scope: I18nScope | null = null;
-  const extractScope = createI18nScopeExtractor(filePath);
+  const extractScope = createI18nScopeExtractor(fileName);
 
   traverse(fileNode, {
     Program(programPath) {
-      scope = extractScope(programPath);
+      scope = extractScope(programPath, 0);
       programPath.stop();
     }
   });
@@ -25,9 +25,9 @@ export function extractI18n(fileNode: t.File, filePath: string): I18nScope | nul
 // helper functions
 
 function composeScopeExtractors(...parsers: I18nScopeExtractor[]): I18nScopeExtractor {
-  return (nodePath) => {
+  return (nodePath, index) => {
     for (const parser of parsers) {
-      const scope = parser(nodePath);
+      const scope = parser(nodePath, index);
       if (scope) { return scope; }
     }
 
@@ -35,14 +35,14 @@ function composeScopeExtractors(...parsers: I18nScopeExtractor[]): I18nScopeExtr
   };
 }
 
-function createI18nScopeExtractor(filePath: string) {
-  return function extractI18nScopeFromPath(nodePath: NodePath<t.Node>): I18nScope | null {
+function createI18nScopeExtractor(fileName: string) {
+  return function extractI18nScopeFromPath(nodePath: NodePath<t.Node>, index: number): I18nScope | null {
     return composeScopeExtractors(
-      ProgramScope.fromNodePath(extractI18nScopeFromPath, filePath),
+      ProgramScope.fromNodePath(extractI18nScopeFromPath, fileName),
       JsxSkipScope.fromExplicitNodePath(extractI18nScopeFromPath),
       JsxElementScope.fromNodePath(extractI18nScopeFromPath),
       JsxElementScope.fromExplicitNodePath(extractI18nScopeFromPath),
       JsxAttributeScope.fromNodePath(extractI18nScopeFromPath),
-    )(nodePath);
+    )(nodePath, index);
   }  
 }

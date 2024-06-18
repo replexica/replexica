@@ -8,7 +8,7 @@ import { getJsxElementName } from './_utils';
 
 export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
   public static fromNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>) => {
+    return (nodePath: NodePath<t.Node>, index: number) => {
       if (!t.isJSXElement(nodePath.node) && !t.isJSXFragment(nodePath.node)) { return null; }
 
       const jsxEl = nodePath.node;
@@ -31,12 +31,12 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         name: elementName,
         hint: '',
         explicit: false,
-      }, rootExtractor);
+      }, index, rootExtractor);
     };
   }
 
   public static fromExplicitNodePath(rootExtractor: I18nScopeExtractor) {
-    return (nodePath: NodePath<t.Node>) => {
+    return (nodePath: NodePath<t.Node>, index: number) => {
       if (!t.isJSXElement(nodePath.node)) { return null; }
 
       const i18nAttr = nodePath.node.openingElement.attributes.find((a) => {
@@ -51,16 +51,17 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
         name: '',
         hint: '',
         explicit: true,
-      }, rootExtractor);
+      }, index, rootExtractor);
     }
   }
 
   private constructor(
     public nodePath: NodePath<t.Node>,
     public data: I18nScopeData<'jsx/element', 'jsx/text'>,
+    public readonly index: number,
     protected rootExtractor: I18nScopeExtractor,
   ) {
-    super(nodePath, data, rootExtractor);
+    super(nodePath, data, index, rootExtractor);
   }
 
   protected injectOwnI18n(params: I18nInjectionParams): void {
@@ -72,12 +73,12 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
       const element = params.isClientCode
         ? this._createClientFragmentElement(writer, {
           fileId: params.fileId,
-          scopeId: this.hash,
+          scopeId: this.index.toString(),
           chunkId: fragment.index.toString(),
         })
         : this._createServerFragmentElement(writer, {
           fileId: params.fileId,
-          scopeId: this.hash,
+          scopeId: this.index.toString(),
           chunkId: fragment.index.toString(),
         });
 

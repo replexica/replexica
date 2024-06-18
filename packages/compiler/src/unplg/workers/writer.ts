@@ -70,14 +70,6 @@ export default function createCodeWriter(ast: t.File) {
 
       return defaultImport;
     },
-    resolveReactEnv(ast: t.File, rscEnabled: boolean): 'client' | 'server' {
-      if (!rscEnabled) { return 'client'; }
-
-      const hasUseClient = _findDirective(ast, 'use client');
-      if (hasUseClient) { return 'client'; }
-
-      return 'server';
-    },
   };
 
   // helper functions
