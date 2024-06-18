@@ -1,3 +1,5 @@
+import * as t from '@babel/types';
+import fs from 'fs';
 import path from 'path';
 import { createUnplugin } from 'unplugin';
 import Z from 'zod';
@@ -27,6 +29,17 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
   const localeServer = createLocaleServer(iom.storage);
   const artifactor = createArtifactor(localeResolver.supportedLocales);
 
+  traverseCodeFiles((filePath) => {
+    const fileId = createFileId(filePath);
+    if (!shouldTransform(filePath)) { return; }
+
+    const code = fs.readFileSync(filePath, 'utf-8');
+    const { scope } = extractIomEntry(filePath, code);
+    if (!scope) { return; }
+
+    iom.pushScope(fileId, scope);
+  });
+
   return {
     name: 'replexica',
     enforce: 'pre',
@@ -42,14 +55,20 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
     watchChange(id, change) {
       console.log('WatchChange', { id, change });
     },
+    async load(filePath) {
+      const localeModuleId = localeResolver.tryParseLocaleModuleId(filePath);
+      if (!localeModuleId) { return null; }
+
+      const data = await localeServer.loadDictionary(localeModuleId);
+      return {
+        code: JSON.stringify(data),
+        map: null,
+      };
+    },
     async transform(code, filePath) {
       const fileId = createFileId(filePath);
+      const { scope, ast, converter } = extractIomEntry(filePath, code);
 
-      const converter = createCodeConverter(code);
-      const { ast } = converter.generateAst();
-
-      const fileName = path.relative(config.sourceRoot, filePath);
-      const scope = extractI18n(ast, fileName);
       if (!scope) { return { code, map: null }; }
 
       iom.pushScope(fileId, scope);
@@ -69,17 +88,30 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
         map: result.map,
       };
     },
-    async load(filePath) {
-      const localeModuleId = localeResolver.tryParseLocaleModuleId(filePath);
-      if (!localeModuleId) { return null; }
-
-      const data = await localeServer.loadDictionary(localeModuleId);
-      return {
-        code: JSON.stringify(data),
-        map: null,
-      };
-    },
   };
+
+  function extractIomEntry(filePath: string, code: string) {
+    const converter = createCodeConverter(code);
+    const { ast } = converter.generateAst();
+
+    const fileName = path.relative(config.sourceRoot, filePath);
+    const scope = extractI18n(ast, fileName);
+
+    return { ast, converter, scope };
+  }
+
+  function traverseCodeFiles(fn: (filePath: string) => void) {
+    const directory = config.sourceRoot;
+    const files = fs.readdirSync(directory, { withFileTypes: true });
+    for (const file of files) {
+      const filePath = path.resolve(directory, file.name);
+      if (file.isDirectory()) {
+        traverseCodeFiles(fn);
+      } else {
+        fn(filePath);
+      }
+    }
+  }
 
   function shouldTransform(filePath: string) {
     const supportedFileExtensions = ['.ts', '.tsx', '.js', '.jsx'];
