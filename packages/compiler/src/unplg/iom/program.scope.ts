@@ -29,13 +29,13 @@ export class ProgramScope extends I18nScope<'js/program', never> {
     super(nodePath, data, index, rootExtractor);
   }
 
-  protected injectOwnI18n(params: I18nInjectionParams) {
-    const writer = createCodeWriter(params.ast);
+  protected injectOwnI18n(ast: t.File, params: I18nInjectionParams) {
+    const writer = createCodeWriter(ast);
     const i18nImport = writer.findNamedImport(NEXTJS_IMPORT_MODULE, I18N_IMPORT_NAME);
     // Early return if I18n import is not found
     if (!i18nImport) { return; }
 
-    traverse(params.ast, {
+    traverse(ast, {
       MemberExpression(nodePath: NodePath<t.MemberExpression>) {
         const isI18nAccess = t.isIdentifier(nodePath.node.object) && nodePath.node.object.name === i18nImport.name;
         if (!isI18nAccess) { return; }

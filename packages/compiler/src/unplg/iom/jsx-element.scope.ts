@@ -64,10 +64,10 @@ export class JsxElementScope extends I18nScope<'jsx/element', 'jsx/text'> {
     super(nodePath, data, index, rootExtractor);
   }
 
-  protected injectOwnI18n(params: I18nInjectionParams): void {
+  protected injectOwnI18n(ast: t.File, params: I18nInjectionParams): void {
     if (!this.fragments.length) { return; }
 
-    const writer = createCodeWriter(params.ast);
+    const writer = createCodeWriter(ast);
 
     for (const fragment of this.fragments) {
       const element = params.isClientCode

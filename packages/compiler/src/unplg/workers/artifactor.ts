@@ -1,58 +1,82 @@
+import * as t from '@babel/types';
 import fs from 'fs';
 import path from 'path';
 import { I18nScope } from '../iom';
 
-// functional version below
-
-export default function createArtifactor(filePath: string, fileId: string, artifactsDir: string) {
-  const i18nTreePath = path.resolve(artifactsDir, '.json');
-  const debugDir = path.resolve(process.cwd(), '.replexica');
-  const relativeFileId = path.relative(process.cwd(), filePath);
+export default function createArtifactor(supportedLocales: string[]) {
+  const replexicaRoot = path.resolve(process.cwd(), '.replexica');
+  const metaRoot = path.resolve(replexicaRoot, 'meta');
+  const i18nRoot = path.resolve(replexicaRoot, 'i18n');
+  const codeRoot = path.resolve(replexicaRoot, 'code');
 
   return {
-    storeMetadata(i18nTree: I18nScope) {
+    i18nRoot,
+    storeMetadata(fileId: string, i18nTree: any) {
       const payload = {
-        [fileId]: i18nTree,
+        [fileId]: i18nTree
       };
-      _mergeAsJson(i18nTreePath, payload);
+      _mergeAsJson(path.resolve(metaRoot, 'i18n-tree.json'), payload);
     },
-    storeSourceDictionary(i18nTree: I18nScope, sourceLocale: string) {
-      const defaultLocalePath = path.resolve(artifactsDir, `${sourceLocale}.json`);
-
-      const payload = _extractDictionary(i18nTree);
-
-      return _mergeAsJson(defaultLocalePath, payload);
-    },
-    storeStubDictionaries(targetLocales: string[]) {
-      for (const targetLocale of targetLocales) {
-        const targetLocalePath = path.resolve(artifactsDir, `${targetLocale}.json`);
-
-        const payload = {};
-
-        _mergeAsJson(targetLocalePath, payload);
-      }
-    },
-    storeOriginalCode(code: string) {
-      const debugFilePath = path.resolve(debugDir, relativeFileId);
-      const targetFilePath = _addExtensionSuffix(debugFilePath, 'pre');
+    storeOriginalCode(code: string, filePath: string) {
+      const relativePath = path.relative(process.cwd(), filePath);
+      let targetFilePath = path.resolve(codeRoot, relativePath);
+      targetFilePath = _addExtensionSuffix(targetFilePath, 'pre');
 
       _saveAsText(targetFilePath, code);
     },
-    storeTransformedCode(code: string) {
-      const debugFilePath = path.resolve(debugDir, relativeFileId);
-      const targetFilePath = _addExtensionSuffix(debugFilePath, 'post');
+    storeTransformedCode(code: string, filePath: string) {
+      const relativePath = path.relative(process.cwd(), filePath);
+      let targetFilePath = path.resolve(codeRoot, relativePath);
+      targetFilePath = _addExtensionSuffix(targetFilePath, 'post');
 
       _saveAsText(targetFilePath, code);
     },
-    storeI18nTree(i18nTree: I18nScope) {
-      const debugFilePath = path.resolve(debugDir, relativeFileId);
-      const targetFilePath = _replaceExtension(debugFilePath, 'i18n.json');
+    storeI18nTree(i18nTree: I18nScope, filePath: string) {
+      const relativePath = path.relative(process.cwd(), filePath);
+      let targetFilePath = path.resolve(codeRoot, relativePath);
+      targetFilePath = _replaceExtension(targetFilePath, 'i18n.json');
 
       _writeAsJson(targetFilePath, i18nTree);
     },
-  };
+    storeOriginalAst(ast: t.File, filePath: string) {
+      const relativePath = path.relative(process.cwd(), filePath);
+      let targetFilePath = path.resolve(codeRoot, relativePath);
+      targetFilePath = _replaceExtension(targetFilePath, 'pre.ast.json');
 
-  // helper functions
+      _writeAsJson(targetFilePath, ast);
+    },
+    storeTransformedAst(ast: t.File, filePath: string) {
+      const relativePath = path.relative(process.cwd(), filePath);
+      let targetFilePath = path.resolve(codeRoot, relativePath);
+      targetFilePath = _replaceExtension(targetFilePath, 'post.ast.json');
+
+      _writeAsJson(targetFilePath, ast);
+    },
+    createMockLocaleModules() {
+      for (const locale of supportedLocales) {
+        const localeFile = path.resolve(i18nRoot, `${locale}.json`);
+        if (!fs.existsSync(localeFile)) {
+          fs.writeFileSync(localeFile, '{}');
+        }
+      }
+    },
+    invalidateMockLocaleModules() {
+      for (const locale of supportedLocales) {
+        const localeFile = path.resolve(i18nRoot, `${locale}.json`);
+        if (fs.existsSync(localeFile)) {
+          fs.utimesSync(localeFile, new Date(), new Date());
+        }
+      }
+    },
+    deleteMockLocaleModules() {
+      for (const locale of supportedLocales) {
+        const localeFile = path.resolve(i18nRoot, `${locale}.json`);
+        if (fs.existsSync(localeFile)) {
+          fs.unlinkSync(localeFile);
+        }
+      }
+    }
+  };
 
   function _addExtensionSuffix(filePath: string, suffix: string) {
     const fileExt = path.extname(filePath);
@@ -68,27 +92,6 @@ export default function createArtifactor(filePath: string, fileId: string, artif
     const fileDir = path.dirname(filePath);
     const fileBase = `${fileName}.${newExt}`;
     return path.resolve(fileDir, fileBase);
-  }
-
-  function _extractDictionary(scope: I18nScope) {
-    const dictionary: Record<string, string> = {};
-
-    for (const fragment of scope.fragments) {
-      const key = [
-        fileId,
-        scope.data.id,
-        fragment.data.id,
-      ].join('#');
-
-      dictionary[key] = fragment.data.value;
-    }
-
-    for (const childScope of scope.scopes) {
-      const childDictionary = _extractDictionary(childScope);
-      Object.assign(dictionary, childDictionary);
-    }
-
-    return dictionary;
   }
 
   function _mergeAsJson(filePath: string, data: any) {
