@@ -30,8 +30,8 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
   const artifactor = createArtifactor(localeResolver.supportedLocales);
 
   traverseCodeFiles((filePath) => {
-    const fileId = createFileId(filePath);
     if (!shouldTransform(filePath)) { return; }
+    const fileId = createFileId(filePath);
 
     const code = fs.readFileSync(filePath, 'utf-8');
     const { scope } = extractIomEntry(filePath, code);
@@ -39,6 +39,8 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
 
     iom.pushScope(fileId, scope);
   });
+
+  // localeServer.fetchAllDictionaries();
 
   return {
     name: 'replexica',
@@ -73,6 +75,7 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
 
       iom.pushScope(fileId, scope);
       artifactor.invalidateMockLocaleModules();
+      // localeServer.invalidateDictionaries();
 
       scope.injectI18n(ast, {
         fileId,
