@@ -48,10 +48,10 @@ export class JsxAttributeScope extends I18nScope<'jsx/attribute', 'js/text'> {
     super(nodePath, data, index, rootExtractor);
   }
 
-  public injectOwnI18n(params: I18nInjectionParams): void {
+  public injectOwnI18n(ast: t.File, params: I18nInjectionParams): void {
     if (!this.fragments.length) { return; }
 
-    const writer = createCodeWriter(params.ast);
+    const writer = createCodeWriter(ast);
 
     const idParams = {
       fileId: params.fileId,

@@ -26,9 +26,7 @@ export type I18nScopeData<
 
 export type I18nInjectionParams = {
   fileId: string;
-  filePath: string;
   i18nRoot: string;
-  ast: t.File;
   supportedLocales: string[];
   isClientCode: boolean;
 };
@@ -55,16 +53,16 @@ export abstract class I18nScope<
 
   public readonly scopes: I18nScope[] = [];
 
-  public injectI18n(params: I18nInjectionParams) {
-    this.scopes.forEach((s) => s.injectI18n(params));
-    this.injectOwnI18n(params);
+  public injectI18n(ast: t.File, params: I18nInjectionParams) {
+    this.scopes.forEach((s) => s.injectI18n(ast, params));
+    this.injectOwnI18n(ast, params);
   }
 
   public initFragments() {
     // Do nothing in the base class.
   }
 
-  protected injectOwnI18n(params: I18nInjectionParams) {
+  protected injectOwnI18n(ast: t.File, params: I18nInjectionParams) {
     // Do nothing in the base class.
   }
 

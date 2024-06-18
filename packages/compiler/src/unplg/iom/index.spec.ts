@@ -12,7 +12,7 @@ describe('iom', () => {
     const code = `<title>My app</title>`;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -47,7 +47,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -105,7 +105,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -138,7 +138,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -179,7 +179,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -227,7 +227,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -278,7 +278,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toEqual({
@@ -358,7 +358,7 @@ describe('iom', () => {
     `;
 
     const ast = generateAstFromCode(code);
-    const scope = extractI18n(ast);
+    const scope = extractI18n(ast, 'src/file.tsx');
     const scopeObj = scope?.toJSON();
 
     expect(scopeObj).toMatchSnapshot();
