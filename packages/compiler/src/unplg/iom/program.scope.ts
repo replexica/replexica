@@ -6,26 +6,27 @@ import createCodeWriter from '../workers/writer';
 import { I18N_ACCESS_METHOD, I18N_IMPORT_NAME, I18N_LOADER_METHOD, NEXTJS_IMPORT_MODULE } from './_const';
 
 export class ProgramScope extends I18nScope<'js/program', never> {
-  public static fromNodePath(rootExtractor: I18nScopeExtractor, filePath: string) {
-    return (nodePath: NodePath<t.Node>) => {
+  public static fromNodePath(rootExtractor: I18nScopeExtractor, fileName: string) {
+    return (nodePath: NodePath<t.Node>, index: number) => {
       if (!nodePath.isProgram()) { return null; }
 
       return new ProgramScope(nodePath, {
         role: 'scope',
         type: 'js/program',
-        name: filePath,
+        name: fileName,
         hint: '',
         explicit: false,
-      }, rootExtractor);
+      }, index, rootExtractor);
     };
   }
 
   private constructor(
     public nodePath: NodePath<t.Node>,
     public data: I18nScopeData<'js/program', never>,
+    public index: number,
     public rootExtractor: I18nScopeExtractor,
   ) {
-    super(nodePath, data, rootExtractor);
+    super(nodePath, data, index, rootExtractor);
   }
 
   protected injectOwnI18n(params: I18nInjectionParams) {

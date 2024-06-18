@@ -1,9 +1,13 @@
-'use client';
-
 export default function WelcomeChild() {
-  return <div>
+  const value = 42;
+  return (
+    <div>
+    <p>
+      Hey there! This is a child component.
     <span>
-      What's up with this another child component?
+      What's up with this <b>{value}</b> child <i>component</i>?
     </span>
+    </p>
   </div>
+  );
 }

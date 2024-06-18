@@ -22,7 +22,7 @@ export abstract class I18nFragment<T extends I18nFragmentType = I18nFragmentType
     public readonly data: I18nFragmentData<T>,
     public readonly index: number,
   ) {
-    super(nodePath, data);
+    super(nodePath, data, index);
     this.initHash();
   }
 
