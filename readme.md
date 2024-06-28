@@ -1,24 +1,32 @@
-<p align="center">
-<img src="./content/banner.dark.png">
-</p>
-
-<p align="center">
-    Supported and backed by
-</p>
-
-<p align="center">
-    <a href="https://example.com">
-        <img src="./content/warp.dark.png" height="64" width="200" />
-    </a>
-    &nbsp;
-    <a href="https://example.com">
-        <img src="./content/eworks.dark.png" height="64" width="235" />
-    </a>
-    &nbsp;
-    <a href="https://example.com">
-        <img src="./content/ms-f-hub.dark.png" height="64" width="180" />
-    </a>
-</p>
+<table width="100%">
+    <tr>
+        <td colspan="3">
+            <img src="./content/banner.dark.png" width="100%">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center">
+            Supported and backed by
+        </td>
+    </tr>
+    <tr>
+        <td width="33%">
+            <a href="https://example.com">
+                <img src="./content/warp.dark.png" width="100%" />
+            </a>
+        </td>
+        <td width="33%">
+            <a href="https://example.com">
+                <img src="./content/eworks.dark.png" width="100%" />
+            </a>
+        </td>
+        <td width="33%">
+            <a href="https://example.com">
+                <img src="./content/ms-f-hub.dark.png" width="100%" />
+            </a>
+        </td>
+    </tr>
+</table>
 
 # Replexica
 
