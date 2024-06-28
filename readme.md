@@ -1,22 +1,17 @@
 <p align="center">
-<img src="./content/banner.light.png#gh-light-mode-only">
-<img src="./content/banner.dark.png#gh-dark-mode-only">
+<img src="./content/banner.dark.png">
 </p>
 
 <p align="center">
-    Supported and backed by
-</p>
-
-<p align="center">
-
-![Warp](./content/warp.light.png#gh-light-mode-only)![Warp](./content/warp.dark.png#gh-dark-mode-only)
-
-[![Esade eWorks](./content/esade-eworks.light.png#gh-light-mode-only)](https://example.com)
-[![Esade eWorks](./content/esade-eworks.dark.png#gh-dark-mode-only)](https://example.com)
-
-[![Microsoft Founders Hub](./content/microsoft-founders-hub.light.png#gh-light-mode-only)](https://example.com)
-[![Microsoft Founders Hub](./content/microsoft-founders-hub.dark.png#gh-dark-mode-only)](https://example.com)
-
+    <a href="https://example.com">
+        <img src="./content/warp.dark.png" height="40" />
+    </a>
+    <a href="https://example.com">
+        <img src="./content/eworks.dark.png" height="40" />
+    </a>
+    <a href="https://example.com">
+        <img src="./content/ms-f-hub.dark.png" height="40" />
+    </a>
 </p>
 
 # Replexica
