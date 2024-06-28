@@ -39,8 +39,8 @@
 [![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
 [Website](https://replexica.com) •
-[Discord](https://discord.gg/GeK6AuSqzw) •
-[Docs](https://replexica.com/docs)
+[Discord](https://replexica.com/go/discord) •
+[Docs](https://replexica.com/go/docs)
 
 Replexica is an i18n platform for React, to ship multi-language apps fast.
 
