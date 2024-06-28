@@ -8,13 +8,15 @@
 
 <p align="center">
     <a href="https://example.com">
-        <img src="./content/warp.dark.png" height="64" />
+        <img src="./content/warp.dark.png" height="64" width="200" />
     </a>
+    &nbsp;
     <a href="https://example.com">
-        <img src="./content/eworks.dark.png" height="64" />
+        <img src="./content/eworks.dark.png" height="64" width="235" />
     </a>
+    &nbsp;
     <a href="https://example.com">
-        <img src="./content/ms-f-hub.dark.png" height="64" />
+        <img src="./content/ms-f-hub.dark.png" height="64" width="180" />
     </a>
 </p>
 
