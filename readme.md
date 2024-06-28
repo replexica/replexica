@@ -28,8 +28,7 @@
 
 [Docs](https://replexica.com/docs) •
 [Discord](https://discord.gg/GeK6AuSqzw) •
-[Website](https://replexica.com) •
-[Twitter](https://twitter.com/replexica)
+[Website](https://replexica.com)
 
 Replexica is an i18n platform for React, to ship multi-language apps fast.
 
@@ -52,11 +51,10 @@ Replexica is a full-stack LLM-powered i18n platform for React, and it consists o
     * Prepares the content for further context-aware translation.
 
 1. **Replexica i18n API** ([replexica.com](https://replexica.com)) - an i18n API in the cloud that translates apps into multiple languages, using LLMs, fast:
-    * $0/mo + usage-based API;
-    * Full context awareness + brand voice;
+    * Full context awareness + brand voice + tone + style + terminology;
     * State-of-the-art quality translations via a mix of open-source and proprietary AI models.
 
-The core idea behind Replexica is simple: apps must be multi-language by default, from day one.
+The core idea behind Replexica is simple: it's purpose is to accelerate localization of software.
 
 **The Internet is global, and so must be any software that runs on it.**
 
@@ -72,5 +70,4 @@ If you're building a side-project, a startup, or you're working at a big company
 * 🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
 * 🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
 * 🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
-* 𝕏 Follow us on [𝕏](https://x.com/replexica).
 * 🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
