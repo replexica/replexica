@@ -7,15 +7,17 @@
     Supported and backed by
 </p>
 
-<!-- flex justify-center gap-8, every element must have 40px height, gap must be 20px -->
-<!-- flex justify-center gap-8, every element must have 40px height, gap must be 20px -->
 <p align="center">
-    <a href="https://example.com/link-for-warp"><img src="./content/warp.light.png#gh-light-mode-only" height="40"></a>
-    <a href="https://example.com/link-for-warp"><img src="./content/warp.dark.png#gh-dark-mode-only" height="40"></a>
-    <a href="https://example.com/link-for-esade-eworks"><img src="./content/esade-eworks.light.png#gh-light-mode-only" height="40"></a>
-    <a href="https://example.com/link-for-esade-eworks"><img src="./content/esade-eworks.dark.png#gh-dark-mode-only" height="40"></a>
-    <a href="https://example.com/link-for-microsoft-founders-hub"><img src="./content/microsoft-founders-hub.light.png#gh-light-mode-only" height="40"></a>
-    <a href="https://example.com/link-for-microsoft-founders-hub"><img src="./content/microsoft-founders-hub.dark.png#gh-dark-mode-only" height="40"></a>
+
+[![Warp](./content/warp.light.png#gh-light-mode-only)](https://example.com)
+[![Warp](./content/warp.dark.png#gh-dark-mode-only)](https://example.com)
+
+[![Esade eWorks](./content/esade-eworks.light.png#gh-light-mode-only)](https://example.com)
+[![Esade eWorks](./content/esade-eworks.dark.png#gh-dark-mode-only)](https://example.com)
+
+[![Microsoft Founders Hub](./content/microsoft-founders-hub.light.png#gh-light-mode-only)](https://example.com)
+[![Microsoft Founders Hub](./content/microsoft-founders-hub.dark.png#gh-dark-mode-only)](https://example.com)
+
 </p>
 
 # Replexica
