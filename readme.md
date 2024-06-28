@@ -1,7 +1,9 @@
 <table width="100%">
     <tr>
         <td colspan="3">
-            <img src="./content/banner.dark.png" width="100%">
+            <a href="https://replexica.com">
+                <img src="./content/banner.dark.png" width="100%" />
+            </a>
         </td>
     </tr>
     <tr>
@@ -11,17 +13,17 @@
     </tr>
     <tr>
         <td>
-            <a href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=replexica_20240626">
+            <a target="_blank" href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=replexica_20240626">
                 <img src="./content/warp.dark.png"/>
             </a>
         </td>
         <td>
-            <a href="https://www.esade.edu/en/learning-innovation/rambla/eworks">
+            <a target="_blank" href="https://www.esade.edu/en/learning-innovation/rambla/eworks">
                 <img src="./content/eworks.dark.png"/>
             </a>
         </td>
         <td>
-            <a href="https://foundershub.startups.microsoft.com">
+            <a target="_blank" href="https://foundershub.startups.microsoft.com">
                 <img src="./content/ms-f-hub.dark.png"/>
             </a>
         </td>
