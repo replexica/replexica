@@ -3,6 +3,20 @@
 <img src="./content/banner.dark.png#gh-dark-mode-only">
 </p>
 
+<p align="center">
+    Supported and backed by
+</p>
+
+<!-- flex justify-center gap-8, every element must have 40px height, gap must be 20px -->
+<p style="display: flex; justify-content: center; gap: 20px;">
+    <img src="./content/warp.light.png#gh-light-mode-only" height="40">
+    <img src="./content/warp.dark.png#gh-dark-mode-only" height="40">
+    <img src="./content/esade-eworks.light.png#gh-light-mode-only" height="40">
+    <img src="./content/esade-eworks.dark.png#gh-dark-mode-only" height="40">
+    <img src="./content/microsoft-founders-hub.light.png#gh-light-mode-only" height="40">
+    <img src="./content/microsoft-founders-hub.dark.png#gh-dark-mode-only" height="40">
+</p>
+
 # Replexica
 
 [![Discord](https://img.shields.io/discord/1193198600298172486?label=discord
@@ -54,8 +68,8 @@ The core idea behind Replexica is simple: apps must be multi-language by default
 
 If you're building a side-project, a startup, or you're working at a big company that uses Replexica - we'd love to hear from you!
 
--   🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
--   🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
--   🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
--   𝕏 Follow us on [𝕏](https://x.com/replexica).
--   🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
+* 🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
+* 🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
+* 🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
+* 𝕏 Follow us on [𝕏](https://x.com/replexica).
+* 🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
