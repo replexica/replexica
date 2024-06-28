@@ -2,7 +2,7 @@
     <tr>
         <td colspan="3">
             <a href="https://replexica.com">
-                <img src="./content/banner.dark.png" height="256" />
+                <img src="./content/banner.dark.png" height="256" width="100%" />
             </a>
         </td>
     </tr>
