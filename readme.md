@@ -3,14 +3,18 @@
 </p>
 
 <p align="center">
+    Supported and backed by
+</p>
+
+<p align="center">
     <a href="https://example.com">
-        <img src="./content/warp.dark.png" height="40" />
+        <img src="./content/warp.dark.png" height="64" />
     </a>
     <a href="https://example.com">
-        <img src="./content/eworks.dark.png" height="40" />
+        <img src="./content/eworks.dark.png" height="64" />
     </a>
     <a href="https://example.com">
-        <img src="./content/ms-f-hub.dark.png" height="40" />
+        <img src="./content/ms-f-hub.dark.png" height="64" />
     </a>
 </p>
 
