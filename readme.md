@@ -9,8 +9,7 @@
 
 <p align="center">
 
-[![Warp](./content/warp.light.png#gh-light-mode-only)](https://example.com)
-[![Warp](./content/warp.dark.png#gh-dark-mode-only)](https://example.com)
+[![Warp](./content/warp.light.png#gh-light-mode-only)![Warp](./content/warp.dark.png#gh-dark-mode-only)](https://example.com)
 
 [![Esade eWorks](./content/esade-eworks.light.png#gh-light-mode-only)](https://example.com)
 [![Esade eWorks](./content/esade-eworks.dark.png#gh-dark-mode-only)](https://example.com)
