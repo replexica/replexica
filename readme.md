@@ -11,17 +11,17 @@
     </tr>
     <tr>
         <td>
-            <a href="https://example.com">
+            <a href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=replexica_20240626">
                 <img src="./content/warp.dark.png"/>
             </a>
         </td>
         <td>
-            <a href="https://example.com">
+            <a href="https://www.esade.edu/en/learning-innovation/rambla/eworks">
                 <img src="./content/eworks.dark.png"/>
             </a>
         </td>
         <td>
-            <a href="https://example.com">
+            <a href="https://foundershub.startups.microsoft.com">
                 <img src="./content/ms-f-hub.dark.png"/>
             </a>
         </td>
