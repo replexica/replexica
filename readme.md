@@ -10,19 +10,19 @@
         </td>
     </tr>
     <tr>
-        <td width="33%">
+        <td>
             <a href="https://example.com">
-                <img src="./content/warp.dark.png" width="100%" />
+                <img src="./content/warp.dark.png"/>
             </a>
         </td>
-        <td width="33%">
+        <td>
             <a href="https://example.com">
-                <img src="./content/eworks.dark.png" width="100%" />
+                <img src="./content/eworks.dark.png"/>
             </a>
         </td>
-        <td width="33%">
+        <td>
             <a href="https://example.com">
-                <img src="./content/ms-f-hub.dark.png" width="100%" />
+                <img src="./content/ms-f-hub.dark.png"/>
             </a>
         </td>
     </tr>
