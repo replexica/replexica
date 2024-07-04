@@ -1,10 +1,20 @@
 import { I18nScope } from "../iom";
 
 export default function createLocaleServer(iomStorage: Record<string, I18nScope>) {
+  const remoteLocaleServer = createFakeRemoteLocaleServer(iomStorage);
   return {
-    loadDictionary(locale: string) {
-      if (locale !== 'en') { return {}; }
+    async loadDictionary(locale: string) {
+      const data = await remoteLocaleServer.loadDictionary(locale);
+      return data;
+    },
+  };
+}
 
+function createFakeRemoteLocaleServer(iomStorage: Record<string, I18nScope>) {
+  return {
+    async loadDictionary(locale: string) {
+      // delay for 1 second
+      await new Promise(resolve => setTimeout(resolve, 1000));
       const dictionary: Record<string, string> = {};
 
       for (const [fileId, scope] of Object.entries(iomStorage)) {
@@ -12,7 +22,14 @@ export default function createLocaleServer(iomStorage: Record<string, I18nScope>
         Object.assign(dictionary, fileDictionary);
       }
 
-      return dictionary;
+      if (locale === 'en') {
+        return dictionary;
+      } else {
+        for (const [key] of Object.entries(dictionary)) {
+          dictionary[key] = `[${locale}] ${dictionary[key]}`;
+        }
+        return dictionary;
+      }
     },
   };
 

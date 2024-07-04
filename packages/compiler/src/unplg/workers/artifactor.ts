@@ -3,14 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { I18nScope } from '../iom';
 
-export default function createArtifactor(supportedLocales: string[]) {
-  const replexicaRoot = path.resolve(process.cwd(), '.replexica');
-  const metaRoot = path.resolve(replexicaRoot, 'meta');
-  const i18nRoot = path.resolve(replexicaRoot, 'i18n');
-  const codeRoot = path.resolve(replexicaRoot, 'code');
+export default function createArtifactor(i18nRoot: string, supportedLocales: string[]) {
+  const debugRoot = path.resolve(process.cwd(), '.replexica');
+  const metaRoot = path.resolve(debugRoot, 'meta');
+  const codeRoot = path.resolve(debugRoot, 'code');
 
   return {
-    i18nRoot,
     storeMetadata(fileId: string, i18nTree: any) {
       const payload = {
         [fileId]: i18nTree
@@ -55,18 +53,12 @@ export default function createArtifactor(supportedLocales: string[]) {
     createMockLocaleModules() {
       for (const locale of supportedLocales) {
         const localeFile = path.resolve(i18nRoot, `${locale}.json`);
-        if (!fs.existsSync(localeFile)) {
-          fs.writeFileSync(localeFile, '{}');
-        }
+        const payload = _createMockLocaleFilePayload();
+        _writeAsJson(localeFile, payload);
       }
     },
     invalidateMockLocaleModules() {
-      for (const locale of supportedLocales) {
-        const localeFile = path.resolve(i18nRoot, `${locale}.json`);
-        if (fs.existsSync(localeFile)) {
-          fs.utimesSync(localeFile, new Date(), new Date());
-        }
-      }
+      return this.createMockLocaleModules();
     },
     deleteMockLocaleModules() {
       for (const locale of supportedLocales) {
@@ -127,5 +119,11 @@ export default function createArtifactor(supportedLocales: string[]) {
     }
 
     fs.writeFileSync(filePath, data, 'utf8');
+  }
+
+  function _createMockLocaleFilePayload() {
+    return {
+      '//': new Date().toISOString(),
+    };
   }
 }

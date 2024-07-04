@@ -1,30 +1,32 @@
 import path from 'path';
+import fs from 'fs';
 
 export type LocaleResolverParams = {
   source: string;
   targets: string[];
 };
 
-export default function createLocaleResolver(localeConfig: LocaleResolverParams) {
-  const i18nRoot = path.resolve(process.cwd(), '.replexica');
+export default function createLocaleResolver(i18nRoot: string, localeConfig: LocaleResolverParams) {
+  const supportedLocales = [
+    ...new Set([
+      localeConfig.source,
+      ...localeConfig.targets,
+    ]),
+  ];
+
+  const localeMap = new Map(
+    supportedLocales
+      .map(locale => [
+        path.resolve(i18nRoot, `${locale}.json`),
+        locale,
+      ]),
+  );
 
   return {
-    i18nRoot,
-    supportedLocales: [
-      ...new Set([
-        localeConfig.source,
-        ...localeConfig.targets,
-      ]),
-    ],
+    supportedLocales,
     tryParseLocaleModuleId(filePath: string) {
-      for (const locale of this.supportedLocales) {
-        const localeFile = path.resolve(i18nRoot, `${locale}.json`);
-        if (filePath === localeFile) {
-          return locale;
-        }
-      }
-
-      return null;
+      const result = localeMap.get(filePath) || null;
+      return result;
     },
   };
 }

@@ -1,4 +1,3 @@
-import * as t from '@babel/types';
 import fs from 'fs';
 import path from 'path';
 import { createUnplugin } from 'unplugin';
@@ -23,11 +22,12 @@ const unplgConfigSchema = Z.object({
 
 export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
   const config = unplgConfigSchema.parse(_config);
+  const i18nRoot = path.resolve(process.cwd(), 'node_modules', '@replexica/.cache');
 
-  const localeResolver = createLocaleResolver(config.locale);
+  const localeResolver = createLocaleResolver(i18nRoot, config.locale);
   const iom = createIomStorage();
   const localeServer = createLocaleServer(iom.storage);
-  const artifactor = createArtifactor(localeResolver.supportedLocales);
+  const artifactor = createArtifactor(i18nRoot, localeResolver.supportedLocales);
 
   traverseCodeFiles((filePath) => {
     if (!shouldTransform(filePath)) { return; }
@@ -39,24 +39,23 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
 
     iom.pushScope(fileId, scope);
   });
+  artifactor.createMockLocaleModules();
 
   // localeServer.fetchAllDictionaries();
 
   return {
     name: 'replexica',
     enforce: 'pre',
-    buildStart() {
-      artifactor.createMockLocaleModules();
-    },
-    buildEnd() {
-      artifactor.deleteMockLocaleModules();
-    },
+    // buildStart() {
+    //   artifactor.createMockLocaleModules();
+    // },
+    // buildEnd() {
+    //   artifactor.deleteMockLocaleModules();
+    // },
     transformInclude(filePath) {
       return shouldTransform(filePath);
     },
-    watchChange(id, change) {
-      console.log('WatchChange', { id, change });
-    },
+    watchChange: console.log,
     async load(filePath) {
       const localeModuleId = localeResolver.tryParseLocaleModuleId(filePath);
       if (!localeModuleId) { return null; }
@@ -75,14 +74,14 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
 
       iom.pushScope(fileId, scope);
       artifactor.invalidateMockLocaleModules();
-      // localeServer.invalidateDictionaries();
 
       scope.injectI18n(ast, {
         fileId,
-        i18nRoot: artifactor.i18nRoot,
+        i18nRoot,
         supportedLocales: localeResolver.supportedLocales,
         isClientCode: !config.isServer,
       });
+
 
       const result = converter.generateUpdatedCode(ast);
 
@@ -103,18 +102,24 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
     return { ast, converter, scope };
   }
 
-  function traverseCodeFiles(fn: (filePath: string) => void) {
-    const directory = config.sourceRoot;
-    const files = fs.readdirSync(directory, { withFileTypes: true });
+function traverseCodeFiles(fn: (filePath: string) => void) {
+  const directory = config.sourceRoot;
+  // fs.readdirSync does not support the recursive option with withFileTypes
+  // Need to create a helper function to handle recursion manually
+  const traverse = (dir: string) => {
+    const files = fs.readdirSync(dir, { withFileTypes: true });
     for (const file of files) {
-      const filePath = path.resolve(directory, file.name);
+      const filePath = path.join(dir, file.name);
       if (file.isDirectory()) {
-        traverseCodeFiles(fn);
+        traverse(filePath); // Recurse into subdirectories
       } else {
-        fn(filePath);
+        fn(filePath); // Apply the function to each file path
       }
     }
-  }
+  };
+
+  traverse(directory);
+}
 
   function shouldTransform(filePath: string) {
     const supportedFileExtensions = ['.ts', '.tsx', '.js', '.jsx'];
