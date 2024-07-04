@@ -3,32 +3,46 @@
   "version": "0.2.0",
   "description": "Replexica React components",
   "private": false,
-  "main": "./build/index.js",
+  "type": "module",
+  "sideEffects": false,
   "exports": {
-    ".": "./build/index.js",
-    "./client": "./build/client/index.js",
-    "./server": "./build/server/index.js",
-    "./next": "./build/next/index.js"
+    ".": {
+      "import": "./build/client.mjs",
+      "require": "./build/client.cjs",
+      "types": "./build/client.d.ts"
+    },
+    "./next": {
+      "import": "./build/next.mjs",
+      "require": "./build/next.cjs",
+      "types": "./build/next.d.ts"
+    }
   },
-  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "dev": "tsup --watch",
+    "build": "tsup",
     "test": "vitest run"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
+    "@replexica/spec": "workspace:*",
+    "cookie": "^0.6.0",
+    "iso-639-1": "^3.1.2",
+    "negotiator": "^0.6.3",
     "typescript": "^5.4.5",
-    "vitest": "^1.4.0"
+    "vitest": "^1.6.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.77",
-    "next": "^14"
+    "@replexica/config": "workspace:*",
+    "@types/cookie": "^0.6.0",
+    "@types/negotiator": "^0.6.3",
+    "@types/react": "^18.3.3",
+    "next": "^14.2.4",
+    "tsup": "^8.1.0"
   },
   "peerDependencies": {
     "next": "^14"

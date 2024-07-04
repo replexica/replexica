@@ -1,12 +1,12 @@
 import _ from 'lodash';
-import { ReplexicaBucketProcessor } from './replexica.js';
+import { ReplexicaBucketProcessor } from './replexica';
 import { bucketTypeSchema } from '@replexica/spec';
-import { JsonBucketProcessor } from './json.js';
+import { JsonBucketProcessor } from './json';
 import { createId } from '@paralleldrive/cuid2';
-import { YamlBucketProcessor } from './yaml.js';
-import { YamlRootKeyBucketProcessor } from './yaml-root-key.js';
-import { XcodeBucketProcessor } from './xcode.js';
-import { MarkdownBucketProcessor } from './markdown.js';
+import { YamlBucketProcessor } from './yaml';
+import { YamlRootKeyBucketProcessor } from './yaml-root-key';
+import { XcodeBucketProcessor } from './xcode';
+import { MarkdownBucketProcessor } from './markdown';
 
 // Bucket processor
 
@@ -32,7 +32,7 @@ export function createBucketProcessor(
 ): IBucketProcessor {
   switch (bucketType) {
     default: throw new Error(`Unknown bucket type: ${bucketType}`);
-    case 'replexica': return new ReplexicaBucketProcessor(bucketPath, translator);
+    case 'auto': return new ReplexicaBucketProcessor(bucketPath, translator);
     case 'json': return new JsonBucketProcessor(bucketPath, translator);
     case 'yaml': return new YamlBucketProcessor(bucketPath, translator);
     case 'yaml-root-key': return new YamlRootKeyBucketProcessor(bucketPath, translator);

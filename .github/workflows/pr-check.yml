@@ -22,10 +22,10 @@ jobs:
           node-version: 20.11.0
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         id: pnpm-install
         with:
-          version: 8.14.0
+          version: 9.1.1
           run_install: false
 
       - name: Configure pnpm cache

@@ -1,19 +1,24 @@
 import { createElement } from "react";
-import { ReplexicaBaseChunkProps, resolveChunkValue } from "./chunk";
+import { I18nBaseFragmentProps, resolveI18nValue } from "./fragment";
+import { I18nInstance } from "./types";
 
-export type ReplexicaBaseProxyProps<P extends {}> = P & {
-  data: any;
-  _ReplexicaComponent: string | React.ComponentType<P>;
-  _ReplexicaAttributes: Record<keyof P, Omit<ReplexicaBaseChunkProps, 'data'>>;
+export type I18nBaseProxyDollarProp = {
+  i18n: I18nInstance;
+  Component: string | React.ComponentType<any>;
+  attributes: Record<string, any>;
 };
 
-export function ReplexicaBaseProxy<P extends {}>(props: ReplexicaBaseProxyProps<P>) {
-  const { _ReplexicaAttributes, _ReplexicaComponent, data, ...originalProps } = props;
+export type I18nBaseProxyProps<P extends {}, D extends I18nBaseProxyDollarProp> = P & {
+  $: D;
+};
+
+export function I18nBaseProxy<P extends {}, D extends I18nBaseProxyDollarProp>(props: I18nBaseProxyProps<P, D>) {
+  const { $, ...originalProps } = props;
   let propsPatch: Partial<P> = {};
 
-  for (const [key, value] of Object.entries(_ReplexicaAttributes || {})) {
-    const selector = value as Omit<ReplexicaBaseChunkProps, 'data'>;
-    const result = resolveChunkValue(data, selector);
+  for (const [key, value] of Object.entries($.attributes || {})) {
+    const selector = value as Omit<I18nBaseFragmentProps, 'data'>;
+    const result = resolveI18nValue($.i18n.data, selector);
 
     propsPatch = {
       ...propsPatch,
@@ -27,7 +32,7 @@ export function ReplexicaBaseProxy<P extends {}>(props: ReplexicaBaseProxyProps<
   } as any;
 
   return createElement(
-    _ReplexicaComponent,
+    $.Component,
     modifiedProps,
   );
 }

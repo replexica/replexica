@@ -1,24 +1,18 @@
 'use client';
 
-import { useMemo } from "react";
-import { replexicaContext } from './context';
+import { I18nInstance } from "../shared";
+import { I18nContext } from "./context";
 
-export type ReplexicaIntlProviderProps = {
-  data: any;
+export type I18nProviderProps = {
+  i18n: I18nInstance;
   children?: React.ReactNode;
 };
 
-export function ReplexicaIntlProvider(props: ReplexicaIntlProviderProps) {
-  const value = useMemo(getReplexicaValue, [props.data]);
+export function I18nProvider(props: I18nProviderProps) {
   return (
-    <replexicaContext.Provider value={value}>
-      {props.children}
-    </replexicaContext.Provider>
+    <I18nContext.Provider
+      value={props.i18n}
+      children={props.children}
+    />
   );
-
-  function getReplexicaValue() {
-    return {
-      data: props.data,
-    };
-  }
 }

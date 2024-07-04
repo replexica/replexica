@@ -4,40 +4,43 @@
   "description": "Replexica compiler",
   "private": false,
   "type": "module",
-  "main": "build/index.cjs",
+  "sideEffects": false,
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
+  "main": "build/index.cjs",
   "files": [
     "build"
   ],
   "scripts": {
-    "dev": "unbuild --stub && tsc -w --noEmit",
-    "build": "unbuild",
-    "test": "vitest run"
+    "dev": "tsup --watch",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
-    "@babel/core": "^7.24.4",
-    "@babel/generator": "^7.24.4",
-    "@babel/parser": "^7.24.4",
-    "@babel/types": "^7.24.6",
+    "@babel/core": "^7.24.7",
+    "@babel/generator": "^7.24.7",
+    "@babel/parser": "^7.24.7",
+    "@babel/types": "^7.24.7",
     "@replexica/spec": "workspace:*",
-    "ignore-walk": "^6.0.4",
+    "ignore-walk": "^6.0.5",
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
     "typescript": "^5.4.5",
     "unplugin": "^1.10.1",
-    "vitest": "^1.4.0",
-    "zod": "^3.23.0"
+    "vitest": "^1.6.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@replexica/config": "workspace:*",
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.6.8",
     "@types/ignore-walk": "^4.0.3",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.5",
     "@types/object-hash": "^3.0.6",
-    "unbuild": "^2.0.0"
+    "@types/webpack": "^5.28.5",
+    "next": "^14.2.4",
+    "tsup": "^8.1.0"
   }
 }

@@ -1,0 +1,164 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`iom > complex nested jsx 1`] = `
+{
+  "explicit": false,
+  "fragments": [],
+  "hint": "",
+  "id": "",
+  "name": "",
+  "role": "scope",
+  "scopes": [
+    {
+      "explicit": false,
+      "fragments": [
+        {
+          "id": "0",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "My app",
+        },
+      ],
+      "hint": "",
+      "id": "0",
+      "name": "title",
+      "role": "scope",
+      "scopes": [],
+      "type": "jsx/element",
+    },
+    {
+      "explicit": true,
+      "fragments": [],
+      "hint": "",
+      "id": "1",
+      "name": "",
+      "role": "scope",
+      "scopes": [
+        {
+          "explicit": false,
+          "fragments": [
+            {
+              "id": "0",
+              "role": "fragment",
+              "type": "jsx/text",
+              "value": "My app",
+            },
+          ],
+          "hint": "",
+          "id": "1.0",
+          "name": "h1",
+          "role": "scope",
+          "scopes": [],
+          "type": "jsx/element",
+        },
+        {
+          "explicit": false,
+          "fragments": [
+            {
+              "id": "0",
+              "role": "fragment",
+              "type": "jsx/text",
+              "value": "This is a demo app",
+            },
+          ],
+          "hint": "",
+          "id": "1.1",
+          "name": "p",
+          "role": "scope",
+          "scopes": [],
+          "type": "jsx/element",
+        },
+      ],
+      "type": "jsx/element",
+    },
+    {
+      "explicit": false,
+      "fragments": [
+        {
+          "id": "0",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "Some other text",
+        },
+        {
+          "id": "1",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "© 2030",
+        },
+      ],
+      "hint": "",
+      "id": "2",
+      "name": "p",
+      "role": "scope",
+      "scopes": [],
+      "type": "jsx/element",
+    },
+    {
+      "explicit": false,
+      "fragments": [
+        {
+          "id": "0",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "Click",
+        },
+        {
+          "id": "1",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "here",
+        },
+        {
+          "id": "2",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "to learn more",
+        },
+      ],
+      "hint": "",
+      "id": "3",
+      "name": "p",
+      "role": "scope",
+      "scopes": [],
+      "type": "jsx/element",
+    },
+    {
+      "explicit": false,
+      "fragments": [
+        {
+          "id": "0",
+          "role": "fragment",
+          "type": "jsx/text",
+          "value": "Some text",
+        },
+      ],
+      "hint": "",
+      "id": "4",
+      "name": "span",
+      "role": "scope",
+      "scopes": [
+        {
+          "explicit": false,
+          "fragments": [
+            {
+              "id": "0",
+              "role": "fragment",
+              "type": "js/text",
+              "value": "Some text for the span",
+            },
+          ],
+          "hint": "",
+          "id": "4.0",
+          "name": "title",
+          "role": "scope",
+          "scopes": [],
+          "type": "jsx/attribute",
+        },
+      ],
+      "type": "jsx/element",
+    },
+  ],
+  "type": "js/program",
+}
+`;

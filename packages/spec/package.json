@@ -4,26 +4,28 @@
   "description": "Replexica open specification",
   "private": false,
   "type": "module",
-  "main": "build/index.cjs",
+  "sideEffects": false,
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
+  "main": "build/index.cjs",
   "files": [
     "build"
   ],
   "scripts": {
-    "dev": "unbuild --stub && tsc -w --noEmit",
-    "build": "unbuild",
+    "dev": "tsup --watch",
+    "build": "tsup",
     "test": "vitest run"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "typescript": "^5.4.5",
-    "vitest": "^1.4.0",
-    "zod": "^3.23.0"
+    "vitest": "^1.6.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "unbuild": "^2.0.0"
+    "@replexica/config": "workspace:*",
+    "tsup": "^8.1.0"
   }
 }

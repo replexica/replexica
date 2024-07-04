@@ -1,8 +1,10 @@
-import { Html, Head, Main, NextScript } from "next/document";
+'use client';
 
-export default function Document() {
+import { Html, Head, Main, NextScript, DocumentProps } from "next/document";
+
+export default function Document(docProps: DocumentProps) {
   return (
-    <Html lang="en">
+    <Html lang={docProps.locale}>
       <Head />
       <body>
         <Main />

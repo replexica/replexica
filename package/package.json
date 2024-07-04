@@ -1,0 +1,50 @@
+{
+  "name": "replexica",
+  "version": "0.22.1",
+  "description": "Replexica",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./compiler": {
+      "import": "./build/compiler.mjs",
+      "require": "./build/compiler.cjs",
+      "types": "./build/compiler.d.ts"
+    },
+    "./react": {
+      "import": "./build/react.mjs",
+      "require": "./build/react.cjs",
+      "types": "./build/react.d.ts"
+    },
+    "./react-next": {
+      "import": "./build/react-next.mjs",
+      "require": "./build/react-next.cjs",
+      "types": "./build/react-next.d.ts"
+    }
+  },
+  "bin": {
+    "replexica": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "build"
+  ],
+  "scripts": {
+    "replexica": "./bin/cli.js",
+    "dev": "tsup --watch",
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@replexica/cli": "workspace:*",
+    "@replexica/compiler": "workspace:*",
+    "@replexica/config": "workspace:*",
+    "@replexica/react": "workspace:*",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  }
+}

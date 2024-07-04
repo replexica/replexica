@@ -1,3 +1,4 @@
 packages:
-  - "demo/*"
-  - "packages/*"
+  - "./package"
+  - "./packages/*"
+  - "./demo/next-app"

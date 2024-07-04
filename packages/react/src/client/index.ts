@@ -1,5 +1,5 @@
 'use client';
 
+export * from './fragment';
 export * from './provider';
-export * from './chunk';
 export * from './proxy';
