@@ -22,12 +22,6 @@ jobs:
         with:
           node-version: 20.11.0
 
-      # use action from current repo
-      - name: Replexica
-        uses: ./
-        with:
-          who-to-greet: 'Replexica'
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         id: pnpm-install
@@ -47,6 +41,12 @@ jobs:
 
       - name: Install deps
         run: pnpm install
+
+      # use action from current repo
+      - name: Replexica
+        uses: ./
+        with:
+          who-to-greet: 'Replexica'
 
       - name: Setup
         run: |
