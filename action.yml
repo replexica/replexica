@@ -1,0 +1,17 @@
+name: Replexica
+description: Accelerated localization for dev teams
+author: Replexica
+inputs:
+  who-to-greet:
+	description: 'Who to greet'
+	required: true
+	default: 'World'
+outputs:
+  time:
+	description: 'The time we greeted you'
+runs:
+  using: 'node12'
+  main: 'action/index.js'
+branding:
+  icon: './content/logo.png'
+  color: 'black'
