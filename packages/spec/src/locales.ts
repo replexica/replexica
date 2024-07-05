@@ -182,6 +182,8 @@ export const sourceLocaleSchema = Z.enum(sourceLocales);
 export const targetFullLocaleSchema = Z.enum(targetFullLocales);
 export const targetLocaleSchema = Z.enum(targetLocales);
 
+export const allLocalesSchema = Z.enum(allLocales);
+
 // Shortcut resolvers
 
 export const resolveSourceLocale = (locale: typeof sourceLocales[number]): typeof sourceFullLocales[number] => {

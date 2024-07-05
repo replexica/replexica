@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Ora from 'ora';
 import Z from 'zod';
-import { loadConfig, saveConfig } from './services/config';
+import { loadConfig } from './workers/config';
 import { createBucketProcessor, createTranslator } from './services/bucket/core';
 import { loadSettings } from './services/settings';
 import { loadAuth } from './services/auth';

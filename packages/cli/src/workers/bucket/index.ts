@@ -1,0 +1,272 @@
+
+/*
+
+import _ from 'lodash';
+import { BucketPayload, IBucketProcessor } from "./core";
+import { BaseBucketProcessor } from "./base";
+
+export class XcodeBucketProcessor extends BaseBucketProcessor implements IBucketProcessor {
+  protected override _validateBucketPath(bucketPath: string): void {
+    if (!bucketPath.endsWith('.xcstrings')) {
+      throw new Error(`Unknown bucket path: ${bucketPath}. Xcode bucket path must end with '.xcstrings'.`);
+    }
+  }
+
+  protected override _resolveDataFilePath(): string {
+    return this.bucketPath;
+  }
+
+  protected override async _deserializeData(content: string): Promise<Record<string, any>> {
+    const parsed = JSON.parse(content);
+    return parsed;
+  }
+
+  protected override async _serializeDataContent(data: Record<string, any>): Promise<string> {
+    return JSON.stringify(data, null, 2);
+  }
+
+  protected async _postLoad(payload: BucketPayload, locale: string): Promise<BucketPayload> {
+    const parsed = payload.data;
+
+    const resultData: Record<string, any> = {};
+
+    for (const [translationKey, _translationEntity] of Object.entries(parsed.strings)) {
+      const rootTranslationEntity = _translationEntity as any;
+      const langTranslationEntity = rootTranslationEntity?.localizations?.[locale];
+      if (langTranslationEntity) {
+        if ('stringUnit' in langTranslationEntity) {
+          resultData[translationKey] = langTranslationEntity.stringUnit.value;
+        } else if ('variations' in langTranslationEntity) {
+          if ('plural' in langTranslationEntity.variations) {
+            resultData[translationKey] = {
+              one: langTranslationEntity.variations.plural.one?.stringUnit?.value || '',
+              other: langTranslationEntity.variations.plural.other?.stringUnit?.value || '',
+              zero: langTranslationEntity.variations.plural.zero?.stringUnit?.value || '',
+            };
+          }
+        }
+      }
+    }
+
+    const result: BucketPayload = { ...payload, data: resultData };
+    return result;
+  }
+
+  protected async _preSave(payload: BucketPayload, locale: string): Promise<BucketPayload> {
+    const existingLangData = await this._loadData(locale);
+
+    const langDataToMerge: any = {};
+    langDataToMerge.strings = {};
+
+    for (const [key, value] of Object.entries(payload.data)) {
+      if (typeof value === 'string') {
+        langDataToMerge.strings[key] = {
+          extractionState: 'manual',
+          localizations: {
+            [locale]: {
+              stringUnit: {
+                state: 'translated',
+                value,
+              },
+            },
+          },
+        };
+      } else {
+        langDataToMerge.strings[key] = {
+          extractionState: 'manual',
+          localizations: {
+            [locale]: {
+              variations: {
+                plural: {
+                  one: {
+                    stringUnit: {
+                      state: 'translated',
+                      value: value.one,
+                    },
+                  },
+                  other: {
+                    stringUnit: {
+                      state: 'translated',
+                      value: value.other,
+                    },
+                  },
+                  zero: {
+                    stringUnit: {
+                      state: 'translated',
+                      value: value.zero,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+      }
+    }
+
+    const resultData = _.merge({}, existingLangData, langDataToMerge);
+
+    return {
+      data: resultData,
+      meta: payload.meta,
+    };
+  }
+}
+
+
+*/
+
+import { allLocalesSchema, bucketTypeSchema } from '@replexica/spec';
+import Z from 'zod';
+import path from 'path';
+import fs from 'fs';
+import YAML from 'yaml';
+
+export interface IBucketStorage {
+  load: (locale: Z.infer<typeof allLocalesSchema>, butcketPath: string) => Promise<any>;
+  save: (locale: Z.infer<typeof allLocalesSchema>, butcketPath: string, content: any) => Promise<void>;
+}
+
+export class FileBucketStorage implements IBucketStorage {
+  constructor(private pathResolver: BucketPathResolver) { }
+
+  async load(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+    const localeFilePath = await this.pathResolver(locale, bucketPath);
+    return fs.existsSync(localeFilePath) ? fs.readFileSync(localeFilePath, "utf8") : null;
+  }
+
+  async save(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string, content: any) {
+    const localeFilePath = await this.pathResolver(locale, bucketPath);
+    fs.mkdirSync(path.dirname(localeFilePath), { recursive: true });
+    fs.writeFileSync(localeFilePath, content, "utf8");
+  }
+}
+
+export interface IBucketParser {
+  deserialize: (locale: string, content: any) => Promise<Record<string, string>>;
+  serialize: (locale: string, content: Record<string, string>) => Promise<any>;
+}
+
+export class JsonBucketParser implements IBucketParser {
+  async deserialize(locale: string, content: any) {
+    return JSON.parse(content);
+  }
+
+  async serialize(locale: string, content: Record<string, string>) {
+    return JSON.stringify(content, null, 2);
+  }
+}
+
+export class MarkdownBucketParser implements IBucketParser {
+  async deserialize(locale: string, content: any) {
+    return { '': content };
+  }
+
+  async serialize(locale: string, content: Record<string, string>) {
+    const markdownContent = content[''];
+    return markdownContent;
+  }
+}
+
+export class YamlBucketParser implements IBucketParser {
+  async deserialize(locale: string, content: any) {
+    return YAML.parse(content);
+  }
+
+  async serialize(locale: string, content: Record<string, string>) {
+    return YAML.stringify(content);
+  }
+}
+
+export class YamlRootKeyBucketParser implements IBucketParser {
+  async deserialize(locale: string, content: any) {
+    return YAML.parse(content)?.[locale] || {};
+  }
+
+  async serialize(locale: string, content: Record<string, string>) {
+    return YAML.stringify({ [locale]: content });
+  }
+}
+
+export class XcodeBucketParser extends JsonBucketParser {
+  async deserialize(locale: string, content: any) {
+    const jsonData = await super.deserialize(locale, content);
+    // TODO
+  }
+
+  async serialize(locale: string, content: Record<string, string>): Promise<string> {
+    // TODO
+  }
+}
+
+export type BucketPathResolver = {
+  (locale: Z.infer<typeof allLocalesSchema>, bucketPath: string): Promise<string>;
+}
+
+export async function plainBucketPathResolver(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+  return path.join(process.cwd(), bucketPath);
+}
+
+export async function patternBucketPathResolver(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+  if (!bucketPath.includes('[locale]')) {
+    throw new Error('Bucket path must contain [locale] placeholder');
+  }
+
+  const localePath = bucketPath.replace('[locale]', locale);
+  const result = plainBucketPathResolver(locale, localePath);
+
+  return result;
+}
+
+export type BucketProcessorParams = {
+  storage: IBucketStorage;
+  parser: IBucketParser;
+  pathResolver: BucketPathResolver;
+};
+
+export function composeBucketProcessor(bucketPath: string, params: BucketProcessorParams) {
+  return {
+    async load(locale: Z.infer<typeof allLocalesSchema>) {
+      const content = await params.storage.load(locale, bucketPath);
+      if (!content) { return {}; }
+
+      const payload = await params.parser.deserialize(locale, content);
+      return payload;
+    },
+    async save(locale: Z.infer<typeof allLocalesSchema>, payload: Record<string, string>) {
+      const serialized = await params.parser.serialize(locale, payload);
+      await params.storage.save(locale, bucketPath, serialized);
+    },
+  };
+}
+
+export function createBucketProcessor(bucketType: Z.infer<typeof bucketTypeSchema>, bucketPath: string) {
+  switch (bucketType) {
+    default:
+      throw new Error(`Unsupported bucket type: ${bucketType}`);
+    case 'json':
+      return composeBucketProcessor(bucketPath, {
+        storage: new FileBucketStorage(patternBucketPathResolver),
+        parser: new JsonBucketParser(),
+        pathResolver: patternBucketPathResolver,
+      })
+    case 'yaml':
+      return composeBucketProcessor(bucketPath, {
+        storage: new FileBucketStorage(patternBucketPathResolver),
+        parser: new YamlBucketParser(),
+        pathResolver: patternBucketPathResolver,
+      });
+    case 'yaml-root-key':
+      return composeBucketProcessor(bucketPath, {
+        storage: new FileBucketStorage(patternBucketPathResolver),
+        parser: new YamlRootKeyBucketParser(),
+        pathResolver: patternBucketPathResolver,
+      });
+    case 'markdown':
+      return composeBucketProcessor(bucketPath, {
+        storage: new FileBucketStorage(patternBucketPathResolver),
+        parser: new MarkdownBucketParser(),
+        pathResolver: patternBucketPathResolver,
+      });
+  }
+}

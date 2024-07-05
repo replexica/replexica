@@ -5,5 +5,5 @@ export default defineConfig({
   entry: ['./src/index.ts'],
   outDir: "build",
   external: ['readline'],
-  format: ['esm'],
+  format: ['esm',],
 });

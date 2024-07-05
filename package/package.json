@@ -30,7 +30,7 @@
     "build"
   ],
   "scripts": {
-    "replexica": "./bin/cli.js",
+    "replexica": "./bin/cli.mjs",
     "dev": "tsup --watch",
     "build": "tsup"
   },

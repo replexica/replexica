@@ -4,6 +4,7 @@
   "description": "Replexica CLI",
   "private": false,
   "type": "module",
+  "main": "build/index.js",
   "files": [
     "build"
   ],
