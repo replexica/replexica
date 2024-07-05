@@ -7,14 +7,22 @@ import _ from 'lodash';
 import { MD5 } from 'object-hash';
 import { loadLockfile, updateLockfile } from './workers/lockfile';
 import { createBucketProcessor } from './workers/bucket';
+import { createEngine } from './workers/engine';
+import { allLocalesSchema } from '@replexica/spec';
 
 export default new Command()
   .command('i18n-new')
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
+  .option('--locale <locale>', 'Locale to process')
   .action(async function(options) {
     try {
-      const [settings, i18nConfig, flags, lockfile] = await Promise.all([
+      const [
+        settings, 
+        i18nConfig, 
+        flags, 
+        lockfile,
+      ] = await Promise.all([
         loadSettings(),
         loadConfig(),
         loadFlags(options),
@@ -29,7 +37,10 @@ export default new Command()
         throw new Error('No buckets found in i18n.json. Please add at least one bucket containing i18n content.');
       }
 
-      let engine: any;
+      const engine = createEngine({
+        apiKey: settings.auth.apiKey,
+        apiUrl: settings.auth.apiUrl,
+      });
 
       for (const [bucketPath, bucketType] of Object.entries(i18nConfig.buckets)) {
         // Create the payload processor instance for the current bucket type
@@ -41,7 +52,8 @@ export default new Command()
         // Compare the checksums with the ones stored in the lockfile to determine the updated keys
         const updatedPayload = _.pickBy(lockfile.checksums, (value, key) => currentChecksums[key] !== value);
 
-        for (const targetLocale of i18nConfig.locale.targets) {
+        const targetLocales = flags.locale ? [flags.locale] : i18nConfig.locale.targets;
+        for (const targetLocale of targetLocales) {
           // Load the source locale and target locale payloads
           const targetPayload = await bucketProcessor.load(targetLocale);
           // Calculate the deltas between the source and target payloads
@@ -53,7 +65,13 @@ export default new Command()
           // Process the payload chunks
           const processedPayloadChunks: Record<string, string>[] = [];
           for (const chunk of chunkedPayload) {
-            const processedPayloadChunk = await engine.processPayload(chunk, i18nConfig.locale.source, targetLocale);
+            // Localize the payload chunk
+            const processedPayloadChunk = await engine.localize(
+              i18nConfig.locale.source, 
+              targetLocale,
+              { meta: {}, data: chunk },
+            );
+            // Add the processed payload chunk to the list with the rest of the processed chunks
             processedPayloadChunks.push(processedPayloadChunk);
           }
           // Calculate the deleted keys between the source and target payloads
@@ -78,8 +96,6 @@ export default new Command()
 
 async function loadFlags(options: any) {
   return Z.object({
-    cacheOnly: Z.boolean().optional(),
-    skipCache: Z.boolean().optional(),
-    locale: Z.string().optional(),
+    locale: allLocalesSchema.optional(),
   }).parse(options);
 }
