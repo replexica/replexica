@@ -121,6 +121,7 @@ import Z from 'zod';
 import path from 'path';
 import fs from 'fs';
 import YAML from 'yaml';
+import { MD5 } from 'object-hash';
 
 export interface IBucketStorage {
   load: (locale: Z.infer<typeof allLocalesSchema>, butcketPath: string) => Promise<any>;
@@ -159,12 +160,22 @@ export class JsonBucketParser implements IBucketParser {
 
 export class MarkdownBucketParser implements IBucketParser {
   async deserialize(locale: string, content: any) {
-    return { '': content };
+    // Split content in sections. 
+    // Every header, no matter the level, is considered a beginning of a new section.
+    // Header must remain in the section.
+    const sections = String(content).split(/^#+\s/gm).filter(Boolean);
+
+    const result: Record<string, string> = {};
+    for (const section of sections) {
+      const sectionKey = MD5(section);
+      result[sectionKey] = section;
+    }
+
+    return result;
   }
 
   async serialize(locale: string, content: Record<string, string>) {
-    const markdownContent = content[''];
-    return markdownContent;
+    return Object.values(content).join('\n');
   }
 }
 
@@ -189,13 +200,86 @@ export class YamlRootKeyBucketParser implements IBucketParser {
 }
 
 export class XcodeBucketParser extends JsonBucketParser {
+  private _existingData: any;
+
   async deserialize(locale: string, content: any) {
-    const jsonData = await super.deserialize(locale, content);
-    // TODO
+    this._existingData = await super.deserialize(locale, content);
+
+    const resultData: Record<string, any> = {};
+
+    for (const [translationKey, _translationEntity] of Object.entries(this._existingData.strings)) {
+      const rootTranslationEntity = _translationEntity as any;
+      const langTranslationEntity = rootTranslationEntity?.localizations?.[locale];
+      if (langTranslationEntity) {
+        if ('stringUnit' in langTranslationEntity) {
+          resultData[translationKey] = langTranslationEntity.stringUnit.value;
+        } else if ('variations' in langTranslationEntity) {
+          if ('plural' in langTranslationEntity.variations) {
+            resultData[translationKey] = {
+              one: langTranslationEntity.variations.plural.one?.stringUnit?.value || '',
+              other: langTranslationEntity.variations.plural.other?.stringUnit?.value || '',
+              zero: langTranslationEntity.variations.plural.zero?.stringUnit?.value || '',
+            };
+          }
+        }
+      }
+    }
+
+    return resultData;
   }
 
-  async serialize(locale: string, content: Record<string, string>): Promise<string> {
-    // TODO
+  async serialize(locale: string, payload: Record<string, any>): Promise<string> {
+    const langDataToMerge: any = {};
+    langDataToMerge.strings = {};
+
+    for (const [key, value] of Object.entries(payload)) {
+      if (typeof value === 'string') {
+        langDataToMerge.strings[key] = {
+          extractionState: 'manual',
+          localizations: {
+            [locale]: {
+              stringUnit: {
+                state: 'translated',
+                value,
+              },
+            },
+          },
+        };
+      } else {
+        langDataToMerge.strings[key] = {
+          extractionState: 'manual',
+          localizations: {
+            [locale]: {
+              variations: {
+                plural: {
+                  one: {
+                    stringUnit: {
+                      state: 'translated',
+                      value: value.one,
+                    },
+                  },
+                  other: {
+                    stringUnit: {
+                      state: 'translated',
+                      value: value.other,
+                    },
+                  },
+                  zero: {
+                    stringUnit: {
+                      state: 'translated',
+                      value: value.zero,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+      }
+    }
+
+    const resultData = { ...this._existingData, ...langDataToMerge };
+    return JSON.stringify(resultData, null, 2);
   }
 }
 
