@@ -32,7 +32,7 @@ export function createBucketProcessor(
 ): IBucketProcessor {
   switch (bucketType) {
     default: throw new Error(`Unknown bucket type: ${bucketType}`);
-    case 'auto': return new ReplexicaBucketProcessor(bucketPath, translator);
+    case 'compiler': return new ReplexicaBucketProcessor(bucketPath, translator);
     case 'json': return new JsonBucketProcessor(bucketPath, translator);
     case 'yaml': return new YamlBucketProcessor(bucketPath, translator);
     case 'yaml-root-key': return new YamlRootKeyBucketProcessor(bucketPath, translator);
