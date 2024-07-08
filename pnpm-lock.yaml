@@ -85,9 +85,6 @@ importers:
       '@replexica/compiler':
         specifier: workspace:*
         version: link:../packages/compiler
-      '@replexica/config':
-        specifier: workspace:*
-        version: link:../packages/config
       '@replexica/react':
         specifier: workspace:*
         version: link:../packages/react
@@ -156,9 +153,6 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@replexica/config':
-        specifier: workspace:*
-        version: link:../config
       '@types/cors':
         specifier: ^2.8.17
         version: 2.8.17
@@ -220,9 +214,6 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@replexica/config':
-        specifier: workspace:*
-        version: link:../config
       '@types/babel__core':
         specifier: ^7.20.5
         version: 7.20.5
@@ -271,9 +262,6 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@20.14.10)(terser@5.31.1)
     devDependencies:
-      '@replexica/config':
-        specifier: workspace:*
-        version: link:../config
       '@types/cookie':
         specifier: ^0.6.0
         version: 0.6.0
@@ -302,9 +290,6 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@replexica/config':
-        specifier: workspace:*
-        version: link:../config
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(postcss@8.4.38)(typescript@5.4.5)
