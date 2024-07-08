@@ -1,5 +1,11 @@
 # replexica
 
+## 0.25.0
+
+### Minor Changes
+
+- [`3c7a30c`](https://github.com/replexica/replexica/commit/3c7a30c6be91fb27c00681c998452d7bf1beca0e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add `--frozen-lockfile` flag to replexica i18n
+
 ## 0.24.0
 
 ### Minor Changes
