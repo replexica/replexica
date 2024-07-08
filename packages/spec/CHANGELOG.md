@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.6.0
+
+### Minor Changes
+
+- [`10252ce`](https://github.com/replexica/replexica/commit/10252ceaa2685cc23f4dbeb6ac985cc2148853e2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add android support
+
 ## 0.5.1
 
 ### Patch Changes
