@@ -1,108 +1,101 @@
 import { Command } from 'commander';
-import Ora from 'ora';
 import Z from 'zod';
 import { loadConfig } from './workers/config';
-import { createBucketProcessor, createTranslator } from './services/bucket/core';
-import { loadSettings } from './services/settings';
-import { loadAuth } from './services/auth';
-import { defaultConfig } from '@replexica/spec';
+import { loadSettings } from './workers/settings';
+import Ora from 'ora';
+import _ from 'lodash';
+import { MD5 } from 'object-hash';
+import { loadLockfile, updateLockfile } from './workers/lockfile';
+import { createBucketProcessor } from './workers/bucket';
+import { createEngine } from './workers/engine';
+import { allLocalesSchema } from '@replexica/spec';
 
 export default new Command()
   .command('i18n')
   .description('Process i18n with Replexica')
   .helpOption('-h, --help', 'Show help')
-  .option('--cache-only', 'Only use cached data, and fail if there is new i18n data to process')
-  .option('--skip-cache', 'Skip using cached data and process all i18n data')
   .option('--locale <locale>', 'Locale to process')
-  .action(async (options) => {
-    let spinner = Ora();
-
+  .action(async function(options) {
     try {
-      const flags = await loadFlags(options);
-      const settings = await loadSettings();
-      const config = await loadConfiguration();
-
-      spinner = Ora().start('Authenticating...');
-      const auth = await loadAuth({
-        apiUrl: settings.auth.apiUrl,
-        apiKey: settings.auth.apiKey!,
-      });
-      spinner.succeed(`Authenticated as ${auth.email}.`);
-
-      const sourceLocale = config.locale.source;
-      let targetLocales = config.locale.targets;
-      const bucketEntries = Object.entries(config.buckets!);
-
-      if (flags.locale) {
-        if (!targetLocales.includes(flags.locale as any)) {
-          spinner.warn(`Target locale ${flags.locale} not found in configuration. Skipping...`);
-          targetLocales = [];
-        } else {
-          targetLocales = [flags.locale as any];
-        }
+      const [
+        settings, 
+        i18nConfig, 
+        flags, 
+        lockfile,
+      ] = await Promise.all([
+        loadSettings(),
+        loadConfig(),
+        loadFlags(options),
+        loadLockfile(),
+      ]);
+  
+      if (!i18nConfig) {
+        throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
       }
-      if (!targetLocales.length) {
-        spinner.warn('No target locales found in configuration. Please add at least one target locale.');
-      } else if (!bucketEntries.length) {
-        spinner.warn('No buckets found in configuration. Please add at least one bucket.');
-      } else {
-        for (const [bucketPath, bucketType] of bucketEntries) {
-          let spinnerPrefix = `[${bucketType}]`;
-          if (bucketPath) { spinnerPrefix += `(${bucketPath})`; }
-          const bucketSpinner = Ora({ prefixText: spinnerPrefix });
 
-          for (const targetLocale of targetLocales) {
-            bucketSpinner.start(`Translating from ${sourceLocale} to ${targetLocale}...`);
-            const translatorFn = createTranslator({
-              apiUrl: settings.auth.apiUrl,
-              apiKey: settings.auth.apiKey!,
-              skipCache: flags.skipCache,
-              cacheOnly: flags.cacheOnly,
-            });
-            const processor = createBucketProcessor(bucketType, bucketPath, translatorFn);
-  
-            const translatable = await processor.load(sourceLocale);
-            const translated = await processor.translate(translatable, sourceLocale, targetLocale, progress => {
-              bucketSpinner.text = `Translating from ${sourceLocale} to ${targetLocale}... ${progress.toFixed(1)}%`;
-            });
-  
-            await processor.save(targetLocale, translated);
-            bucketSpinner.succeed(`Translation from ${sourceLocale} to ${targetLocale} completed.`);
+      if (!i18nConfig.buckets) {
+        throw new Error('No buckets found in i18n.json. Please add at least one bucket containing i18n content.');
+      }
+
+      const engine = createEngine({
+        apiKey: settings.auth.apiKey,
+        apiUrl: settings.auth.apiUrl,
+      });
+
+      for (const [bucketPath, bucketType] of Object.entries(i18nConfig.buckets)) {
+        // Create the payload processor instance for the current bucket type
+        const bucketProcessor = createBucketProcessor(bucketType, bucketPath);
+        // Load the source locale payload
+        const sourcePayload = await bucketProcessor.load(i18nConfig.locale.source);
+        // Calculate the checksums for the source payload
+        const currentChecksums = _.mapValues(sourcePayload, (value) => MD5(value));
+        // Compare the checksums with the ones stored in the lockfile to determine the updated keys
+        const updatedPayload = _.pickBy(lockfile.checksums, (value, key) => currentChecksums[key] !== value);
+
+        const targetLocales = flags.locale ? [flags.locale] : i18nConfig.locale.targets;
+        for (const targetLocale of targetLocales) {
+          // Load the source locale and target locale payloads
+          const targetPayload = await bucketProcessor.load(targetLocale);
+          // Calculate the deltas between the source and target payloads
+          const newPayload = _.omit(sourcePayload, Object.keys(targetPayload));
+          // Calculate the processable payload to send to the engine
+          const processablePayload = _.merge(newPayload, updatedPayload);
+          // Split the processable payload into and array of objects, each containing 25 keys max
+          const chunkedPayload = _.chunk(Object.entries(processablePayload), 25).map((entries) => _.fromPairs(entries));
+          // Process the payload chunks
+          const processedPayloadChunks: Record<string, string>[] = [];
+          for (const chunk of chunkedPayload) {
+            // Localize the payload chunk
+            const processedPayloadChunk = await engine.localize(
+              i18nConfig.locale.source, 
+              targetLocale,
+              { meta: {}, data: chunk },
+            );
+            // Add the processed payload chunk to the list with the rest of the processed chunks
+            processedPayloadChunks.push(processedPayloadChunk);
           }
-          bucketSpinner.succeed(`Bucket translated.`);
+          // Calculate the deleted keys between the source and target payloads
+          const deletedPayload = _.omit(sourcePayload, Object.keys(targetPayload));
+          // Merge the processed payload chunks and the original target payload into a single entity
+          const newTargetPayload = _.omit(
+            _.merge(targetPayload, ...processedPayloadChunks),
+            Object.keys(deletedPayload),
+          )
+          // Save the new target payload
+          await bucketProcessor.save(targetLocale, newTargetPayload);
         }
-        spinner = Ora().succeed('Translations completed successfully!');
+        // Update the lockfile with the new checksums after the process is done
+        await updateLockfile((lockfile) => ({ ...lockfile, checksums: currentChecksums }));
       }
     } catch (error: any) {
-      spinner.fail(error.message);
-      return process.exit(1);
+      Ora().fail(error.message);
     }
   });
 
+// Private
 
 async function loadFlags(options: any) {
-  try {
-    const flags = Z.object({
-      cacheOnly: Z.boolean().optional().default(false),
-      skipCache: Z.boolean().optional().default(false),
-      locale: Z.string().optional(),
-    })
-      .passthrough()
-      .parse(options);
-    return flags;
-  } catch {
-    throw new Error(`Couldn't parse flags. Please check your input and try again.`)
-  }
-}
-
-async function loadConfiguration() {
-  const spinner = Ora().start('Loading i18n configuration...');
-  let config = await loadConfig();
-  if (!config) {
-    config = defaultConfig;
-    spinner.succeed('No i18n.json config found. Using default configuration.');
-  } else {
-    spinner.succeed('Configuration loaded.');
-  }
-  return config;
+  return Z.object({
+    locale: allLocalesSchema.optional(),
+  }).parse(options);
 }

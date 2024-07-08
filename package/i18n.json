@@ -1,0 +1,11 @@
+{
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es"
+    ]
+  },
+  "buckets": {
+    "demo/json/[locale].json": "json"
+  }
+}
