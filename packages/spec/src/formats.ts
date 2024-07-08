@@ -1,7 +1,7 @@
 import Z from 'zod';
 
 export const bucketTypes = [
-  'auto',
+  'compiler',
   'markdown',
   'json',
   'yaml',
