@@ -1,5 +1,11 @@
 # replexica
 
+## 0.23.2
+
+### Patch Changes
+
+- [`27bb7fd`](https://github.com/replexica/replexica/commit/27bb7fd7e644e37c59e2cce9b453122097f6362c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Fixed user settings file resolution
+
 ## 0.23.1
 
 ### Patch Changes
