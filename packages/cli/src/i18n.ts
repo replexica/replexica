@@ -16,6 +16,7 @@ export default new Command()
   .helpOption('-h, --help', 'Show help')
   .option('--locale <locale>', 'Locale to process')
   .option('--bucket <bucket>', 'Bucket to process')
+  .option('--frozen-lockfile', "Don't update `i18n.lock` lockfile and fail if an update is needed")
   .option('--force', 'Ignore lockfile and process all keys')
   .action(async function(options) {
     const ora = Ora();
@@ -66,21 +67,25 @@ export default new Command()
       for (const [bucketPath, bucketType] of Object.entries(targetedBuckets)) {
         console.log('');
         const bucketOra = Ora({ });
+        bucketOra.info(`Processing ${bucketPath}`);
         // Create the payload processor instance for the current bucket type
         const bucketProcessor = createBucketProcessor(bucketType, bucketPath);
-        // Load the source locale payload
-        const sourcePayload = await bucketProcessor.load(i18nConfig.locale.source);
         // Load saved checksums from the lockfile
         const savedChecksums = await lockfileProcessor.loadChecksums(bucketPath);
+        // Load the source locale payload
+        const sourcePayload = await bucketProcessor.load(i18nConfig.locale.source);
         // Calculate current checksums for the source payload
         const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
         // Compare the checksums with the ones stored in the lockfile to determine the updated keys
         const updatedPayload = flags.force
           ? sourcePayload
           : _.pickBy(sourcePayload, (value, key) => savedChecksums[key] !== currentChecksums[key]);
+        // Handle the case when the lockfile is frozen and the source payload has been updated
+        if (flags.frozenLockfile && Object.keys(updatedPayload).length) {
+          throw new Error(`Content in source locale has been updated. Please run the command without the --frozen-lockfile flag to update the lockfile.`);
+        }
 
         const targetLocales = flags.locale ? [flags.locale] : i18nConfig.locale.targets;
-        bucketOra.info(`Processing ${bucketPath}`);
 
         for (const targetLocale of targetLocales) {
           const localeOra = Ora({ indent: 2, prefixText: `${i18nConfig.locale.source} -> ${targetLocale}` });
@@ -109,16 +114,20 @@ export default new Command()
           const processedPayloadChunks: Record<string, string>[] = [];
           let percentageCompleted = 0;
           for (let i = 0; i < chunkedPayload.length; i++) {
-            // Localize the payload chunk
-            const chunk = chunkedPayload[i];
-            localeOra.start(`AI localization in progress (${percentageCompleted}%)`);
-            const processedPayloadChunk = await engine.localize(
-              i18nConfig.locale.source, 
-              targetLocale,
-              { meta: {}, data: chunk },
-            );
-            // Add the processed payload chunk to the list with the rest of the processed chunks
-            processedPayloadChunks.push(processedPayloadChunk);
+            try {
+              // Localize the payload chunk
+              const chunk = chunkedPayload[i];
+              localeOra.start(`AI localization in progress (${percentageCompleted}%)`);
+              const processedPayloadChunk = await engine.localize(
+                i18nConfig.locale.source, 
+                targetLocale,
+                { meta: {}, data: chunk },
+              );
+              // Add the processed payload chunk to the list with the rest of the processed chunks
+              processedPayloadChunks.push(processedPayloadChunk);
+            } catch (error: any) {
+              localeOra.fail(error.message);
+            }
           }
           localeOra.succeed(`AI localization completed`);
           // Merge the processed payload chunks and the original target payload into a single entity
@@ -147,5 +156,6 @@ async function loadFlags(options: any) {
     locale: targetLocaleSchema.optional(),
     bucket: Z.string().optional(),
     force: Z.boolean().optional(),
+    frozenLockfile: Z.boolean().optional(),
   }).parse(options);
 }
