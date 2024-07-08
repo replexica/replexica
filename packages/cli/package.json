@@ -18,7 +18,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@inquirer/prompts": "^5.0.5",
+    "@inquirer/prompts": "^5.1.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "@replexica/spec": "workspace:*",
     "commander": "^12.1.0",
