@@ -33,7 +33,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@replexica/config": "workspace:*",
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.6.8",
     "@types/ignore-walk": "^4.0.3",

@@ -43,7 +43,6 @@
   "dependencies": {
     "@replexica/cli": "workspace:*",
     "@replexica/compiler": "workspace:*",
-    "@replexica/config": "workspace:*",
     "@replexica/react": "workspace:*",
     "typescript": "^5.4.5"
   },

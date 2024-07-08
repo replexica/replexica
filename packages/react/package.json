@@ -37,7 +37,6 @@
     "vitest": "^2.0.0"
   },
   "devDependencies": {
-    "@replexica/config": "workspace:*",
     "@types/cookie": "^0.6.0",
     "@types/negotiator": "^0.6.3",
     "@types/react": "^18.3.3",
