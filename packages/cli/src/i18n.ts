@@ -52,7 +52,6 @@ export default new Command()
         const bucketProcessor = createBucketProcessor(bucketType, bucketPath);
         // Load the source locale payload
         const sourcePayload = await bucketProcessor.load(i18nConfig.locale.source);
-        console.log({ sourcePayload });
         // Load saved checksums from the lockfile
         const savedChecksums = await lockfileProcessor.loadChecksums(bucketPath);
         // Calculate current checksums for the source payload
