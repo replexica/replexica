@@ -9,6 +9,7 @@
   "buckets": {
     "json/[locale].json": "json",
     "xcode/Localizable.xcstrings": "xcode",
+    "android/[locale].xml": "android",
     "yaml/[locale].yml": "yaml",
     "yaml-root-key/[locale].yml": "yaml-root-key",
     "markdown/[locale].md": "markdown"

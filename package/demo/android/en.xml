@@ -1,0 +1,32 @@
+<resources>
+    <!-- Single string resource -->
+    <string name="app_name">My Application</string>
+    <string name="hello_world">Hello, world!</string>
+    <string name="login_button">Login</string>
+
+    <!-- String with escaped characters -->
+    <string name="welcome_message">Welcome to My Application!
+Enjoy your stay.</string>
+
+    <!-- Formatted string -->
+    <string name="formatted_string">Welcome, %1$s! You have %2$d new messages.</string>
+
+    <!-- String array resource -->
+    <string-array name="colors">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+    </string-array>
+
+    <!-- Plural resource -->
+    <plurals name="numberOfSongsAvailable">
+        <item quantity="zero">No songs available.</item>
+        <item quantity="one">One song available.</item>
+        <item quantity="other">%d songs available.</item>
+    </plurals>
+
+    <!-- Quantity strings (for complex formatting needs) -->
+    <string name="one_song">One song available.</string>
+    <string name="few_songs">Few songs available.</string>
+    <string name="many_songs">Many songs available.</string>
+</resources>
