@@ -1,5 +1,16 @@
 # replexica
 
+## 0.23.1
+
+### Patch Changes
+
+- [`088de18`](https://github.com/replexica/replexica/commit/088de18a53f45fa8df5833fe81ed96a2ed231299) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Fix @replexica/config reference
+
+- Updated dependencies [[`088de18`](https://github.com/replexica/replexica/commit/088de18a53f45fa8df5833fe81ed96a2ed231299)]:
+  - @replexica/compiler@0.3.6
+  - @replexica/react@0.2.2
+  - @replexica/cli@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes
