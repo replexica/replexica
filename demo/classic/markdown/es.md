@@ -2,11 +2,11 @@
 
 ## Descripción
 
-`stringyfy` es una biblioteca npm sencilla que ofrece un conjunto de funciones de utilidad para manipular y transformar cadenas en JavaScript. Es ligera, fácil de usar y no tiene dependencias.
+`stringyfy` es una biblioteca npm sencilla que proporciona un conjunto de funciones utilitarias para manipular y transformar cadenas en JavaScript. Es ligera, fácil de usar y no tiene dependencias.
 
 ## Instalación
 
-Para instalar `stringyfy`, utiliza el siguiente comando:
+Para instalar `stringyfy`, usa el siguiente comando:
 
 ```bash
 npm install stringyfy
@@ -14,16 +14,16 @@ npm install stringyfy
 
 ## Uso
 
-Aquí tienes un ejemplo simple de cómo usar `stringyfy`:
+Aquí tienes un ejemplo sencillo de cómo usar `stringyfy`:
 
 ```javascript
 const stringyfy = require('stringyfy');
 
-let str = "Hola, Mundo!";
+let str = "Hello, World!";
 
-let resultado = stringyfy.reverse(str);
+let result = stringyfy.reverse(str);
 
-console.log(resultado); // Muestra: "!odnuM ,aloH"
+console.log(result); // Muestra: "!dlroW ,olleH"
 ```
 
 ## API
@@ -44,9 +44,9 @@ Convierte todos los caracteres de la cadena dada a minúsculas.
 
 Convierte todos los caracteres de la cadena dada a mayúsculas.
 
-## Contribuciones
+## Contribuir
 
-Se aceptan solicitudes de extracción. Para cambios importantes, por favor abre un problema primero para discutir lo que te gustaría cambiar.
+Las solicitudes de extracción son bienvenidas. Para cambios importantes, por favor abre un issue primero para discutir lo que te gustaría cambiar.
 
 ## Licencia
 
