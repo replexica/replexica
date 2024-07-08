@@ -1,5 +1,18 @@
 # replexica
 
+## 0.24.0
+
+### Minor Changes
+
+- [`10252ce`](https://github.com/replexica/replexica/commit/10252ceaa2685cc23f4dbeb6ac985cc2148853e2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add android support
+
+### Patch Changes
+
+- [`fbce978`](https://github.com/replexica/replexica/commit/fbce97846eabf00fb1c903b82e7d556480de5d23) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add --bucket flag to replexica i18n cmd
+
+- Updated dependencies [[`10252ce`](https://github.com/replexica/replexica/commit/10252ceaa2685cc23f4dbeb6ac985cc2148853e2)]:
+  - @replexica/spec@0.6.0
+
 ## 0.23.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # replexica
 
+## 0.23.3
+
+### Patch Changes
+
+- Updated dependencies [[`fbce978`](https://github.com/replexica/replexica/commit/fbce97846eabf00fb1c903b82e7d556480de5d23), [`10252ce`](https://github.com/replexica/replexica/commit/10252ceaa2685cc23f4dbeb6ac985cc2148853e2)]:
+  - @replexica/cli@0.24.0
+  - @replexica/compiler@0.3.7
+  - @replexica/react@0.2.3
+
 ## 0.23.2
 
 ### Patch Changes
