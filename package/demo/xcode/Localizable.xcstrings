@@ -10,6 +10,12 @@
             "state": "translated",
             "value": "Hello world!!"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Hola mundo!"
+          }
         }
       }
     },
@@ -35,6 +41,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "No items"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld artículo"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld artículos"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay artículos"
                 }
               }
             }
