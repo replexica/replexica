@@ -1,0 +1,15 @@
+{
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es"
+    ]
+  },
+  "buckets": {
+    "demo/markdown/[locale].md": "markdown",
+    "demo/xcode/Localizable.xcstrings": "xcode",
+    "demo/json/[locale].json": "json",
+    "demo/yaml/[locale].yml": "yaml",
+    "demo/yaml-root-key/[locale].yml": "yaml-root-key"
+  }
+}

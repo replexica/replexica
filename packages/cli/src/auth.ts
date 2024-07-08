@@ -4,8 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-import { loadSettings, saveSettings } from "./services/settings";
-import { loadAuth } from "./services/auth";
+import { loadSettings, saveSettings } from "./workers/settings";
+import { createAuthenticator } from "./workers/auth";
 
 export default new Command()
   .command("auth")
@@ -18,7 +18,7 @@ export default new Command()
       let settings = await loadSettings();
   
       if (options.logout) {
-        delete settings.auth.apiKey;
+        settings.auth.apiKey = '';
         await saveSettings(settings);
       }
       if (options.login) {
@@ -28,10 +28,11 @@ export default new Command()
         settings = await loadSettings();
       }
   
-      const auth = await loadAuth({
+      const authenticator = createAuthenticator({
         apiUrl: settings.auth.apiUrl,
         apiKey: settings.auth.apiKey!,
       });
+      const auth = await authenticator.whoami();
       if (!auth) {
         Ora().warn('Not authenticated');
       } else {
@@ -47,7 +48,13 @@ async function login(webAppUrl: string) {
   await readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-  }).question('Press Enter to open the browser for authentication\n');
+  }).question(`
+Press Enter to open the browser for authentication.
+
+---
+
+Having issues? Put REPLEXICA_API_KEY in your .env file instead.
+    `.trim() + '\n');
 
   const spinner = Ora().start('Waiting for the API key');
   const apiKey = await waitForApiKey(async (port) => {

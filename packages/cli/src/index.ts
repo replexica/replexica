@@ -1,11 +1,13 @@
 #!/usr/bin/env node
+import dotenv from 'dotenv';
+dotenv.config();
 
 import { Command } from 'commander';
 
-import i18nCmd from './i18n';
 import authCmd from './auth';
 import initCmd from './init';
 import configCmd from './config';
+import i18nCmd from './i18n';
 
 export default new Command()
   .name('replexica')

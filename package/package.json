@@ -1,6 +1,6 @@
 {
   "name": "replexica",
-  "version": "0.22.1",
+  "version": "0.22.2",
   "description": "Replexica",
   "private": false,
   "type": "module",
@@ -22,6 +22,9 @@
       "types": "./build/react-next.d.ts"
     }
   },
+  "engines": {
+    "node": ">=20"
+  },
   "bin": {
     "replexica": "./bin/cli.mjs"
   },
@@ -30,7 +33,7 @@
     "build"
   ],
   "scripts": {
-    "replexica": "./bin/cli.js",
+    "replexica": "./bin/cli.mjs",
     "dev": "tsup --watch",
     "build": "tsup"
   },
