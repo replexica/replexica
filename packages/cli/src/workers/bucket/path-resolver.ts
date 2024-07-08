@@ -20,3 +20,14 @@ export async function patternPathResolver(locale: Z.infer<typeof allLocalesSchem
 
   return result;
 }
+
+export async function concreteNamePathResolveR(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+  const result = await plainPathResolver(locale, bucketPath);
+  
+  const filename = 'Localizable.xcstrings';
+  if (!result.endsWith(filename)) {
+    throw new Error(`Filename must be ${filename}`);
+  }
+
+  return result;
+}
