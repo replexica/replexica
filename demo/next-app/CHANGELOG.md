@@ -1,5 +1,12 @@
 # @replexica/demo/next-app
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - replexica@0.23.5
+
 ## 0.1.6
 
 ### Patch Changes
