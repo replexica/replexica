@@ -32,7 +32,7 @@ export default new Command()
   
       if (!i18nConfig) {
         throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
-      } else if (!i18nConfig.buckets) {
+      } else if (!i18nConfig.buckets || !Object.keys(i18nConfig.buckets).length) {
         throw new Error('No buckets found in i18n.json. Please add at least one bucket containing i18n content.');
       } else {
         ora.succeed('Replexica configuration loaded');
@@ -58,6 +58,7 @@ export default new Command()
 
       const lockfileProcessor = createLockfileProcessor();
       for (const [bucketPath, bucketType] of Object.entries(i18nConfig.buckets)) {
+        console.log('');
         const bucketOra = Ora({ });
         // Create the payload processor instance for the current bucket type
         const bucketProcessor = createBucketProcessor(bucketType, bucketPath);
@@ -92,7 +93,7 @@ export default new Command()
             total: Object.keys(processablePayload).length,
           };
           if (payloadStats.total === 0) {
-            localeOra.succeed('No new or updated keys found');
+            localeOra.succeed('Translations are up to date');
             continue;
           }
           localeOra.info(`Found ${payloadStats.total} keys (${payloadStats.new} new, ${payloadStats.updated} updated, ${payloadStats.deleted} deleted)`);
