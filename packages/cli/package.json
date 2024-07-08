@@ -34,6 +34,7 @@
     "slugify": "^1.6.6",
     "typescript": "^5.4.5",
     "vitest": "^2.0.0",
+    "xml2js": "^0.6.2",
     "yaml": "^2.4.5",
     "zod": "^3.23.8"
   },
@@ -44,6 +45,7 @@
     "@types/lodash": "^4.17.5",
     "@types/node": "^20.14.10",
     "@types/object-hash": "^3.0.6",
+    "@types/xml2js": "^0.4.14",
     "tsup": "^8.1.0"
   }
 }

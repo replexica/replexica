@@ -1,7 +1,7 @@
 import { allLocalesSchema, bucketTypeSchema } from '@replexica/spec';
 import Z from 'zod';
 import { createFileLoader, IBucketLoader } from './loader';
-import { createJsonParser, createMarkdownParser, createXcodeParser, createYamlParser, IBucketParser } from './parser';
+import { createAndroidParser, createJsonParser, createMarkdownParser, createXcodeParser, createYamlParser, IBucketParser } from './parser';
 import { BucketPathResolver, patternPathResolver, plainPathResolver } from './path-resolver';
 
 export function createBucketProcessor(bucketType: Z.infer<typeof bucketTypeSchema>, bucketPath: string) {
@@ -37,6 +37,12 @@ export function createBucketProcessor(bucketType: Z.infer<typeof bucketTypeSchem
         storage: createFileLoader(),
         parser: createXcodeParser(),
         pathResolver: plainPathResolver,
+      });
+    case 'android':
+      return composeBucketProcessor(bucketPath, {
+        storage: createFileLoader(),
+        parser: createAndroidParser(),
+        pathResolver: patternPathResolver,
       });
     case 'compiler':
       return composeBucketProcessor(`node_modules/@replexica/.cache/[locale].json`, {

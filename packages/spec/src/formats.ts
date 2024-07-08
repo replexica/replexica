@@ -7,6 +7,7 @@ export const bucketTypes = [
   'yaml',
   'yaml-root-key',
   'xcode',
+  'android',
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

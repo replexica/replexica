@@ -1,4 +1,4 @@
-import { MD5 } from 'object-hash';
+import { parseStringPromise, Builder } from 'xml2js';
 import YAML from 'yaml';
 import _ from 'lodash';
 
@@ -162,5 +162,91 @@ export function createXcodeParser() {
       const resultData = _.merge({}, _existingData, langDataToMerge);
       return JSON.stringify(resultData, null, 2);
     }
+  };
+}
+
+export function createAndroidParser(): IBucketParser {
+  return {
+    async deserialize(locale: string, content: any) {
+      const parsedResult = await parseStringPromise(content);
+      const resources = parsedResult.resources;
+
+      const result: Record<string, any> = {};
+
+      // Parse single strings
+      if (resources.string) {
+        resources.string.forEach((item: any) => {
+          result[item.$.name] = item._ || '';
+        });
+      }
+
+      // Parse string arrays
+      if (resources['string-array']) {
+        resources['string-array'].forEach((item: any) => {
+          result[item.$.name] = item.item.map((i: any) => i._ || '');
+        });
+      }
+
+      // Parse plurals
+      if (resources.plurals) {
+        resources.plurals.forEach((item: any) => {
+          const plurals: Record<string, string> = {};
+          item.item.forEach((i: any) => {
+            plurals[i.$.quantity] = i._ || '';
+          });
+          result[item.$.name] = plurals;
+        });
+      }
+
+      return result;
+    },
+
+    async serialize(locale: string, content: Record<string, any>) {
+      const builder = new Builder({ headless: true })
+      const resources: any = {
+        resources: {
+          string: [],
+          'string-array': [],
+          plurals: [],
+        },
+      };
+
+      for (const key in content) {
+        if (typeof content[key] === 'string') {
+          resources.resources.string.push({ $: { name: key }, _: content[key] });
+        } else if (Array.isArray(content[key])) {
+          resources.resources['string-array'].push({
+            $: { name: key },
+            item: content[key].map((value: string) => ({ _: value })),
+          });
+        } else if (typeof content[key] === 'object') {
+          const pluralItems = [];
+          for (const quantity in content[key]) {
+            pluralItems.push({
+              $: { quantity },
+              _: content[key][quantity],
+            });
+          }
+          resources.resources.plurals.push({
+            $: { name: key },
+            item: pluralItems,
+          });
+        }
+      }
+
+      // Remove empty sections if they have no items
+      if (resources.resources.string.length === 0) {
+        delete resources.resources.string;
+      }
+      if (resources.resources['string-array'].length === 0) {
+        delete resources.resources['string-array'];
+      }
+      if (resources.resources.plurals.length === 0) {
+        delete resources.resources.plurals;
+      }
+
+      const xml = builder.buildObject(resources);
+      return xml;
+    },
   };
 }
