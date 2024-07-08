@@ -55,7 +55,13 @@ export function createMarkdownParser(): IBucketParser {
       return result;
     },
     async serialize(locale: string, content: Record<string, string>) {
-      return Object.values(content).join('\n');
+      let result = Object
+        .values(content)
+        .join('');
+      
+      result = result.trim() + '\n';
+
+      return result;
     }
   };
 }
