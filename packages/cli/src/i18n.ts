@@ -6,7 +6,7 @@ import Ora from 'ora';
 import _ from 'lodash';
 import { createBucketProcessor } from './workers/bucket';
 import { createEngine } from './workers/engine';
-import { allLocalesSchema } from '@replexica/spec';
+import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './workers/lockfile';
 import { createAuthenticator } from './workers/auth';
 
@@ -15,6 +15,7 @@ export default new Command()
   .description('Run AI localization engine')
   .helpOption('-h, --help', 'Show help')
   .option('--locale <locale>', 'Locale to process')
+  .option('--bucket <bucket>', 'Bucket to process')
   .option('--force', 'Ignore lockfile and process all keys')
   .action(async function(options) {
     const ora = Ora();
@@ -34,6 +35,10 @@ export default new Command()
         throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
       } else if (!i18nConfig.buckets || !Object.keys(i18nConfig.buckets).length) {
         throw new Error('No buckets found in i18n.json. Please add at least one bucket containing i18n content.');
+      } else if (flags.locale && !i18nConfig.locale.targets.includes(flags.locale)) {
+        throw new Error(`Source locale ${i18nConfig.locale.source} does not exist in i18n.json locale.targets. Please add it to the list and try again.`);
+      } else if (flags.bucket && !i18nConfig.buckets[flags.bucket]) {
+        throw new Error(`Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`);
       } else {
         ora.succeed('Replexica configuration loaded');
       }
@@ -57,7 +62,8 @@ export default new Command()
       ora.succeed('AI localization engine connected');
 
       const lockfileProcessor = createLockfileProcessor();
-      for (const [bucketPath, bucketType] of Object.entries(i18nConfig.buckets)) {
+      const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
+      for (const [bucketPath, bucketType] of Object.entries(targetedBuckets)) {
         console.log('');
         const bucketOra = Ora({ });
         // Create the payload processor instance for the current bucket type
@@ -138,7 +144,8 @@ export default new Command()
 
 async function loadFlags(options: any) {
   return Z.object({
-    locale: allLocalesSchema.optional(),
+    locale: targetLocaleSchema.optional(),
+    bucket: Z.string().optional(),
     force: Z.boolean().optional(),
   }).parse(options);
 }
