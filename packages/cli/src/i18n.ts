@@ -12,7 +12,7 @@ import { createAuthenticator } from './workers/auth';
 
 export default new Command()
   .command('i18n')
-  .description('Process i18n with Replexica')
+  .description('Run AI localization engine')
   .helpOption('-h, --help', 'Show help')
   .option('--locale <locale>', 'Locale to process')
   .option('--force', 'Ignore lockfile and process all keys')
