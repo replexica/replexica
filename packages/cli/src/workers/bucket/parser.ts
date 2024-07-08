@@ -159,7 +159,7 @@ export function createXcodeParser() {
         }
       }
 
-      const resultData = { ..._existingData, ...langDataToMerge };
+      const resultData = _.merge({}, _existingData, langDataToMerge);
       return JSON.stringify(resultData, null, 2);
     }
   };
