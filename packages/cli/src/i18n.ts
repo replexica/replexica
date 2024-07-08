@@ -16,7 +16,7 @@ export default new Command()
   .helpOption('-h, --help', 'Show help')
   .option('--locale <locale>', 'Locale to process')
   .option('--bucket <bucket>', 'Bucket to process')
-  .option('--frozen-lockfile', "Don't update `i18n.lock` lockfile and fail if an update is needed")
+  .option('--frozen', `Don't update the translations and fail if an update is needed`)
   .option('--force', 'Ignore lockfile and process all keys')
   .action(async function(options) {
     const ora = Ora();
@@ -80,13 +80,8 @@ export default new Command()
         const updatedPayload = flags.force
           ? sourcePayload
           : _.pickBy(sourcePayload, (value, key) => savedChecksums[key] !== currentChecksums[key]);
-        // Handle the case when the lockfile is frozen and the source payload has been updated
-        if (flags.frozenLockfile && Object.keys(updatedPayload).length) {
-          throw new Error(`Content in source locale has been updated. Please run the command without the --frozen-lockfile flag to update the lockfile.`);
-        }
 
         const targetLocales = flags.locale ? [flags.locale] : i18nConfig.locale.targets;
-
         for (const targetLocale of targetLocales) {
           const localeOra = Ora({ indent: 2, prefixText: `${i18nConfig.locale.source} -> ${targetLocale}` });
           // Load the source locale and target locale payloads
@@ -103,6 +98,9 @@ export default new Command()
             deleted: Object.keys(deletedPayload).length,
             total: Object.keys(processablePayload).length,
           };
+          if (flags.frozen && (payloadStats.total > 0 || payloadStats.deleted > 0)) {
+            throw new Error(`Translations are not up to date. Run the command without the --frozen flag to update the translations, then try again.`);
+          }
           if (payloadStats.total === 0) {
             localeOra.succeed('Translations are up to date');
             continue;
@@ -156,6 +154,6 @@ async function loadFlags(options: any) {
     locale: targetLocaleSchema.optional(),
     bucket: Z.string().optional(),
     force: Z.boolean().optional(),
-    frozenLockfile: Z.boolean().optional(),
+    frozen: Z.boolean().optional(),
   }).parse(options);
 }
