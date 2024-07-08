@@ -8,6 +8,7 @@ import { createBucketProcessor } from './workers/bucket';
 import { createEngine } from './workers/engine';
 import { allLocalesSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './workers/lockfile';
+import { createAuthenticator } from './workers/auth';
 
 export default new Command()
   .command('i18n')
@@ -30,21 +31,31 @@ export default new Command()
       ]);
   
       if (!i18nConfig) {
-        ora.fail();
         throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
       } else if (!i18nConfig.buckets) {
-        ora.fail();
         throw new Error('No buckets found in i18n.json. Please add at least one bucket containing i18n content.');
       } else {
         ora.succeed('Replexica configuration loaded');
       }
 
-      ora.start('Creating AI translation engine');
+      ora.start('Connecting to AI localization engine');
+      const authenticator = createAuthenticator({
+        apiKey: settings.auth.apiKey,
+        apiUrl: settings.auth.apiUrl,
+      });
+      const auth = await authenticator.whoami();
+      if (!auth) {
+        throw new Error('Not authenticated');
+      }
+      ora.succeed(`Authenticated as ${auth.email}`);
+
+      ora.start('Connecting to AI localization engine');
       const engine = createEngine({
         apiKey: settings.auth.apiKey,
         apiUrl: settings.auth.apiUrl,
       });
-      ora.succeed('AI localization engine created');
+      ora.succeed('AI localization engine connected');
+
       const lockfileProcessor = createLockfileProcessor();
       for (const [bucketPath, bucketType] of Object.entries(i18nConfig.buckets)) {
         const bucketOra = Ora({ });
