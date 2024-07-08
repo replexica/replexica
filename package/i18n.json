@@ -6,6 +6,6 @@
     ]
   },
   "buckets": {
-    "demo/json/[locale].json": "json"
+    "demo/markdown/[locale].md": "markdown"
   }
 }

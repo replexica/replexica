@@ -1,5 +1,6 @@
 import { MD5 } from 'object-hash';
 import YAML from 'yaml';
+import _ from 'lodash';
 
 export interface IBucketParser {
   deserialize: (locale: string, content: any) => Promise<Record<string, string>>;
@@ -19,13 +20,36 @@ export function createJsonParser(): IBucketParser {
 
 export function createMarkdownParser(): IBucketParser {
   return {
-    async deserialize(locale: string, content: any) {
-      const sections = String(content).split(/^#+\s/gm).filter(Boolean);
+    async deserialize(locale: string, content: string) {
+      // Split the markdown content into chunks.
+      // The following block types mark the beginning of a new chunk, and are included in the new chunk as well:
+      // - Heading – any type of heading, #, ##, etc.
+      // The result is a dictionary where the key is the md5 of the chunk, and the value is the chunk content.
 
+      // All lines in the content
+      const lines = content.split('\n');
+      // Lines that are headings
+      const splittingLines = lines.filter((line) => line.trim().startsWith('#'));
+      // The groups of text that start with a heading
+      let groupIndex = 0;
+      const chunk: string[] = [];
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (splittingLines.includes(line)) {
+          if (chunk.length > 0) {
+            groupIndex++;
+          }
+        }
+        if (!chunk[groupIndex]) {
+          chunk[groupIndex] = '';
+        }
+        chunk[groupIndex] += line + '\n';
+      }
       const result: Record<string, string> = {};
-      for (const section of sections) {
-        const sectionKey = MD5(section);
-        result[sectionKey] = section;
+      for (let i = 0; i < chunk.length; i++) {
+        const text = chunk[i];
+        const key = i;
+        result[key] = text;
       }
 
       return result;
@@ -56,9 +80,9 @@ export function createXcodeParser() {
   return {
     async deserialize(locale: string, content: any) {
       _existingData = await JSON.parse(content);
-  
+
       const resultData: Record<string, any> = {};
-  
+
       for (const [translationKey, _translationEntity] of Object.entries(_existingData.strings)) {
         const rootTranslationEntity = _translationEntity as any;
         const langTranslationEntity = rootTranslationEntity?.localizations?.[locale];
@@ -76,13 +100,13 @@ export function createXcodeParser() {
           }
         }
       }
-  
+
       return resultData;
     },
     async serialize(locale: string, payload: Record<string, any>): Promise<string> {
       const langDataToMerge: any = {};
       langDataToMerge.strings = {};
-  
+
       for (const [key, value] of Object.entries(payload)) {
         if (typeof value === 'string') {
           langDataToMerge.strings[key] = {
@@ -128,7 +152,7 @@ export function createXcodeParser() {
           };
         }
       }
-  
+
       const resultData = { ..._existingData, ...langDataToMerge };
       return JSON.stringify(resultData, null, 2);
     }
