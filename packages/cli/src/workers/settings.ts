@@ -57,7 +57,9 @@ async function _loadEnv() {
 
 async function _loadSystemFile() {
   const settingsFilePath = _getSettingsFilePath();
-  const content = fs.readFileSync(settingsFilePath, 'utf-8');
+  const content = fs.existsSync(settingsFilePath)
+    ? fs.readFileSync(settingsFilePath, "utf-8")
+    : "";
   const data = Ini.parse(content);
 
   return Z.object({
