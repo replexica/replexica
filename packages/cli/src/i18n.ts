@@ -107,15 +107,15 @@ export default new Command()
           }
           localeOra.info(`Found ${payloadStats.total} keys (${payloadStats.new} new, ${payloadStats.updated} updated, ${payloadStats.deleted} deleted)`);
           // Split the processable payload into and array of objects, each containing 25 keys max
-          const chunkedPayload = _.chunk(Object.entries(processablePayload), 25).map((entries) => _.fromPairs(entries));
+          const chunkedPayload = _extractPayloadChunks(processablePayload);
           // Process the payload chunks
           const processedPayloadChunks: Record<string, string>[] = [];
-          let percentageCompleted = 0;
           for (let i = 0; i < chunkedPayload.length; i++) {
             try {
               // Localize the payload chunk
               const chunk = chunkedPayload[i];
-              localeOra.start(`AI localization in progress (${percentageCompleted}%)`);
+              const percentageCompleted = Math.round(((i + 1) / chunkedPayload.length) * 100);
+              localeOra.start(`(${percentageCompleted}%) AI localization in progress`);
               const processedPayloadChunk = await engine.localize(
                 i18nConfig.locale.source, 
                 targetLocale,
@@ -149,6 +149,33 @@ export default new Command()
 
 // Private
 
+function _extractPayloadChunks(payload: Record<string, string>): Record<string, string>[] {
+  // Split the key-value payload into an array of key-value sub-payloads.
+  // Each of the sub-payloads' sum of values' words counts be roughly 1000: during the loop,
+  // whenever the word count of the current sub-payload exceeds 1000, the current key-value pair
+  // must be the last one in the current sub-payload, and the next key-value pair must go into a new sub-payload.
+  const result: Record<string, string>[] = [];
+
+  let currentChunk: Record<string, string> = {};
+  let currentChunkWordCount = 0;
+  for (const [key, value] of Object.entries(payload)) {
+    const valueWordCount = _countWordsInChunks(value);
+    if (currentChunkWordCount + valueWordCount > 200) {
+      result.push(currentChunk);
+      currentChunk = {};
+      currentChunkWordCount = 0;
+    }
+    currentChunk[key] = value;
+    currentChunkWordCount += valueWordCount;
+  }
+
+  if (Object.keys(currentChunk).length > 0) {
+    result.push(currentChunk);
+  }
+
+  return result;
+}
+
 async function loadFlags(options: any) {
   return Z.object({
     locale: targetLocaleSchema.optional(),
@@ -156,4 +183,16 @@ async function loadFlags(options: any) {
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),
   }).parse(options);
+}
+
+function _countWordsInChunks(payload: any | Record<string, any> | Array<any>): number {
+  if (_.isArray(payload)) {
+    return payload.reduce((acc, item) => acc + _countWordsInChunks(item), 0);
+  } else if (_.isObject(payload)) {
+    return Object.values(payload).reduce((acc, item) => acc + _countWordsInChunks(item), 0);
+  } else if (_.isString(payload)) {
+    return payload.trim().split(' ').filter(Boolean).length;
+  } else {
+    return 0;
+  }
 }

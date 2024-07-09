@@ -18,6 +18,27 @@ export function createJsonParser(): IBucketParser {
   };
 }
 
+// Divider is a double newline
+export function createNewLineMarkdownParser(): IBucketParser {
+  return {
+    async deserialize(locale: string, content: string) {
+      const lines = content.split('\n\n');
+      const result: Record<string, string> = {};
+      for (let i = 0; i < lines.length; i++) {
+        const text = lines[i];
+        const key = i;
+        result[key] = text;
+      }
+      return result;
+    },
+    async serialize(locale: string, content: Record<string, string>) {
+      return Object
+        .values(content)
+        .join('\n\n');
+    }
+  };
+}
+
 export function createMarkdownParser(): IBucketParser {
   return {
     async deserialize(locale: string, content: string) {
