@@ -1,5 +1,18 @@
 # replexica
 
+## 0.27.0
+
+### Minor Changes
+
+- [`c0be1a2`](https://github.com/replexica/replexica/commit/c0be1a29e3069ef2c8bdc4e4f52d2fb17abdb1f5) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Replaced `replexica config` with `replexica show config`. Added `replexica show locale sources` and `replexica show locale targets`.
+
+### Patch Changes
+
+- [`a083a55`](https://github.com/replexica/replexica/commit/a083a551cbe755c87a78ad14673f5dbac6d86832) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Show a meaningful notice when a non-activated account executes a command that requires authorization.
+
+- Updated dependencies [[`c0be1a2`](https://github.com/replexica/replexica/commit/c0be1a29e3069ef2c8bdc4e4f52d2fb17abdb1f5)]:
+  - @replexica/spec@0.7.0
+
 ## 0.26.1
 
 ### Patch Changes

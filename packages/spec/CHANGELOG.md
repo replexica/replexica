@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.7.0
+
+### Minor Changes
+
+- [`c0be1a2`](https://github.com/replexica/replexica/commit/c0be1a29e3069ef2c8bdc4e4f52d2fb17abdb1f5) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Replaced `replexica config` with `replexica show config`. Added `replexica show locale sources` and `replexica show locale targets`.
+
 ## 0.6.0
 
 ### Minor Changes
