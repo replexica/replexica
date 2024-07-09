@@ -1,8 +1,8 @@
-## What
+### What
 [//]: # (Brief description of the new feature / a bug. Expected vs actual, if relevant.)
 
-## Why
+### Why
 [//]: # (Explain why this is needed)
 
-## How
+### How
 [//]: # (Solution proposals, ideas, etc. Overview of how the feature could be implemented)
