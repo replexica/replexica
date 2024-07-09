@@ -54,6 +54,9 @@ export default new Command()
         throw new Error('Not authenticated');
       }
       ora.succeed(`Authenticated as ${auth.email}`);
+      if (auth.isInWaitlist) {
+        throw new Error(`Account is not yet activated. Please enable your free trial by talking to our dev team. https://replexica.com/go/demo`);
+      }
 
       ora.start('Connecting to AI localization engine');
       const engine = createEngine({

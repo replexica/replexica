@@ -3,9 +3,14 @@ export type AuthenticatorParams = {
   apiKey: string;
 };
 
+export type AuthPayload = {
+  email: string;
+  isInWaitlist: boolean;
+};
+
 export function createAuthenticator(params: AuthenticatorParams) {
   return {
-    async whoami() {
+    async whoami(): Promise<AuthPayload | null> {
       try {
         const res = await fetch(`${params.apiUrl}/whoami`, {
           method: "POST",
@@ -16,7 +21,13 @@ export function createAuthenticator(params: AuthenticatorParams) {
         });
       
         if (res.ok) {
-          return res.json();
+          const payload = await res.json();
+          if (!payload?.email) { return null; }
+
+          return {
+            email: payload.email,
+            isInWaitlist: !!payload.isInWaitlist,
+          };
         }
       
         return null;
