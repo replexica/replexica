@@ -1,14 +1,14 @@
 import { Command } from 'commander';
 import Z from 'zod';
-import { loadConfig } from './workers/config';
-import { loadSettings } from './workers/settings';
+import { loadConfig } from './../workers/config';
+import { loadSettings } from './../workers/settings';
 import Ora from 'ora';
 import _ from 'lodash';
-import { createBucketProcessor } from './workers/bucket';
-import { createEngine } from './workers/engine';
+import { createBucketProcessor } from './../workers/bucket';
+import { createEngine } from './../workers/engine';
 import { targetLocaleSchema } from '@replexica/spec';
-import { createLockfileProcessor } from './workers/lockfile';
-import { createAuthenticator } from './workers/auth';
+import { createLockfileProcessor } from './../workers/lockfile';
+import { createAuthenticator } from './../workers/auth';
 
 export default new Command()
   .command('i18n')
@@ -147,6 +147,7 @@ export default new Command()
       await lockfileProcessor.cleanupCheksums(Object.keys(i18nConfig.buckets));
     } catch (error: any) {
       ora.fail(error.message);
+      process.exit(1);
     }
   });
 

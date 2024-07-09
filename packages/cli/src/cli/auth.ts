@@ -4,8 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-import { loadSettings, saveSettings } from "./workers/settings";
-import { createAuthenticator } from "./workers/auth";
+import { loadSettings, saveSettings } from "./../workers/settings";
+import { createAuthenticator } from "./../workers/auth";
 
 export default new Command()
   .command("auth")

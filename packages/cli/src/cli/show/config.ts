@@ -6,7 +6,7 @@ import { defaultConfig } from "@replexica/spec";
 
 export default new Command()
   .command("config")
-  .description("Prints out the current configuration")
+  .description("Print out the current configuration")
   .helpOption("-h, --help", "Show help")
   .action(async (options) => {
     const fileConfig = loadReplexicaFileConfig();

@@ -72,7 +72,7 @@ const sourceShortcutLocales = [
     ...sourceOnlyShortcutLocales,
 ] as const;
 
-const sourceLocales = [
+export const sourceLocales = [
     ...coreLocales,
     ...sourceOnlyLocales,
 ] as const;
@@ -100,7 +100,7 @@ const targetShortcutLocales = [
     ...coreShortcutLocales,
     ...targetOnlyShortcutLocales,
 ] as const;
-const targetLocales = [
+export const targetLocales = [
     ...coreLocales,
     ...targetOnlyLocales,
 ] as const;
