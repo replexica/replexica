@@ -1,5 +1,14 @@
 # replexica
 
+## 0.23.6
+
+### Patch Changes
+
+- [`eee21e1`](https://github.com/replexica/replexica/commit/eee21e1913e86f18938f1d6fd0dffaf6c17fb33c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Improved markdown performance, added support for VERY large markdown content files.
+
+- Updated dependencies [[`eee21e1`](https://github.com/replexica/replexica/commit/eee21e1913e86f18938f1d6fd0dffaf6c17fb33c)]:
+  - @replexica/cli@0.26.1
+
 ## 0.23.5
 
 ### Patch Changes
