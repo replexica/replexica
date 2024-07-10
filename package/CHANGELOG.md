@@ -1,5 +1,16 @@
 # replexica
 
+## 0.24.0
+
+### Minor Changes
+
+- [`37167d6`](https://github.com/replexica/replexica/commit/37167d6d29d747b0dd35e26e5b6f0978f0e156d9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Added -v, --version flag to print out CLI version
+
+### Patch Changes
+
+- Updated dependencies [[`37167d6`](https://github.com/replexica/replexica/commit/37167d6d29d747b0dd35e26e5b6f0978f0e156d9)]:
+  - @replexica/cli@0.28.0
+
 ## 0.23.7
 
 ### Patch Changes
