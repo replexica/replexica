@@ -9,6 +9,7 @@ import { createEngine } from './../workers/engine';
 import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
+import { execWithRetry } from '../utils/exec';
 
 export default new Command()
   .command('i18n')
@@ -118,11 +119,13 @@ export default new Command()
               // Localize the payload chunk
               const chunk = chunkedPayload[i];
               const percentageCompleted = Math.round(((i + 1) / chunkedPayload.length) * 100);
-              localeOra.start(`(${percentageCompleted}%) AI localization in progress`);
-              const processedPayloadChunk = await engine.localize(
-                i18nConfig.locale.source, 
-                targetLocale,
-                { meta: {}, data: chunk },
+              localeOra.start(`(${percentageCompleted}%) AI translation in progress...`);
+              const processedPayloadChunk = await execWithRetry(
+                () => engine.localize(
+                  i18nConfig.locale.source, 
+                  targetLocale,
+                  { meta: {}, data: chunk },
+                ),
               );
               // Add the processed payload chunk to the list with the rest of the processed chunks
               processedPayloadChunks.push(processedPayloadChunk);
@@ -130,7 +133,7 @@ export default new Command()
               localeOra.fail(error.message);
             }
           }
-          localeOra.succeed(`AI localization completed`);
+          localeOra.succeed(`AI translation completed`);
           // Merge the processed payload chunks and the original target payload into a single entity
           const newTargetPayload = _.omit(
             _.merge(targetPayload, ...processedPayloadChunks),
