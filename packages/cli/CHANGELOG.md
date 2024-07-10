@@ -1,5 +1,11 @@
 # replexica
 
+## 0.29.0
+
+### Minor Changes
+
+- [`7d83cfc`](https://github.com/replexica/replexica/commit/7d83cfc79921346a47ccef43accee454ba80c83c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Added retry mechanism to i18n engine calls
+
 ## 0.28.0
 
 ### Minor Changes
