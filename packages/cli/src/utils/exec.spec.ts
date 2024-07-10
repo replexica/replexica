@@ -46,10 +46,11 @@ describe('execAsync', () => {
     const onProgress = vi.fn();
     const options: ExecAsyncOptions = { concurrency: 1, delay: 0, onProgress };
     await execAsync(fns, options);
-    expect(onProgress).toHaveBeenCalledTimes(3);
-    expect(onProgress).toHaveBeenNthCalledWith(1, 1, 3);
-    expect(onProgress).toHaveBeenNthCalledWith(2, 2, 3);
-    expect(onProgress).toHaveBeenNthCalledWith(3, 3, 3);
+    expect(onProgress).toHaveBeenCalledTimes(4);
+    expect(onProgress).toHaveBeenNthCalledWith(1, 0, 3);
+    expect(onProgress).toHaveBeenNthCalledWith(2, 1, 3);
+    expect(onProgress).toHaveBeenNthCalledWith(3, 2, 3);
+    expect(onProgress).toHaveBeenNthCalledWith(4, 3, 3);
   });
 
   it('starts next function if previous finishes before delay', async () => {
