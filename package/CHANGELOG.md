@@ -1,5 +1,16 @@
 # replexica
 
+## 0.30.0
+
+### Minor Changes
+
+- [`bd2029d`](https://github.com/replexica/replexica/commit/bd2029d5c1241f7355ea08621dbeb7e04b7f5b5c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Updated markdown processor algo
+
+### Patch Changes
+
+- Updated dependencies [[`bd2029d`](https://github.com/replexica/replexica/commit/bd2029d5c1241f7355ea08621dbeb7e04b7f5b5c)]:
+  - @replexica/cli@0.30.0
+
 ## 0.29.0
 
 ### Minor Changes
