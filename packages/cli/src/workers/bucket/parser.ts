@@ -18,72 +18,43 @@ export function createJsonParser(): IBucketParser {
   };
 }
 
-// Divider is a double newline
-export function createNewLineMarkdownParser(): IBucketParser {
-  return {
-    async deserialize(locale: string, content: string) {
-      const lines = content.split('\n\n');
-      const result: Record<string, string> = {};
-      for (let i = 0; i < lines.length; i++) {
-        const text = lines[i];
-        const key = i;
-        result[key] = text;
-      }
-      return result;
-    },
-    async serialize(locale: string, content: Record<string, string>) {
-      return Object
-        .values(content)
-        .join('\n\n');
-    }
-  };
-}
-
 export function createMarkdownParser(): IBucketParser {
   return {
     async deserialize(locale: string, content: string) {
-      // Split the markdown content into chunks.
-      // The following block types mark the beginning of a new chunk, and are included in the new chunk as well:
-      // - Heading – any type of heading, #, ##, etc.
-      // The result is a dictionary where the key is the md5 of the chunk, and the value is the chunk content.
+      // Define markdown section starter patterns
+      const sectionStarters = [
+        // Matches headings
+        /^#+\s.*$/gm, 
+        // Matches dash dividers
+        /^[-]{3,}$/gm, 
+        // Matches equals dividers
+        /^[=]{3,}$/gm, 
+        // Matches asterisk dividers
+        /^[*]{3,}$/gm, 
+        // Matches images that take up a line
+        /^!\[.*\]\(.*\)$/gm,
+        // Matches links that take up a line
+        /^\[.*\]\(.*\)$/gm,
+      ];
 
-      // All lines in the content
-      const lines = content.split('\n');
-      // Lines that are headings
-      const splittingLines = lines.filter((line) => line.trim().startsWith('#'));
-      // The groups of text that start with a heading
-      let groupIndex = 0;
-      const chunk: string[] = [];
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        if (splittingLines.includes(line)) {
-          if (chunk.length > 0) {
-            groupIndex++;
-          }
-        }
-        if (!chunk[groupIndex]) {
-          chunk[groupIndex] = '';
-        }
-        chunk[groupIndex] += line + '\n';
-      }
-      const result: Record<string, string> = {};
-      for (let i = 0; i < chunk.length; i++) {
-        const text = chunk[i];
-        const key = i;
-        result[key] = text;
-      }
+      // Combine all patterns into a single regex
+      const combinedPattern = new RegExp(sectionStarters.map(pattern => `(${pattern.source})`).join('|'), 'gm');
+
+      // Split content into sections based on the combined regex
+      const sections = content.split(combinedPattern).filter(Boolean);
+
+      // Group sections into a record with section index as key
+      const result: Record<string, string> = sections.reduce((acc, section, index) => ({
+        ...acc,
+        [index]: section,
+      }), {} as any);
 
       return result;
     },
     async serialize(locale: string, content: Record<string, string>) {
-      let result = Object
-        .values(content)
-        .join('');
-      
-      result = result.trim() + '\n';
-
-      return result;
-    }
+      // Join sections back into a single string
+      return Object.values(content).join('\n');
+    },
   };
 }
 

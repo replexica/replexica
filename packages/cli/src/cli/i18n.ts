@@ -9,7 +9,6 @@ import { createEngine } from './../workers/engine';
 import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
-import { execWithRetry } from '../utils/exec';
 
 export default new Command()
   .command('i18n')
@@ -120,13 +119,11 @@ export default new Command()
               const chunk = chunkedPayload[i];
               const percentageCompleted = Math.round(((i + 1) / chunkedPayload.length) * 100);
               localeOra.start(`(${percentageCompleted}%) AI translation in progress...`);
-              const processedPayloadChunk = await execWithRetry(
-                () => engine.localize(
-                  i18nConfig.locale.source, 
-                  targetLocale,
-                  { meta: {}, data: chunk },
-                ),
-              );
+              const processedPayloadChunk = await engine.localize(
+                i18nConfig.locale.source, 
+                targetLocale,
+                { meta: {}, data: chunk },
+              )
               // Add the processed payload chunk to the list with the rest of the processed chunks
               processedPayloadChunks.push(processedPayloadChunk);
             } catch (error: any) {
@@ -158,26 +155,24 @@ export default new Command()
 
 function _extractPayloadChunks(payload: Record<string, string>): Record<string, string>[] {
   // Split the key-value payload into an array of key-value sub-payloads.
-  // Each of the sub-payloads' sum of values' words counts be roughly 1000: during the loop,
-  // whenever the word count of the current sub-payload exceeds 1000, the current key-value pair
+  // Each of the sub-payloads' sum of values' words counts be roughly N: during the loop,
+  // whenever the word count of the current sub-payload exceeds N, the current key-value pair
   // must be the last one in the current sub-payload, and the next key-value pair must go into a new sub-payload.
+  const idealChunkSize = 200;
   const result: Record<string, string>[] = [];
 
   let currentChunk: Record<string, string> = {};
-  let currentChunkWordCount = 0;
-  for (const [key, value] of Object.entries(payload)) {
-    const valueWordCount = _countWordsInChunks(value);
-    if (currentChunkWordCount + valueWordCount > 200) {
+
+  const payloadEntries = Object.entries(payload);
+  for (let i = 0; i < payloadEntries.length; i++) {
+    const [key, value] = payloadEntries[i];
+    currentChunk[key] = value;
+
+    const currentChunkSize = _countWordsInRecord(currentChunk);
+    if (currentChunkSize > idealChunkSize || i === payloadEntries.length - 1) {
       result.push(currentChunk);
       currentChunk = {};
-      currentChunkWordCount = 0;
     }
-    currentChunk[key] = value;
-    currentChunkWordCount += valueWordCount;
-  }
-
-  if (Object.keys(currentChunk).length > 0) {
-    result.push(currentChunk);
   }
 
   return result;
@@ -192,11 +187,11 @@ async function loadFlags(options: any) {
   }).parse(options);
 }
 
-function _countWordsInChunks(payload: any | Record<string, any> | Array<any>): number {
+function _countWordsInRecord(payload: any | Record<string, any> | Array<any>): number {
   if (_.isArray(payload)) {
-    return payload.reduce((acc, item) => acc + _countWordsInChunks(item), 0);
+    return payload.reduce((acc, item) => acc + _countWordsInRecord(item), 0);
   } else if (_.isObject(payload)) {
-    return Object.values(payload).reduce((acc, item) => acc + _countWordsInChunks(item), 0);
+    return Object.values(payload).reduce((acc, item) => acc + _countWordsInRecord(item), 0);
   } else if (_.isString(payload)) {
     return payload.trim().split(' ').filter(Boolean).length;
   } else {
