@@ -40,33 +40,11 @@
 [Discord](https://replexica.com/go/discord) •
 [Docs](https://replexica.com/go/docs)
 
-Replexica is an i18n platform for React, to ship multi-language apps fast.
-
-Replexica supports React apps, and several i18n formats, including JSON-free, experimental Replexica Compiler format, `.md` files for Markdown content, and classic JSON and YAML-based formats.
-
-Replexica comes with an open-source compiler plugin for React (experimental), and an i18n API in the cloud that performs translations using context-aware LLMs.
+Replexica is an AI-powered i18n platform, to ship multilingual apps fast.
 
 ## Getting Started
 
-Check out our [Docs](https://replexica.com/docs) for more detailed guides on how to use Replexica with your app.
-
-## What's under the hood
-
-Replexica is a full-stack LLM-powered i18n platform for React, and it consists of **two main parts**:
-
-1. **Replexica i18n Compiler** (this repo, experimental) - an open-source compiler plugin for React:
-    * Doesn't require extracting strings into JSON files;
-    * Seamlessly integrates with React build system;
-    * Infers metadata and user-facing text from the app;
-    * Prepares the content for further context-aware translation.
-
-1. **Replexica i18n API** ([replexica.com](https://replexica.com)) - an i18n API in the cloud that translates apps into multiple languages, using LLMs, fast:
-    * Full context awareness + brand voice + tone + style + terminology;
-    * State-of-the-art quality translations via a mix of open-source and proprietary AI models.
-
-The core idea behind Replexica is simple: it's purpose is to accelerate localization of software.
-
-**The Internet is global, and so must be any software that runs on it.**
+Check out our [Docs](https://replexica.com/go/docs) for more detailed guides on how to use Replexica with your app.
 
 ## Authors
 
