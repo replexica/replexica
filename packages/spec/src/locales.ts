@@ -3,20 +3,63 @@ import Z from 'zod';
 // Core locales
 const coreFullLocales = [
     'en-US', // English (United States)
+    'en-GB', // English (United Kingdom)
+    'en-AU', // English (Australia)
+    'en-CA', // English (Canada)
+
     'es-ES', // Spanish (Spain)
+    'es-MX', // Spanish (Mexico)
+    'es-AR', // Spanish (Argentina)
+
     'fr-FR', // French (France)
+    'fr-CA', // French (Canada)
+    'fr-BE', // French (Belgium)
+
+    'de-DE', // German (Germany)
+    'de-AT', // German (Austria)
+    'de-CH', // German (Switzerland)
+
+    'pt-PT', // Portuguese (Portugal)
+    'pt-BR', // Portuguese (Brazil)
+    
+    'it-IT', // Italian (Italy)
+    'it-CH', // Italian (Switzerland)
+
+    'ru-RU', // Russian (Russia)
+    'ru-BY', // Russian (Belarus)
+
+    'zh-Hans-CN', // Simplified Chinese (China)
+    'zh-Hant-TW', // Traditional Chinese (Taiwan)
+    'zh-Hant-HK', // Traditional Chinese (Hong Kong)
+
+    'ar-EG', // Arabic (Egypt)
+    'ar-SA', // Arabic (Saudi Arabia)
+    'ar-AE', // Arabic (United Arab Emirates)
+    'ar-MA', // Arabic (Morocco)
+
+    'nl-NL', // Dutch (Netherlands)
+    'nl-BE', // Dutch (Belgium)
+
+    'sv-SE', // Swedish (Sweden)
+
+    'pl-PL', // Polish (Poland)
+
+    'vi-VN', // Vietnamese (Vietnam)
+
+    'id-ID', // Indonesian (Indonesia)
+
+    'ms-MY', // Malay (Malaysia)
+
+    'th-TH', // Thai (Thailand)
+
+    'fi-FI', // Finnish (Finland)
+
     'ca-ES', // Catalan (Spain)
     'ja-JP', // Japanese (Japan)
-    'de-DE', // German (Germany)
-    'pt-PT', // Portuguese (Portugal)
-    'it-IT', // Italian (Italy)
-    'ru-RU', // Russian (Russia)
     'uk-UA', // Ukrainian (Ukraine)
     'hi-IN', // Hindi (India)
-    'zh-Hans-CN', // Simplified Chinese (China)
     'ko-KR', // Korean (South Korea)
     'tr-TR', // Turkish (Turkey)
-    'ar-EG', // Arabic (Egypt)
 ] as const;
 const coreShortcutLocales = [
     'en', // English
@@ -35,6 +78,13 @@ const coreShortcutLocales = [
     'ko', // Korean
     'tr', // Turkish 
     'ar', // Arabic
+    'nl', // Dutch
+    'pl', // Polish
+    'vi', // Vietnamese
+    'id', // Indonesian
+    'ms', // Malay
+    'th', // Thai
+    'fi', // Finnish
 ] as const;
 const coreLocales = [
     ...coreFullLocales,
@@ -45,17 +95,12 @@ const coreLocales = [
 const sourceOnlyFullLocales = [
     'cs-CZ', // Czech (Czech Republic)
     'zh-Hant-HK', // Traditional Chinese (Hong Kong)
-    'pl-PL', // Polish (Poland)
     'sk-SK', // Slovak (Slovakia)
-    'th-TH', // Thai (Thailand)
 ] as const;
 const sourceOnlyShortcutLocales = [
-    'pl', // Polish
     'cs', // Czech
     'zh-Hant', // Traditional Chinese
-    'pl', // Polish
     'sk', // Slovak
-    'th', // Thai
 ] as const;
 const sourceOnlyLocales = [
     ...sourceOnlyFullLocales,
@@ -125,14 +170,19 @@ const coreLocaleResolutionMap: Record<typeof coreShortcutLocales[number], typeof
     ko: 'ko-KR',
     tr: 'tr-TR',
     ar: 'ar-EG',
+    nl: 'nl-NL',
+    pl: 'pl-PL',
+    vi: 'vi-VN',
+    id: 'id-ID',
+    ms: 'ms-MY',
+    th: 'th-TH',
+    fi: 'fi-FI',
 };
 
 const sourceOnlyLocaleResolutionMap: Record<typeof sourceOnlyShortcutLocales[number], typeof sourceOnlyFullLocales[number]> = {
-    pl: 'pl-PL',
     cs: 'cs-CZ',
     'zh-Hant': 'zh-Hant-HK',
     sk: 'sk-SK',
-    th: 'th-TH',
 };
 
 const targetOnlyLocaleResolutionMap: Record<typeof targetOnlyShortcutLocales[number], typeof targetOnlyFullLocales[number]> = {
