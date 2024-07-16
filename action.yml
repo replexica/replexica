@@ -1,20 +1,10 @@
 name: Replexica
-description: Accelerated localization for dev teams
+description: Accurate AI localization for web & mobile apps.
 author: Replexica
 
-inputs:
-  who-to-greet:
-    description: 'Who to greet'
-    required: true
-    default: 'World'
-
-outputs:
-  time:
-    description: 'The time we greeted you'
-
 runs:
-  using: 'node20'
-  main: 'action/index.js'
+  using: 'docker'
+  image: 'action/Dockerfile'
 
 branding:
   icon: './content/logo.png'
