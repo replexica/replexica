@@ -45,8 +45,8 @@ jobs:
       # use action from current repo
       - name: Replexica
         uses: ./
-        with:
-          who-to-greet: 'Replexica'
+        env:
+          REPLEXICA_API_KEY: ${{ secrets.REPLEXICA_API_KEY }}
 
       - name: Setup
         run: |

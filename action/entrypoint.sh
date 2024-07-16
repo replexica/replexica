@@ -4,7 +4,7 @@
 npx replexica@latest i18n
 # Return exit code 1 if the previous command fails
 if [ $? -eq 1 ]; then
-  echo "::error::🚨 Replexica incurred an error while applying translations. Please reach the Replexica team through Discord: https://replexica.com/go/discord"
+  echo "::error::🚨 Replexica incurred an error while applying translations. Discord: https://replexica.com/go/discord"
   exit 1
 fi
 # Commit the changes into the current branch
