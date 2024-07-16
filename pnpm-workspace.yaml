@@ -1,5 +1,4 @@
 packages:
-  - "./action"
   - "./package"
   - "./packages/*"
   - "./demo/next-app"
