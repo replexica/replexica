@@ -2,11 +2,17 @@ name: Replexica
 description: Accurate AI localization for web & mobile apps.
 author: Replexica
 
+# Define your inputs here.
+inputs:
+  api-key:
+    description: Replexica Platform API Key
+    required: true
+
 runs:
   using: 'docker'
   image: 'action/Dockerfile'
   env:
-    REPLEXICA_API_KEY: ${{ secrets.REPLEXICA_API_KEY }}
+    REPLEXICA_API_KEY: ${{ inputs.api-key }}
 
 branding:
   icon: './content/logo.png'
