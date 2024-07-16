@@ -5,6 +5,8 @@ author: Replexica
 runs:
   using: 'docker'
   image: 'action/Dockerfile'
+  env:
+    REPLEXICA_API_KEY: ${{ secrets.REPLEXICA_API_KEY }}
 
 branding:
   icon: './content/logo.png'
