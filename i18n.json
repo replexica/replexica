@@ -1,0 +1,17 @@
+{
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es",
+      "fr",
+      "hi",
+      "jp",
+      "ko",
+      "de",
+      "ar"
+    ]
+  },
+  "buckets": {
+    "action/demo/[locale].json": "json"
+  }
+}
