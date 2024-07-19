@@ -1,0 +1,77 @@
+<table width="100%">
+    <tr>
+        <td colspan="3">
+            <a href="https://replexica.com">
+                <img src="./content/banner.dark.png" width="100%" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center">
+            समर्थित और समर्थित द्वारा
+        </td>
+    </tr>
+    <tr>
+        <td width="33%">
+            <a target="_blank" href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=replexica_20240626">
+                <img src="./content/warp.dark.png" />
+            </a>
+        </td>
+        <td width="33%">
+            <a target="_blank" href="https://www.esade.edu/en/learning-innovation/rambla/eworks">
+                <img src="./content/eworks.dark.png" />
+            </a>
+        </td>
+        <td width="33%">
+            <a target="_blank" href="https://foundershub.startups.microsoft.com">
+                <img src="./content/ms-f-hub.dark.png" />
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+# Replexica
+
+
+
+![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
+
+
+[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+
+
+[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
+
+
+[Website](https://replexica.com) •
+[Discord](https://replexica.com/go/discord) •
+
+[Docs](https://replexica.com/go/docs)
+
+
+Replexica एक AI-संचालित i18n प्लेटफ़ॉर्म है, जो बहुभाषी ऐप्स को तेजी से शिप करने में मदद करता है।
+
+
+## शुरुआत करें
+
+
+हमारे [Docs](https://replexica.com/go/docs) देखें, जहाँ आपको Replexica को अपने ऐप के साथ उपयोग करने के विस्तृत गाइड मिलेंगे।
+
+
+## लेखक
+
+
+* **[Veronica](https://github.com/vrcprl)** - डेटा साइंस और LLMs।
+* **[Max](https://github.com/maxprilutskiy)** - React, Typescript, और कंपाइलर्स।
+
+
+## समुदाय
+
+
+यदि आप एक साइड-प्रोजेक्ट, एक स्टार्टअप बना रहे हैं, या आप एक बड़ी कंपनी में काम कर रहे हैं जो Replexica का उपयोग करती है - हम आपसे सुनना पसंद करेंगे!
+
+* 🌍 हमारे [Discord](https://discord.gg/GeK6AuSqzw) में शामिल हों और हमें बताएं कि आपको क्या पसंद है, क्या नहीं पसंद है, और आप आगे क्या देखना चाहेंगे।
+* 🌟 हमारे [GitHub](https://github.com/replexica/replexica) पर एक स्टार छोड़ें।
+* 🐞 [GitHub Issues](https://github.com/replexica/replexica/issues) के साथ बग रिपोर्ट करें और हम उन्हें जितनी जल्दी हो सके ठीक करेंगे।
+* 🏗️ यदि आप एक डेवलपर हैं, और आप Replexica में योगदान देना चाहते हैं, तो हमारे [Contributing Guide](./CONTRIBUTING.md) देखें।
