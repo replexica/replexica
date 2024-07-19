@@ -53,9 +53,9 @@ Replexicaは、AIを活用したi18nプラットフォームで、多言語ア�
 
 ## コミュニティ
 
-サイドプロジェクト、スタートアップ、大企業でReplexicaを使用している場合、ぜひお聞かせください！
+もしあなたの会社が世界中で使われるモダンなアプリを作っているなら、Replexicaは最適です！
 
-* 🌍 [Discord](https://discord.gg/GeK6AuSqzw)に参加して、好きな点、嫌いな点、次に見たい機能を教えてください。
+* 🌍 [Discord](https://discord.gg/GeK6AuSqzw)に参加して、好きな点や改善してほしい点、次に見たい機能を教えてください。
 * 🌟 [GitHub](https://github.com/replexica/replexica)でスターを付けてください。
 * 🐞 [GitHub Issues](https://github.com/replexica/replexica/issues)でバグを報告していただければ、できるだけ早く修正します。
 * 🏗️ 開発者の方でReplexicaに貢献したい場合は、[Contributing Guide](./CONTRIBUTING.md)をご覧ください。

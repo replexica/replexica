@@ -53,12 +53,12 @@ Replexica를 앱과 함께 사용하는 방법에 대한 자세한 가이드는 
 
 ## 커뮤니티
 
-사이드 프로젝트를 진행 중이거나, 스타트업을 운영 중이거나, 대기업에서 Replexica를 사용 중이라면, 여러분의 이야기를 듣고 싶습니다!
+전 세계 사람들이 사용하는 최신 앱을 개발 중이라면, Replexica가 딱입니다!
 
-* 🌍 [디스코드](https://discord.gg/GeK6AuSqzw)에 참여하여 좋아하는 점, 싫어하는 점, 다음에 보고 싶은 점을 알려주세요.
+* 🌍 [Discord](https://discord.gg/GeK6AuSqzw)에 참여해 좋아하는 점, 싫어하는 점, 다음에 보고 싶은 기능을 알려주세요.
 * 🌟 [GitHub](https://github.com/replexica/replexica)에 별을 남겨주세요.
-* 🐞 [GitHub 이슈](https://github.com/replexica/replexica/issues)로 버그를 보고해주시면 최대한 빨리 수정하겠습니다.
-* 🏗️ 개발자라면, Replexica에 기여하고 싶다면 [기여 가이드](./CONTRIBUTING.md)를 확인하세요.
+* 🐞 [GitHub Issues](https://github.com/replexica/replexica/issues)로 버그를 신고해주시면 최대한 빨리 수정하겠습니다.
+* 🏗️ 개발자라면, Replexica에 기여하고 싶다면 [Contributing Guide](./CONTRIBUTING.md)를 확인해보세요.
 
 ## 다른 언어로 된 Replexica README
 

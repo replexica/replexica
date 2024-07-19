@@ -53,12 +53,12 @@ Replexica 是一个 AI 驱动的 i18n 平台，帮助快速发布多语言应用
 
 ## 社区
 
-无论你是在做副业项目、创业公司，还是在大公司使用 Replexica，我们都希望听到你的声音！
+如果你的公司正在开发一款全球用户使用的现代应用程序——Replexica 就是你的最佳选择！
 
 * 🌍 加入我们的 [Discord](https://discord.gg/GeK6AuSqzw)，告诉我们你喜欢什么，不喜欢什么，以及你希望接下来看到什么。
-* 🌟 在我们的 [GitHub](https://github.com/replexica/replexica) 上点个星星。
-* 🐞 通过 [GitHub Issues](https://github.com/replexica/replexica/issues) 报告 bug，我们会尽快修复。
-* 🏗️ 如果你是开发者，想为 Replexica 做贡献，请查看我们的[贡献指南](./CONTRIBUTING.md)。
+* 🌟 在我们的 [GitHub](https://github.com/replexica/replexica) 上给我们一个星星。
+* 🐞 通过 [GitHub Issues](https://github.com/replexica/replexica/issues) 报告错误，我们会尽快修复。
+* 🏗️ 如果你是开发者，想为 Replexica 做贡献，请查看我们的 [贡献指南](./CONTRIBUTING.md)。
 
 ## Replexica 其他语言的 README
 
