@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td colspan="3" align="center">
-            مدعوم وممول من
+            مدعوم من
         </td>
     </tr>
     <tr>
@@ -30,91 +30,44 @@
     </tr>
 </table>
 
-
-
 # Replexica
 
-
-
-
-
-
-
 ![آخر تحديث على GitHub](https://img.shields.io/github/last-commit/replexica/replexica)
-
-
-
-
-
-
 [![إصدار](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
-
-
-
-
-
-
 [![رخصة GitHub](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
-
-
-
-[الموقع الإلكتروني](https://replexica.com) •
+[الموقع](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
+[المستندات](https://replexica.com/go/docs)
 
-
-
-[الوثائق](https://replexica.com/go/docs)
-
-
-
-
-Replexica هي منصة i18n مدعومة بالذكاء الاصطناعي، لتسريع إطلاق التطبيقات متعددة اللغات.
-
-
-
+Replexica هي منصة i18n مدعومة بالذكاء الاصطناعي، لتسليم التطبيقات متعددة اللغات بسرعة.
 
 ## البدء
 
-
-
-
-اطلع على [الوثائق](https://replexica.com/go/docs) للحصول على أدلة مفصلة حول كيفية استخدام Replexica مع تطبيقك.
-
-
-
+اطلع على [المستندات](https://replexica.com/go/docs) للحصول على أدلة مفصلة حول كيفية استخدام Replexica مع تطبيقك.
 
 ## المؤلفون
 
-
-
-
-* **[Veronica](https://github.com/vrcprl)** - علم البيانات والنماذج اللغوية الكبيرة.
-* **[Max](https://github.com/maxprilutskiy)** - React، Typescript، والمترجمات.
-
-
-
+* **[Veronica](https://github.com/vrcprl)** - علم البيانات و LLMs.
+* **[Max](https://github.com/maxprilutskiy)** - React و Typescript والمترجمات.
 
 ## المجتمع
 
+إذا كنت تبني مشروعًا جانبيًا، أو شركة ناشئة، أو تعمل في شركة كبيرة تستخدم Replexica - نود أن نسمع منك!
 
-سواء كنت تبني مشروع جانبي، شركة ناشئة، أو تعمل في شركة كبيرة تستخدم Replexica - نود أن نسمع منك!
-
-* 🌍 انضم إلى [Discord](https://discord.gg/GeK6AuSqzw) وأخبرنا بما يعجبك، وما لا يعجبك، وما تود رؤيته لاحقًا.
+* 🌍 انضم إلى [Discord](https://discord.gg/GeK6AuSqzw) وأخبرنا بما يعجبك، وما لا يعجبك، وما ترغب في رؤيته بعد ذلك.
 * 🌟 اترك نجمة على [GitHub](https://github.com/replexica/replexica).
 * 🐞 أبلغ عن الأخطاء باستخدام [GitHub Issues](https://github.com/replexica/replexica/issues) وسنقوم بإصلاحها في أسرع وقت ممكن.
 * 🏗️ إذا كنت مطورًا وترغب في المساهمة في Replexica، اطلع على [دليل المساهمة](./CONTRIBUTING.md).
 
+## Replexica README بلغات أخرى
 
-## تحقق من README الخاص بـ Replexica بلغات أخرى
-
-
-🇪🇸 [Español](/readme/es.md) •
-🇫🇷 [Français](/readme/fr.md) •
-🇮🇳 [हिन्दी](/readme/hi.md) •
-🇯🇵 [日本語](/readme/ja.md) •
-🇰🇷 [한국어](/readme/ko.md) •
-🇷🇺 [Русский](/readme/ru.md) •
-🇩🇪 [Deutsch](/readme/de.md) •
+🇪🇸 [الإسبانية](/readme/es.md) •
+🇫🇷 [الفرنسية](/readme/fr.md) •
+🇮🇳 [الهندية](/readme/hi.md) •
+🇯🇵 [اليابانية](/readme/ja.md) •
+🇰🇷 [الكورية](/readme/ko.md) •
+🇷🇺 [الروسية](/readme/ru.md) •
+🇩🇪 [الألمانية](/readme/de.md) •
 🇸🇦 [العربية](/readme/ar.md) •
-🇨🇳 [中文](/readme/zh.md)
+🇨🇳 [الصينية](/readme/zh.md)

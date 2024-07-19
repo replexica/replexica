@@ -30,44 +30,28 @@
     </tr>
 </table>
 
-
 # Replexica
 
-
-
 ![GitHub 最后提交](https://img.shields.io/github/last-commit/replexica/replexica)
-
-
 [![发布](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
-
-
 [![GitHub 许可证](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
-
-[官网](https://replexica.com) •
+[网站](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
-
 [文档](https://replexica.com/go/docs)
-
 
 Replexica 是一个 AI 驱动的 i18n 平台，帮助快速发布多语言应用。
 
-
 ## 快速开始
-
 
 查看我们的[文档](https://replexica.com/go/docs)，了解如何将 Replexica 集成到你的应用中。
 
-
 ## 作者
-
 
 * **[Veronica](https://github.com/vrcprl)** - 数据科学和 LLMs。
 * **[Max](https://github.com/maxprilutskiy)** - React、Typescript 和编译器。
 
-
 ## 社区
-
 
 无论你是在做副业项目、创业公司，还是在大公司使用 Replexica，我们都希望听到你的声音！
 
@@ -76,9 +60,7 @@ Replexica 是一个 AI 驱动的 i18n 平台，帮助快速发布多语言应用
 * 🐞 通过 [GitHub Issues](https://github.com/replexica/replexica/issues) 报告 bug，我们会尽快修复。
 * 🏗️ 如果你是开发者，想为 Replexica 做贡献，请查看我们的[贡献指南](./CONTRIBUTING.md)。
 
-
-## 查看其他语言的 Replexica README
-
+## Replexica 其他语言的 README
 
 🇪🇸 [Español](/readme/es.md) •
 🇫🇷 [Français](/readme/fr.md) •

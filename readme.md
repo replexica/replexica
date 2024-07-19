@@ -60,7 +60,7 @@ If you're building a side-project, a startup, or you're working at a big company
 * 🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
 * 🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
 
-## Check out Replexica README in other languages
+## Replexica README in other languages
 
 🇪🇸 [Español](/readme/es.md) •
 🇫🇷 [Français](/readme/fr.md) •

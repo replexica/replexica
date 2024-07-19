@@ -30,84 +30,37 @@
     </tr>
 </table>
 
-
-
 # Replexica
 
-
-
-
-
-
-
 ![Último commit en GitHub](https://img.shields.io/github/last-commit/replexica/replexica)
-
-
-
-
-
-
-[![Lanzamiento](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
-
-
-
-
-
-
+[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![Licencia de GitHub](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
-
-
-
-[Sitio web](https://replexica.com) •
+[Website](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
+[Docs](https://replexica.com/go/docs)
 
-
-
-[Documentación](https://replexica.com/go/docs)
-
-
-
-
-Replexica es una plataforma de i18n impulsada por IA, para lanzar aplicaciones multilingües rápidamente.
-
-
-
+Replexica es una plataforma i18n potenciada por IA, para lanzar apps multilingües rápidamente.
 
 ## Primeros Pasos
 
-
-
-
-Consulta nuestra [Documentación](https://replexica.com/go/docs) para guías más detalladas sobre cómo usar Replexica con tu aplicación.
-
-
-
+Consulta nuestros [Docs](https://replexica.com/go/docs) para guías más detalladas sobre cómo usar Replexica con tu app.
 
 ## Autores
 
-
-
-
-* **[Veronica](https://github.com/vrcprl)** - Ciencia de Datos y Modelos de Lenguaje.
+* **[Veronica](https://github.com/vrcprl)** - Ciencia de Datos y LLMs.
 * **[Max](https://github.com/maxprilutskiy)** - React, Typescript y Compiladores.
-
-
-
 
 ## Comunidad
 
+Si estás desarrollando un proyecto paralelo, una startup, o trabajas en una gran empresa que usa Replexica, ¡nos encantaría saber de ti!
 
-Si estás creando un proyecto paralelo, una startup, o trabajas en una gran empresa que usa Replexica, ¡nos encantaría saber de ti!
-
-* 🌍 Únete a nuestro [Discord](https://discord.gg/GeK6AuSqzw) y cuéntanos qué te gusta, qué no te gusta y qué te gustaría ver a continuación.
+* 🌍 Únete a nuestro [Discord](https://discord.gg/GeK6AuSqzw) y cuéntanos qué te gusta, qué no te gusta, qué te gustaría ver a continuación.
 * 🌟 Deja una estrella en nuestro [GitHub](https://github.com/replexica/replexica).
-* 🐞 Reporta errores con [GitHub Issues](https://github.com/replexica/replexica/issues) y los arreglaremos tan pronto como podamos.
-* 🏗️ Si eres desarrollador y quieres contribuir a Replexica, revisa nuestra [Guía de Contribución](./CONTRIBUTING.md).
+* 🐞 Reporta errores con [GitHub Issues](https://github.com/replexica/replexica/issues) y los solucionaremos lo antes posible.
+* 🏗️ Si eres desarrollador y te gustaría contribuir a Replexica, revisa nuestra [Guía de Contribución](./CONTRIBUTING.md).
 
-
-## Consulta el README de Replexica en otros idiomas
-
+## README de Replexica en otros idiomas
 
 🇪🇸 [Español](/readme/es.md) •
 🇫🇷 [Français](/readme/fr.md) •
