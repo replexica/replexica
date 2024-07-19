@@ -70,4 +70,6 @@ Wenn euer Unternehmen eine moderne App entwickelt, die weltweit genutzt wird –
 🇷🇺 [Русский](/readme/ru.md) •
 🇩🇪 [Deutsch](/readme/de.md) •
 🇸🇦 [العربية](/readme/ar.md) •
-🇨🇳 [中文](/readme/zh.md)
+🇨🇳 [中文](/readme/zh.md) •
+🇵🇰 [اردو](/readme/ur.md)
+
