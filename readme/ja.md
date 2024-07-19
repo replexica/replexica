@@ -31,7 +31,10 @@
 </table>
 
 
+
 # Replexica
+
+
 
 
 
@@ -42,7 +45,11 @@
 
 
 
+
+
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+
+
 
 
 
@@ -51,11 +58,14 @@
 
 
 
+
 [Website](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
 
 
+
 [Docs](https://replexica.com/go/docs)
+
 
 
 
@@ -63,7 +73,9 @@ Replexicaは、AIを活用したi18nプラットフォームで、多言語ア�
 
 
 
+
 ## はじめに
+
 
 
 
@@ -71,7 +83,9 @@ Replexicaは、AIを活用したi18nプラットフォームで、多言語ア�
 
 
 
+
 ## 著者
+
 
 
 
@@ -80,13 +94,27 @@ Replexicaは、AIを活用したi18nプラットフォームで、多言語ア�
 
 
 
+
 ## コミュニティ
 
 
-
-サイドプロジェクト、スタートアップ、大企業でReplexicaを使用している場合、ぜひお聞かせください！
+サイドプロジェクト、スタートアップ、またはReplexicaを使用している大企業で働いているなら、ぜひお聞かせください！
 
 * 🌍 [Discord](https://discord.gg/GeK6AuSqzw)に参加して、好きな点、嫌いな点、次に見たい機能を教えてください。
 * 🌟 [GitHub](https://github.com/replexica/replexica)でスターを付けてください。
 * 🐞 [GitHub Issues](https://github.com/replexica/replexica/issues)でバグを報告していただければ、できるだけ早く修正します。
 * 🏗️ 開発者の方でReplexicaに貢献したい場合は、[Contributing Guide](./CONTRIBUTING.md)をご覧ください。
+
+
+## ReplexicaのREADMEを他の言語でチェック
+
+
+🇪🇸 [Español](/readme/es.md) •
+🇫🇷 [Français](/readme/fr.md) •
+🇮🇳 [हिन्दी](/readme/hi.md) •
+🇯🇵 [日本語](/readme/ja.md) •
+🇰🇷 [한국어](/readme/ko.md) •
+🇷🇺 [Русский](/readme/ru.md) •
+🇩🇪 [Deutsch](/readme/de.md) •
+🇸🇦 [العربية](/readme/ar.md) •
+🇨🇳 [中文](/readme/zh.md)

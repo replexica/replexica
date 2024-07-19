@@ -31,7 +31,10 @@
 </table>
 
 
+
 # Replexica
+
+
 
 
 
@@ -42,7 +45,11 @@
 
 
 
+
+
 [![Lanzamiento](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+
+
 
 
 
@@ -51,11 +58,14 @@
 
 
 
+
 [Sitio web](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
 
 
+
 [Documentación](https://replexica.com/go/docs)
+
 
 
 
@@ -63,7 +73,9 @@ Replexica es una plataforma de i18n impulsada por IA, para lanzar aplicaciones m
 
 
 
+
 ## Primeros Pasos
+
 
 
 
@@ -71,7 +83,9 @@ Consulta nuestra [Documentación](https://replexica.com/go/docs) para guías má
 
 
 
+
 ## Autores
+
 
 
 
@@ -80,13 +94,27 @@ Consulta nuestra [Documentación](https://replexica.com/go/docs) para guías má
 
 
 
+
 ## Comunidad
 
 
-
-Si estás desarrollando un proyecto paralelo, una startup, o trabajas en una gran empresa que usa Replexica, ¡nos encantaría saber de ti!
+Si estás creando un proyecto paralelo, una startup, o trabajas en una gran empresa que usa Replexica, ¡nos encantaría saber de ti!
 
 * 🌍 Únete a nuestro [Discord](https://discord.gg/GeK6AuSqzw) y cuéntanos qué te gusta, qué no te gusta y qué te gustaría ver a continuación.
 * 🌟 Deja una estrella en nuestro [GitHub](https://github.com/replexica/replexica).
-* 🐞 Reporta errores con [GitHub Issues](https://github.com/replexica/replexica/issues) y los solucionaremos lo antes posible.
-* 🏗️ Si eres desarrollador y te gustaría contribuir a Replexica, consulta nuestra [Guía de Contribución](./CONTRIBUTING.md).
+* 🐞 Reporta errores con [GitHub Issues](https://github.com/replexica/replexica/issues) y los arreglaremos tan pronto como podamos.
+* 🏗️ Si eres desarrollador y quieres contribuir a Replexica, revisa nuestra [Guía de Contribución](./CONTRIBUTING.md).
+
+
+## Consulta el README de Replexica en otros idiomas
+
+
+🇪🇸 [Español](/readme/es.md) •
+🇫🇷 [Français](/readme/fr.md) •
+🇮🇳 [हिन्दी](/readme/hi.md) •
+🇯🇵 [日本語](/readme/ja.md) •
+🇰🇷 [한국어](/readme/ko.md) •
+🇷🇺 [Русский](/readme/ru.md) •
+🇩🇪 [Deutsch](/readme/de.md) •
+🇸🇦 [العربية](/readme/ar.md) •
+🇨🇳 [中文](/readme/zh.md)

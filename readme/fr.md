@@ -31,7 +31,10 @@
 </table>
 
 
+
 # Replexica
+
+
 
 
 
@@ -42,7 +45,11 @@
 
 
 
+
+
 [![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+
+
 
 
 
@@ -51,11 +58,14 @@
 
 
 
+
 [Site Web](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
 
 
+
 [Docs](https://replexica.com/go/docs)
+
 
 
 
@@ -63,7 +73,9 @@ Replexica est une plateforme i18n alimentée par l'IA, pour déployer rapidement
 
 
 
+
 ## Pour Commencer
+
 
 
 
@@ -71,7 +83,9 @@ Consultez nos [Docs](https://replexica.com/go/docs) pour des guides détaillés 
 
 
 
+
 ## Auteurs
+
 
 
 
@@ -80,13 +94,27 @@ Consultez nos [Docs](https://replexica.com/go/docs) pour des guides détaillés 
 
 
 
+
 ## Communauté
 
 
-
-Si vous développez un projet parallèle, une startup, ou travaillez dans une grande entreprise utilisant Replexica - nous serions ravis de vous entendre !
+Que vous construisiez un projet parallèle, une startup, ou que vous travailliez dans une grande entreprise utilisant Replexica - nous serions ravis de vous entendre !
 
 * 🌍 Rejoignez notre [Discord](https://discord.gg/GeK6AuSqzw) et dites-nous ce que vous aimez, ce que vous n'aimez pas, ce que vous aimeriez voir ensuite.
 * 🌟 Laissez une étoile sur notre [GitHub](https://github.com/replexica/replexica).
 * 🐞 Signalez les bugs avec [GitHub Issues](https://github.com/replexica/replexica/issues) et nous les corrigerons dès que possible.
-* 🏗️ Si vous êtes développeur et souhaitez contribuer à Replexica, consultez notre [Guide de Contribution](./CONTRIBUTING.md).
+* 🏗️ Si vous êtes développeur et que vous souhaitez contribuer à Replexica, consultez notre [Guide de Contribution](./CONTRIBUTING.md).
+
+
+## Consultez le README de Replexica dans d'autres langues
+
+
+🇪🇸 [Español](/readme/es.md) •
+🇫🇷 [Français](/readme/fr.md) •
+🇮🇳 [हिन्दी](/readme/hi.md) •
+🇯🇵 [日本語](/readme/ja.md) •
+🇰🇷 [한국어](/readme/ko.md) •
+🇷🇺 [Русский](/readme/ru.md) •
+🇩🇪 [Deutsch](/readme/de.md) •
+🇸🇦 [العربية](/readme/ar.md) •
+🇨🇳 [中文](/readme/zh.md)
