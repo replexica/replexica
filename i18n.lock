@@ -1,8 +1,5 @@
 version: 1
 checksums:
-  29a8d3ce3b37269adfaee54243dbddda:
-    brand: ef1fb56b8dafd605fb267df2b0a8a91f
-    description: 78dda1a4addd157f2ae5f426ea380098
   29ba5363b2b0f1cc53dd4a667d52f86e:
     "0": 63fd1cdaf8999504b46cc32cc37e9feb
     "1": 4ff3daefd30c98142c1990a27a8a8adf
@@ -23,3 +20,9 @@ checksums:
     "16": 34c09f4af794a0ce0eb33ed76ed3a985
     "17": bbb8a27f65c499540d8ae76fb7c9c144
     "18": ccadae742f915963975e72a509817331
+  4188a166aad2705b4f09401f924502ed:
+    name: ef1fb56b8dafd605fb267df2b0a8a91f
+    what-is-replexica: acc49247f34f287b6e11b48b61c454fd
+    how-it-works: b6582d6a1c8615076c0b242fa1342a8b
+    why-not-use-google-translate: 3fb644a50bf390dcb82bbd26aae76110
+    why-not-use-human-translators: 44a6f03f35e6e04bd7f0f5a81e590356
