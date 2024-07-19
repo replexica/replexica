@@ -2,7 +2,7 @@
     <tr>
         <td colspan="3">
             <a href="https://replexica.com">
-                <img src="./content/banner.dark.png" width="100%" />
+                <img src="/content/banner.dark.png" width="100%" />
             </a>
         </td>
     </tr>
@@ -14,17 +14,17 @@
     <tr>
         <td width="33%">
             <a target="_blank" href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=replexica_20240626">
-                <img src="./content/warp.dark.png" />
+                <img src="/content/warp.dark.png" />
             </a>
         </td>
         <td width="33%">
             <a target="_blank" href="https://www.esade.edu/en/learning-innovation/rambla/eworks">
-                <img src="./content/eworks.dark.png" />
+                <img src="/content/eworks.dark.png" />
             </a>
         </td>
         <td width="33%">
             <a target="_blank" href="https://foundershub.startups.microsoft.com">
-                <img src="./content/ms-f-hub.dark.png" />
+                <img src="/content/ms-f-hub.dark.png" />
             </a>
         </td>
     </tr>
@@ -60,12 +60,14 @@ If you're building a side-project, a startup, or you're working at a big company
 * 🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
 * 🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
 
-## Replexica in other languages
+## Check out Replexica README in other languages
 
 🇪🇸 [Español](/readme/es.md) •
 🇫🇷 [Français](/readme/fr.md) •
 🇮🇳 [हिन्दी](/readme/hi.md) •
 🇯🇵 [日本語](/readme/ja.md) •
 🇰🇷 [한국어](/readme/ko.md) •
+🇷🇺 [Русский](/readme/ru.md) •
 🇩🇪 [Deutsch](/readme/de.md) •
-🇸🇦 [العربية](/readme/ar.md)
+🇸🇦 [العربية](/readme/ar.md) •
+🇨🇳 [中文](/readme/zh.md)
