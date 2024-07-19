@@ -1,5 +1,14 @@
 # replexica
 
+## 0.31.1
+
+### Patch Changes
+
+- [`387b6b7`](https://github.com/replexica/replexica/commit/387b6b74c1718503f50f18991b0337ee87cb53f8) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Fixed extra newline added to markdown results
+
+- Updated dependencies [[`387b6b7`](https://github.com/replexica/replexica/commit/387b6b74c1718503f50f18991b0337ee87cb53f8)]:
+  - @replexica/cli@0.31.1
+
 ## 0.31.0
 
 ### Minor Changes
