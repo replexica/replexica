@@ -53,7 +53,7 @@ Check out our [Docs](https://replexica.com/go/docs) for more detailed guides on 
 
 ## Community
 
-If you're building a side-project, a startup, or you're working at a big company that uses Replexica - we'd love to hear from you!
+If you're company is building a modern app that's used by people all over the world – Replexica is for you!
 
 * 🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
 * 🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
