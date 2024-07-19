@@ -1,6 +1,6 @@
 {
   "name": "@replexica/compiler",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Replexica compiler",
   "private": false,
   "type": "module",

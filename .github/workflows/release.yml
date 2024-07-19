@@ -46,7 +46,7 @@ jobs:
       - name: Replexica
         uses: ./
         with:
-          who-to-greet: 'Replexica'
+          api-key: ${{ secrets.REPLEXICA_API_KEY }}
 
       - name: Setup
         run: |

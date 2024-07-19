@@ -1,20 +1,18 @@
 name: Replexica
-description: Accelerated localization for dev teams
+description: Accurate AI localization for web & mobile apps.
 author: Replexica
 
+# Define your inputs here.
 inputs:
-  who-to-greet:
-    description: 'Who to greet'
+  api-key:
+    description: Replexica Platform API Key
     required: true
-    default: 'World'
-
-outputs:
-  time:
-    description: 'The time we greeted you'
 
 runs:
-  using: 'node20'
-  main: 'action/index.js'
+  using: 'docker'
+  image: 'action/Dockerfile'
+  env:
+    REPLEXICA_API_KEY: ${{ inputs.api-key }}
 
 branding:
   icon: './content/logo.png'

@@ -1,5 +1,16 @@
 # replexica
 
+## 0.31.0
+
+### Minor Changes
+
+- [`8c8e7dd`](https://github.com/replexica/replexica/commit/8c8e7dd4d35669d484240d643427612ecdaf73eb) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Added new locales
+
+### Patch Changes
+
+- Updated dependencies [[`8c8e7dd`](https://github.com/replexica/replexica/commit/8c8e7dd4d35669d484240d643427612ecdaf73eb)]:
+  - @replexica/spec@0.8.0
+
 ## 0.30.0
 
 ### Minor Changes
