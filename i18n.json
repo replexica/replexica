@@ -12,6 +12,7 @@
     ]
   },
   "buckets": {
-    "action/demo/[locale].json": "json"
+    "action/demo/[locale].json": "json",
+    "readme/[locale].md": "markdown"
   }
 }
