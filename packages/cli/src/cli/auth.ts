@@ -38,7 +38,7 @@ export default new Command()
       } else {
         Ora().succeed(`Authenticated as ${auth.email}`);
         if (auth.isInWaitlist) {
-          Ora().warn(`Account is not yet activated. Please enable your free trial by talking to our dev team. https://replexica.com/go/demo`);
+          Ora().warn(`Account is not yet activated. Please enable your free trial by talking to our dev team. https://replexica.com/go/call`);
         }
       }
     } catch (error: any) {
