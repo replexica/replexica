@@ -1,8 +1,3 @@
----
-title: Replexica
-description: Replexica is an AI-powered i18n platform, that lets teams ship multilingual apps fast.
----
-
 <table width="100%">
     <tr>
         <td colspan="3">
