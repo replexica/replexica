@@ -1,5 +1,11 @@
 # replexica
 
+## 0.32.0
+
+### Minor Changes
+
+- [`dab6f68`](https://github.com/replexica/replexica/commit/dab6f68b4e564f4f1a757431b5a590f87e30aeca) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add frontmatter support
+
 ## 0.31.1
 
 ### Patch Changes
