@@ -27,6 +27,8 @@ checksums:
     frontmatter-attribute-title: 7603ae14015f4efc61d5720a45bcb16c
     frontmatter-attribute-description: d8a41c79be86938f1c3035f617f3755c
     frontmatter-attribute-meta: a2564264c93347ad7307d5b8d5ab59b4
+    frontmatter-attribute-sidebar: 1d41ad90ddfd2afba95b5a20b4f2d5da
+    frontmatter-attribute-category: 9b0c387c905aba4206082ffbc5c32f7e
   a2ee521da6f3f2f94a1af90f82986b4c:
     hello-world: 1d89f5ccf329aaa9cdb98a3953103bbf
     items.count/my: 88c7cd5cfeb37f3bb66eccb281549284

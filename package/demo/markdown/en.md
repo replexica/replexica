@@ -10,6 +10,8 @@ meta:
     content: 2021-10-01
   - property: og:image
     content: https://cdn.jsdelivr.net/gh/stringyfy/assets/images/logo.png
+sidebar: auto
+category: Libraries
 ---
 
 # stringyfy
