@@ -1,6 +1,7 @@
 import { parseStringPromise, Builder } from 'xml2js';
 import YAML from 'yaml';
 import _ from 'lodash';
+import GrayMatter from 'gray-matter';
 
 export interface IBucketParser {
   deserialize: (locale: string, content: any) => Promise<Record<string, string>>;
@@ -9,33 +10,38 @@ export interface IBucketParser {
 
 export function createJsonParser(): IBucketParser {
   return {
-    async deserialize(locale: string, content: any) {
+    async deserialize(locale: string, content: string) {
       return JSON.parse(content);
     },
-    async serialize(locale: string, content: Record<string, string>) {
-      return JSON.stringify(content, null, 2);
+    async serialize(locale: string, payload: Record<string, string>) {
+      return JSON.stringify(payload, null, 2);
     }
   };
 }
 
 export function createMarkdownParser(): IBucketParser {
+  // Define markdown section starter patterns
+  const sectionStarters = [
+    // Matches headings
+    /^#+\s.*$/gm, 
+    // Matches dash dividers
+    /^[-]{3,}$/gm, 
+    // Matches equals dividers
+    /^[=]{3,}$/gm, 
+    // Matches asterisk dividers
+    /^[*]{3,}$/gm, 
+    // Matches images that take up a line
+    /^!\[.*\]\(.*\)$/gm,
+    // Matches links that take up a line
+    /^\[.*\]\(.*\)$/gm,
+  ];
+
   return {
-    async deserialize(locale: string, content: string) {
-      // Define markdown section starter patterns
-      const sectionStarters = [
-        // Matches headings
-        /^#+\s.*$/gm, 
-        // Matches dash dividers
-        /^[-]{3,}$/gm, 
-        // Matches equals dividers
-        /^[=]{3,}$/gm, 
-        // Matches asterisk dividers
-        /^[*]{3,}$/gm, 
-        // Matches images that take up a line
-        /^!\[.*\]\(.*\)$/gm,
-        // Matches links that take up a line
-        /^\[.*\]\(.*\)$/gm,
-      ];
+    async deserialize(locale: string, rawContent: string) {
+      const fmContent = GrayMatter(rawContent);
+
+      const attributes = fmContent.data;
+      const content = fmContent.content;
 
       // Combine all patterns into a single regex
       const combinedPattern = new RegExp(sectionStarters.map(pattern => `(${pattern.source})`).join('|'), 'gm');
@@ -44,16 +50,42 @@ export function createMarkdownParser(): IBucketParser {
       const sections = content.split(combinedPattern).filter(Boolean);
 
       // Group sections into a record with section index as key
-      const result: Record<string, string> = sections.reduce((acc, section, index) => ({
+      const bodyPartial: Record<string, string> = sections.reduce((acc, section, index) => ({
         ...acc,
-        [index]: section,
+        [`markdown-line-${index}`]: section,
       }), {} as any);
+
+      // Attributes partial, if any, prefixed with frontmatter-attribute-[key]
+      const attributesPartial = Object.entries(attributes).reduce((acc, [key, value]) => ({
+        ...acc,
+        [`frontmatter-attribute-${key}`]: value,
+      }), {} as any);
+
+      const result = {
+        ...bodyPartial,
+        ...attributesPartial,
+      };
 
       return result;
     },
     async serialize(locale: string, content: Record<string, string>) {
-      // Join sections back into a single string
-      return Object.values(content).join('');
+      const body = Object
+        .entries(content)
+        .filter(([key]) => key.startsWith('markdown-line-'))
+        .map(([, value]) => value)
+        .join('');
+
+      const attributes = Object
+        .entries(content)
+        .filter(([key]) => key.startsWith('frontmatter-attribute-'))
+        .reduce((acc, [key, value]) => ({
+          ...acc,
+          [key.replace('frontmatter-attribute-', '')]: value,
+        }), {} as any);
+
+      const result = GrayMatter.stringify(body, attributes);
+
+      return result;
     },
   };
 }
