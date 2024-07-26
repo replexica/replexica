@@ -1,3 +1,17 @@
+---
+title: stringyfy
+description: A simple npm library that provides a set of utility functions to manipulate and transform strings in JavaScript.
+meta:
+  - name: keywords
+    content: stringyfy, npm, library, utility, functions, manipulate, transform, strings, JavaScript
+  - name: author
+    content: stringyfy
+  - name: date
+    content: 2021-10-01
+  - property: og:image
+    content: https://cdn.jsdelivr.net/gh/stringyfy/assets/images/logo.png
+---
+
 # stringyfy
 
 ## Description
