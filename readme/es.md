@@ -33,18 +33,18 @@
 # Replexica
 
 ![Último commit en GitHub](https://img.shields.io/github/last-commit/replexica/replexica)
-[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
+[![Lanzamiento](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
 [![Licencia de GitHub](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
 
 [Website](https://replexica.com) •
 [Discord](https://replexica.com/go/discord) •
 [Docs](https://replexica.com/go/docs)
 
-Replexica es una plataforma i18n potenciada por IA, para lanzar apps multilingües rápidamente.
+Replexica es una plataforma i18n impulsada por IA, para lanzar apps multilingües rápidamente.
 
-## Primeros Pasos
+## Empezando
 
-Consulta nuestros [Docs](https://replexica.com/go/docs) para guías más detalladas sobre cómo usar Replexica con tu app.
+Consulta nuestra [Documentación](https://replexica.com/go/docs) para guías detalladas sobre cómo usar Replexica con tu app.
 
 ## Autores
 
@@ -53,12 +53,12 @@ Consulta nuestros [Docs](https://replexica.com/go/docs) para guías más detalla
 
 ## Comunidad
 
-Si tu empresa está creando una app moderna que es usada por personas de todo el mundo, ¡Replexica es para ti!
+Si tu empresa está construyendo una app moderna que es usada por personas de todo el mundo – Replexica es para ti!
 
-* 🌍 Únete a nuestro [Discord](https://discord.gg/GeK6AuSqzw) y cuéntanos qué te gusta, qué no te gusta y qué te gustaría ver a continuación.
+* 🌍 Únete a nuestro [Discord](https://discord.gg/GeK6AuSqzw) y cuéntanos qué te gusta, qué no te gusta, qué te gustaría ver a continuación.
 * 🌟 Deja una estrella en nuestro [GitHub](https://github.com/replexica/replexica).
 * 🐞 Reporta errores con [GitHub Issues](https://github.com/replexica/replexica/issues) y los arreglaremos tan pronto como podamos.
-* 🏗️ Si eres desarrollador y quieres contribuir a Replexica, revisa nuestra [Guía de Contribución](./CONTRIBUTING.md).
+* 🏗️ Si eres desarrollador y te gustaría contribuir a Replexica, consulta nuestra [Guía de Contribución](./CONTRIBUTING.md).
 
 ## README de Replexica en otros idiomas
 

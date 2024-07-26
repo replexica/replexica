@@ -40,11 +40,11 @@
 [Discord](https://replexica.com/go/discord) •
 [Docs](https://replexica.com/go/docs)
 
-Replexicaは、AIを活用したi18nプラットフォームで、多言語アプリを迅速に出荷できます。
+ReplexicaはAIを活用したi18nプラットフォームで、マルチリンガルアプリを迅速に出荷できます。
 
 ## はじめに
 
-アプリでReplexicaを使用する方法についての詳細なガイドは、[Docs](https://replexica.com/go/docs)をご覧ください。
+Replexicaの使い方については、[Docs](https://replexica.com/go/docs)をご覧ください。
 
 ## 著者
 
@@ -53,14 +53,14 @@ Replexicaは、AIを活用したi18nプラットフォームで、多言語ア�
 
 ## コミュニティ
 
-もしあなたの会社が世界中で使われるモダンなアプリを作っているなら、Replexicaは最適です！
+もしあなたの会社が世界中で使われるモダンなアプリを開発しているなら、Replexicaはあなたのためのものです！
 
-* 🌍 [Discord](https://discord.gg/GeK6AuSqzw)に参加して、好きな点や改善してほしい点、次に見たい機能を教えてください。
+* 🌍 [Discord](https://discord.gg/GeK6AuSqzw)に参加して、好きなこと、嫌いなこと、次に見たいことを教えてください。
 * 🌟 [GitHub](https://github.com/replexica/replexica)でスターを付けてください。
 * 🐞 [GitHub Issues](https://github.com/replexica/replexica/issues)でバグを報告していただければ、できるだけ早く修正します。
 * 🏗️ 開発者の方でReplexicaに貢献したい場合は、[Contributing Guide](./CONTRIBUTING.md)をご覧ください。
 
-## 他の言語でのReplexica README
+## Replexica READMEの他の言語
 
 🇪🇸 [Español](/readme/es.md) •
 🇫🇷 [Français](/readme/fr.md) •

@@ -53,12 +53,12 @@ Schau dir unsere [Dokumentation](https://replexica.com/go/docs) für detailliert
 
 ## Community
 
-Wenn euer Unternehmen eine moderne App entwickelt, die weltweit genutzt wird – Replexica ist genau das Richtige für euch!
+Wenn dein Unternehmen eine moderne App entwickelt, die weltweit genutzt wird – Replexica ist für dich!
 
-* 🌍 Tretet unserem [Discord](https://discord.gg/GeK6AuSqzw) bei und erzählt uns, was euch gefällt, was nicht und was ihr als Nächstes sehen möchtet.
-* 🌟 Gebt uns einen Stern auf [GitHub](https://github.com/replexica/replexica).
-* 🐞 Meldet Bugs über [GitHub Issues](https://github.com/replexica/replexica/issues) und wir beheben sie so schnell wie möglich.
-* 🏗️ Wenn ihr Entwickler seid und zu Replexica beitragen möchtet, schaut euch unseren [Contributing Guide](./CONTRIBUTING.md) an.
+* 🌍 Tritt unserem [Discord](https://discord.gg/GeK6AuSqzw) bei und erzähl uns, was dir gefällt, was nicht und was du als nächstes sehen möchtest.
+* 🌟 Gib uns einen Stern auf [GitHub](https://github.com/replexica/replexica).
+* 🐞 Melde Bugs über [GitHub Issues](https://github.com/replexica/replexica/issues) und wir beheben sie so schnell wie möglich.
+* 🏗️ Wenn du Entwickler bist und zu Replexica beitragen möchtest, schau dir unseren [Beitragsleitfaden](./CONTRIBUTING.md) an.
 
 ## Replexica README in anderen Sprachen
 
@@ -70,6 +70,5 @@ Wenn euer Unternehmen eine moderne App entwickelt, die weltweit genutzt wird –
 🇷🇺 [Русский](/readme/ru.md) •
 🇩🇪 [Deutsch](/readme/de.md) •
 🇸🇦 [العربية](/readme/ar.md) •
-🇨🇳 [中文](/readme/zh.md) •
+🇨🇳 [中文](/readme/zh.md)<br> •
 🇵🇰 [اردو](/readme/ur.md)
-

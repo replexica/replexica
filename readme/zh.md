@@ -42,23 +42,23 @@
 
 Replexica 是一个 AI 驱动的 i18n 平台，帮助快速发布多语言应用。
 
-## 快速开始
+## 入门指南
 
-查看我们的[文档](https://replexica.com/go/docs)，了解如何将 Replexica 集成到你的应用中。
+查看我们的[文档](https://replexica.com/go/docs)，了解如何将 Replexica 集成到您的应用中。
 
 ## 作者
 
-* **[Veronica](https://github.com/vrcprl)** - 数据科学和 LLMs。
+* **[Veronica](https://github.com/vrcprl)** - 数据科学和大语言模型。
 * **[Max](https://github.com/maxprilutskiy)** - React、Typescript 和编译器。
 
 ## 社区
 
-如果你的公司正在开发一款全球用户使用的现代应用程序——Replexica 就是你的最佳选择！
+如果您的公司正在构建一个全球用户使用的现代应用程序——Replexica 适合您！
 
-* 🌍 加入我们的 [Discord](https://discord.gg/GeK6AuSqzw)，告诉我们你喜欢什么，不喜欢什么，以及你希望接下来看到什么。
-* 🌟 在我们的 [GitHub](https://github.com/replexica/replexica) 上给我们一个星星。
-* 🐞 通过 [GitHub Issues](https://github.com/replexica/replexica/issues) 报告错误，我们会尽快修复。
-* 🏗️ 如果你是开发者，想为 Replexica 做贡献，请查看我们的 [贡献指南](./CONTRIBUTING.md)。
+* 🌍 加入我们的[Discord](https://discord.gg/GeK6AuSqzw)，告诉我们您的喜好、不喜欢的地方以及您希望看到的功能。
+* 🌟 在我们的[GitHub](https://github.com/replexica/replexica)上点个星星。
+* 🐞 通过[GitHub Issues](https://github.com/replexica/replexica/issues)报告错误，我们会尽快修复。
+* 🏗️ 如果您是开发者，想为 Replexica 做贡献，请查看我们的[贡献指南](./CONTRIBUTING.md)。
 
 ## Replexica 其他语言的 README
 
