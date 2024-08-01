@@ -2,19 +2,38 @@ import { parseStringPromise, Builder } from 'xml2js';
 import YAML from 'yaml';
 import _ from 'lodash';
 import GrayMatter from 'gray-matter';
+import { flatten, unflatten } from 'flat';
 
 export interface IBucketParser {
   deserialize: (locale: string, content: any) => Promise<Record<string, string>>;
-  serialize: (locale: string, content: Record<string, string>) => Promise<any>;
+  serialize: (locale: string, content: Record<string, string | number | boolean>) => Promise<any>;
 }
 
 export function createJsonParser(): IBucketParser {
   return {
     async deserialize(locale: string, content: string) {
-      return JSON.parse(content);
+      const parsedJson = JSON.parse(content);
+      const flattenedJson: Record<string, string> = flatten(parsedJson, {
+        delimiter: '/',
+        transformKey(key) {
+          // apply uri encoding to keys
+          return encodeURIComponent(String(key));
+        },
+      });
+
+      return flattenedJson;
     },
-    async serialize(locale: string, payload: Record<string, string>) {
-      return JSON.stringify(payload, null, 2);
+    async serialize(locale: string, payload: Record<string, string | number | boolean>) {
+      const unflattenedPayload = unflatten(payload, {
+        delimiter: '/',
+        transformKey(key) {
+          // apply uri decoding to keys
+          return decodeURIComponent(String(key));
+        }
+      });
+
+      const content = JSON.stringify(unflattenedPayload, null, 2);
+      return content;
     }
   };
 }
@@ -68,7 +87,7 @@ export function createMarkdownParser(): IBucketParser {
 
       return result;
     },
-    async serialize(locale: string, content: Record<string, string>) {
+    async serialize(locale: string, content: Record<string, string | number | boolean>) {
       const body = Object
         .entries(content)
         .filter(([key]) => key.startsWith('markdown-line-'))
@@ -99,7 +118,7 @@ export function createYamlParser(params: YamlBucketParserParams): IBucketParser 
       const parsed = YAML.parse(content);
       return params.rootKey ? parsed[locale] : parsed;
     },
-    async serialize(locale: string, content: Record<string, string>) {
+    async serialize(locale: string, content: Record<string, string | number | boolean>) {
       return YAML.stringify(params.rootKey ? { [locale]: content } : content);
     }
   };
