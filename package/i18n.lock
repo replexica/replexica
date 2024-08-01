@@ -44,7 +44,8 @@ checksums:
     colors: d7a8cde36147d2c4caf8d7934557bb92
     numberOfSongsAvailable: 9784e2cf5042f1e8984057779d33e6d1
   0d1abbacc6d742097863ba4d910983a2:
-    home: f8692d39317193acf0e2e47172703c46
+    home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
+    home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
   b05b783b3d24ee943d83ccd8e274814d:
     home: f8692d39317193acf0e2e47172703c46
   81c53af057228d439caa562136986947:
