@@ -1,5 +1,16 @@
 # replexica
 
+## 0.33.0
+
+### Minor Changes
+
+- [#138](https://github.com/replexica/replexica/pull/138) [`8948266`](https://github.com/replexica/replexica/commit/8948266b0f026da9f656c916bedcedc72e5aedba) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Added JSON flat/unflat for more granular control over lockfile caching and performance
+
+### Patch Changes
+
+- Updated dependencies [[`8948266`](https://github.com/replexica/replexica/commit/8948266b0f026da9f656c916bedcedc72e5aedba)]:
+  - @replexica/cli@0.33.0
+
 ## 0.32.0
 
 ### Minor Changes
