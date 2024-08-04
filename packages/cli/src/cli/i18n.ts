@@ -46,19 +46,19 @@ export default new Command()
         ora.succeed('Replexica configuration loaded');
       }
 
-      ora.start('Deleting redundant i18m files')
+      ora.start('Deleting redundant i18m files');
       let i18nLocales = [i18nConfig.locale.source, ...i18nConfig.locale.targets]
       for (const bucketPath of Object.keys(i18nConfig.buckets)) {
-        let directory = bucketPath.substring(0, bucketPath.lastIndexOf('/'))
+        let directory = bucketPath.substring(0, bucketPath.lastIndexOf('/'));
         let parentDir = path.join(process.cwd(), directory);
 
         fs.readdirSync(parentDir).forEach(file => {
-          let fileName = file.substring(file.lastIndexOf('/') + 1)
+          let fileName = file.substring(file.lastIndexOf('/') + 1);
           let locale = fileName.substring(0, fileName.indexOf('.'));
-          const exists = i18nLocales.includes(locale)
+          const exists = i18nLocales.includes(locale);
           if (!exists) {
-            let dir = parentDir + "/" + file
-            fs.unlinkSync(dir)
+            let dir = parentDir + "/" + file;
+            fs.unlinkSync(dir);
           }
         })
       }
