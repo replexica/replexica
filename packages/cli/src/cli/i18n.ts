@@ -9,6 +9,8 @@ import { createEngine } from './../workers/engine';
 import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
+import fs from 'fs';
+import path from 'path';
 
 export default new Command()
   .command('i18n')
@@ -43,6 +45,23 @@ export default new Command()
       } else {
         ora.succeed('Replexica configuration loaded');
       }
+
+      ora.start('Deleting redundant i18m files')
+      let i18nLocales = [...i18nConfig.locale.source, ...i18nConfig.locale.targets]
+      for (const bucketPath of Object.keys(i18nConfig.buckets)) {
+        let directory = bucketPath.substring(0, bucketPath.lastIndexOf('/'))
+        let parentDir = path.join(process.cwd(), directory);
+
+        fs.readdirSync(parentDir).forEach(file => {
+          let fileName = file.substring(file.lastIndexOf('/') + 1)
+          let locale = fileName.substring(0, fileName.indexOf('.'));
+          const exists = i18nLocales.includes(locale)
+          if (!exists) {
+            fs.unlinkSync(file)
+          }
+        })
+      }
+      ora.succeed('Redundant i18n files deleted')
 
       ora.start('Connecting to AI localization engine');
       const authenticator = createAuthenticator({
