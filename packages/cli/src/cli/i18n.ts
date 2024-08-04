@@ -47,7 +47,7 @@ export default new Command()
       }
 
       ora.start('Deleting redundant i18m files')
-      let i18nLocales = [...i18nConfig.locale.source, ...i18nConfig.locale.targets]
+      let i18nLocales = [i18nConfig.locale.source, ...i18nConfig.locale.targets]
       for (const bucketPath of Object.keys(i18nConfig.buckets)) {
         let directory = bucketPath.substring(0, bucketPath.lastIndexOf('/'))
         let parentDir = path.join(process.cwd(), directory);
@@ -57,7 +57,8 @@ export default new Command()
           let locale = fileName.substring(0, fileName.indexOf('.'));
           const exists = i18nLocales.includes(locale)
           if (!exists) {
-            fs.unlinkSync(file)
+            let dir = parentDir + "/" + file
+            fs.unlinkSync(dir)
           }
         })
       }
