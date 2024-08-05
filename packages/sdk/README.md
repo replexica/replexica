@@ -1,23 +1,60 @@
-# Replexica Spec Package
+# Replexica SDK
 
-This package is part of the [Replexica](https://github.com/replexica/replexica) project, an i18n toolkit for React designed to help you ship multi-language apps quickly.
+This package is part of the [Replexica](https://github.com/replexica/replexica) project, an i18n toolkit designed to help you ship multi-language applications quickly and efficiently.
 
 ## Overview
 
-The Replexica Spec package contains the specifications and schemas used by the Replexica toolkit. It defines the structure and rules for translation files and other i18n resources, ensuring consistency and reliability across your internationalized applications.
+The Replexica SDK provides a streamlined interface to interact with the Replexica AI Localization Real-Time API. It simplifies the process of integrating advanced localization capabilities into your applications, enabling you to build sophisticated multilingual experiences with ease.
 
 ## Features
 
-- **Structured Specifications**: Provides a clear and consistent structure for translation files and i18n resources.
-- **Schema Validation**: Ensures that your i18n resources meet the required specifications, preventing errors in translation implementation.
-- **Integration Ready**: Designed to work seamlessly with the Replexica toolkit, allowing for easy integration into your workflow.
+- **Easy API Access**: Provides a simple and intuitive way to interact with the Replexica AI Localization Real-Time API.
+- **Efficient Chunking**: Automatically handles payload chunking for optimal API usage.
+- **Progress Tracking**: Offers built-in progress reporting for long-running localization tasks.
+- **Error Handling**: Robust error handling for API interactions.
+- **Flexible Configuration**: Customizable settings for API endpoints, batch sizes, and more.
+
+## Use Cases
+
+The Replexica SDK is versatile and can be used in various scenarios, including:
+
+- Building multilingual chat applications
+- Developing next-generation email clients with real-time translation
+- Creating comment systems with on-the-fly localization
+- Any application requiring real-time or batch localization of content
+
+## Installation
+
+```bash
+npm install @replexica/sdk
+```
+
+## Usage
+
+```javascript
+import { ReplexicaClient } from '@replexica/sdk';
+
+const client = new ReplexicaClient({
+  apiKey: 'your-api-key', // Your Replexica API key, obtained from the Replexica.com dashboard
+});
+
+const localizedContent = await client.localize(
+  { key: 'Hello, world!' },
+  { sourceLocale: 'en', targetLocale: 'es' },
+  (progress) => console.log(`Localization progress: ${progress}%`) // Optional progress callback
+);
+
+console.log(localizedContent);
+```
+
+For more detailed usage instructions and API documentation, please refer to the [Replexica documentation](https://docs.replexica.com).
 
 ## Contributing
 
-Contributions to the Replexica Spec package are encouraged. If you would like to contribute, please review our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) for detailed instructions.
+Contributions to the Replexica SDK are welcome. If you would like to contribute, please review our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) for detailed instructions.
 
 ## License
 
-The Replexica Spec package is released under the [MIT License](https://github.com/replexica/replexica/blob/main/LICENSE). This license allows for both personal and commercial use, modification, distribution, and private use of the code.
+The Replexica SDK inherits its license from the root of the Replexica repository. For the most up-to-date licensing information, please refer to the [LICENSE](https://github.com/replexica/replexica/blob/main/LICENSE) file in the root of the Replexica repository.
 
-For more detailed information and usage instructions, please refer to the main [Replexica repository](https://github.com/replexica/replexica).
+For more information about Replexica and its ecosystem, please visit the main [Replexica repository](https://github.com/replexica/replexica).
