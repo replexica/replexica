@@ -5,10 +5,10 @@ import { loadSettings } from './../workers/settings';
 import Ora from 'ora';
 import _ from 'lodash';
 import { createBucketProcessor } from './../workers/bucket';
-import { createEngine } from './../workers/engine';
 import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
+import { ReplexicaEngine } from '@replexica/sdk';
 
 export default new Command()
   .command('i18n')
@@ -59,7 +59,7 @@ export default new Command()
       }
 
       ora.start('Connecting to AI localization engine');
-      const engine = createEngine({
+      const replexicaEngine = new ReplexicaEngine({
         apiKey: settings.auth.apiKey,
         apiUrl: settings.auth.apiUrl,
       });
@@ -109,35 +109,33 @@ export default new Command()
             continue;
           }
           localeOra.info(`Found ${payloadStats.total} keys (${payloadStats.new} new, ${payloadStats.updated} updated, ${payloadStats.deleted} deleted)`);
-          // Split the processable payload into and array of objects, each containing 25 keys max
-          const chunkedPayload = _extractPayloadChunks(processablePayload);
-          // Process the payload chunks
-          const processedPayloadChunks: Record<string, string>[] = [];
-          for (let i = 0; i < chunkedPayload.length; i++) {
-            try {
-              // Localize the payload chunk
-              const chunk = chunkedPayload[i];
-              const percentageCompleted = Math.round(((i + 1) / chunkedPayload.length) * 100);
-              localeOra.start(`(${percentageCompleted}%) AI translation in progress...`);
-              const processedPayloadChunk = await engine.localize(
-                i18nConfig.locale.source, 
-                targetLocale,
-                { meta: {}, data: chunk },
-              )
-              // Add the processed payload chunk to the list with the rest of the processed chunks
-              processedPayloadChunks.push(processedPayloadChunk);
-            } catch (error: any) {
-              localeOra.fail(error.message);
-            }
+          
+          try {
+            // Use the SDK to localize the payload
+            localeOra.start('AI translation in progress...');
+            const processedPayload = await replexicaEngine.localize(
+              processablePayload,
+              {
+                sourceLocale: i18nConfig.locale.source,
+                targetLocale: targetLocale,
+              },
+              (progress) => {
+                localeOra.text = `(${progress}%) AI translation in progress...`;
+              }
+            );
+            
+            localeOra.succeed(`AI translation completed`);
+            
+            // Merge the processed payload and the original target payload into a single entity
+            const newTargetPayload = _.omit(
+              _.merge(targetPayload, processedPayload),
+              Object.keys(deletedPayload),
+            );
+            // Save the new target payload
+            await bucketProcessor.save(targetLocale, newTargetPayload);
+          } catch (error: any) {
+            localeOra.fail(error.message);
           }
-          localeOra.succeed(`AI translation completed`);
-          // Merge the processed payload chunks and the original target payload into a single entity
-          const newTargetPayload = _.omit(
-            _.merge(targetPayload, ...processedPayloadChunks),
-            Object.keys(deletedPayload),
-          )
-          // Save the new target payload
-          await bucketProcessor.save(targetLocale, newTargetPayload);
         }
         // Update the lockfile with the new checksums after the process is done
         bucketOra.start('Updating i18n lockfile');
@@ -153,31 +151,6 @@ export default new Command()
 
 // Private
 
-function _extractPayloadChunks(payload: Record<string, string>): Record<string, string>[] {
-  // Split the key-value payload into an array of key-value sub-payloads.
-  // Each of the sub-payloads' sum of values' words counts be roughly N: during the loop,
-  // whenever the word count of the current sub-payload exceeds N, the current key-value pair
-  // must be the last one in the current sub-payload, and the next key-value pair must go into a new sub-payload.
-  const idealChunkSize = 200;
-  const result: Record<string, string>[] = [];
-
-  let currentChunk: Record<string, string> = {};
-
-  const payloadEntries = Object.entries(payload);
-  for (let i = 0; i < payloadEntries.length; i++) {
-    const [key, value] = payloadEntries[i];
-    currentChunk[key] = value;
-
-    const currentChunkSize = _countWordsInRecord(currentChunk);
-    if (currentChunkSize > idealChunkSize || i === payloadEntries.length - 1) {
-      result.push(currentChunk);
-      currentChunk = {};
-    }
-  }
-
-  return result;
-}
-
 async function loadFlags(options: any) {
   return Z.object({
     locale: targetLocaleSchema.optional(),
@@ -185,16 +158,4 @@ async function loadFlags(options: any) {
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),
   }).parse(options);
-}
-
-function _countWordsInRecord(payload: any | Record<string, any> | Array<any>): number {
-  if (_.isArray(payload)) {
-    return payload.reduce((acc, item) => acc + _countWordsInRecord(item), 0);
-  } else if (_.isObject(payload)) {
-    return Object.values(payload).reduce((acc, item) => acc + _countWordsInRecord(item), 0);
-  } else if (_.isString(payload)) {
-    return payload.trim().split(' ').filter(Boolean).length;
-  } else {
-    return 0;
-  }
 }
