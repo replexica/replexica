@@ -1,0 +1,32 @@
+{
+  "name": "@replexica/sdk",
+  "version": "0.0.0",
+  "description": "Replexica JS SDK",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "types": "build/index.d.ts",
+  "module": "build/index.mjs",
+  "main": "build/index.cjs",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
+    "@replexica/spec": "workspace:*",
+    "typescript": "^5.4.5",
+    "vitest": "^2.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  }
+}

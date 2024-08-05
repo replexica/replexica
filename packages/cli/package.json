@@ -21,6 +21,7 @@
     "@inquirer/prompts": "^5.1.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "@replexica/spec": "workspace:*",
+    "@replexica/sdk": "workspace:*",
     "commander": "^12.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
