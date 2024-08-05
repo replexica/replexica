@@ -32,18 +32,29 @@ npm install @replexica/sdk
 ## Usage
 
 ```javascript
-import { ReplexicaClient } from '@replexica/sdk';
+/*
+  For the sake of this example,
+  we're assuming that REPLEXICA_API_KEY is stored in a .env file.
+*/
+import dotenv from 'dotenv';
+dotenv.config();
 
-const client = new ReplexicaClient({
-  apiKey: 'your-api-key', // Your Replexica API key, obtained from the Replexica.com dashboard
+// Import the Replexica SDK
+import { ReplexicaEngine } from '@replexica/sdk';
+
+// Initialize the Replexica Engine SDK
+const replexica = new ReplexicaEngine({
+  apiKey: process.env.REPLEXICA_API_KEY, // Your Replexica API key, obtained from the Replexica.com dashboard
 });
 
-const localizedContent = await client.localize(
-  { key: 'Hello, world!' },
+// Localize a JSON payload
+const localizedContent = await replexica.localize(
+  { myKey: 'Hello, world!' },
   { sourceLocale: 'en', targetLocale: 'es' },
   (progress) => console.log(`Localization progress: ${progress}%`) // Optional progress callback
 );
 
+// Output the localized content
 console.log(localizedContent);
 ```
 
