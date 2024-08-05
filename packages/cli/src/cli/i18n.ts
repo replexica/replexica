@@ -8,7 +8,7 @@ import { createBucketProcessor } from './../workers/bucket';
 import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
-import { ReplexicaClient } from '@replexica/sdk';
+import { ReplexicaEngine } from '@replexica/sdk';
 
 export default new Command()
   .command('i18n')
@@ -59,7 +59,7 @@ export default new Command()
       }
 
       ora.start('Connecting to AI localization engine');
-      const replexicaClient = new ReplexicaClient({
+      const replexicaEngine = new ReplexicaEngine({
         apiKey: settings.auth.apiKey,
         apiUrl: settings.auth.apiUrl,
       });
@@ -113,7 +113,7 @@ export default new Command()
           try {
             // Use the SDK to localize the payload
             localeOra.start('AI translation in progress...');
-            const processedPayload = await replexicaClient.localize(
+            const processedPayload = await replexicaEngine.localize(
               processablePayload,
               {
                 sourceLocale: i18nConfig.locale.source,

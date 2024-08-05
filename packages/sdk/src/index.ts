@@ -2,7 +2,7 @@ import Z from 'zod';
 import { sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
 import { createId } from "@paralleldrive/cuid2";
 
-const replexicaClientParamsSchema = Z.object({
+const replexicaEngineParamsSchema = Z.object({
   apiKey: Z.string(),
   apiUrl: Z.string().url().default('https://engine.replexica.com'),
   batchSize: Z.number()
@@ -29,19 +29,19 @@ const replexicaLocalizationParamsSchema = Z.object({
 });
 
 /**
- * ReplexicaClient class for interacting with the Replexica API
+ * ReplexicaEngine class for interacting with the Replexica API
  */
-export class ReplexicaClient {
-  private config: Z.infer<typeof replexicaClientParamsSchema>;
+export class ReplexicaEngine {
+  private config: Z.infer<typeof replexicaEngineParamsSchema>;
 
   /**
-   * Create a new ReplexicaClient instance
-   * @param config - Configuration options for the client
+   * Create a new ReplexicaEngine instance
+   * @param config - Configuration options for the Engine
    */
   constructor(
-    config: Partial<Z.infer<typeof replexicaClientParamsSchema>>,
+    config: Partial<Z.infer<typeof replexicaEngineParamsSchema>>,
   ) {
-    this.config = replexicaClientParamsSchema.parse(config);
+    this.config = replexicaEngineParamsSchema.parse(config);
   }
 
   /**
