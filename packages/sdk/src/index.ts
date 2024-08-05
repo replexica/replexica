@@ -60,12 +60,10 @@ export class ReplexicaEngine {
     const finalParams = replexicaLocalizationParamsSchema.parse(params);
 
     const chunkedPayload = this.extractPayloadChunks(finalPayload);
-    console.log('Chunked payload:', chunkedPayload);
     const processedPayloadChunks: Record<string, string>[] = [];
 
     const workflowId = createId()
     for (let i = 0; i < chunkedPayload.length; i++) {
-      console.log(`Processing chunk ${i} of ${chunkedPayload.length}`);
       const chunk = chunkedPayload[i];
       const percentageCompleted = Math.round(((i + 1) / chunkedPayload.length) * 100);
 
