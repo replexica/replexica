@@ -6,7 +6,7 @@ description: >-
 meta:
   - name: keywords
     content: >-
-      stringyfy, npm, biblioteca, utilidades, funciones, manipular, transformar,
+      stringyfy, npm, biblioteca, utilidad, funciones, manipular, transformar,
       cadenas, JavaScript
   - name: author
     content: stringyfy
@@ -66,7 +66,7 @@ Convierte todos los caracteres de la cadena dada a mayúsculas.
 
 ## Contribuir
 
-Las solicitudes de extracción son bienvenidas. Para cambios importantes, abre un issue primero para discutir lo que te gustaría cambiar.
+Las solicitudes de extracción son bienvenidas. Para cambios importantes, abre primero un issue para discutir lo que te gustaría cambiar.
 
 ## Licencia
 

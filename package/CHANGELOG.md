@@ -1,5 +1,27 @@
 # replexica
 
+## 0.34.0
+
+### Minor Changes
+
+- [#142](https://github.com/replexica/replexica/pull/142) [`d9b0e51`](https://github.com/replexica/replexica/commit/d9b0e512196329cc781a4d33346f8ca0f3a81e7e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Extract API calling into SDK package
+
+### Patch Changes
+
+- Updated dependencies [[`d9b0e51`](https://github.com/replexica/replexica/commit/d9b0e512196329cc781a4d33346f8ca0f3a81e7e)]:
+  - @replexica/cli@0.34.0
+
+## 0.33.0
+
+### Minor Changes
+
+- [#138](https://github.com/replexica/replexica/pull/138) [`8948266`](https://github.com/replexica/replexica/commit/8948266b0f026da9f656c916bedcedc72e5aedba) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Added JSON flat/unflat for more granular control over lockfile caching and performance
+
+### Patch Changes
+
+- Updated dependencies [[`8948266`](https://github.com/replexica/replexica/commit/8948266b0f026da9f656c916bedcedc72e5aedba)]:
+  - @replexica/cli@0.33.0
+
 ## 0.32.0
 
 ### Minor Changes
