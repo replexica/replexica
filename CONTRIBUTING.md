@@ -18,3 +18,9 @@ We actively welcome your Pull Requests! A couple of things to keep in mind befor
 
 - If you’re fixing an Issue, make sure someone else hasn’t already created a PR fixing the same issue. Likewise, make sure to link your PR to the related Issue(s).
 - We will always try to accept the first viable PR that resolves the Issue.
+
+## Release Process
+
+Be sure to run `pnpm new` after you're done with the changes. This will use `changesets` library to trigger a new version after the PR is merged to the main branch.
+
+Be sure to do that after requesting a review from the maintainers: the CI build will fail if you don't run `pnpm new`.
