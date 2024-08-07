@@ -1,19 +1,15 @@
 ---
 title: stringyfy
-description: >-
-  Una sencilla biblioteca de npm que proporciona un conjunto de funciones
-  utilitarias para manipular y transformar cadenas en JavaScript.
+description: Una sencilla biblioteca de npm que proporciona un conjunto de funciones utilitarias para manipular y transformar cadenas en JavaScript.
 meta:
   - name: keywords
-    content: >-
-      stringyfy, npm, biblioteca, utilidad, funciones, manipular, transformar,
-      cadenas, JavaScript
+    content: stringyfy, npm, biblioteca, utilidad, funciones, manipular, transformar, cadenas, JavaScript
   - name: author
     content: stringyfy
   - name: date
-    content: '2021-10-01T00:00:00.000Z'
-  - property: 'og:image'
-    content: 'https://cdn.jsdelivr.net/gh/stringyfy/assets/images/logo.png'
+    content: 2021-10-01T00:00:00.000Z
+  - property: og:image
+    content: https://cdn.jsdelivr.net/gh/stringyfy/assets/images/logo.png
 sidebar: auto
 category: Bibliotecas
 ---
