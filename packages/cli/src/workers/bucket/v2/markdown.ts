@@ -1,4 +1,4 @@
-import GrayMatter from 'gray-matter';
+import YAML from 'yaml';
 import { BucketLoader } from "./_base";
 
 const mdLinePrefix = 'markdown-line-';
@@ -6,10 +6,20 @@ const fmAttributePrefix = 'frontmatter-attribute-';
 
 export const markdownLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(text: string) {
-    const fmContent = GrayMatter(text);
+    // Manually split frontmatter and content
+    const parts = text.split(/^---\s*$/m);
+    let frontmatter = '';
+    let body = '';
 
-    const attributes = fmContent.data;
-    const body = fmContent.content;
+    if (parts.length >= 3) {
+      frontmatter = parts[1].trim();
+      body = parts.slice(2).join('---').trim();
+    } else {
+      body = text.trim();
+    }
+
+    // Parse frontmatter using YAML
+    const attributes = frontmatter ? YAML.parse(frontmatter) : {};
 
     const sectionStarters = [
       // Matches headings
@@ -62,6 +72,14 @@ export const markdownLoader = (): BucketLoader<string, Record<string, any>> => (
         [key.replace(fmAttributePrefix, '')]: value,
       }), {} as any);
 
-    return GrayMatter.stringify(body, attributes);
+    if (Object.keys(attributes).length === 0) {
+      return body;
+    }
+
+    // Convert attributes to YAML string
+    const frontmatter = YAML.stringify(attributes, {
+      lineWidth: -1,
+    });
+    return `---\n${frontmatter}---\n\n${body}`;
   },
 });

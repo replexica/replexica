@@ -6,6 +6,8 @@ export const yamlLoader = (): BucketLoader<string, Record<string, any>> => ({
     return YAML.parse(text || '{}');
   },
   async save(payload) {
-    return YAML.stringify(payload);
+    return YAML.stringify(payload, {
+      lineWidth: -1,
+    });
   }
 });

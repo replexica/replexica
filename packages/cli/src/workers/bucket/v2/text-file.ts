@@ -12,6 +12,7 @@ export const textLoader = (filePath: string): BucketLoader<void, string> => ({
     // create parent directories if they don't exist
     await fs.mkdir(filePath.split('/').slice(0, -1).join('/'), { recursive: true });
     // write the file
-    await fs.writeFile(filePath, payload, { encoding: 'utf-8', flag: 'w' });
+    const finalPayload = payload.trim() + '\n';
+    await fs.writeFile(filePath, finalPayload, { encoding: 'utf-8', flag: 'w' });
   },
 })
