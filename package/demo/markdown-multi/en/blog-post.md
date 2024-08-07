@@ -1,36 +1,40 @@
 ---
 title: stringyfy
-description: A simple npm library that provides a set of utility functions to manipulate and transform strings in JavaScript.
+description: >-
+  Una sencilla biblioteca de npm que proporciona un conjunto de funciones
+  utilitarias para manipular y transformar cadenas en JavaScript.
 meta:
   - name: keywords
-    content: stringyfy, npm, library, utility, functions, manipulate, transform, strings, JavaScript
+    content: >-
+      stringyfy, npm, biblioteca, utilidad, funciones, manipular, transformar,
+      cadenas, JavaScript
   - name: author
     content: stringyfy
   - name: date
-    content: 2021-10-01
-  - property: og:image
-    content: https://cdn.jsdelivr.net/gh/stringyfy/assets/images/logo.png
+    content: '2021-10-01T00:00:00.000Z'
+  - property: 'og:image'
+    content: 'https://cdn.jsdelivr.net/gh/stringyfy/assets/images/logo.png'
 sidebar: auto
-category: Libraries
+category: Bibliotecas
 ---
 
 # stringyfy
 
-## Description
+## Descripción
 
-`stringyfy` is a simple npm library that provides a set of utility functions to manipulate and transform strings in JavaScript. It's lightweight, easy to use, and has no dependencies.
+`stringyfy` es una sencilla biblioteca de npm que proporciona un conjunto de funciones utilitarias para manipular y transformar cadenas en JavaScript. Es ligera, fácil de usar y no tiene dependencias.
 
-## Installation
+## Instalación
 
-To install `stringyfy`, use the following command:
+Para instalar `stringyfy`, usa el siguiente comando:
 
 ```bash
 npm install stringyfy
 ```
 
-## Usage
+## Uso
 
-Here's a simple example of how to use `stringyfy`:
+Aquí tienes un ejemplo sencillo de cómo usar `stringyfy`:
 
 ```javascript
 const stringyfy = require('stringyfy');
@@ -39,31 +43,31 @@ let str = "Hello, World!";
 
 let result = stringyfy.reverse(str);
 
-console.log(result); // Outputs: "!dlroW ,olleH"
+console.log(result); // Muestra: "!dlroW ,olleH"
 ```
 
 ## API
 
 ### `reverse(str)`
 
-Reverses the given string.
+Invierte la cadena dada.
 
 ### `capitalize(str)`
 
-Capitalizes the first letter of the given string.
+Capitaliza la primera letra de la cadena dada.
 
 ### `lowercase(str)`
 
-Converts all the characters in the given string to lowercase.
+Convierte todos los caracteres de la cadena dada a minúsculas.
 
 ### `uppercase(str)`
 
-Converts all the characters in the given string to uppercase.
+Convierte todos los caracteres de la cadena dada a mayúsculas.
 
-## Contributing
+## Contribuir
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Las solicitudes de extracción son bienvenidas. Para cambios importantes, abre primero un issue para discutir lo que te gustaría cambiar.
 
-## License
+## Licencia
 
 MIT
