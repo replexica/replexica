@@ -115,6 +115,7 @@ export default new Command()
         const savedChecksums = await lockfileProcessor.loadChecksums(placeholderedPath);
         // Calculate current checksums for the source payload
         const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
+
         // Compare the checksums with the ones stored in the lockfile to determine the updated keys
         const updatedPayload = flags.force
           ? sourcePayload
