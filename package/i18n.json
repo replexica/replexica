@@ -6,6 +6,7 @@
     ]
   },
   "buckets": {
+    "demo/markdown-multi/[locale]/*.md": "markdown",
     "demo/markdown/[locale].md": "markdown",
     "demo/xcode/Localizable.xcstrings": "xcode",
     "demo/android/[locale].xml": "android",
