@@ -1,5 +1,16 @@
 # replexica
 
+## 0.35.0
+
+### Minor Changes
+
+- [`d293f05`](https://github.com/replexica/replexica/commit/d293f059e1bd9131d6d41ceffc713efa8d6fa598) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - New feature: remove unused keys, whenever a key gets deleted in the source file (thanks @quentin-decre!)
+
+### Patch Changes
+
+- Updated dependencies [[`d293f05`](https://github.com/replexica/replexica/commit/d293f059e1bd9131d6d41ceffc713efa8d6fa598)]:
+  - @replexica/cli@0.35.0
+
 ## 0.34.0
 
 ### Minor Changes
