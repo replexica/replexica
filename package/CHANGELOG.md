@@ -1,5 +1,16 @@
 # replexica
 
+## 0.36.0
+
+### Minor Changes
+
+- [#148](https://github.com/replexica/replexica/pull/148) [`fca3bd9`](https://github.com/replexica/replexica/commit/fca3bd984e5bef20a4a9921d7562980a3401f131) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add basic glob pattern support for multi-file buckets
+
+### Patch Changes
+
+- Updated dependencies [[`fca3bd9`](https://github.com/replexica/replexica/commit/fca3bd984e5bef20a4a9921d7562980a3401f131)]:
+  - @replexica/cli@0.36.0
+
 ## 0.35.0
 
 ### Minor Changes
