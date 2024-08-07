@@ -36,7 +36,7 @@ export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: strin
   // Find the index of the segment containing "[locale]"
   const localeSegmentIndex = pathPatternChunks.findIndex((segment) => segment.includes('[locale]'));
   // Find the position of the "[locale]" placeholder within the segment
-  const localePlaceholderIndex = pathPatternChunks[localeSegmentIndex].indexOf('[locale]');
+  const localePlaceholderIndex = pathPatternChunks[localeSegmentIndex]?.indexOf('[locale]') ?? -1;
   // substitute [locale] in pathPattern with sourceLocale
   const sourcePathPattern = pathPattern.replace(/\[locale\]/g, sourceLocale);
   // get all files that match the sourcePathPattern
