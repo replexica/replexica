@@ -97,7 +97,7 @@ export default new Command()
           placeholderedPathsTuples.push([placeholderedPath, bucketType]);
         }
       }
-      
+
       const lockfileProcessor = createLockfileProcessor();
       for (const [placeholderedPath, bucketType] of placeholderedPathsTuples) {
         console.log('');
@@ -166,8 +166,6 @@ export default new Command()
                   localeOra.text = `(${progress}%) AI translation in progress...`;
                 }
               );
-
-              console.log({ processedPayload });
 
               localeOra.succeed(`AI translation completed`);
             } catch (error: any) {

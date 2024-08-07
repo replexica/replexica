@@ -34,17 +34,20 @@ export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: strin
   // Break down path pattern into parts
   const pathPatternChunks = pathPattern.split(path.sep);
   // Find the index of the segment containing "[locale]"
-  const localeSegmentIndex = pathPatternChunks.findIndex((segment) => segment === '[locale]');
+  const localeSegmentIndex = pathPatternChunks.findIndex((segment) => segment.includes('[locale]'));
   // Find the position of the "[locale]" placeholder within the segment
-  const localePlaceholderIndex = pathPatternChunks[localeSegmentIndex]?.indexOf('[locale]') || -1;
+  const localePlaceholderIndex = pathPatternChunks[localeSegmentIndex].indexOf('[locale]');
   // substitute [locale] in pathPattern with sourceLocale
   const sourcePathPattern = pathPattern.replace(/\[locale\]/g, sourceLocale);
   // get all files that match the sourcePathPattern
-  const sourcePaths = glob.sync(sourcePathPattern, { follow: true, withFileTypes: true });
+  const sourcePaths = glob
+    .sync(sourcePathPattern, { follow: true, withFileTypes: true })
+    .filter((file) => file.isFile())
+    .map((file) => file.fullpath())
+    .map((fullpath) => path.relative(process.cwd(), fullpath));
   // transform each source file path back to [locale] placeholder paths
   const placeholderedPaths = sourcePaths.map((sourcePath) => {
-    const relativePath = path.relative(process.cwd(), sourcePath.fullpath());
-    const relativePathChunks = relativePath.split(path.sep);
+    const relativePathChunks = sourcePath.split(path.sep);
     if (localeSegmentIndex >= 0 && localePlaceholderIndex >= 0) {
       const placeholderedPathChunk = relativePathChunks[localeSegmentIndex];
       const placeholderedSegment =
