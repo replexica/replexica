@@ -84,93 +84,100 @@ export default new Command()
         apiUrl: settings.auth.apiUrl,
       });
       ora.succeed('AI localization engine connected');
-
-      const lockfileProcessor = createLockfileProcessor();
+      
       const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
-      for (const [placeholderedGlob, bucketType] of Object.entries(targetedBuckets)) {
+      const targetedBucketsTuples = Object.entries(targetedBuckets);
+      const placeholderedPathsTuples: [string, typeof targetedBuckets[keyof typeof targetedBuckets]][] = [];
+      for (const [placeholderedGlob, bucketType] of targetedBucketsTuples) {
         const placeholderedPaths = expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source);
         for (const placeholderedPath of placeholderedPaths) {
-          console.log('');
-          const bucketOra = Ora({});
-          bucketOra.info(`Processing ${placeholderedPath}`);
-          // Create the payload processor instance for the current bucket type
-          const sourceBucketFileLoader = createBucketLoader(bucketType);
-          // Load the source locale payload
-          const sourceFilename = placeholderedPath.replace('[locale]', i18nConfig.locale.source);
-          const sourcePayload = await sourceBucketFileLoader.load(sourceFilename, i18nConfig.locale.source);
-          // Load saved checksums from the lockfile
-          const savedChecksums = await lockfileProcessor.loadChecksums(sourceFilename);
-          // Calculate current checksums for the source payload
-          const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
-          // Compare the checksums with the ones stored in the lockfile to determine the updated keys
-          const updatedPayload = flags.force
-            ? sourcePayload
-            : _.pickBy(sourcePayload, (value, key) => savedChecksums[key] !== currentChecksums[key]);
-  
-          const targetLocales = flags.locale ? [flags.locale] : i18nConfig.locale.targets;
-          for (const targetLocale of targetLocales) {
-            const localeOra = Ora({ indent: 2, prefixText: `${i18nConfig.locale.source} -> ${targetLocale}` });
-            // Load the source locale and target locale payloads
-            const targetBucketFileLoader = createBucketLoader(bucketType);
-            const targetPayload = await targetBucketFileLoader.load(placeholderedPath, targetLocale);
-            // Calculate the deltas between the source and target payloads
-            const newPayload = _.omit(sourcePayload, Object.keys(targetPayload));
-            // Calculate the deleted keys between the source and target payloads
-            const deletedPayload = _.omit(targetPayload, Object.keys(sourcePayload));
-            // Calculate the processable payload to send to the engine
-            const processablePayload = _.merge({}, newPayload, updatedPayload);
-            const payloadStats = {
-              new: Object.keys(newPayload).length,
-              updated: Object.keys(updatedPayload).length,
-              deleted: Object.keys(deletedPayload).length,
-              processable: Object.keys(processablePayload).length,
-            };
-  
-            if (flags.frozen && (payloadStats.processable > 0 || payloadStats.deleted > 0)) {
-              throw new Error(`Translations are not up to date. Run the command without the --frozen flag to update the translations, then try again.`);
-            }
-  
-            let processedPayload: Record<string, string> = {};
-            if (!payloadStats.processable) {
-              localeOra.succeed('Translations are up to date');
-            } else {
-              localeOra.info(`Found ${payloadStats.processable} keys (${payloadStats.new} new, ${payloadStats.updated} updated, ${payloadStats.deleted} deleted)`);
-  
-              try {
-                // Use the SDK to localize the payload
-                localeOra.start('AI translation in progress...');
-                processedPayload = await replexicaEngine.localize(
-                  processablePayload,
-                  {
-                    sourceLocale: i18nConfig.locale.source,
-                    targetLocale: targetLocale,
-                  },
-                  (progress) => {
-                    localeOra.text = `(${progress}%) AI translation in progress...`;
-                  }
-                );
-  
-                localeOra.succeed(`AI translation completed`);
-              } catch (error: any) {
-                localeOra.fail(error.message);
-              }
-            }
-            // Merge the processed payload and the original target payload into a single entity
-            const newTargetPayload = _.omit(
-              _.merge(targetPayload, processedPayload),
-              Object.keys(deletedPayload),
-            );
-            // Save the new target payload
-            await targetBucketFileLoader.save(newTargetPayload, targetLocale);
-          }
-          // Update the lockfile with the new checksums after the process is done
-          bucketOra.start('Updating i18n lockfile');
-          await lockfileProcessor.saveChecksums(sourceFilename, currentChecksums);
-          bucketOra.succeed('I18n lockfile updated');
-        
+          placeholderedPathsTuples.push([placeholderedPath, bucketType]);
         }
       }
-      await lockfileProcessor.cleanupCheksums(Object.keys(i18nConfig.buckets));
+      
+      const lockfileProcessor = createLockfileProcessor();
+      for (const [placeholderedPath, bucketType] of placeholderedPathsTuples) {
+        console.log('');
+        const bucketOra = Ora({});
+        bucketOra.info(`Processing ${placeholderedPath}`);
+        // Create the payload processor instance for the current bucket type
+        const sourceBucketFileLoader = createBucketLoader(bucketType);
+        // Load the source locale payload
+        const sourceFilename = placeholderedPath.replace('[locale]', i18nConfig.locale.source);
+        const sourcePayload = await sourceBucketFileLoader.load(sourceFilename, i18nConfig.locale.source);
+        // Load saved checksums from the lockfile
+        const savedChecksums = await lockfileProcessor.loadChecksums(sourceFilename);
+        // Calculate current checksums for the source payload
+        const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
+        // Compare the checksums with the ones stored in the lockfile to determine the updated keys
+        const updatedPayload = flags.force
+          ? sourcePayload
+          : _.pickBy(sourcePayload, (value, key) => savedChecksums[key] !== currentChecksums[key]);
+
+        const targetLocales = flags.locale ? [flags.locale] : i18nConfig.locale.targets;
+        for (const targetLocale of targetLocales) {
+          const localeOra = Ora({ indent: 2, prefixText: `${i18nConfig.locale.source} -> ${targetLocale}` });
+          // Load the source locale and target locale payloads
+          const targetBucketFileLoader = createBucketLoader(bucketType);
+          const targetPayload = await targetBucketFileLoader.load(placeholderedPath, targetLocale);
+          // Calculate the deltas between the source and target payloads
+          const newPayload = _.omit(sourcePayload, Object.keys(targetPayload));
+          // Calculate the deleted keys between the source and target payloads
+          const deletedPayload = _.omit(targetPayload, Object.keys(sourcePayload));
+          // Calculate the processable payload to send to the engine
+          const processablePayload = _.merge({}, newPayload, updatedPayload);
+          const payloadStats = {
+            new: Object.keys(newPayload).length,
+            updated: Object.keys(updatedPayload).length,
+            deleted: Object.keys(deletedPayload).length,
+            processable: Object.keys(processablePayload).length,
+          };
+
+          if (flags.frozen && (payloadStats.processable > 0 || payloadStats.deleted > 0)) {
+            throw new Error(`Translations are not up to date. Run the command without the --frozen flag to update the translations, then try again.`);
+          }
+
+          let processedPayload: Record<string, string> = {};
+          if (!payloadStats.processable) {
+            localeOra.succeed('Translations are up to date');
+          } else {
+            localeOra.info(`Found ${payloadStats.processable} keys (${payloadStats.new} new, ${payloadStats.updated} updated, ${payloadStats.deleted} deleted)`);
+
+            try {
+              // Use the SDK to localize the payload
+              localeOra.start('AI translation in progress...');
+              processedPayload = await replexicaEngine.localize(
+                processablePayload,
+                {
+                  sourceLocale: i18nConfig.locale.source,
+                  targetLocale: targetLocale,
+                },
+                (progress) => {
+                  localeOra.text = `(${progress}%) AI translation in progress...`;
+                }
+              );
+
+              localeOra.succeed(`AI translation completed`);
+            } catch (error: any) {
+              localeOra.fail(error.message);
+            }
+          }
+          // Merge the processed payload and the original target payload into a single entity
+          const newTargetPayload = _.omit(
+            _.merge(targetPayload, processedPayload),
+            Object.keys(deletedPayload),
+          );
+          // Save the new target payload
+          await targetBucketFileLoader.save(newTargetPayload, targetLocale);
+        }
+        // Update the lockfile with the new checksums after the process is done
+        await lockfileProcessor.saveChecksums(sourceFilename, currentChecksums);
+      }
+      const placeholderedPaths = placeholderedPathsTuples.map(([placeholderedPath]) => placeholderedPath);
+      await lockfileProcessor.cleanupCheksums(placeholderedPaths);
+
+      console.log('');
+      ora.succeed('I18n lockfile synced');
     } catch (error: any) {
       ora.fail(error.message);
       process.exit(1);
