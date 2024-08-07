@@ -4,11 +4,11 @@ import { loadConfig } from './../workers/config';
 import { loadSettings } from './../workers/settings';
 import Ora from 'ora';
 import _ from 'lodash';
-import { createBucketProcessor } from './../workers/bucket';
 import { targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
+import { expandPlaceholderedGlob, createBucketLoader } from '../workers/bucket/v2';
 // import fs from 'fs';
 // import path from 'path';
 
@@ -84,21 +84,38 @@ export default new Command()
         apiUrl: settings.auth.apiUrl,
       });
       ora.succeed('AI localization engine connected');
+      
+      // Determine the exact buckets to process
+      const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
+
+      // Expand the placeholdered globs into actual (placeholdered) paths
+      const targetedBucketsTuples = Object.entries(targetedBuckets);
+      const placeholderedPathsTuples: [string, typeof targetedBuckets[keyof typeof targetedBuckets]][] = [];
+      for (const [placeholderedGlob, bucketType] of targetedBucketsTuples) {
+        const placeholderedPaths = expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source);
+        for (const placeholderedPath of placeholderedPaths) {
+          placeholderedPathsTuples.push([placeholderedPath, bucketType]);
+        }
+      }
 
       const lockfileProcessor = createLockfileProcessor();
-      const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
-      for (const [bucketPath, bucketType] of Object.entries(targetedBuckets)) {
+      for (const [placeholderedPath, bucketType] of placeholderedPathsTuples) {
         console.log('');
         const bucketOra = Ora({});
-        bucketOra.info(`Processing ${bucketPath}`);
+        bucketOra.info(`Processing ${placeholderedPath}`);
         // Create the payload processor instance for the current bucket type
-        const bucketProcessor = createBucketProcessor(bucketType, bucketPath);
-        // Load saved checksums from the lockfile
-        const savedChecksums = await lockfileProcessor.loadChecksums(bucketPath);
+        const sourceBucketFileLoader = createBucketLoader({
+          bucketType,
+          placeholderedPath,
+          locale: i18nConfig.locale.source,
+        });
         // Load the source locale payload
-        const sourcePayload = await bucketProcessor.load(i18nConfig.locale.source);
+        const sourcePayload = await sourceBucketFileLoader.load();
+        // Load saved checksums from the lockfile
+        const savedChecksums = await lockfileProcessor.loadChecksums(placeholderedPath);
         // Calculate current checksums for the source payload
         const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
+
         // Compare the checksums with the ones stored in the lockfile to determine the updated keys
         const updatedPayload = flags.force
           ? sourcePayload
@@ -108,7 +125,12 @@ export default new Command()
         for (const targetLocale of targetLocales) {
           const localeOra = Ora({ indent: 2, prefixText: `${i18nConfig.locale.source} -> ${targetLocale}` });
           // Load the source locale and target locale payloads
-          const targetPayload = await bucketProcessor.load(targetLocale);
+          const targetBucketFileLoader = createBucketLoader({
+            bucketType,
+            placeholderedPath,
+            locale: targetLocale,
+          });
+          const targetPayload = await targetBucketFileLoader.load();
           // Calculate the deltas between the source and target payloads
           const newPayload = _.omit(sourcePayload, Object.keys(targetPayload));
           // Calculate the deleted keys between the source and target payloads
@@ -157,14 +179,20 @@ export default new Command()
             Object.keys(deletedPayload),
           );
           // Save the new target payload
-          await bucketProcessor.save(targetLocale, newTargetPayload);
+          await targetBucketFileLoader.save(newTargetPayload);
         }
         // Update the lockfile with the new checksums after the process is done
-        bucketOra.start('Updating i18n lockfile');
-        await lockfileProcessor.saveChecksums(bucketPath, currentChecksums);
-        bucketOra.succeed('I18n lockfile updated');
+        await lockfileProcessor.saveChecksums(placeholderedPath, currentChecksums);
       }
-      await lockfileProcessor.cleanupCheksums(Object.keys(i18nConfig.buckets));
+      // if explicit bucket flag is provided, do not clean up the lockfile,
+      // because we might have skipped some buckets, and we don't want to lose the checksums
+      if (!flags.bucket) {
+        const placeholderedPaths = placeholderedPathsTuples.map(([placeholderedPath]) => placeholderedPath);
+        await lockfileProcessor.cleanupCheksums(placeholderedPaths);
+      }
+
+      console.log('');
+      ora.succeed('I18n lockfile synced');
     } catch (error: any) {
       ora.fail(error.message);
       process.exit(1);

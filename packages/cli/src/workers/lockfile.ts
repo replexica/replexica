@@ -26,24 +26,24 @@ export function createLockfileProcessor() {
       
       fs.writeFileSync(lockfilePath, content);
     },
-    async loadChecksums(bucketPath: string): Promise<Record<string, string>> {
+    async loadChecksums(path: string): Promise<Record<string, string>> {
       const lockfile = await this.load();
-      const sectionKey = _getBucketSectionKey(bucketPath)
+      const sectionKey = _getBucketSectionKey(path)
       return lockfile.checksums[sectionKey] || {};
     },
-    async saveChecksums(bucketPath: string, checksums: Record<string, string>): Promise<void> {
+    async saveChecksums(path: string, checksums: Record<string, string>): Promise<void> {
       const lockfile = await this.load();
-      const sectionKey = _getBucketSectionKey(bucketPath);
+      const sectionKey = _getBucketSectionKey(path);
       lockfile.checksums[sectionKey] = checksums;
       await this.save(lockfile);
     },
     async createChecksums(values: Record<string, string>): Promise<Record<string, string>> {
       return _.mapValues(values, (value) => MD5(value));
     },
-    async cleanupCheksums(existingBucketPath: string[]): Promise<void> {
+    async cleanupCheksums(paths: string[]): Promise<void> {
       // leave only the checksums for the existing buckets
       const lockfile = await this.load();
-      const existingSectionKeys = existingBucketPath.map(_getBucketSectionKey);
+      const existingSectionKeys = paths.map(_getBucketSectionKey);
       lockfile.checksums = _.pick(lockfile.checksums, existingSectionKeys);
       await this.save(lockfile);
     },
@@ -57,7 +57,7 @@ export function createLockfileProcessor() {
 const LockfileSchema = Z.object({
   version: Z.literal(1).default(1),
   checksums: Z.record(
-    Z.string(), // bucket path
+    Z.string(), // localizable files' keys
     Z.record( // checksums hashmap
       Z.string(), // key
       Z.string() // checksum of the key's value in the source locale
