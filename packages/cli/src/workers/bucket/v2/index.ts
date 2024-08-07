@@ -47,17 +47,17 @@ export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: strin
     .map((fullpath) => path.relative(process.cwd(), fullpath));
   // transform each source file path back to [locale] placeholder paths
   const placeholderedPaths = sourcePaths.map((sourcePath) => {
-    const relativePathChunks = sourcePath.split(path.sep);
+    const sourcePathChunks = sourcePath.split(path.sep);
     if (localeSegmentIndex >= 0 && localePlaceholderIndex >= 0) {
-      const placeholderedPathChunk = relativePathChunks[localeSegmentIndex];
+      const placeholderedPathChunk = sourcePathChunks[localeSegmentIndex];
       const placeholderedSegment =
         placeholderedPathChunk.substring(0, localePlaceholderIndex)
         + '[locale]'
-        + placeholderedPathChunk.substring(localePlaceholderIndex + '[locale]'.length)
+        + placeholderedPathChunk.substring(localePlaceholderIndex + sourceLocale.length)
       ;
-      relativePathChunks[localeSegmentIndex] = placeholderedSegment;
+      sourcePathChunks[localeSegmentIndex] = placeholderedSegment;
     }
-    const placeholderedPath = relativePathChunks.join(path.sep);
+    const placeholderedPath = sourcePathChunks.join(path.sep);
     return placeholderedPath;
   });
   // return the placeholdered paths
