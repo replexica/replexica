@@ -1,8 +1,8 @@
 ---
 title: stringyfy
 description: >-
-  Una sencilla biblioteca de npm que ofrece un conjunto de funciones utilitarias
-  para manipular y transformar cadenas en JavaScript.
+  Una sencilla biblioteca de npm que proporciona un conjunto de funciones
+  utilitarias para manipular y transformar cadenas en JavaScript.
 meta:
   - name: keywords
     content: >-
@@ -22,7 +22,7 @@ category: Bibliotecas
 
 ## Descripción
 
-`stringyfy` es una sencilla biblioteca de npm que ofrece un conjunto de funciones utilitarias para manipular y transformar cadenas en JavaScript. Es ligera, fácil de usar y no tiene dependencias.
+`stringyfy` es una sencilla biblioteca de npm que proporciona un conjunto de funciones utilitarias para manipular y transformar cadenas en JavaScript. Es ligera, fácil de usar y no tiene dependencias.
 
 ## Instalación
 
