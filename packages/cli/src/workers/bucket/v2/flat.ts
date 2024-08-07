@@ -1,7 +1,7 @@
 import { flatten, unflatten } from 'flat';
-import { createLoader } from "./_base";
+import { BucketLoader } from './_base';
 
-export const flatLoader = createLoader<Record<string, any>, Record<string, string>>({
+export const flatLoader = (): BucketLoader<Record<string, any>, Record<string, string>> => ({
   async load(payload) {
     return flatten(payload, {
       delimiter: '/',

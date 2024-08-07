@@ -1,8 +1,12 @@
 import _ from 'lodash';
-import { createLoader } from "./_base";
+import { BucketLoader } from "./_base";
 
-export const xcodeLoader = createLoader<Record<string, any>, Record<string, any>>({
-  async load(input, locale) {
+export const xcodeLoader = (
+  locale: string,
+  loader: BucketLoader<void, Record<string, any>>,
+): BucketLoader<void, Record<string, any>> => ({
+  async load() {
+    const input = await loader.load();
     const resultData: Record<string, any> = {};
 
     for (const [translationKey, _translationEntity] of Object.entries(input.strings)) {
@@ -27,7 +31,9 @@ export const xcodeLoader = createLoader<Record<string, any>, Record<string, any>
 
     return resultData;
   },
-  async save(payload, locale, input) {
+  async save(payload) {
+    const input = await loader.load();
+
     const langDataToMerge: any = {};
     langDataToMerge.strings = {};
 
@@ -73,6 +79,6 @@ export const xcodeLoader = createLoader<Record<string, any>, Record<string, any>
     }
 
     const resultData = _.merge({}, input, langDataToMerge);
-    return resultData;
+    await loader.save(resultData);
   },
 });

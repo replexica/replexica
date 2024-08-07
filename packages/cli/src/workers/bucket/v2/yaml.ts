@@ -1,11 +1,11 @@
 import YAML from 'yaml';
-import { createLoader } from './_base';
+import { BucketLoader } from './_base';
 
-export const yamlLoader = createLoader<string, Record<string, any>>({
+export const yamlLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(text: string) {
     return YAML.parse(text);
   },
   async save(payload) {
     return YAML.stringify(payload);
-  },
+  }
 });

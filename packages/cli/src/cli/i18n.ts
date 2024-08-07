@@ -85,7 +85,10 @@ export default new Command()
       });
       ora.succeed('AI localization engine connected');
       
+      // Determine the exact buckets to process
       const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
+
+      // Expand the placeholdered globs into actual (placeholdered) paths
       const targetedBucketsTuples = Object.entries(targetedBuckets);
       const placeholderedPathsTuples: [string, typeof targetedBuckets[keyof typeof targetedBuckets]][] = [];
       for (const [placeholderedGlob, bucketType] of targetedBucketsTuples) {
@@ -101,12 +104,15 @@ export default new Command()
         const bucketOra = Ora({});
         bucketOra.info(`Processing ${placeholderedPath}`);
         // Create the payload processor instance for the current bucket type
-        const sourceBucketFileLoader = createBucketLoader(bucketType);
+        const sourceBucketFileLoader = createBucketLoader({
+          bucketType,
+          placeholderedPath,
+          locale: i18nConfig.locale.source,
+        });
         // Load the source locale payload
-        const sourceFilename = placeholderedPath.replace('[locale]', i18nConfig.locale.source);
-        const sourcePayload = await sourceBucketFileLoader.load(sourceFilename, i18nConfig.locale.source);
+        const sourcePayload = await sourceBucketFileLoader.load();
         // Load saved checksums from the lockfile
-        const savedChecksums = await lockfileProcessor.loadChecksums(sourceFilename);
+        const savedChecksums = await lockfileProcessor.loadChecksums(placeholderedPath);
         // Calculate current checksums for the source payload
         const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
         // Compare the checksums with the ones stored in the lockfile to determine the updated keys
@@ -118,8 +124,12 @@ export default new Command()
         for (const targetLocale of targetLocales) {
           const localeOra = Ora({ indent: 2, prefixText: `${i18nConfig.locale.source} -> ${targetLocale}` });
           // Load the source locale and target locale payloads
-          const targetBucketFileLoader = createBucketLoader(bucketType);
-          const targetPayload = await targetBucketFileLoader.load(placeholderedPath, targetLocale);
+          const targetBucketFileLoader = createBucketLoader({
+            bucketType,
+            placeholderedPath,
+            locale: targetLocale,
+          });
+          const targetPayload = await targetBucketFileLoader.load();
           // Calculate the deltas between the source and target payloads
           const newPayload = _.omit(sourcePayload, Object.keys(targetPayload));
           // Calculate the deleted keys between the source and target payloads
@@ -157,6 +167,8 @@ export default new Command()
                 }
               );
 
+              console.log({ processedPayload });
+
               localeOra.succeed(`AI translation completed`);
             } catch (error: any) {
               localeOra.fail(error.message);
@@ -168,10 +180,10 @@ export default new Command()
             Object.keys(deletedPayload),
           );
           // Save the new target payload
-          await targetBucketFileLoader.save(newTargetPayload, targetLocale);
+          await targetBucketFileLoader.save(newTargetPayload);
         }
         // Update the lockfile with the new checksums after the process is done
-        await lockfileProcessor.saveChecksums(sourceFilename, currentChecksums);
+        await lockfileProcessor.saveChecksums(placeholderedPath, currentChecksums);
       }
       const placeholderedPaths = placeholderedPathsTuples.map(([placeholderedPath]) => placeholderedPath);
       await lockfileProcessor.cleanupCheksums(placeholderedPaths);

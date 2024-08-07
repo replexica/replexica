@@ -1,10 +1,10 @@
 import GrayMatter from 'gray-matter';
-import { createLoader } from "./_base";
+import { BucketLoader } from "./_base";
 
 const mdLinePrefix = 'markdown-line-';
 const fmAttributePrefix = 'frontmatter-attribute-';
 
-export const markdownLoader = createLoader<string, Record<string, any>>({
+export const markdownLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(text: string) {
     const fmContent = GrayMatter(text);
 

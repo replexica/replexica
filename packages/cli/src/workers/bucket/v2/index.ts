@@ -4,7 +4,7 @@ import path from 'path';
 import * as glob from 'glob';
 
 import { composeLoaders } from './_base';
-import { textFileLoader } from './text-file';
+import { textLoader } from './text-file';
 import { jsonLoader } from './json';
 import { flatLoader } from './flat';
 import { yamlLoader } from './yaml';
@@ -61,51 +61,67 @@ export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: strin
   return placeholderedPaths;
 }
 
-export function createBucketLoader(
-  bucketType: Z.infer<typeof bucketTypeSchema>,
-) {
-  switch (bucketType) {
+export type CreateBucketLoaderParams = {
+  bucketType: Z.infer<typeof bucketTypeSchema>;
+  placeholderedPath: string;
+  locale: string;
+};
+export function createBucketLoader(params: CreateBucketLoaderParams) {
+  const filepath = params.placeholderedPath.replace(/\[locale\]/g, params.locale);
+  switch (params.bucketType) {
     default:
-      throw new Error(`Unsupported bucket type: ${bucketType}`);
+      throw new Error(`Unsupported bucket type: ${params.bucketType}`);
     case 'json':
       return composeLoaders<string, Record<string, string>>(
-        textFileLoader,
-        jsonLoader,
-        flatLoader,
+        textLoader(filepath),
+        jsonLoader(),
+        flatLoader(),
       );
     case 'yaml':
       return composeLoaders<string, Record<string, string>>(
-        textFileLoader,
-        yamlLoader,
-        flatLoader,
-      );
-    case 'yaml-root-key':
-      return composeLoaders<string, Record<string, string>>(
-        textFileLoader,
-        yamlLoader,
-        rootKeyLoader,
-        flatLoader,
+        textLoader(filepath),
+        yamlLoader(),
+        flatLoader(),
       );
     case 'markdown':
       return composeLoaders<string, Record<string, string>>(
-        textFileLoader,
-        markdownLoader,
-        flatLoader,
+        textLoader(filepath),
+        markdownLoader(),
+        flatLoader(),
       );
     case 'xcode':
       return composeLoaders<string, Record<string, string>>(
-        textFileLoader,
-        jsonLoader,
-        xcodeLoader,
-        flatLoader,
+        xcodeLoader(
+          params.locale,
+          composeLoaders<void, Record<string, any>>(
+            textLoader(filepath),
+            jsonLoader(),
+          ),
+        ),
+        flatLoader(),
+      );
+    case 'yaml-root-key':
+      return composeLoaders<string, Record<string, string>>(
+        rootKeyLoader(
+          params.locale,
+          composeLoaders(
+            textLoader(filepath),
+            yamlLoader(),
+          ),
+        ),
+        flatLoader(),
       );
     case 'android':
       return composeLoaders<string, Record<string, string>>(
-        textFileLoader,
-        androidLoader,
-        flatLoader,
+        textLoader(filepath),
+        androidLoader(),
+        flatLoader(),
       );
     case 'compiler':
-      throw new Error('Compiler bucket type is not supported in CLI');
+      return composeLoaders<string, Record<string, string>>(
+        textLoader('node_modules/@replexica/.cache/[locale].json'),
+        jsonLoader(),
+        flatLoader(),
+      );
   }
 }

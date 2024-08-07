@@ -1,6 +1,6 @@
-import { createLoader } from "./_base";
+import { BucketLoader } from './_base';
 
-export const jsonLoader = createLoader<string, Record<string, any>>({
+export const jsonLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(text: string) {
     return JSON.parse(text);
   },

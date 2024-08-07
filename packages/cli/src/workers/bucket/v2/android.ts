@@ -1,5 +1,5 @@
 import { Builder, parseStringPromise } from "xml2js";
-import { createLoader } from "./_base";
+import { BucketLoader } from "./_base";
 
 interface AndroidResource {
   $: {
@@ -17,7 +17,7 @@ interface AndroidResources {
   };
 }
 
-export const androidLoader = createLoader<string, Record<string, any>>({
+export const androidLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(text: string) {
     try {
       const parsedResult = await parseStringPromise(text);

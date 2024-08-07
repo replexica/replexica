@@ -1,12 +1,11 @@
 import fs from 'fs/promises';
-import { createLoader } from './_base';
+import { BucketLoader } from './_base';
 
-export const textFileLoader = createLoader<string, string>({
-  async load(input: string, locale: string) {
-    return await fs.readFile(input, 'utf-8');
+export const textLoader = (filePath: string): BucketLoader<void, string> => ({
+  async load() {
+    return await fs.readFile(filePath, 'utf-8');
   },
-  async save(payload, locale, input, originalPayload) {
-    await fs.writeFile(input, payload, 'utf-8');
-    return input;
+  async save(payload: string) {
+    await fs.writeFile(filePath, payload, { encoding: 'utf-8', flag: 'w' });
   },
-});
+})
