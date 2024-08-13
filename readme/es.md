@@ -71,4 +71,5 @@ Si tu empresa está construyendo una app moderna que es usada por personas de to
 🇩🇪 [Deutsch](/readme/de.md) •
 🇸🇦 [العربية](/readme/ar.md) •
 🇨🇳 [中文](/readme/zh.md)<br> •
-🇵🇰 [اردو](/readme/ur.md)
+🇵🇰 [اردو](/readme/ur.md) •
+🇮🇷 [فارسی](/readme/fa.md)
