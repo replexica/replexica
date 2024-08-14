@@ -1,5 +1,14 @@
 # replexica
 
+## 0.36.1
+
+### Patch Changes
+
+- [`5ad1879`](https://github.com/replexica/replexica/commit/5ad18797f22bc06fe38769120c27bd7c4642fe2d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add ascii art
+
+- Updated dependencies [[`5ad1879`](https://github.com/replexica/replexica/commit/5ad18797f22bc06fe38769120c27bd7c4642fe2d)]:
+  - @replexica/cli@0.36.1
+
 ## 0.36.0
 
 ### Minor Changes
