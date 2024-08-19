@@ -10,7 +10,7 @@ export default new Command()
   .action(async (options) => {
     const spinner = Ora().start('Initializing Replexica project');
 
-    let config = await loadConfig();
+    let config = await loadConfig(false);
     if (config) {
       spinner.fail('Replexica project already initialized');
       return process.exit(1);
