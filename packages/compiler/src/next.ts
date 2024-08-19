@@ -3,8 +3,8 @@ import type { NextConfig } from 'next';
 import Z from 'zod';
 import type { Configuration as WebpackConfig } from 'webpack';
 
-import { I18nConfig } from "./config";
 import unplg from './unplg';
+import { I18nConfig } from '@replexica/spec';
 
 const nextCompilerConfigSchema = Z.object({
   sourceRoot: Z.string().optional().default('src'),
