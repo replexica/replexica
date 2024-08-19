@@ -1,4 +1,5 @@
-import { CompilerConfig, I18nConfig, loadI18nConfig } from "./config";
+import { I18nConfig } from "@replexica/spec";
+import { CompilerConfig, loadI18nConfig } from "./config";
 
 export type SubcompilerFactory<R> = {
   (compilerConfig: CompilerConfig, i18nConfig: I18nConfig): R;

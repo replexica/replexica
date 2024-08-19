@@ -1,7 +1,7 @@
 import Z from 'zod';
 import path from 'path';
 import fs from 'fs';
-import { configFileSchema } from '@replexica/spec';
+import { parseI18nConfig, I18nConfig } from '@replexica/spec';
 
 const compilerConfigSchema = Z.object({
   sourceRoot: Z.string().optional().default('src'),
@@ -15,8 +15,6 @@ export function parseCompilerConfig(config: any): CompilerConfig {
   return compilerConfigSchema.parse(config);
 }
 
-export type I18nConfig = Z.infer<typeof configFileSchema>;
-
 export function loadI18nConfig(): I18nConfig {
   const configFileName = 'i18n.json';
   const configFilePath = path.resolve(process.cwd(), configFileName);
@@ -26,5 +24,7 @@ export function loadI18nConfig(): I18nConfig {
   };
   const configFile = fs.readFileSync(configFilePath, 'utf-8');
   const configFileObj = JSON.parse(configFile);
-  return configFileSchema.parse(configFileObj);
+
+  const result = parseI18nConfig(configFileObj);
+  return result;
 }

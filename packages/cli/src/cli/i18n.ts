@@ -4,7 +4,7 @@ import { loadConfig } from './../workers/config';
 import { loadSettings } from './../workers/settings';
 import Ora from 'ora';
 import _ from 'lodash';
-import { targetLocaleSchema } from '@replexica/spec';
+import { bucketTypeSchema, targetLocaleSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
@@ -89,17 +89,21 @@ export default new Command()
       const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
 
       // Expand the placeholdered globs into actual (placeholdered) paths
-      const targetedBucketsTuples = Object.entries(targetedBuckets);
-      const placeholderedPathsTuples: [string, typeof targetedBuckets[keyof typeof targetedBuckets]][] = [];
-      for (const [placeholderedGlob, bucketType] of targetedBucketsTuples) {
-        const placeholderedPaths = expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source);
-        for (const placeholderedPath of placeholderedPaths) {
-          placeholderedPathsTuples.push([placeholderedPath, bucketType]);
+      const placeholderedPathsTuples: [Z.infer<typeof bucketTypeSchema>, string][] = [];
+      for (const [bucketType, bucketTypeParams] of Object.entries(targetedBuckets)) {
+        for (const placeholderedGlob of bucketTypeParams.paths) {
+          const placeholderedPaths = expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source);
+          for (const placeholderedPath of placeholderedPaths) {
+            placeholderedPathsTuples.push([
+              bucketType as Z.infer<typeof bucketTypeSchema>,
+              placeholderedPath
+            ]);
+          }
         }
       }
 
       const lockfileProcessor = createLockfileProcessor();
-      for (const [placeholderedPath, bucketType] of placeholderedPathsTuples) {
+      for (const [bucketType, placeholderedPath] of placeholderedPathsTuples) {
         console.log('');
         const bucketOra = Ora({});
         bucketOra.info(`Processing ${placeholderedPath}`);
@@ -207,7 +211,7 @@ export default new Command()
 async function loadFlags(options: any) {
   return Z.object({
     locale: targetLocaleSchema.optional(),
-    bucket: Z.string().optional(),
+    bucket: bucketTypeSchema.optional(),
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),
   }).parse(options);

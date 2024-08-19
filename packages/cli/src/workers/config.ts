@@ -1,9 +1,9 @@
 import Z from 'zod';
 import fs from 'fs';
 import path from 'path';
-import { configFileSchema } from '@replexica/spec';
+import { I18nConfig, parseI18nConfig } from '@replexica/spec';
 
-export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | null> {
+export async function loadConfig(resave = true): Promise<I18nConfig | null> {
   const configFilePath = _getConfigFilePath();
 
   const configFileExists = await fs.existsSync(configFilePath);
@@ -11,12 +11,18 @@ export async function loadConfig(): Promise<Z.infer<typeof configFileSchema> | n
 
   const fileContents = fs.readFileSync(configFilePath, "utf8");
   const rawConfig = JSON.parse(fileContents);
-  const config = configFileSchema.parse(rawConfig);
 
-  return config;
+  const result = parseI18nConfig(rawConfig);
+
+  if (resave) {
+    // Ensure the config is saved with the latest version / schema
+    await saveConfig(result);
+  }
+
+  return result;
 }
 
-export async function saveConfig(config: Z.infer<typeof configFileSchema>) {
+export async function saveConfig(config: I18nConfig) {
   const configFilePath = _getConfigFilePath();
 
   const serialized = JSON.stringify(config, null, 2);
