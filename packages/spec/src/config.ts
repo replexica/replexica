@@ -121,7 +121,11 @@ const configV1_1Definition = extendConfigDefinition(configV1Definition, {
     if (config.buckets) {
       for (const [key, value] of Object.entries(config.buckets)) {
         upgradedConfig.buckets[value] = {
-          paths: [key],
+          ...upgradedConfig.buckets[value],
+          paths: [
+            ...(upgradedConfig.buckets[value]?.paths || []),
+            key,
+          ],
         };
       }
     }
@@ -144,3 +148,5 @@ export function parseI18nConfig(rawConfig: unknown) {
     throw new Error(`Failed to parse config: ${error.message}`);
   }
 }
+
+export const defaultConfig = LATEST_CONFIG_DEFINITION.defaultValue;
