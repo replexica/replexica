@@ -175,7 +175,10 @@ export default new Command()
           }
           // Merge the processed payload and the original target payload into a single entity
           const newTargetPayload = _.omit(
-            _.merge(targetPayload, processedPayload),
+            // Here we init an empty object, and first merge source payload and then target payload into it,
+            // so when the target/processed payload objects take precedence over the source payload keys/values,
+            // the order/position of the keys in the final object matches the order of the keys in the source payload
+            _.merge({}, sourcePayload, targetPayload, processedPayload),
             Object.keys(deletedPayload),
           );
           // Save the new target payload
