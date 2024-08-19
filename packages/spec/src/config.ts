@@ -56,7 +56,7 @@ const extendConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape
 const configV0Schema = Z.object({
   version: Z.number().default(0),
 });
-const configV0Definition = createConfigDefinition({
+export const configV0Definition = createConfigDefinition({
   schema: configV0Schema,
   defaultValue: { version: 0 },
   parse: (rawConfig) => {
@@ -65,7 +65,7 @@ const configV0Definition = createConfigDefinition({
 });
 
 // v0 -> v1
-const configV1Definition = extendConfigDefinition(configV0Definition, {
+export const configV1Definition = extendConfigDefinition(configV0Definition, {
   createSchema: (baseSchema) => baseSchema.extend({
     locale: localeSchema,
     buckets: Z.record(
@@ -96,7 +96,7 @@ const configV1Definition = extendConfigDefinition(configV0Definition, {
 });
 
 // v1 -> v1.1
-const configV1_1Definition = extendConfigDefinition(configV1Definition, {
+export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
   createSchema: (baseSchema) => baseSchema.extend({
     buckets: Z.record(
       bucketTypeSchema,
