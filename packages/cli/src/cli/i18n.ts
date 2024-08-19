@@ -198,7 +198,7 @@ export default new Command()
       // if explicit bucket flag is provided, do not clean up the lockfile,
       // because we might have skipped some buckets, and we don't want to lose the checksums
       if (!flags.bucket) {
-        const placeholderedPaths = placeholderedPathsTuples.map(([placeholderedPath]) => placeholderedPath);
+        const placeholderedPaths = placeholderedPathsTuples.map(([,placeholderedPath]) => placeholderedPath);
         await lockfileProcessor.cleanupCheksums(placeholderedPaths);
       }
 
