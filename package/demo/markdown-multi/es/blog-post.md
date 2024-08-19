@@ -1,5 +1,5 @@
 ---
-title: stringyfy
+title: stringyfy 1.0.1
 description: Una sencilla biblioteca de npm que proporciona un conjunto de funciones utilitarias para manipular y transformar cadenas en JavaScript.
 meta:
   - name: keywords

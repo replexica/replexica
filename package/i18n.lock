@@ -23,7 +23,7 @@ checksums:
     markdown-line-19: 573fef58ee9dfcb675a4d7065246a62d
     markdown-line-20: b3ae28fa7265f69ffbe8715674ced970
     markdown-line-21: 9aa9e2407df4773224e6facfa03778c6
-    frontmatter-attribute-title: 7603ae14015f4efc61d5720a45bcb16c
+    frontmatter-attribute-title: 8be4dd42fdbd3918a9c7a8b4b612379f
     frontmatter-attribute-description: 4eae601f40ada021777cb6feed74693d
     frontmatter-attribute-meta/0/name: c08d869b04124e62f7eb14e1e04788b9
     frontmatter-attribute-meta/0/content: 3c8256186fc62c8b0059b9f2d53992c8
@@ -36,7 +36,8 @@ checksums:
     frontmatter-attribute-sidebar: 1d41ad90ddfd2afba95b5a20b4f2d5da
     frontmatter-attribute-category: 7490d4f6c5aebce212e93d2842031ceb
   a1e485ffd9a36a6c6320101a5afd2471:
-    markdown-line-0: 82d9f0dc93ba52a49125ecf62159d0c9
+    markdown-line-0: 856bcaa0a60d9898303f8e165da774a3
+    markdown-line-1: f25ee9ff1279555b67e23c9407453aa1
   8fc5c7fe5cca683299c04ddf643d4475:
     markdown-line-0: 055771580c400345d100ceff7b2e4a58
     markdown-line-1: 6c1bd156be5138076bd8ba53f819c404
