@@ -84,21 +84,25 @@ export default new Command()
         apiUrl: settings.auth.apiUrl,
       });
       ora.succeed('AI localization engine connected');
-      
+
       // Determine the exact buckets to process
       const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
 
       // Expand the placeholdered globs into actual (placeholdered) paths
       const placeholderedPathsTuples: [Z.infer<typeof bucketTypeSchema>, string][] = [];
       for (const [bucketType, bucketTypeParams] of Object.entries(targetedBuckets)) {
-        for (const placeholderedGlob of bucketTypeParams.paths) {
-          const placeholderedPaths = expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source);
-          for (const placeholderedPath of placeholderedPaths) {
-            placeholderedPathsTuples.push([
-              bucketType as Z.infer<typeof bucketTypeSchema>,
-              placeholderedPath
-            ]);
-          }
+        const includedPlaceholderedPaths = bucketTypeParams.include
+          .map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source))
+          .flat();
+        const excludedPlaceholderedPaths = bucketTypeParams.exclude
+          ?.map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source))
+          .flat() || [];
+        const finalPlaceholderedPaths = includedPlaceholderedPaths.filter((path) => !excludedPlaceholderedPaths.includes(path));
+        for (const placeholderedPath of finalPlaceholderedPaths) {
+          placeholderedPathsTuples.push([
+            bucketType as Z.infer<typeof bucketTypeSchema>,
+            placeholderedPath
+          ]);
         }
       }
 
