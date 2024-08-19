@@ -101,8 +101,9 @@ const configV1_1Definition = extendConfigDefinition(configV1Definition, {
     buckets: Z.record(
       bucketTypeSchema,
       Z.object({
-        paths: Z.array(Z.string()).default([]),
-      })
+        include: Z.array(Z.string()).default([]),
+        exclude: Z.array(Z.string()).default([]).optional(),
+      }),
     ).default({}),
   }),
   createDefaultValue: (baseDefaultValue) => ({
@@ -110,23 +111,22 @@ const configV1_1Definition = extendConfigDefinition(configV1Definition, {
     version: 1.1,
     buckets: {},
   }),
-  createUpgrader: (config, schema) => {
+  createUpgrader: (oldConfig, schema) => {
     const upgradedConfig: Z.infer<typeof schema> = {
-      ...config,
+      ...oldConfig,
       version: 1.1,
       buckets: {},
     };
 
     // Transform buckets from v1 to v1.1 format
-    if (config.buckets) {
-      for (const [key, value] of Object.entries(config.buckets)) {
-        upgradedConfig.buckets[value] = {
-          ...upgradedConfig.buckets[value],
-          paths: [
-            ...(upgradedConfig.buckets[value]?.paths || []),
-            key,
-          ],
-        };
+    if (oldConfig.buckets) {
+      for (const [bucketPath, bucketType] of Object.entries(oldConfig.buckets)) {
+        if (!upgradedConfig.buckets[bucketType]) {
+          upgradedConfig.buckets[bucketType] = {
+            include: [],
+          };
+        }
+        upgradedConfig.buckets[bucketType].include.push(bucketPath);
       }
     }
 
