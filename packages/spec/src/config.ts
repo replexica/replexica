@@ -126,7 +126,7 @@ const configV1_1Definition = extendConfigDefinition(configV1Definition, {
             include: [],
           };
         }
-        upgradedConfig.buckets[bucketType].include.push(bucketPath);
+        upgradedConfig.buckets[bucketType]?.include.push(bucketPath);
       }
     }
 
