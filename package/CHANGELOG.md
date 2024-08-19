@@ -1,5 +1,14 @@
 # replexica
 
+## 0.36.2
+
+### Patch Changes
+
+- [#156](https://github.com/replexica/replexica/pull/156) [`f59380f`](https://github.com/replexica/replexica/commit/f59380f85c98fae4dfb938f842bdf39fe795ddcd) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Preserve order of keys in JSONs
+
+- Updated dependencies [[`f59380f`](https://github.com/replexica/replexica/commit/f59380f85c98fae4dfb938f842bdf39fe795ddcd)]:
+  - @replexica/cli@0.36.2
+
 ## 0.36.1
 
 ### Patch Changes
