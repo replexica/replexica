@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.9.0
+
+### Minor Changes
+
+- [#158](https://github.com/replexica/replexica/pull/158) [`73c9250`](https://github.com/replexica/replexica/commit/73c925084989ccea120cae1617ec87776c88e83e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Configuration spec v1.1: Improved bucket config structure, to support exclusion patterns
+
 ## 0.8.0
 
 ### Minor Changes
