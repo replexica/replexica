@@ -20,3 +20,4 @@ export default new Command()
 
     spinner.succeed('Replexica project initialized');
   });
+  

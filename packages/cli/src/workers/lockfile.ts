@@ -9,6 +9,15 @@ export type LockfilePayload = Z.infer<typeof LockfileSchema>;
 
 export function createLockfileProcessor() {
   return {
+    async delete(): Promise<void> {
+      const lockfilePath = _getLockfilePath();
+      if (fs.existsSync(lockfilePath)) {
+        fs.unlinkSync(lockfilePath);
+      }
+    },
+    async exists(): Promise<boolean> {
+      return fs.existsSync(_getLockfilePath());
+    },
     async load(): Promise<LockfilePayload> {
       const lockfilePath = _getLockfilePath();
     
