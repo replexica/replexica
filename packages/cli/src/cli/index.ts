@@ -8,8 +8,7 @@ import authCmd from './auth';
 import initCmd from './init';
 import configCmd from './show';
 import i18nCmd from './i18n';
-import path from 'path';
-import fs from 'fs';
+import lockfileCmd from './lockfile';
 
 import packageJson from '../../package.json';
 
@@ -32,6 +31,7 @@ Website: https://replexica.com
   .addCommand(authCmd)
   .addCommand(initCmd)
   .addCommand(configCmd)
+  .addCommand(lockfileCmd)
   .parse(process.argv)
 ;
 
