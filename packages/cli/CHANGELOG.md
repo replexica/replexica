@@ -1,5 +1,17 @@
 # replexica
 
+## 0.39.0
+
+### Minor Changes
+
+- [`6870fc7`](https://github.com/replexica/replexica/commit/6870fc758dae9d1adb641576befbd8cda61cd5ea) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Fix version number bumping in 1.2 config autoupgrade
+
+### Patch Changes
+
+- Updated dependencies [[`6870fc7`](https://github.com/replexica/replexica/commit/6870fc758dae9d1adb641576befbd8cda61cd5ea)]:
+  - @replexica/spec@0.11.0
+  - @replexica/sdk@0.2.1
+
 ## 0.38.0
 
 ### Minor Changes
