@@ -1,5 +1,18 @@
 # replexica
 
+## 0.38.0
+
+### Minor Changes
+
+- [`d6e6d5c`](https://github.com/replexica/replexica/commit/d6e6d5c24b266de3769e95545f74632e7d75c697) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add support for multisource localization to the CLI
+
+### Patch Changes
+
+- Updated dependencies [[`d6e6d5c`](https://github.com/replexica/replexica/commit/d6e6d5c24b266de3769e95545f74632e7d75c697)]:
+  - @replexica/cli@0.38.0
+  - @replexica/compiler@0.4.1
+  - @replexica/react@0.3.1
+
 ## 0.37.0
 
 ### Minor Changes
