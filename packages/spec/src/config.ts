@@ -142,7 +142,10 @@ export const configV1_2Definition = extendConfigDefinition(configV1_1Definition,
       extraSource: allLocalesSchema.optional(),
     }),
   }),
-  createDefaultValue: (baseDefaultValue) => baseDefaultValue,
+  createDefaultValue: (baseDefaultValue) => ({
+    ...baseDefaultValue,
+    version: 1.2,
+  }),
   createUpgrader: (oldConfig) => ({
     ...oldConfig,
     version: 1.2,

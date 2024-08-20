@@ -43,21 +43,26 @@ const createV1_1Config = () => ({
   },
 });
 
+const createV1_2Config = () => ({
+  ...createV1_1Config(),
+  version: 1.2,
+});
+
 describe('I18n Config Parser', () => {
-  it('should upgrade v0 config to v1.1', () => {
+  it('should upgrade v0 config to v1.2', () => {
     const v0Config = createV0Config();
     const result = parseI18nConfig(v0Config);
     
-    expect(result.version).toBe(1.1);
+    expect(result.version).toBe(1.2);
     expect(result.locale).toEqual(defaultConfig.locale);
     expect(result.buckets).toEqual({});
   });
 
-  it('should upgrade v1 config to v1.1', () => {
+  it('should upgrade v1 config to v1.2', () => {
     const v1Config = createV1Config();
     const result = parseI18nConfig(v1Config);
     
-    expect(result.version).toBe(1.1);
+    expect(result.version).toBe(1.2);
     expect(result.locale).toEqual(v1Config.locale);
     expect(result.buckets).toEqual({
       json: {
