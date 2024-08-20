@@ -3,8 +3,10 @@
   "locale": {
     "source": "en",
     "targets": [
-      "es"
-    ]
+      "es",
+      "fr"
+    ],
+    "extraSource": "es"
   },
   "buckets": {
     "markdown": {
