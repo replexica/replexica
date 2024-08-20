@@ -9,8 +9,6 @@ import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
 import { expandPlaceholderedGlob, createBucketLoader } from '../workers/bucket/v2';
-// import fs from 'fs';
-// import path from 'path';
 
 export default new Command()
   .command('i18n')
@@ -110,15 +108,13 @@ export default new Command()
       for (const [bucketType, placeholderedPath] of placeholderedPathsTuples) {
         console.log('');
         const bucketOra = Ora({});
-        bucketOra.info(`Processing ${placeholderedPath}`);
-        // Create the payload processor instance for the current bucket type
-        const sourceBucketFileLoader = createBucketLoader({
+        bucketOra.info(`Processing ${placeholderedPath}`);        
+        // Load the source locale payload
+        const sourcePayload = await createBucketLoader({
           bucketType,
           placeholderedPath,
           locale: i18nConfig.locale.source,
-        });
-        // Load the source locale payload
-        const sourcePayload = await sourceBucketFileLoader.load();
+        }).load();
         // Load saved checksums from the lockfile
         const savedChecksums = await lockfileProcessor.loadChecksums(placeholderedPath);
         // Calculate current checksums for the source payload
@@ -165,12 +161,27 @@ export default new Command()
             try {
               // Use the SDK to localize the payload
               localeOra.start('AI translation in progress...');
+              // Calculate reference payload if specified
+              const referencePayload: any = {};
+              if (i18nConfig.locale.extraSource) {
+                let extraSourcePayload = await createBucketLoader({
+                  bucketType,
+                  placeholderedPath,
+                  locale: i18nConfig.locale.extraSource,
+                }).load();
+                // leave only the keys that are present in the processable payload
+                extraSourcePayload = _.pick(extraSourcePayload, Object.keys(processablePayload));
+                // assign
+                referencePayload[i18nConfig.locale.extraSource] = extraSourcePayload;
+              }
+
               processedPayload = await replexicaEngine.localize(
                 processablePayload,
                 {
                   sourceLocale: i18nConfig.locale.source,
                   targetLocale: targetLocale,
                 },
+                referencePayload,
                 (progress) => {
                   localeOra.text = `(${progress}%) AI translation in progress...`;
                 }

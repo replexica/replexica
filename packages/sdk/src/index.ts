@@ -1,8 +1,8 @@
 import Z from 'zod';
-import { sourceLocaleSchema, targetLocaleSchema } from '@replexica/spec';
+import { sourceLocaleSchema, targetLocaleSchema, allLocalesSchema } from '@replexica/spec';
 import { createId } from "@paralleldrive/cuid2";
 
-const replexicaEngineParamsSchema = Z.object({
+const engineParamsSchema = Z.object({
   apiKey: Z.string(),
   apiUrl: Z.string().url().default('https://engine.replexica.com'),
   batchSize: Z.number()
@@ -18,30 +18,35 @@ const replexicaEngineParamsSchema = Z.object({
     .default(200),
 }).passthrough();
 
-const replexicaLocalizationPayloadSchema = Z.record(
+const payloadSchema = Z.record(
   Z.string(),
   Z.any(),
 );
 
-const replexicaLocalizationParamsSchema = Z.object({
+const localizationParamsSchema = Z.object({
   sourceLocale: sourceLocaleSchema,
   targetLocale: targetLocaleSchema,
 });
+
+const referenceSchema = Z.record(
+  allLocalesSchema,
+  payloadSchema,
+);
 
 /**
  * ReplexicaEngine class for interacting with the Replexica API
  */
 export class ReplexicaEngine {
-  private config: Z.infer<typeof replexicaEngineParamsSchema>;
+  private config: Z.infer<typeof engineParamsSchema>;
 
   /**
    * Create a new ReplexicaEngine instance
    * @param config - Configuration options for the Engine
    */
   constructor(
-    config: Partial<Z.infer<typeof replexicaEngineParamsSchema>>,
+    config: Partial<Z.infer<typeof engineParamsSchema>>,
   ) {
-    this.config = replexicaEngineParamsSchema.parse(config);
+    this.config = engineParamsSchema.parse(config);
   }
 
   /**
@@ -52,12 +57,13 @@ export class ReplexicaEngine {
    * @returns Localized content
    */
   async localize(
-    payload: Z.infer<typeof replexicaLocalizationPayloadSchema>,
-    params: Z.infer<typeof replexicaLocalizationParamsSchema>,
+    payload: Z.infer<typeof payloadSchema>,
+    params: Z.infer<typeof localizationParamsSchema>,
+    reference?: Z.infer<typeof referenceSchema>,
     progressCallback?: (progress: number) => void
   ): Promise<Record<string, string>> {
-    const finalPayload = replexicaLocalizationPayloadSchema.parse(payload);
-    const finalParams = replexicaLocalizationParamsSchema.parse(params);
+    const finalPayload = payloadSchema.parse(payload);
+    const finalParams = localizationParamsSchema.parse(params);
 
     const chunkedPayload = this.extractPayloadChunks(finalPayload);
     const processedPayloadChunks: Record<string, string>[] = [];
@@ -74,7 +80,7 @@ export class ReplexicaEngine {
       const processedPayloadChunk = await this.localizeChunk(
         finalParams.sourceLocale,
         finalParams.targetLocale,
-        { meta: {}, data: chunk },
+        { data: chunk, reference },
         workflowId,
       );
       processedPayloadChunks.push(processedPayloadChunk);
@@ -93,7 +99,7 @@ export class ReplexicaEngine {
   private async localizeChunk(
     sourceLocale: string,
     targetLocale: string,
-    payload: { data: any; meta: any; },
+    payload: { data: any; reference: any; },
     workflowId: string,
   ): Promise<Record<string, string>> {
     const res = await fetch(`${this.config.apiUrl}/i18n`, {
@@ -108,8 +114,8 @@ export class ReplexicaEngine {
           source: sourceLocale,
           target: targetLocale,
         },
-        meta: payload.meta,
         data: payload.data,
+        reference: payload.reference,
       }, null, 2),
     });
 

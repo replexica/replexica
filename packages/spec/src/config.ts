@@ -1,5 +1,5 @@
 import Z from 'zod';
-import { sourceLocaleSchema, targetLocaleSchema } from './locales';
+import { allLocalesSchema, sourceLocaleSchema, targetLocaleSchema } from './locales';
 import { bucketTypeSchema } from './formats';
 
 // common
@@ -134,9 +134,20 @@ export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
   },
 });
 
+// v1.1 -> v1.2
+// Changes: Add "extraSource" optional field to the locale node of the config
+export const configV1_2Definition = extendConfigDefinition(configV1_1Definition, {
+  createSchema: (baseSchema) => baseSchema.extend({
+    locale: localeSchema.extend({
+      extraSource: allLocalesSchema.optional(),
+    }),
+  }),
+  createDefaultValue: (baseDefaultValue) => baseDefaultValue,
+  createUpgrader: (oldConfig) => oldConfig,
+});
 
 // exports
-const LATEST_CONFIG_DEFINITION = configV1_1Definition;
+const LATEST_CONFIG_DEFINITION = configV1_2Definition;
 
 export type I18nConfig = Z.infer<typeof LATEST_CONFIG_DEFINITION['schema']>;
 
