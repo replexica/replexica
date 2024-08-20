@@ -5,8 +5,7 @@
     "targets": [
       "es",
       "fr"
-    ],
-    "extraSource": "es"
+    ]
   },
   "buckets": {
     "markdown": {
