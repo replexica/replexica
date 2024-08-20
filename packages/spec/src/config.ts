@@ -143,7 +143,10 @@ export const configV1_2Definition = extendConfigDefinition(configV1_1Definition,
     }),
   }),
   createDefaultValue: (baseDefaultValue) => baseDefaultValue,
-  createUpgrader: (oldConfig) => oldConfig,
+  createUpgrader: (oldConfig) => ({
+    ...oldConfig,
+    version: 1.2,
+  }),
 });
 
 // exports
