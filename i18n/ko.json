@@ -6,5 +6,6 @@
   "why-not-use-human-translators": "인간 번역가는 프로젝트 진행을 지연시키고, 솔직히 말해 앱의 버튼 레이블 번역을 싫어합니다. Replexica는 빠르고 저렴하며 개발자와 제품 팀을 위해 설계되었습니다.",
   "how-fast-can-i-translate-my-product": "Replexica는 제품을 몇 분 만에 여러 언어로 현지화하여 팀이 다국어 제품을 100배 빠르게 출시할 수 있게 합니다.",
   "is-replexica-expensive": "Replexica는 모든 규모의 팀이 사용할 수 있습니다. 가격은 플랫폼 사용량에 따라 연간 수백 달러에서 수천 달러까지 다양합니다.",
-  "how-soon-can-i-get-started": "Replexica는 한 시간 이내에 시작할 수 있습니다. 가입하고 팀과의 통화를 예약하세요."
+  "how-soon-can-i-get-started": "Replexica는 한 시간 이내에 시작할 수 있습니다. 가입하고 팀과의 통화를 예약하세요.",
+  "how-accurate-is-ai-localization-with-replexica": "Replexica의 AI 현지화 엔진은 인간의 개입 없이도 높은 정확도를 자랑합니다. 최첨단 LLM을 활용한 문맥 인식 번역으로 자연스럽고 진정성 있는 번역을 여러 언어로 제공합니다. 필요시 팀이 출력 결과를 수정할 수도 있습니다."
 }
