@@ -1,5 +1,14 @@
 # replexica
 
+## 0.39.1
+
+### Patch Changes
+
+- [#162](https://github.com/replexica/replexica/pull/162) [`c990101`](https://github.com/replexica/replexica/commit/c990101185aa17b036fa5a21db679fc7781bf551) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add replexica lockfile command for explicit lockfile generation
+
+- Updated dependencies [[`c990101`](https://github.com/replexica/replexica/commit/c990101185aa17b036fa5a21db679fc7781bf551)]:
+  - @replexica/cli@0.39.1
+
 ## 0.39.0
 
 ### Minor Changes
