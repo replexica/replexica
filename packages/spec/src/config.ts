@@ -1,11 +1,11 @@
 import Z from 'zod';
-import { allLocalesSchema, sourceLocaleSchema, targetLocaleSchema } from './locales';
+import { localeCodeSchema } from './locales';
 import { bucketTypeSchema } from './formats';
 
 // common
 export const localeSchema = Z.object({
-  source: sourceLocaleSchema,
-  targets: Z.array(targetLocaleSchema),
+  source: localeCodeSchema,
+  targets: Z.array(localeCodeSchema),
 });
 
 // factories
@@ -139,7 +139,7 @@ export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
 export const configV1_2Definition = extendConfigDefinition(configV1_1Definition, {
   createSchema: (baseSchema) => baseSchema.extend({
     locale: localeSchema.extend({
-      extraSource: allLocalesSchema.optional(),
+      extraSource: localeCodeSchema.optional(),
     }),
   }),
   createDefaultValue: (baseDefaultValue) => ({
