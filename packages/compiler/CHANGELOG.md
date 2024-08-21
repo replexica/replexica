@@ -1,5 +1,12 @@
 # @replexica/compiler
 
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`bc5a28c`](https://github.com/replexica/replexica/commit/bc5a28c3c98b619872924b5f913229ac01387524)]:
+  - @replexica/spec@0.12.1
+
 ## 0.4.3
 
 ### Patch Changes

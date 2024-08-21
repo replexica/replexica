@@ -1,5 +1,16 @@
 # replexica
 
+## 0.40.1
+
+### Patch Changes
+
+- [`bc5a28c`](https://github.com/replexica/replexica/commit/bc5a28c3c98b619872924b5f913229ac01387524) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Fix spec imports
+
+- Updated dependencies [[`bc5a28c`](https://github.com/replexica/replexica/commit/bc5a28c3c98b619872924b5f913229ac01387524)]:
+  - @replexica/cli@0.40.1
+  - @replexica/compiler@0.4.4
+  - @replexica/react@0.3.4
+
 ## 0.40.0
 
 ### Minor Changes
