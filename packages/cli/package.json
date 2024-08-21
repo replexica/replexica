@@ -11,7 +11,7 @@
   "scripts": {
     "replexica": "./build/index.js",
     "dev": "tsup --watch",
-    "build": "tsup",
+    "build": "tsc --noEmit && tsup",
     "test": "vitest run"
   },
   "keywords": [],

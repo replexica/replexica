@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup",
+    "build": "tsc --noEmit && tsup",
     "test": "vitest run"
   },
   "keywords": [],

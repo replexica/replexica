@@ -35,7 +35,7 @@
   "scripts": {
     "replexica": "./bin/cli.mjs",
     "dev": "tsup --watch",
-    "build": "tsup"
+    "build": "tsc --noEmit && tsup"
   },
   "keywords": [],
   "author": "",
