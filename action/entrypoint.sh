@@ -1,7 +1,8 @@
 #!/bin/sh -l
 
 # Run Replexica CLI to localize missing strings
-npx replexica@latest i18n
+# USe REPLEXICA_VERSION env variable to specify the version of Replexica CLI
+npx replexica@${REPLEXICA_VERSION} i18n
 # Return exit code 1 if the previous command fails
 if [ $? -eq 1 ]; then
   echo "::error::🚨 Replexica incurred an error while applying translations. Discord: https://replexica.com/go/discord"

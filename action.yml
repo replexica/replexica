@@ -7,12 +7,17 @@ inputs:
   api-key:
     description: Replexica Platform API Key
     required: true
+  version:
+    description: Version of the Replexica CLI
+    required: false
+    default: 'latest'
 
 runs:
   using: 'docker'
   image: 'action/Dockerfile'
   env:
     REPLEXICA_API_KEY: ${{ inputs.api-key }}
+    REPLEXICA_VERSION: ${{ inputs.version }}
 
 branding:
   icon: './content/logo.png'
