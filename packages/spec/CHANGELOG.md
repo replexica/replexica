@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.12.1
+
+### Patch Changes
+
+- [`bc5a28c`](https://github.com/replexica/replexica/commit/bc5a28c3c98b619872924b5f913229ac01387524) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Fix spec imports
+
 ## 0.12.0
 
 ### Minor Changes
