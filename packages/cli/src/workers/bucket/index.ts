@@ -1,4 +1,4 @@
-import { allLocalesSchema, bucketTypeSchema } from '@replexica/spec';
+import { localeCodeSchema, bucketTypeSchema } from '@replexica/spec';
 import Z from 'zod';
 import { createFileLoader, IBucketLoader } from './loader';
 import { createAndroidParser, createJsonParser, createMarkdownParser, createXcodeParser, createYamlParser, IBucketParser } from './parser';
@@ -63,7 +63,7 @@ type BucketProcessorParams = {
 
 function composeBucketProcessor(bucketPath: string, params: BucketProcessorParams) {
   return {
-    async load(locale: Z.infer<typeof allLocalesSchema>) {
+    async load(locale: Z.infer<typeof localeCodeSchema>) {
       const filePath = await params.pathResolver(locale, bucketPath);
       const content = await params.storage.load(locale, filePath);
       if (!content) { return {}; }
@@ -71,7 +71,7 @@ function composeBucketProcessor(bucketPath: string, params: BucketProcessorParam
       const payload = await params.parser.deserialize(locale, content);
       return payload;
     },
-    async save(locale: Z.infer<typeof allLocalesSchema>, payload: Record<string, string>) {
+    async save(locale: Z.infer<typeof localeCodeSchema>, payload: Record<string, string>) {
       const serialized = await params.parser.serialize(locale, payload);
 
       const filePath = await params.pathResolver(locale, bucketPath);

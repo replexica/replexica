@@ -4,7 +4,7 @@ import { loadConfig } from './../workers/config';
 import { loadSettings } from './../workers/settings';
 import Ora from 'ora';
 import _ from 'lodash';
-import { bucketTypeSchema, targetLocaleSchema } from '@replexica/spec';
+import { bucketTypeSchema, localeCodeSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
@@ -216,7 +216,7 @@ export default new Command()
 
 async function loadFlags(options: any) {
   return Z.object({
-    locale: targetLocaleSchema.optional(),
+    locale: localeCodeSchema.optional(),
     bucket: bucketTypeSchema.optional(),
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),

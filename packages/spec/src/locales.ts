@@ -49,15 +49,16 @@ export type LocaleCodeShort = keyof typeof localeMap;
 export type LocaleCodeFull = typeof localeMap[LocaleCodeShort][number];
 export type LocaleCode = LocaleCodeShort | LocaleCodeFull;
 
-export const localeCodeSchema = Z.string().refine((value) => {
-  const existingShortLocaleCode = Object.keys(localeMap).includes(value);
-  if (existingShortLocaleCode) { return true; }
+export const localeCodesShort = Object.keys(localeMap) as LocaleCodeShort[];
+export const localeCodesFull = Object.values(localeMap).flat() as LocaleCodeFull[];
+export const localeCodes = [...localeCodesShort, ...localeCodesFull] as LocaleCode[];
 
-  const existingFullLocaleCode = Object.values(localeMap).flat().includes(value as any);
-  if (existingFullLocaleCode) { return true; }
-
-  return false;
-});
+export const localeCodeSchema = Z
+  .string()
+  .refine(
+    (value) => localeCodes.includes(value as any),
+    { message: 'Invalid locale code' },
+  );
 
 export const resolveLocaleCode = (value: LocaleCode): LocaleCodeFull => {
   const existingFullLocaleCode = Object.values(localeMap).flat().includes(value as any);

@@ -2,7 +2,7 @@ import { Command } from "commander";
 import _ from "lodash";
 import Z from 'zod';
 import Ora from 'ora';
-import { sourceLocales, targetLocales } from "@replexica/spec";
+import { localeCodes } from "@replexica/spec";
 
 export default new Command()
   .command("locale")
@@ -16,10 +16,10 @@ export default new Command()
       switch (type) {
         default: throw new Error(`Invalid type: ${type}`);
         case 'sources':
-          sourceLocales.forEach((locale) => console.log(locale));
+          localeCodes.forEach((locale) => console.log(locale));
           break;
         case 'targets':
-          targetLocales.forEach((locale) => console.log(locale));
+          localeCodes.forEach((locale) => console.log(locale));
           break;
       }
     } catch (error: any) {

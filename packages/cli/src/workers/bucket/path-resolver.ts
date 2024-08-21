@@ -1,16 +1,16 @@
-import { allLocalesSchema } from "@replexica/spec";
+import { localeCodeSchema } from "@replexica/spec";
 import Z from 'zod';
 import path from 'path';
 
 export type BucketPathResolver = {
-  (locale: Z.infer<typeof allLocalesSchema>, bucketPath: string): Promise<string>;
+  (locale: Z.infer<typeof localeCodeSchema>, bucketPath: string): Promise<string>;
 }
 
-export async function plainPathResolver(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+export async function plainPathResolver(locale: Z.infer<typeof localeCodeSchema>, bucketPath: string) {
   return path.join(process.cwd(), bucketPath);
 }
 
-export async function patternPathResolver(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+export async function patternPathResolver(locale: Z.infer<typeof localeCodeSchema>, bucketPath: string) {
   if (!bucketPath.includes('[locale]')) {
     throw new Error('Bucket path must contain [locale] placeholder');
   }
@@ -21,7 +21,7 @@ export async function patternPathResolver(locale: Z.infer<typeof allLocalesSchem
   return result;
 }
 
-export async function concreteNamePathResolveR(locale: Z.infer<typeof allLocalesSchema>, bucketPath: string) {
+export async function concreteNamePathResolveR(locale: Z.infer<typeof localeCodeSchema>, bucketPath: string) {
   const result = await plainPathResolver(locale, bucketPath);
   
   const filename = 'Localizable.xcstrings';
