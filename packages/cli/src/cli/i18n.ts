@@ -9,6 +9,7 @@ import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
 import { expandPlaceholderedGlob, createBucketLoader } from '../workers/bucket/v2';
+import { ensureLockfileExists } from './lockfile';
 
 export default new Command()
   .command('i18n')
@@ -42,6 +43,14 @@ export default new Command()
         throw new Error(`Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`);
       } else {
         ora.succeed('Replexica configuration loaded');
+      }
+
+      ora.start('Ensuring lockfile exists');
+      const lockfileResult = await ensureLockfileExists();
+      if (lockfileResult === 'exists') {
+        ora.succeed(`Lockfile exists`);
+      } else {
+        ora.succeed('Lockfile created');
       }
 
       ora.start('Connecting to AI localization engine');
