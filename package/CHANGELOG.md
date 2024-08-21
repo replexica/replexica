@@ -1,5 +1,20 @@
 # replexica
 
+## 0.40.0
+
+### Minor Changes
+
+- [#165](https://github.com/replexica/replexica/pull/165) [`5c2ca37`](https://github.com/replexica/replexica/commit/5c2ca37114663eaeb529a027e33949ef3839549b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Update locale code resolution logic
+
+- [#166](https://github.com/replexica/replexica/pull/166) [`78c4ce4`](https://github.com/replexica/replexica/commit/78c4ce479149d3eeb2f67f9283de54eecf3c35ab) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add lockfile autogeneration
+
+### Patch Changes
+
+- Updated dependencies [[`5c2ca37`](https://github.com/replexica/replexica/commit/5c2ca37114663eaeb529a027e33949ef3839549b), [`78c4ce4`](https://github.com/replexica/replexica/commit/78c4ce479149d3eeb2f67f9283de54eecf3c35ab)]:
+  - @replexica/cli@0.40.0
+  - @replexica/compiler@0.4.3
+  - @replexica/react@0.3.3
+
 ## 0.39.1
 
 ### Patch Changes
