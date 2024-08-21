@@ -1,5 +1,5 @@
 import Z from 'zod';
-import { sourceLocaleSchema, targetLocaleSchema, allLocalesSchema } from '@replexica/spec';
+import { localeCodeSchema } from '@replexica/spec';
 import { createId } from "@paralleldrive/cuid2";
 
 const engineParamsSchema = Z.object({
@@ -24,12 +24,12 @@ const payloadSchema = Z.record(
 );
 
 const localizationParamsSchema = Z.object({
-  sourceLocale: sourceLocaleSchema,
-  targetLocale: targetLocaleSchema,
+  sourceLocale: localeCodeSchema,
+  targetLocale: localeCodeSchema,
 });
 
 const referenceSchema = Z.record(
-  allLocalesSchema,
+  localeCodeSchema,
   payloadSchema,
 );
 
