@@ -47,6 +47,7 @@ jobs:
         uses: ./
         with:
           api-key: ${{ secrets.REPLEXICA_API_KEY }}
+          pull-request: true
 
       - name: Setup
         run: |
