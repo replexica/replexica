@@ -11,6 +11,10 @@ inputs:
     description: Version of the Replexica CLI
     required: false
     default: 'latest'
+  pull-request:
+    description: 'Create a pull request with the changes'
+    required: false
+    default: 'false'
 
 runs:
   using: 'docker'
@@ -18,6 +22,7 @@ runs:
   env:
     REPLEXICA_API_KEY: ${{ inputs.api-key }}
     REPLEXICA_VERSION: ${{ inputs.version }}
+    REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
 
 branding:
   icon: './content/logo.png'
