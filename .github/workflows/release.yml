@@ -9,6 +9,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,9 +44,6 @@ jobs:
       # use action from current repo
       - name: Replexica
         uses: ./
-        permissions:
-          contents: write
-          pull-requests: write
         with:
           api-key: ${{ secrets.REPLEXICA_API_KEY }}
           pull-request: true
