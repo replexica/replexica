@@ -34,7 +34,7 @@ commit_changes() {
 # Function to create or update PR
 create_or_update_pr() {
     local current_branch=$(git rev-parse --abbrev-ref HEAD)
-    local pr_branch="${current_branch}/replexica"
+    local pr_branch="replexica/${current_branch}"
     local pr_title="Replexica: Add missing translations"
     local pr_body="This PR adds missing translations using Replexica."
 
