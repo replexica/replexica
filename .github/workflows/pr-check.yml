@@ -9,6 +9,9 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,6 +40,16 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+
+      - name: Replexica
+        uses: ./
+        with:
+          api-key: ${{ secrets.REPLEXICA_API_KEY }}
+          pull-request: true
+          pull_request_assignees: maxprilutskiy,vrcprl
+          pull_request_labels: i18n
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Install deps
         run: pnpm install

@@ -6,13 +6,12 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,12 +41,15 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      # use action from current repo
       - name: Replexica
         uses: ./
         with:
           api-key: ${{ secrets.REPLEXICA_API_KEY }}
-          version: 0.38
+          pull-request: true
+          pull_request_assignees: maxprilutskiy,vrcprl
+          pull_request_labels: i18n
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Setup
         run: |
