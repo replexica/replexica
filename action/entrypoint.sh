@@ -73,7 +73,8 @@ create_or_update_pr() {
     # Read PR body from adjacent file called pr.md
     pr_body_file="/pr.md"
 
-    local pr_create_args="--title \"$pr_title\" --body-file \"$pr_body_file\" --head \"$pr_branch\""
+    # PR arguments - must create pr into the current branch
+    local pr_create_args="--title \"$pr_title\" --body-file \"$pr_body_file\" --head \"$pr_branch\" --base \"$current_branch\""
     local pr_edit_args="--title \"$pr_title\" --body-file \"$pr_body_file\""
 
     add_assignees_to_pr_args
