@@ -41,7 +41,6 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      # use action from current repo
       - name: Replexica
         uses: ./
         with:
