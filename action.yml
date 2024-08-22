@@ -11,6 +11,24 @@ inputs:
     description: Version of the Replexica CLI
     required: false
     default: 'latest'
+  commit-message:
+    description: 'Commit message for the changes'
+    required: false
+    default: 'feat: update translations'
+  pull-request:
+    description: 'Create a pull request with the changes'
+    required: false
+    default: 'false'
+  pull-request-title:
+    description: 'Title of the pull request'
+    required: false
+    default: 'feat: update translations'
+  pull_request_assignees:
+    description: List of PR assignees (comma separated)
+    required: false
+  pull_request_labels:
+    description: List of PR labels (comma separated)
+    required: false
 
 runs:
   using: 'docker'
@@ -18,6 +36,11 @@ runs:
   env:
     REPLEXICA_API_KEY: ${{ inputs.api-key }}
     REPLEXICA_VERSION: ${{ inputs.version }}
+    REPLEXICA_COMMIT_MESSAGE: ${{ inputs.commit-message }}
+    REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
+    REPLEXICA_PULL_REQUEST_TITLE: ${{ inputs.pull-request-title }}
+    REPLEXICA_PULL_REQUEST_ASSIGNEES: ${{ inputs.pull_request_assignees }}
+    REPLEXICA_PULL_REQUEST_LABELS: ${{ inputs.pull_request_labels }}
 
 branding:
   icon: './content/logo.png'
