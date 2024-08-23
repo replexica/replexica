@@ -1,5 +1,17 @@
 # replexica
 
+## 0.41.0
+
+### Minor Changes
+
+- [#181](https://github.com/replexica/replexica/pull/181) [`1601f70`](https://github.com/replexica/replexica/commit/1601f708bdf0ff1786d3bf9b19265ac5b567f740) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Added support for .properties file
+
+### Patch Changes
+
+- Updated dependencies [[`1601f70`](https://github.com/replexica/replexica/commit/1601f708bdf0ff1786d3bf9b19265ac5b567f740)]:
+  - @replexica/spec@0.13.0
+  - @replexica/sdk@0.3.2
+
 ## 0.40.1
 
 ### Patch Changes
