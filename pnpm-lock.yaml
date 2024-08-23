@@ -149,6 +149,12 @@ importers:
       p-limit:
         specifier: ^6.1.0
         version: 6.1.0
+      properties-parser:
+        specifier: ^0.6.0
+        version: 0.6.0
+      properties-reader:
+        specifier: ^2.3.0
+        version: 2.3.0
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -192,6 +198,12 @@ importers:
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/properties-parser':
+        specifier: ^0.3.3
+        version: 0.3.3
+      '@types/properties-reader':
+        specifier: ^2.1.3
+        version: 2.1.3
       '@types/xml2js':
         specifier: ^0.4.14
         version: 0.4.14
@@ -1201,6 +1213,12 @@ packages:
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
+
+  '@types/properties-parser@0.3.3':
+    resolution: {integrity: sha512-VZhGpE+QQ2JNbaY4B4Y2iM/jdUsq3HO75uBKLk07VT6P2Kg1aifeYL6I3RosFniSdAb4PtuH5UaY8jXU7JeIYA==}
+
+  '@types/properties-reader@2.1.3':
+    resolution: {integrity: sha512-k4fBDScfZ9xQjIrZm0HcJlyWVZ5ltE9W8N2AIecsgFXfg5REhKKHEwmpRvSQvEPWnIEsL67K70P1tx7kGo+cjQ==}
 
   '@types/qs@6.9.14':
     resolution: {integrity: sha512-5khscbd3SwWMhFqylJBLQ0zIu7c1K6Vz0uBIt915BI3zV0q1nfjRQD3RqSBcPaO6PHEF4ov/t9y89fSiyThlPA==}
@@ -2613,6 +2631,11 @@ packages:
     resolution: {integrity: sha512-5H76ANWinB1H3twpJ6JY8uvAtpmFvHNArpilJAjXRKXSDDLPIMoZArw5SH0q9z+lLs8IrMw7Q2VWpWimFKFT1Q==}
     engines: {node: '>= 8.0.0'}
 
+  mkdirp@1.0.4:
+    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
 
@@ -2916,6 +2939,14 @@ packages:
   pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+
+  properties-parser@0.6.0:
+    resolution: {integrity: sha512-qvr2cSmoA0dln0MARAKwBzPkkXn7FqwX+RVVNpMdMJc7rt9mqO2cXwluxtux9fHrLhjnPFaQkS8BM0kFrTCnSw==}
+    engines: {node: '>= 0.3.1'}
+
+  properties-reader@2.3.0:
+    resolution: {integrity: sha512-z597WicA7nDZxK12kZqHr2TcvwNU1GCfA5UwfDY/HDp3hXPoPlb5rlEx9bwGTiJnc0OqbBTkU975jDToth8Gxw==}
+    engines: {node: '>=14'}
 
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -4669,6 +4700,12 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
+  '@types/properties-parser@0.3.3':
+    dependencies:
+      '@types/node': 20.14.10
+
+  '@types/properties-reader@2.1.3': {}
+
   '@types/qs@6.9.14': {}
 
   '@types/range-parser@1.2.7': {}
@@ -6155,6 +6192,8 @@ snapshots:
 
   mixme@0.5.10: {}
 
+  mkdirp@1.0.4: {}
+
   ms@2.0.0: {}
 
   ms@2.1.2: {}
@@ -6427,6 +6466,12 @@ snapshots:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
       react-is: 18.3.1
+
+  properties-parser@0.6.0: {}
+
+  properties-reader@2.3.0:
+    dependencies:
+      mkdirp: 1.0.4
 
   proxy-addr@2.0.7:
     dependencies:

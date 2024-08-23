@@ -12,6 +12,7 @@ import { rootKeyLoader } from './root-key';
 import { markdownLoader } from './markdown';
 import { xcodeLoader } from './xcode';
 import { androidLoader } from './android';
+import { propertiesLoader } from './properties';
 
 // Path expansion
 export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: string): string[] {
@@ -124,6 +125,12 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
       return composeLoaders<string, Record<string, string>>(
         textLoader('node_modules/@replexica/.cache/[locale].json'),
         jsonLoader(),
+        flatLoader(),
+      );
+    case 'properties':
+      return composeLoaders<string, Record<string, string>>(
+        textLoader(filepath),
+        propertiesLoader(),
         flatLoader(),
       );
   }
