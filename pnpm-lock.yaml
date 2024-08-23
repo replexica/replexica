@@ -149,6 +149,9 @@ importers:
       p-limit:
         specifier: ^6.1.0
         version: 6.1.0
+      properties-parser:
+        specifier: ^0.6.0
+        version: 0.6.0
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -192,6 +195,9 @@ importers:
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/properties-parser':
+        specifier: ^0.3.3
+        version: 0.3.3
       '@types/xml2js':
         specifier: ^0.4.14
         version: 0.4.14
@@ -1201,6 +1207,9 @@ packages:
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
+
+  '@types/properties-parser@0.3.3':
+    resolution: {integrity: sha512-VZhGpE+QQ2JNbaY4B4Y2iM/jdUsq3HO75uBKLk07VT6P2Kg1aifeYL6I3RosFniSdAb4PtuH5UaY8jXU7JeIYA==}
 
   '@types/qs@6.9.14':
     resolution: {integrity: sha512-5khscbd3SwWMhFqylJBLQ0zIu7c1K6Vz0uBIt915BI3zV0q1nfjRQD3RqSBcPaO6PHEF4ov/t9y89fSiyThlPA==}
@@ -2916,6 +2925,10 @@ packages:
   pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+
+  properties-parser@0.6.0:
+    resolution: {integrity: sha512-qvr2cSmoA0dln0MARAKwBzPkkXn7FqwX+RVVNpMdMJc7rt9mqO2cXwluxtux9fHrLhjnPFaQkS8BM0kFrTCnSw==}
+    engines: {node: '>= 0.3.1'}
 
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -4668,6 +4681,10 @@ snapshots:
   '@types/object-hash@3.0.6': {}
 
   '@types/prop-types@15.7.12': {}
+
+  '@types/properties-parser@0.3.3':
+    dependencies:
+      '@types/node': 20.14.10
 
   '@types/qs@6.9.14': {}
 
@@ -6427,6 +6444,8 @@ snapshots:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
       react-is: 18.3.1
+
+  properties-parser@0.6.0: {}
 
   proxy-addr@2.0.7:
     dependencies:
