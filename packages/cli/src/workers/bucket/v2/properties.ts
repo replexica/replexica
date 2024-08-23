@@ -1,4 +1,4 @@
-import { parse, createEditor, read } from 'properties-parser';
+import { parse, createEditor } from 'properties-parser';
 import { BucketLoader } from './_base';
 
 export const propertiesLoader = (): BucketLoader<string, Record<string, string>> => ({
