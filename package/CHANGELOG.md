@@ -1,5 +1,14 @@
 # replexica
 
+## 0.41.1
+
+### Patch Changes
+
+- [`6fdc5d5`](https://github.com/replexica/replexica/commit/6fdc5d535a077bb0656d37c5edf3423dd32e6412) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Add json repair to json file loader
+
+- Updated dependencies [[`6fdc5d5`](https://github.com/replexica/replexica/commit/6fdc5d535a077bb0656d37c5edf3423dd32e6412)]:
+  - @replexica/cli@0.41.1
+
 ## 0.41.0
 
 ### Minor Changes
