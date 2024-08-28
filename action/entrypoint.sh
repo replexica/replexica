@@ -152,7 +152,7 @@ main() {
             create_or_update_pr
         else
             # Push changes directly to the repository
-            git pull --rebase
+            git pull --rebase origin $(get_current_branch)
             git push
             COMMIT_HASH=$(git rev-parse HEAD)
             COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$COMMIT_HASH"
