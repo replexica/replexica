@@ -139,6 +139,8 @@ main() {
         fi
     fi
 
+    git pull
+
     # Run Replexica to update translations
     run_replexica
 
@@ -151,8 +153,6 @@ main() {
             # Create or update pull request
             create_or_update_pr
         else
-            # Push changes directly to the repository
-            git pull --rebase origin $(get_current_branch)
             git push
             COMMIT_HASH=$(git rev-parse HEAD)
             COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$COMMIT_HASH"
