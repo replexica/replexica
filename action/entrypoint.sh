@@ -139,8 +139,6 @@ main() {
         fi
     fi
 
-    git pull
-
     # Run Replexica to update translations
     run_replexica
 
@@ -153,7 +151,8 @@ main() {
             # Create or update pull request
             create_or_update_pr
         else
-            git push
+            # Push changes to the current branch
+            git push origin HEAD:$(get_current_branch)
             COMMIT_HASH=$(git rev-parse HEAD)
             COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$COMMIT_HASH"
             echo "::notice::Replexica: Translation updates pushed successfully. View the commit: $COMMIT_URL"
