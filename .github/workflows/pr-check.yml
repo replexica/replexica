@@ -2,9 +2,9 @@ name: Check PR
 
 on:
   workflow_dispatch:
-    pull_request:
-      branches:
-        - main
+  pull_request_target:
+    branches:
+      - main
 
 jobs:
   check:
