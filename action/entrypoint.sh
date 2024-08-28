@@ -6,7 +6,7 @@ set -e
 run_replexica() {
     npx replexica@${REPLEXICA_VERSION} i18n
     if [ $? -eq 1 ]; then
-        echo "::error::Replexica: Translation update failed. For assistance, join our Discord: https://replexica.com/go/discord"
+        echo "::error::Replexica: Translation update failed. For assistance, send our CTO an email to max@replexica.com."
         exit 1
     fi
 }
@@ -37,7 +37,7 @@ get_current_branch() {
         # Fallback for other cases
         branch_name=$(echo "$GITHUB_REF" | sed 's:^refs/[^/]*/::')
     else
-        echo "::error::Replexica: Unable to determine the current branch name. For assistance, join our Discord: https://replexica.com/go/discord"
+        echo "::error::Replexica: Unable to determine the current branch name. For assistance, send our CTO an email to max@replexica.com."
         exit 1
     fi
 
@@ -132,6 +132,9 @@ add_labels_to_pr_args() {
 
 # Main execution
 main() {
+    # Configure git for committing changes
+    configure_git
+
     if [ "$REPLEXICA_PULL_REQUEST" = "true" ]; then
         if [ -z "$GH_TOKEN" ]; then
             echo "::error::Replexica: GitHub token is missing. Add 'GH_TOKEN: \${{ github.token }}' to your Replexica action configuration env section."
@@ -142,18 +145,14 @@ main() {
     # Run Replexica to update translations
     run_replexica
 
-    # Configure git for committing changes
-    configure_git
-
     # Commit changes if any are found
     if commit_changes; then
         if [ "$REPLEXICA_PULL_REQUEST" = "true" ]; then
             # Create or update pull request
             create_or_update_pr
         else
-            # Push changes directly to the repository
-            git pull --rebase
-            git push
+            # Push changes to the current branch
+            git push origin HEAD:$(get_current_branch)
             COMMIT_HASH=$(git rev-parse HEAD)
             COMMIT_URL="https://github.com/$GITHUB_REPOSITORY/commit/$COMMIT_HASH"
             echo "::notice::Replexica: Translation updates pushed successfully. View the commit: $COMMIT_URL"

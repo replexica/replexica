@@ -2,7 +2,11 @@ name: Check PR
 
 on:
   workflow_dispatch:
-  pull_request:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
     branches:
       - main
 
@@ -45,11 +49,6 @@ jobs:
         uses: ./
         with:
           api-key: ${{ secrets.REPLEXICA_API_KEY }}
-          pull-request: true
-          pull_request_assignees: maxprilutskiy,vrcprl
-          pull_request_labels: i18n
-        env:
-          GH_TOKEN: ${{ github.token }}
 
       - name: Install deps
         run: pnpm install
