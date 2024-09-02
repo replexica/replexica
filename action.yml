@@ -23,10 +23,10 @@ inputs:
     description: 'Title of the pull request'
     required: false
     default: 'feat: update translations'
-  pull_request_assignees:
+  pull-request-assignees:
     description: List of PR assignees (comma separated)
     required: false
-  pull_request_labels:
+  pull-request-labels:
     description: List of PR labels (comma separated)
     required: false
 
@@ -39,8 +39,8 @@ runs:
     REPLEXICA_COMMIT_MESSAGE: ${{ inputs.commit-message }}
     REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
     REPLEXICA_PULL_REQUEST_TITLE: ${{ inputs.pull-request-title }}
-    REPLEXICA_PULL_REQUEST_ASSIGNEES: ${{ inputs.pull_request_assignees }}
-    REPLEXICA_PULL_REQUEST_LABELS: ${{ inputs.pull_request_labels }}
+    REPLEXICA_PULL_REQUEST_ASSIGNEES: ${{ inputs.pull-request-assignees }}
+    REPLEXICA_PULL_REQUEST_LABELS: ${{ inputs.pull-request-labels }}
 
 branding:
   icon: './content/logo.png'
