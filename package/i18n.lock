@@ -73,33 +73,7 @@ checksums:
     frontmatter-attribute-meta/3/content: 707699ac9a079aa81148a07499d4c39e
     frontmatter-attribute-sidebar: 1d41ad90ddfd2afba95b5a20b4f2d5da
     frontmatter-attribute-category: 9b0c387c905aba4206082ffbc5c32f7e
-  a2ee521da6f3f2f94a1af90f82986b4c:
-    hello-world: 1d89f5ccf329aaa9cdb98a3953103bbf
-    items.count%2Fmy/one: a253fe5458852c3c7fd89bdbe4d5ac16
-    items.count%2Fmy/other: 74e296c76396ac5c4b6e8f3bf3a6d02d
-    items.count%2Fmy/zero: 955c31a42e9ff663a49e69e944c8c537
-  2bc3a8ed319665fae7eff9afc672f20e:
-    app_name: c215a8d46c95f00089c5ea0d17eef742
-    hello_world: 0468579ef2fbc83c9d520c2f2f1c5059
-    login_button: f4f219abeb5a465ecb1c7efaf50246de
-    welcome_message: 83374f73fb07150aff0127f6b1fc3cb5
-    formatted_string: a53dd1e5e1c98fa10e40b175e91ce65d
-    one_song: 9bb74d4fa80ad5a504fca298a88b3a25
-    few_songs: 39f619cbec3055e2282b9a66920c520a
-    many_songs: 5b434988b01400ad04f1a0d7c4835d04
-    colors/0: 1f6df3af31231e79640ffb1a2c31536e
-    colors/1: 1f6df3af31231e79640ffb1a2c31536e
-    colors/2: 1f6df3af31231e79640ffb1a2c31536e
-    numberOfSongsAvailable/zero: e8e5f7b845614a8610a52ffbe10d954c
-    numberOfSongsAvailable/one: 9bb74d4fa80ad5a504fca298a88b3a25
-    numberOfSongsAvailable/other: 6e924f2081f2ffbf3bc4404834de05ae
   0d1abbacc6d742097863ba4d910983a2:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
     home/i-am-a-developer: d8feacce28faea3fd4228a1ebcb11473
-  b05b783b3d24ee943d83ccd8e274814d:
-    home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
-    home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
-  81c53af057228d439caa562136986947:
-    home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
-    home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb

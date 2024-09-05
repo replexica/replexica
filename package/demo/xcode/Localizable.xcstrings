@@ -16,6 +16,12 @@
             "state": "translated",
             "value": "¡Hola mundo!"
           }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bonjour le monde !"
+          }
         }
       }
     },
@@ -68,6 +74,11 @@
                 }
               }
             }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {}
           }
         }
       }

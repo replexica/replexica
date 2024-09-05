@@ -5,8 +5,7 @@
     "targets": [
       "es",
       "fr"
-    ],
-    "extraSource": "es"
+    ]
   },
   "buckets": {
     "markdown": {
@@ -18,29 +17,9 @@
         "demo/markdown-multi/[locale]/ignored-blog-post.md"
       ]
     },
-    "xcode": {
-      "include": [
-        "demo/xcode/Localizable.xcstrings"
-      ]
-    },
-    "android": {
-      "include": [
-        "demo/android/[locale].xml"
-      ]
-    },
     "json": {
       "include": [
         "demo/json/[locale].json"
-      ]
-    },
-    "yaml": {
-      "include": [
-        "demo/yaml/[locale].yml"
-      ]
-    },
-    "yaml-root-key": {
-      "include": [
-        "demo/yaml-root-key/[locale].yml"
       ]
     }
   }
