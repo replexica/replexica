@@ -46,6 +46,10 @@ Replexica is an AI-powered i18n platform, to ship multilingual apps fast.
 
 Check out our [Docs](https://replexica.com/go/docs) for more detailed guides on how to use Replexica with your app.
 
+## Experimental JavaScript/React compiler
+
+Besides i18n tools and Replexica CLI, this repo contains an experimental JavaScript compiler. It automates making a web app multilingual without code changes or string extraction: works during build time, taking just 1 minute to plug in. You can find a brief demo [here](https://x.com/MaxPrilutskiy/status/1781011350136734055). The compiler automatically handles the entire process, eliminating manual work. It's experimental, currently under development, and not yet ready for production use. To contribute, please star this repo and reach out to us. We've got 30+ contributors on the waitlist, and you're welcome to join as well. Contact our CTO Max on Discord or via email (max@replexica.com).
+
 ## Authors
 
 * **[Veronica](https://github.com/vrcprl)** - Data Science, and LLMs.
