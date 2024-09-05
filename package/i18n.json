@@ -18,9 +18,7 @@
       ]
     },
     "json": {
-      "include": [
-        "demo/json/[locale].json"
-      ]
+      "include": ["demo/json/[locale].json"]
     }
   }
 }
