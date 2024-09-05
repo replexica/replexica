@@ -1,5 +1,11 @@
 # replexica
 
+## 0.41.2
+
+### Patch Changes
+
+- [`962ec5e`](https://github.com/replexica/replexica/commit/962ec5e619632d020ff60fb562d3ad7bc8900443) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - avoid rewriting i18n.json when there's no changes
+
 ## 0.41.1
 
 ### Patch Changes
