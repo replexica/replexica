@@ -1,4 +1,5 @@
 import Z from 'zod';
+import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import { I18nConfig, parseI18nConfig } from '@replexica/spec';
@@ -13,8 +14,9 @@ export async function loadConfig(resave = true): Promise<I18nConfig | null> {
   const rawConfig = JSON.parse(fileContents);
 
   const result = parseI18nConfig(rawConfig);
+  const didConfigChange = !_.isEqual(rawConfig, result);
 
-  if (resave) {
+  if (resave && didConfigChange) {
     // Ensure the config is saved with the latest version / schema
     await saveConfig(result);
   }
