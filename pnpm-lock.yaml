@@ -222,6 +222,9 @@ importers:
       '@babel/types':
         specifier: ^7.24.7
         version: 7.24.7
+      '@replexica/sdk':
+        specifier: workspace:*
+        version: link:../sdk
       '@replexica/spec':
         specifier: workspace:*
         version: link:../spec

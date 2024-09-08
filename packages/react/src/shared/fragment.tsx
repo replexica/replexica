@@ -5,11 +5,13 @@ export type I18nBaseFragmentProps = I18nIdParams & {
 };
 
 export function I18nBaseFragment(props: I18nBaseFragmentProps) {
-  return resolveI18nValue(props.data, {
+  const value = resolveI18nValue(props.data, {
     fileId: props.fileId,
     scopeId: props.scopeId,
     chunkId: props.chunkId,
   });
+
+  return ` ${value} `;
 }
 
 export type I18nIdParams = {
