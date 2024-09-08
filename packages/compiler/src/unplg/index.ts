@@ -26,7 +26,7 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
 
   const localeResolver = createLocaleResolver(i18nRoot, config.locale);
   const iom = createIomStorage();
-  const localeServer = createLocaleServer(iom.storage);
+  const localeServer = createLocaleServer(config.locale.source, iom.storage);
   const artifactor = createArtifactor(i18nRoot, localeResolver.supportedLocales);
 
   traverseCodeFiles((filePath) => {
@@ -46,16 +46,16 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
   return {
     name: 'replexica',
     enforce: 'pre',
-    // buildStart() {
-    //   artifactor.createMockLocaleModules();
-    // },
-    // buildEnd() {
-    //   artifactor.deleteMockLocaleModules();
-    // },
+    buildStart() {
+      artifactor.createMockLocaleModules();
+    },
+    buildEnd() {
+      artifactor.deleteMockLocaleModules();
+    },
     transformInclude(filePath) {
       return shouldTransform(filePath);
     },
-    watchChange: console.log,
+    // watchChange: console.log,
     async load(filePath) {
       const localeModuleId = localeResolver.tryParseLocaleModuleId(filePath);
       if (!localeModuleId) { return null; }
@@ -81,7 +81,6 @@ export default createUnplugin<Z.infer<typeof unplgConfigSchema>>((_config) => {
         supportedLocales: localeResolver.supportedLocales,
         isClientCode: !config.isServer,
       });
-
 
       const result = converter.generateUpdatedCode(ast);
 
