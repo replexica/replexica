@@ -2,7 +2,7 @@
 title: stringyfy 1.0.1
 description: Une bibliothèque npm simple qui fournit un ensemble de fonctions utilitaires pour manipuler et transformer des chaînes de caractères en JavaScript.
 meta:
-  - name: keywords
+  - name: mots-clés
     content: stringyfy, npm, bibliothèque, utilitaire, fonctions, manipuler, transformer, chaînes, JavaScript
   - name: author
     content: stringyfy

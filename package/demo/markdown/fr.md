@@ -2,8 +2,8 @@
 title: stringyfy
 description: Une bibliothèque npm simple qui fournit un ensemble de fonctions utilitaires pour manipuler et transformer des chaînes de caractères en JavaScript.
 meta:
-  - name: keywords
-    content: stringyfy, npm, bibliothèque, utilitaire, fonctions, manipuler, transformer, chaînes, JavaScript
+  - name: mots-clés
+    content: stringyfy, npm, bibliothèque, utilitaire, fonctions, manipuler, transformer, chaînes de caractères, JavaScript
   - name: author
     content: stringyfy
   - name: date
@@ -18,7 +18,7 @@ category: Bibliothèques
 
 ## Description
 
-`stringyfy` est une bibliothèque npm simple qui fournit un ensemble de fonctions utilitaires pour manipuler et transformer des chaînes de caractères en JavaScript. Elle est légère, facile à utiliser et n'a pas de dépendances.
+`stringyfy` est une bibliothèque npm simple qui fournit un ensemble de fonctions utilitaires pour manipuler et transformer des chaînes de caractères en JavaScript. Elle est légère, facile à utiliser et n'a aucune dépendance.
 
 ## Installation
 
@@ -35,11 +35,11 @@ Voici un exemple simple d'utilisation de `stringyfy` :
 ```javascript
 const stringyfy = require('stringyfy');
 
-let str = "Hello, World!";
+let str = "Bonjour, le monde !";
 
 let result = stringyfy.reverse(str);
 
-console.log(result); // Affiche : "!dlroW ,olleH"
+console.log(result); // Affiche : "! ednom el ,ruojnoB"
 ```
 
 ## API
