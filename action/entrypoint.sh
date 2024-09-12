@@ -92,12 +92,7 @@ create_or_update_pr() {
 
     # Try creating a PR
 
-    new_pr=$(gh pr create \
-      --base "$current_branch" \
-      --head "$pr_branch" \
-      --title "$pr_title" \
-      --body-file "$pr_body_file" \
-      2>&1)
+    new_pr=$(gh pr create --base "$current_branch" --head "$pr_branch" --title "$pr_title" --body-file "$pr_body_file" 2>&1)
 
     exit_code=$?
 
