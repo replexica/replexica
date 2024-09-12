@@ -67,66 +67,44 @@ create_or_update_pr() {
     git checkout -B "$pr_branch"
     git push -f origin "$pr_branch"
 
-    # Check if PR already exists
-    existing_pr=$(gh pr list --head "$pr_branch" --json number --jq '.[0].number')
+    # # Check if PR already exists
+    # existing_pr=$(gh pr list --head "$pr_branch" --json number --jq '.[0].number')
 
     # Read PR body from adjacent file called pr.md
     pr_body_file="/pr.md"
 
-    # PR arguments - must create pr into the current branch
-    local pr_create_args="--title \"$pr_title\" --body-file \"$pr_body_file\" --head \"$pr_branch\" --base \"$current_branch\""
-    local pr_edit_args="--title \"$pr_title\" --body-file \"$pr_body_file\""
+    # # PR arguments - must create pr into the current branch
+    # local pr_create_args="--title \"$pr_title\" --body-file \"$pr_body_file\" --head \"$pr_branch\" --base \"$current_branch\""
+    # local pr_edit_args="--title \"$pr_title\" --body-file \"$pr_body_file\""
 
-    add_assignees_to_pr_args
-    add_labels_to_pr_args "$existing_pr"
+    # # Create new PR or update existing one
+    # if [ -n "$existing_pr" ]; then
+    #     eval gh pr edit "$existing_pr" $pr_edit_args
+    #     echo "::notice::Replexica: Updated existing PR #$existing_pr with translations. Review it here: https://github.com/$GITHUB_REPOSITORY/pull/$existing_pr"
+    # else
+    #     add_assignees_to_pr_args
+    #     add_labels_to_pr_args "$existing_pr"
 
-    # Create new PR or update existing one
-    if [ -n "$existing_pr" ]; then
-        eval gh pr edit "$existing_pr" $pr_edit_args
-        echo "::notice::Replexica: Updated existing PR #$existing_pr with translations. Review it here: https://github.com/$GITHUB_REPOSITORY/pull/$existing_pr"
+    #     new_pr=$(eval gh pr create $pr_create_args)
+
+    #     echo "::notice::Replexica: Created new PR with translations. Review it here: $new_pr"
+    # fi
+
+    # Try creating a PR
+
+    new_pr=$(gh pr create \
+      --base "$current_branch" \
+      --head "$pr_branch" \
+      --title "$pr_title" \
+      --body-file "$pr_body_file" \
+      2>&1)
+
+    exit_code=$?
+
+    if [ $exit_code -eq 0 ] && [ -n "$new_pr" ]; then
+      echo "Created new PR with translations. Review it here: $new_pr"
     else
-        new_pr=$(eval gh pr create $pr_create_args)
-        echo "::notice::Replexica: Created new PR with translations. Review it here: $new_pr"
-    fi
-}
-
-# Function to add assignees to PR arguments
-add_assignees_to_pr_args() {
-    if [ -n "$REPLEXICA_PULL_REQUEST_ASSIGNEES" ]; then
-        OLD_IFS="$IFS"
-        IFS=','
-        for assignee in $REPLEXICA_PULL_REQUEST_ASSIGNEES; do
-            pr_create_args="$pr_create_args --assignee \"$assignee\""
-            pr_edit_args="$pr_edit_args --add-assignee \"$assignee\""
-        done
-        IFS="$OLD_IFS"
-    fi
-}
-
-# Function to add labels to PR arguments
-add_labels_to_pr_args() {
-    local existing_pr="$1"
-    if [ -n "$REPLEXICA_PULL_REQUEST_LABELS" ]; then
-        OLD_IFS="$IFS"
-        IFS=','
-        for label in $REPLEXICA_PULL_REQUEST_LABELS; do
-            # Check if label exists in the repository
-            if ! gh label list | grep -q "^$label "; then
-                # Create label if it doesn't exist in the repository
-                gh label create "$label" --color "#1ac964" || true > /dev/null
-            fi
-            
-            # For new PRs, add all labels
-            if [ -z "$existing_pr" ]; then
-                pr_create_args="$pr_create_args --label \"$label\""
-            else
-                # For existing PRs, check if the label is already present
-                if ! gh pr view "$existing_pr" --json labels --jq '.labels[].name' | grep -q "^$label$"; then
-                    pr_edit_args="$pr_edit_args --add-label \"$label\""
-                fi
-            fi
-        done
-        IFS="$OLD_IFS"
+      echo $new_pr
     fi
 }
 
