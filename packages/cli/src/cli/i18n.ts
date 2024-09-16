@@ -46,7 +46,12 @@ export default new Command()
       }
 
       ora.start('Ensuring lockfile exists');
-      const lockfileResult = await ensureLockfileExists();
+      let lockfileResult;
+      try {
+        lockfileResult = await ensureLockfileExists();
+      } catch (error: any) {
+        throw new Error(`Failed to ensure lockfile exists: ${error.message}`);
+      }
       if (lockfileResult === 'exists') {
         ora.succeed(`Lockfile exists`);
       } else {
@@ -68,10 +73,15 @@ export default new Command()
       }
 
       ora.start('Connecting to AI localization engine');
-      const replexicaEngine = new ReplexicaEngine({
-        apiKey: settings.auth.apiKey,
-        apiUrl: settings.auth.apiUrl,
-      });
+      let replexicaEngine;
+      try {
+        replexicaEngine = new ReplexicaEngine({
+          apiKey: settings.auth.apiKey,
+          apiUrl: settings.auth.apiUrl,
+        });
+      } catch (error: any) {
+        throw new Error(`Failed to initialize ReplexicaEngine: ${error.message}`);
+      }
       ora.succeed('AI localization engine connected');
 
       // Determine the exact buckets to process
@@ -79,20 +89,24 @@ export default new Command()
 
       // Expand the placeholdered globs into actual (placeholdered) paths
       const placeholderedPathsTuples: [Z.infer<typeof bucketTypeSchema>, string][] = [];
-      for (const [bucketType, bucketTypeParams] of Object.entries(targetedBuckets)) {
-        const includedPlaceholderedPaths = bucketTypeParams.include
-          .map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source))
-          .flat();
-        const excludedPlaceholderedPaths = bucketTypeParams.exclude
-          ?.map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source))
-          .flat() || [];
-        const finalPlaceholderedPaths = includedPlaceholderedPaths.filter((path) => !excludedPlaceholderedPaths.includes(path));
-        for (const placeholderedPath of finalPlaceholderedPaths) {
-          placeholderedPathsTuples.push([
-            bucketType as Z.infer<typeof bucketTypeSchema>,
-            placeholderedPath
-          ]);
+      try {
+        for (const [bucketType, bucketTypeParams] of Object.entries(targetedBuckets)) {
+          const includedPlaceholderedPaths = bucketTypeParams.include
+            .map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source))
+            .flat();
+          const excludedPlaceholderedPaths = bucketTypeParams.exclude
+            ?.map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig.locale.source))
+            .flat() || [];
+          const finalPlaceholderedPaths = includedPlaceholderedPaths.filter((path) => !excludedPlaceholderedPaths.includes(path));
+          for (const placeholderedPath of finalPlaceholderedPaths) {
+            placeholderedPathsTuples.push([
+              bucketType as Z.infer<typeof bucketTypeSchema>,
+              placeholderedPath
+            ]);
+          }
         }
+      } catch (error: any) {
+        throw new Error(`Failed to expand placeholdered globs: ${error.message}`);
       }
 
       const lockfileProcessor = createLockfileProcessor();
