@@ -1,5 +1,11 @@
 # replexica
 
+## 0.41.3
+
+### Patch Changes
+
+- [#204](https://github.com/replexica/replexica/pull/204) [`99a4d0a`](https://github.com/replexica/replexica/commit/99a4d0a926d6b6ec0821b47e34f337ca5bb05fca) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add additional exception throws
+
 ## 0.41.2
 
 ### Patch Changes
