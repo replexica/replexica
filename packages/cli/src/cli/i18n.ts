@@ -8,7 +8,7 @@ import { bucketTypeSchema, localeCodeSchema } from '@replexica/spec';
 import { createLockfileProcessor } from './../workers/lockfile';
 import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
-import { expandPlaceholderedGlob, createBucketLoader } from '../workers/bucket/v2';
+import { expandPlaceholderedGlob, createBucketLoader } from '../workers/bucket';
 import { ensureLockfileExists } from './lockfile';
 
 export default new Command()

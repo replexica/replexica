@@ -4,7 +4,7 @@ import Ora from 'ora';
 import { createLockfileProcessor } from '../workers/lockfile';
 import { bucketTypeSchema } from '@replexica/spec';
 import { loadConfig } from '../workers/config';
-import { createBucketLoader, expandPlaceholderedGlob } from '../workers/bucket/v2';
+import { createBucketLoader, expandPlaceholderedGlob } from '../workers/bucket';
 
 export default new Command()
   .command('lockfile')
