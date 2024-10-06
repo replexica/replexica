@@ -37,7 +37,7 @@
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.6.8",
     "@types/ignore-walk": "^4.0.3",
-    "@types/lodash": "^4.17.5",
+    "@types/lodash": "^4.17.10",
     "@types/object-hash": "^3.0.6",
     "@types/webpack": "^5.28.5",
     "next": "^14.2.4",
