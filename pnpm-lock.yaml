@@ -140,6 +140,9 @@ importers:
       markdown-it-front-matter:
         specifier: ^0.2.4
         version: 0.2.4
+      marked:
+        specifier: ^14.1.2
+        version: 14.1.2
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
@@ -2549,6 +2552,11 @@ packages:
 
   markdown-it@14.1.0:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
+    hasBin: true
+
+  marked@14.1.2:
+    resolution: {integrity: sha512-f3r0yqpz31VXiDB/wj9GaOB0a2PRLQl6vJmXiFrniNwjkKdvakqJRULhjFKJpxOchlCRiG5fcacoUZY5Xa6PEQ==}
+    engines: {node: '>= 18'}
     hasBin: true
 
   mdurl@2.0.0:
@@ -6116,6 +6124,8 @@ snapshots:
       mdurl: 2.0.0
       punycode.js: 2.3.1
       uc.micro: 2.1.0
+
+  marked@14.1.2: {}
 
   mdurl@2.0.0: {}
 

@@ -1,85 +1,41 @@
-import YAML from 'yaml';
+import matter from 'gray-matter';
 import { BucketLoader } from "./_base";
 
-const mdLinePrefix = 'markdown-line-';
-const fmAttributePrefix = 'frontmatter-attribute-';
+const SECTION_REGEX = /^(#{1,6}\s.*$|[-=*]{3,}$|!\[.*\]\(.*\)$|\[.*\]\(.*\)$)/gm;
+const MD_SECTION_PREFIX = 'md-section-';
+const FM_ATTR_PREFIX = 'fm-attr-';
 
 export const markdownLoader = (): BucketLoader<string, Record<string, any>> => ({
-  async load(text: string) {
-    // Manually split frontmatter and content
-    const parts = text.split(/^---\s*$/m);
-    let frontmatter = '';
-    let body = '';
+  async load(input: string): Promise<Record<string, any>> {
+    const { data: frontmatter, content } = matter(input);
+    const sections = content.split(SECTION_REGEX).filter(Boolean);
 
-    if (parts.length >= 3) {
-      frontmatter = parts[1].trim();
-      body = parts.slice(2).join('---').trim();
-    } else {
-      body = text.trim();
-    }
-
-    // Parse frontmatter using YAML
-    const attributes = frontmatter ? YAML.parse(frontmatter) : {};
-
-    const sectionStarters = [
-      // Matches headings
-      /^#+\s.*$/gm,
-      // Matches dash dividers
-      /^[-]{3,}$/gm,
-      // Matches equals dividers
-      /^[=]{3,}$/gm,
-      // Matches asterisk dividers
-      /^[*]{3,}$/gm,
-      // Matches images that take up a line
-      /^!\[.*\]\(.*\)$/gm,
-      // Matches links that take up a line
-      /^\[.*\]\(.*\)$/gm,
-    ];
-
-    const combinedPattern = new RegExp(sectionStarters.map(pattern => `(${pattern.source})`).join('|'), 'gm');
-
-    const sections = body.split(combinedPattern).filter(Boolean);
-
-    const bodyPartial: Record<string, string> = sections.reduce((acc, section, index) => ({
-      ...acc,
-      [`${mdLinePrefix}${index}`]: section,
-    }), {} as any);
-
-    const attributesPartial = Object.entries(attributes).reduce((acc, [key, value]) => ({
-      ...acc,
-      [`${fmAttributePrefix}${key}`]: value,
-    }), {} as any);
-
-    const result = {
-      ...bodyPartial,
-      ...attributesPartial,
+    return {
+      ...Object.fromEntries(
+        sections
+          .map((section, index) => [`${MD_SECTION_PREFIX}${index}`, section.trim()])
+          .filter(([, section]) => Boolean(section))
+      ),
+      ...Object.fromEntries(
+        Object.entries(frontmatter).map(([key, value]) => [`${FM_ATTR_PREFIX}${key}`, value])
+      ),
     };
-
-    return result;
   },
-  async save(payload) {
-    const body = Object
-      .entries(payload)
-      .filter(([key]) => key.startsWith(mdLinePrefix))
-      .map(([, value]) => value)
-      .join('');
 
-    const attributes = Object
-      .entries(payload)
-      .filter(([key]) => key.startsWith(fmAttributePrefix))
-      .reduce((acc, [key, value]) => ({
-        ...acc,
-        [key.replace(fmAttributePrefix, '')]: value,
-      }), {} as any);
+  async save(payload: Record<string, any>): Promise<string> {
+    const frontmatter = Object.fromEntries(
+      Object.entries(payload)
+        .filter(([key]) => key.startsWith(FM_ATTR_PREFIX))
+        .map(([key, value]) => [key.replace(FM_ATTR_PREFIX, ''), value])
+    );
 
-    if (Object.keys(attributes).length === 0) {
-      return body;
-    }
+    const content = Object.entries(payload)
+      .filter(([key]) => key.startsWith(MD_SECTION_PREFIX))
+      .sort(([a], [b]) => Number(a.split('-').pop()) - Number(b.split('-').pop()))
+      .map(([, value]) => value.trim())
+      .filter(Boolean)
+      .join('\n\n');
 
-    // Convert attributes to YAML string
-    const frontmatter = YAML.stringify(attributes, {
-      lineWidth: -1,
-    });
-    return `---\n${frontmatter}---\n\n${body}`;
-  },
+    return matter.stringify(content, frontmatter);
+  }
 });

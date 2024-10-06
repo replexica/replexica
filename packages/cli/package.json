@@ -34,6 +34,7 @@
     "lodash": "^4.17.21",
     "markdown-it": "^14.1.0",
     "markdown-it-front-matter": "^0.2.4",
+    "marked": "^14.1.2",
     "object-hash": "^3.0.0",
     "open": "^10.1.0",
     "ora": "^8.0.1",
