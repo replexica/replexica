@@ -1,4 +1,5 @@
 import matter from 'gray-matter';
+import YAML from 'yaml';
 import { BucketLoader } from "./_base";
 
 const SECTION_REGEX = /^(#{1,6}\s.*$|[-=*]{3,}$|!\[.*\]\(.*\)$|\[.*\]\(.*\)$)/gm;
@@ -7,8 +8,14 @@ const FM_ATTR_PREFIX = 'fm-attr-';
 
 export const markdownLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(input: string): Promise<Record<string, any>> {
-    const { data: frontmatter, content } = matter(input);
-    const sections = content.split(SECTION_REGEX).filter(Boolean);
+    const { data: frontmatter, content } = matter(input, {
+      engines: {
+        yaml: s => YAML.parse(s),
+      },
+    });
+    const sections = content.split(SECTION_REGEX)
+    .map(section => section.trim())
+    .filter(Boolean);
 
     return {
       ...Object.fromEntries(
@@ -29,12 +36,16 @@ export const markdownLoader = (): BucketLoader<string, Record<string, any>> => (
         .map(([key, value]) => [key.replace(FM_ATTR_PREFIX, ''), value])
     );
 
-    const content = Object.entries(payload)
+    let content = Object.entries(payload)
       .filter(([key]) => key.startsWith(MD_SECTION_PREFIX))
       .sort(([a], [b]) => Number(a.split('-').pop()) - Number(b.split('-').pop()))
       .map(([, value]) => value.trim())
       .filter(Boolean)
       .join('\n\n');
+
+    if (Object.keys(frontmatter).length > 0) {
+      content = `\n${content}`;
+    }
 
     return matter.stringify(content, frontmatter);
   }
