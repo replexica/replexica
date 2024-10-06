@@ -1,5 +1,11 @@
 # replexica
 
+## 0.42.0
+
+### Minor Changes
+
+- [`7c67fc5`](https://github.com/replexica/replexica/commit/7c67fc5d87d66abbf0a174417b938810a112cc1a) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - migrate to the new markdown parser
+
 ## 0.41.3
 
 ### Patch Changes
