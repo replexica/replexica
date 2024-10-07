@@ -289,8 +289,8 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0
       iso-639-1:
-        specifier: ^3.1.2
-        version: 3.1.2
+        specifier: ^3.1.3
+        version: 3.1.3
       negotiator:
         specifier: ^0.6.3
         version: 0.6.3
@@ -2376,8 +2376,8 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  iso-639-1@3.1.2:
-    resolution: {integrity: sha512-Le7BRl3Jt9URvaiEHJCDEdvPZCfhiQoXnFgLAWNRhzFMwRFdWO7/5tLRQbiPzE394I9xd7KdRCM7S6qdOhwG5A==}
+  iso-639-1@3.1.3:
+    resolution: {integrity: sha512-1jz0Wh9hyLMRwqEPchb/KZCiTqfFWtc9R3nm7GHPygBAKS8wdKJ3FH4lvLsri6UtAE5Kz5SnowtXZa//6bqMyw==}
     engines: {node: '>=6.0'}
 
   jackspeak@3.4.0:
@@ -5983,7 +5983,7 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  iso-639-1@3.1.2: {}
+  iso-639-1@3.1.3: {}
 
   jackspeak@3.4.0:
     dependencies:
