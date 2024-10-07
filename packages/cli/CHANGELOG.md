@@ -1,5 +1,11 @@
 # replexica
 
+## 0.43.0
+
+### Minor Changes
+
+- [`fe09f8b`](https://github.com/replexica/replexica/commit/fe09f8b68b1583ba9be83722beceb1596970809f) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add --api-key to the i18n cmd
+
 ## 0.42.0
 
 ### Minor Changes
