@@ -40,7 +40,7 @@
     "@types/lodash": "^4.17.10",
     "@types/object-hash": "^3.0.6",
     "@types/webpack": "^5.28.5",
-    "next": "^14.2.4",
+    "next": "^14.2.14",
     "tsup": "^8.1.0"
   }
 }
