@@ -37,7 +37,7 @@
     "marked": "^14.1.2",
     "object-hash": "^3.0.0",
     "open": "^10.1.0",
-    "ora": "^8.0.1",
+    "ora": "^8.1.0",
     "p-limit": "^6.1.0",
     "properties-parser": "^0.6.0",
     "slugify": "^1.6.6",
