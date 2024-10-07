@@ -67,4 +67,5 @@ jobs:
         run: pnpm turbo test --force
 
       - name: Require changeset to be present in PR
+        if: github.event.pull_request.user.login != 'dependabot[bot]'
         run: pnpm changeset status --since origin/main
