@@ -19,19 +19,19 @@ export default new Command()
   .option('--bucket <bucket>', 'Bucket to process')
   .option('--frozen', `Don't update the translations and fail if an update is needed`)
   .option('--force', 'Ignore lockfile and process all keys')
+  .option('--api-key <api-key>', 'Explicitly set the API key to use')
   .action(async function (options) {
     const ora = Ora();
     try {
       ora.start('Loading Replexica configuration');
       const [
-        settings,
         i18nConfig,
         flags,
       ] = await Promise.all([
-        loadSettings(),
         loadConfig(),
         loadFlags(options),
       ]);
+      const settings = await loadSettings(flags.apiKey);
 
       if (!i18nConfig) {
         throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
@@ -230,6 +230,7 @@ export default new Command()
 
 async function loadFlags(options: any) {
   return Z.object({
+    apiKey: Z.string().optional(),
     locale: localeCodeSchema.optional(),
     bucket: bucketTypeSchema.optional(),
     force: Z.boolean().optional(),

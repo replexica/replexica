@@ -15,7 +15,7 @@ export default new Command()
   .option("--login", "Authenticate with Replexica API")
   .action(async (options) => {
     try {
-      let settings = await loadSettings();
+      let settings = await loadSettings(undefined);
   
       if (options.logout) {
         settings.auth.apiKey = '';
@@ -25,7 +25,7 @@ export default new Command()
         const apiKey = await login(settings.auth.webUrl);
         settings.auth.apiKey = apiKey;
         await saveSettings(settings);
-        settings = await loadSettings();
+        settings = await loadSettings(undefined);
       }
   
       const authenticator = createAuthenticator({

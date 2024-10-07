@@ -7,14 +7,14 @@ import Ini from "ini";
 
 export type CliSettings = Z.infer<typeof SettingsSchema>;
 
-export async function loadSettings(): Promise<CliSettings> {
+export async function loadSettings(explicitApiKey: string | undefined): Promise<CliSettings> {
   const env = await _loadEnv();
   const systemFile = await _loadSystemFile();
   const defaults = await _loadDefaults();
 
   return {
     auth: {
-      apiKey: env.REPLEXICA_API_KEY || systemFile.auth?.apiKey || defaults.auth.apiKey,
+      apiKey: explicitApiKey || env.REPLEXICA_API_KEY || systemFile.auth?.apiKey || defaults.auth.apiKey,
       apiUrl: env.REPLEXICA_API_URL || systemFile.auth?.apiUrl || defaults.auth.apiUrl,
       webUrl: env.REPLEXICA_WEB_URL || systemFile.auth?.webUrl || defaults.auth.webUrl,
     },
