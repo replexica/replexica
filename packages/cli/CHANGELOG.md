@@ -1,5 +1,11 @@
 # replexica
 
+## 0.44.0
+
+### Minor Changes
+
+- [#220](https://github.com/replexica/replexica/pull/220) [`1b11f8e`](https://github.com/replexica/replexica/commit/1b11f8e710d140045be0c4385bad6348f21f4e5c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `replexica show files` command
+
 ## 0.43.0
 
 ### Minor Changes
