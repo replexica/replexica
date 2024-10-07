@@ -40,7 +40,7 @@
     "@types/cookie": "^0.6.0",
     "@types/negotiator": "^0.6.3",
     "@types/react": "^18.3.11",
-    "next": "^14.2.4",
+    "next": "^14.2.14",
     "tsup": "^8.1.0"
   },
   "peerDependencies": {
