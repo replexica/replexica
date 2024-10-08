@@ -1,5 +1,11 @@
 # replexica
 
+## 0.44.1
+
+### Patch Changes
+
+- [`4760f61`](https://github.com/replexica/replexica/commit/4760f617ef5cca7bed742e4fac28044721d33fc1) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - update cli messages
+
 ## 0.44.0
 
 ### Minor Changes
