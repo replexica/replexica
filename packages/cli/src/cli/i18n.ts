@@ -58,7 +58,7 @@ export default new Command()
         ora.succeed('Lockfile created');
       }
 
-      ora.start('Connecting to AI localization engine');
+      ora.start('Authenticating');
       const authenticator = createAuthenticator({
         apiKey: settings.auth.apiKey,
         apiUrl: settings.auth.apiUrl,
@@ -72,7 +72,7 @@ export default new Command()
         throw new Error(`Account is not yet activated. Please enable your free trial by talking to our dev team. https://replexica.com/go/call`);
       }
 
-      ora.start('Connecting to AI localization engine');
+      ora.start('Connecting to Replexica AI engine');
       let replexicaEngine;
       try {
         replexicaEngine = new ReplexicaEngine({
@@ -82,7 +82,7 @@ export default new Command()
       } catch (error: any) {
         throw new Error(`Failed to initialize ReplexicaEngine: ${error.message}`);
       }
-      ora.succeed('AI localization engine connected');
+      ora.succeed('Replexica AI engine connected');
 
       // Determine the exact buckets to process
       const targetedBuckets = flags.bucket ? { [flags.bucket]: i18nConfig.buckets[flags.bucket] } : i18nConfig.buckets;
@@ -165,7 +165,7 @@ export default new Command()
 
             try {
               // Use the SDK to localize the payload
-              localeOra.start('AI translation in progress...');
+              localeOra.start('AI localization in progress...');
               // Calculate reference payload if specified
               const referencePayload: any = {};
               if (i18nConfig.locale.extraSource) {
@@ -188,11 +188,11 @@ export default new Command()
                 },
                 referencePayload,
                 (progress) => {
-                  localeOra.text = `(${progress}%) AI translation in progress...`;
+                  localeOra.text = `(${progress}%) AI localization in progress...`;
                 }
               );
 
-              localeOra.succeed(`AI translation completed`);
+              localeOra.succeed(`AI localization completed`);
             } catch (error: any) {
               localeOra.fail(error.message);
             }
