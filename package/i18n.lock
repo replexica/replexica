@@ -1,78 +1,12 @@
 version: 1
 checksums:
-  a1d000446724cb2da4acf74bae2b00ec:
-    markdown-line-0: 055771580c400345d100ceff7b2e4a58
-    markdown-line-1: 6c1bd156be5138076bd8ba53f819c404
-    markdown-line-2: 28578d19536f01a77f1a79b0f0d1098b
-    markdown-line-3: 1c168d4f9660d297785fc32be3b11534
-    markdown-line-4: 74b776bef8107e9ec82fef8e77517e7c
-    markdown-line-5: 0b489f83b447981f6b24bdcfa969ccb0
-    markdown-line-6: c7b3ec53cadf26fdc1c961bb68af3dc6
-    markdown-line-7: ae55b27529bc784425a293b844c6c709
-    markdown-line-8: 7274d9cdfa9c041dee9bf3bb5a430c77
-    markdown-line-9: 6c1bd156be5138076bd8ba53f819c404
-    markdown-line-10: 8fc94b4c2b2c83e1f104563dfc653782
-    markdown-line-11: e2df73fad885183d1728e15296f2e547
-    markdown-line-12: 97706a3f950b29d110c17d0b0e72fbd9
-    markdown-line-13: ca80ff83bbb8c15980e021adf49cf98d
-    markdown-line-14: f1f293aacfc30d4f6ebad28ae52ea1af
-    markdown-line-15: 2872461167989c3ff12ff9c6f96c3a72
-    markdown-line-16: c6c0ee4fa5e7e6933dc4c20623e4cd4f
-    markdown-line-17: 5e5e952b4711a1def49076c8426804b9
-    markdown-line-18: 4c9638bda6fe35b7e63dc4996bb6ee0d
-    markdown-line-19: 573fef58ee9dfcb675a4d7065246a62d
-    markdown-line-20: b3ae28fa7265f69ffbe8715674ced970
-    markdown-line-21: 9aa9e2407df4773224e6facfa03778c6
-    frontmatter-attribute-title: 8be4dd42fdbd3918a9c7a8b4b612379f
-    frontmatter-attribute-description: 4eae601f40ada021777cb6feed74693d
-    frontmatter-attribute-meta/0/name: c08d869b04124e62f7eb14e1e04788b9
-    frontmatter-attribute-meta/0/content: 3c8256186fc62c8b0059b9f2d53992c8
-    frontmatter-attribute-meta/1/name: 31c8736fde419b009b66e92397c7574c
-    frontmatter-attribute-meta/1/content: 7603ae14015f4efc61d5720a45bcb16c
-    frontmatter-attribute-meta/2/name: ca3e106a4ce8822351763c49642ea4d9
-    frontmatter-attribute-meta/2/content: 62655b4cd46ed67f4d04d04339a50783
-    frontmatter-attribute-meta/3/property: 6fd610c1048c4d32bb3255f1be22d50e
-    frontmatter-attribute-meta/3/content: 707699ac9a079aa81148a07499d4c39e
-    frontmatter-attribute-sidebar: 1d41ad90ddfd2afba95b5a20b4f2d5da
-    frontmatter-attribute-category: 7490d4f6c5aebce212e93d2842031ceb
-  a1e485ffd9a36a6c6320101a5afd2471:
-    markdown-line-0: 856bcaa0a60d9898303f8e165da774a3
-    markdown-line-1: f25ee9ff1279555b67e23c9407453aa1
-  8fc5c7fe5cca683299c04ddf643d4475:
-    markdown-line-0: 055771580c400345d100ceff7b2e4a58
-    markdown-line-1: 6c1bd156be5138076bd8ba53f819c404
-    markdown-line-2: 62faa60e211ee0cd157c5f49ef42feaf
-    markdown-line-3: 18738cc909e80e2c36c9b8282a714f63
-    markdown-line-4: 391128dee61b5d0d43eba88567aaef42
-    markdown-line-5: 9c059b1bb22fc93949709ed07383935b
-    markdown-line-6: dbaedaa809c1df98f88e187e6e634468
-    markdown-line-7: 3c989034e688c281c730a90350226476
-    markdown-line-8: 7274d9cdfa9c041dee9bf3bb5a430c77
-    markdown-line-9: 6c1bd156be5138076bd8ba53f819c404
-    markdown-line-10: 8fc94b4c2b2c83e1f104563dfc653782
-    markdown-line-11: 4cfd706160950213ac1e51c838ad97ba
-    markdown-line-12: 97706a3f950b29d110c17d0b0e72fbd9
-    markdown-line-13: 73105e500386cc65a5a3f2272edb5f55
-    markdown-line-14: f1f293aacfc30d4f6ebad28ae52ea1af
-    markdown-line-15: 020fd395ee1eb1ab2b2085ed4f9a5dc8
-    markdown-line-16: c6c0ee4fa5e7e6933dc4c20623e4cd4f
-    markdown-line-17: 8004ac9e1dca0c2d5262fffcb9c01c53
-    markdown-line-18: 72b9fd0ce0e4bfc98dfd36fb35238fab
-    markdown-line-19: 2f05afe91759ed09f8644db24cd2a9b7
-    markdown-line-20: ecd571818ddf3d31b08b80a25958a662
-    markdown-line-21: 9aa9e2407df4773224e6facfa03778c6
-    frontmatter-attribute-title: 7603ae14015f4efc61d5720a45bcb16c
-    frontmatter-attribute-description: d8a41c79be86938f1c3035f617f3755c
-    frontmatter-attribute-meta/0/name: c08d869b04124e62f7eb14e1e04788b9
-    frontmatter-attribute-meta/0/content: b55ae904ef5423b2a56c6f13015c51b8
-    frontmatter-attribute-meta/1/name: 31c8736fde419b009b66e92397c7574c
-    frontmatter-attribute-meta/1/content: 7603ae14015f4efc61d5720a45bcb16c
-    frontmatter-attribute-meta/2/name: ca3e106a4ce8822351763c49642ea4d9
-    frontmatter-attribute-meta/2/content: b6995dc617e5208ea86607a55aaeb7b1
-    frontmatter-attribute-meta/3/property: 6fd610c1048c4d32bb3255f1be22d50e
-    frontmatter-attribute-meta/3/content: 707699ac9a079aa81148a07499d4c39e
-    frontmatter-attribute-sidebar: 1d41ad90ddfd2afba95b5a20b4f2d5da
-    frontmatter-attribute-category: 9b0c387c905aba4206082ffbc5c32f7e
+  8c2e6e1f5acccc5962b55f93f9bcbaa7:
+    md-section-0: 64e69e9a13a1740b6e6c6186114d1832
+    md-section-1: 8dd013fb1058534ec9319efce8c51e63
+    fm-attr-title: 0603a2e4a4e94a5f112173451f78117c
+    fm-attr-createdAt: 79ee6e52777fb8a2088939b108a0fe62
+    fm-attr-updatedAt: eef3c210e3abe6306e27523732ed41dd
+    fm-attr-releasedAt: 8fb6e3ad1c833f9501b3acb8007f299f
   0d1abbacc6d742097863ba4d910983a2:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
