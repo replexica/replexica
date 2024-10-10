@@ -1,0 +1,87 @@
+name: "Bug Report"
+description: "Please fill out the following details to report a bug."
+title: "[BUG] - <title>"
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Please enter an explicit description of your issue."
+      placeholder: "Short and explicit description of your issue..."
+    validations:
+      required: true
+  - type: input
+    id: cli-version
+    attributes:
+      label: "CLI Version"
+      description: "Please enter the CLI version you're using."
+      placeholder: "e.g. v1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: "Operating System"
+      description: "What is the impacted environment?"
+      options:
+        - Windows
+        - Linux
+        - macOS
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Please provide explicit steps to reproduce the issue."
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: "Expected vs Actual Behavior"
+      description: "Please describe what you expected to happen vs what actually happened."
+      placeholder: "Expected: ... / Actual: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: "If applicable, add screenshots to help explain your problem."
+      placeholder: "Paste screenshot links or markdown here..."
+    validations:
+      required: false
+  - type: checkboxes
+    id: browsers
+    attributes:
+      label: "Browsers"
+      description: "What browsers are you seeing the problem on? (Select all that apply)"
+      options:
+        - label: Firefox
+        - label: Chrome
+        - label: Safari
+        - label: Microsoft Edge
+        - label: Opera
+        - label: Other
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context about the problem here."
+      placeholder: "Additional context (if any)..."
+    validations:
+      required: false
