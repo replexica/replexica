@@ -55,7 +55,7 @@ And some content.`;
     expect(result).toBe(`
 ---
 title: Test Title
-date: '2023-05-20'
+date: 2023-05-20
 ---
 
 # Heading 1
