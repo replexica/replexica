@@ -1,87 +1,32 @@
-name: "Bug Report"
-description: "Please fill out the following details to report a bug."
-title: "[BUG] - <title>"
-labels: ["bug"]
+name: "Feature/Improvement Request"
+description: "Suggest a new feature or improvement for the project."
+title: " [FEATURE] - <title>"
+labels: ["enhancement"]
 body:
   - type: textarea
-    id: description
+    id: what
     attributes:
-      label: "Description"
-      description: "Please enter an explicit description of your issue."
-      placeholder: "Short and explicit description of your issue..."
-    validations:
-      required: true
-
-  - type: input
-    id: cli-version
-    attributes:
-      label: "CLI Version"
-      description: "Please enter the CLI version you're using."
-      placeholder: "e.g. v1.0.0"
-    validations:
-      required: true
-
-  - type: dropdown
-    id: os
-    attributes:
-      label: "Operating System"
-      description: "What is the impacted environment?"
-      options:
-        - Windows
-        - Linux
-        - macOS
+      label: "WHAT"
+      description: "What feature or improvement would you like to request?"
+      placeholder: "Describe the feature or improvement..."
     validations:
       required: true
 
   - type: textarea
-    id: steps-to-reproduce
+    id: why
     attributes:
-      label: "Steps to Reproduce"
-      description: "Please provide explicit steps to reproduce the issue."
-      value: |
-        1. Go to '...'
-        2. Click on '....'
-        3. Scroll down to '....'
-        4. See error
+      label: "WHY"
+      description: "Why is this feature or improvement important? What problem does it solve or what benefit does it bring?"
+      placeholder: "Explain the need or benefit..."
     validations:
       required: true
 
   - type: textarea
-    id: expected-actual
+    id: how
     attributes:
-      label: "Expected vs Actual Behavior"
-      description: "Please describe what you expected to happen vs what actually happened."
-      placeholder: "Expected: ... / Actual: ..."
-    validations:
-      required: true
-
-  - type: textarea
-    id: screenshots
-    attributes:
-      label: "Screenshots"
-      description: "If applicable, add screenshots to help explain your problem."
-      placeholder: "Paste screenshot links or markdown here..."
-    validations:
-      required: false
-
-  - type: checkboxes
-    id: browsers
-    attributes:
-      label: "Browsers"
-      description: "What browsers are you seeing the problem on? (Select all that apply)"
-      options:
-        - label: Firefox
-          value: firefox
-        - label: Chrome
-          value: chrome
-        - label: Safari
-          value: safari
-        - label: Microsoft Edge
-          value: edge
-        - label: Opera
-          value: opera
-        - label: Other
-          value: other
+      label: "HOW"
+      description: "If you have an idea, describe how this feature could be implemented."
+      placeholder: "Provide suggestions on implementation (if applicable)..."
     validations:
       required: false
 
@@ -89,7 +34,7 @@ body:
     id: additional-context
     attributes:
       label: "Additional Context"
-      description: "Add any other context about the problem here."
+      description: "Any additional information or context about this request."
       placeholder: "Additional context (if any)..."
     validations:
       required: false
