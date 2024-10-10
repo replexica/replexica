@@ -6,13 +6,19 @@ const SECTION_REGEX = /^(#{1,6}\s.*$|[-=*]{3,}$|!\[.*\]\(.*\)$|\[.*\]\(.*\)$)/gm
 const MD_SECTION_PREFIX = 'md-section-';
 const FM_ATTR_PREFIX = 'fm-attr-';
 
+const yamlEngine = {
+  parse: (str: string) => YAML.parse(str),
+  stringify: (obj: any) => YAML.stringify(obj, { defaultStringType: 'PLAIN' }),
+};
+
 export const markdownLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(input: string): Promise<Record<string, any>> {
     const { data: frontmatter, content } = matter(input, {
       engines: {
-        yaml: s => YAML.parse(s),
+        yaml: yamlEngine,
       },
     });
+
     const sections = content.split(SECTION_REGEX)
     .map(section => section.trim())
     .filter(Boolean);
@@ -47,6 +53,10 @@ export const markdownLoader = (): BucketLoader<string, Record<string, any>> => (
       content = `\n${content}`;
     }
 
-    return matter.stringify(content, frontmatter);
+    return matter.stringify(content, frontmatter, {
+      engines: {
+        yaml: yamlEngine,
+      },
+    });
   }
 });
