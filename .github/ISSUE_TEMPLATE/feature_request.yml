@@ -1,0 +1,40 @@
+name: "Feature/Improvement Request"
+description: "Suggest a new feature or improvement for the project."
+title: " [FEATURE] - <title>"
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: "WHAT"
+      description: "What feature or improvement would you like to request?"
+      placeholder: "Describe the feature or improvement..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: "WHY"
+      description: "Why is this feature or improvement important? What problem does it solve or what benefit does it bring?"
+      placeholder: "Explain the need or benefit..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: how
+    attributes:
+      label: "HOW"
+      description: "If you have an idea, describe how this feature could be implemented."
+      placeholder: "Provide suggestions on implementation (if applicable)..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional Context"
+      description: "Any additional information or context about this request."
+      placeholder: "Additional context (if any)..."
+    validations:
+      required: false
