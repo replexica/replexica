@@ -21,7 +21,7 @@ body:
     attributes:
       label: "CLI Version"
       description: "Please enter the CLI version you're using."
-      placeholder: "e.g. v1.0.0"
+      placeholder: "e.g. v1.0"
     validations:
       required: true
   - type: dropdown
