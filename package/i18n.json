@@ -3,20 +3,16 @@
   "locale": {
     "source": "en",
     "targets": [
-      "es",
-      "fr",
-      "de",
-      "ru"
+      "es"
     ]
   },
   "buckets": {
     "markdown": {
       "include": [
-        "demo/markdown-multi/[locale]/*.md",
-        "demo/markdown/[locale].md"
+        "demo/markdown/[locale]/*.md"
       ],
       "exclude": [
-        "demo/markdown-multi/[locale]/ignored-blog-post.md"
+        "demo/markdown/[locale]/ignored.md"
       ]
     },
     "json": {

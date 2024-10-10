@@ -146,11 +146,25 @@ export default new Command()
           const deletedPayload = _.omit(targetPayload, Object.keys(sourcePayload));
           // Calculate the processable payload to send to the engine
           const processablePayload = _.merge({}, newPayload, updatedPayload);
+          const passthroughPayload = _.pickBy(
+            processablePayload,
+            (_value: any): boolean => {
+              const value = String(_value);
+              return [
+                (v: string) => !isNaN(Date.parse(v)),
+                (v: string) => !isNaN(Number(v)),
+                (v: string) => ['true', 'false'].includes(v.toLowerCase())
+              ].some(fn => fn(value));
+            }
+          );
+          // compose final payload to send to the engine: it's the processable payload except for the passthrough
+          const finalPayload = _.omit(processablePayload, Object.keys(passthroughPayload));
           const payloadStats = {
             new: Object.keys(newPayload).length,
             updated: Object.keys(updatedPayload).length,
             deleted: Object.keys(deletedPayload).length,
             processable: Object.keys(processablePayload).length,
+            final: Object.keys(finalPayload).length,
           };
 
           if (flags.frozen && (payloadStats.processable > 0 || payloadStats.deleted > 0)) {
@@ -158,10 +172,10 @@ export default new Command()
           }
 
           let processedPayload: Record<string, string> = {};
-          if (!payloadStats.processable) {
+          if (!payloadStats.final) {
             localeOra.succeed('Translations are up to date');
           } else {
-            localeOra.info(`Found ${payloadStats.processable} keys (${payloadStats.new} new, ${payloadStats.updated} updated, ${payloadStats.deleted} deleted)`);
+            localeOra.info(`Processing ${payloadStats.final} localization entries`);
 
             try {
               // Use the SDK to localize the payload
@@ -174,14 +188,14 @@ export default new Command()
                   placeholderedPath,
                   locale: i18nConfig.locale.extraSource,
                 }).load();
-                // leave only the keys that are present in the processable payload
-                extraSourcePayload = _.pick(extraSourcePayload, Object.keys(processablePayload));
+                // leave only the keys that are present in the final payload
+                extraSourcePayload = _.pick(extraSourcePayload, Object.keys(finalPayload));
                 // assign
                 referencePayload[i18nConfig.locale.extraSource] = extraSourcePayload;
               }
 
               processedPayload = await replexicaEngine.localize(
-                processablePayload,
+                finalPayload,
                 {
                   sourceLocale: i18nConfig.locale.source,
                   targetLocale: targetLocale,
