@@ -99,5 +99,6 @@ Consulta los [Good First Issues](https://github.com/replexica/replexica/labels/g
 
 - [Inglés](https://github.com/replexica/replexica)
 - [Español](/readme/es.md)
+- [Francés](/readme/fr.md)
 
-¿No ves tu idioma? Simplemente agrega un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.
+¿No ves tu idioma? Simplemente agrega un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre una solicitud de extracción (PR).
