@@ -46,8 +46,6 @@ jobs:
         with:
           api-key: ${{ secrets.REPLEXICA_API_KEY }}
           pull-request: true
-          pull_request_assignees: maxprilutskiy,vrcprl
-          pull_request_labels: i18n
         env:
           GH_TOKEN: ${{ github.token }}
 
