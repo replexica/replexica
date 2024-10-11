@@ -4,7 +4,11 @@
   </a>
 </p>
 
-<strong align="center">⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
+<p align="center">
+  <strong>⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD.</strong>
+</p>
+
+---
 
 <p align="center">
   <a href="https://replexica.com">Website</a> •
