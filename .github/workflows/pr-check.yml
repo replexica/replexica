@@ -45,11 +45,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Replexica
-        uses: ./
-        with:
-          api-key: ${{ secrets.REPLEXICA_API_KEY }}
-
       - name: Install deps
         run: pnpm install
 
