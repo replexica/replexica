@@ -34,7 +34,7 @@ Replexica AI automatiza la localización de software de principio a fin.
 
 Produce traducciones auténticas al instante, eliminando el trabajo manual y la gestión adicional. El motor de localización de Replexica comprende el contexto del producto, creando traducciones perfectas que los hablantes nativos esperan en más de 60 idiomas. Como resultado, los equipos realizan la localización 100 veces más rápido, con calidad de última generación, lanzando funciones a más clientes de pago en todo el mundo.
 
-## 💫 Inicio Rápido
+## 💫 Inicio rápido
 
 1. **Solicita acceso**: [habla con nosotros](https://replexica.com/go/call) para convertirte en cliente.
 
@@ -65,12 +65,12 @@ Para el modo de pull request y otras opciones de configuración, visita nuestra 
 ## 🥇 Por qué los equipos eligen Replexica
 
 - 🔥 **Integración instantánea**: Configuración en minutos
-- 🔄 **Automatización CI/CD**: Integración fluida en la cadena de producción
-- 🌍 **Más de 60 idiomas**: Expansión global sin esfuerzo
-- 🧠 **Motor de localización AI**: Traducciones que realmente se adaptan a tu producto
-- 📊 **Formato flexible**: Compatible con JSON, YAML, CSV, Markdown y más
+- 🔄 **Automatización CI/CD**: Integración perfecta en el flujo de desarrollo
+- 🌍 **Más de 60 idiomas**: Expándete globalmente sin esfuerzo
+- 🧠 **Motor de localización con IA**: Traducciones que realmente se adaptan a tu producto
+- 📊 **Flexibilidad de formatos**: Compatible con JSON, YAML, CSV, Markdown y más
 
-## 🛠️ Funciones mejoradas
+## 🛠️ Características potenciadas
 
 - ⚡️ **Ultrarrápido**: Localización AI en segundos
 - 🔄 **Actualizaciones automáticas**: Sincroniza con el contenido más reciente
@@ -90,16 +90,14 @@ Consulta los [Good First Issues](https://github.com/replexica/replexica/labels/g
 
 ## 🧠 Equipo
 
-- **[Veronica](https://github.com/vrcprl)** - AI
-- **[Max](https://github.com/maxprilutskiy)** - Frontend
-
-## 📬 Contacto
+- **[Veronica](https://github.com/vrcprl)**
+- **[Max](https://github.com/maxprilutskiy)**
 
 ¿Preguntas o consultas? Envía un correo a veronica@replexica.com
 
 ## 🌐 Readme en otros idiomas
 
-- [English](/README.md)
+- [Inglés](https://github.com/replexica/replexica)
 - [Español](/readme/es.md)
 
-¿No ves tu idioma? ¡Ayúdanos a traducir este readme a más idiomas! Solo añade un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.
+¿No ves tu idioma? Simplemente agrega un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.
