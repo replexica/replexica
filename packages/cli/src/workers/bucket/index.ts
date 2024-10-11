@@ -43,7 +43,7 @@ export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: strin
   // get all files that match the sourcePathPattern
   const sourcePaths = glob
     .sync(sourcePathPattern, { follow: true, withFileTypes: true })
-    .filter((file) => file.isFile())
+    .filter((file) => file.isFile() || file.isSymbolicLink())
     .map((file) => file.fullpath())
     .map((fullpath) => path.relative(process.cwd(), fullpath));
   // transform each source file path back to [locale] placeholder paths
