@@ -99,5 +99,6 @@ Questions or inquiries? Email veronica@replexica.com
 
 - [English](https://github.com/replexica/replexica)
 - [Español](/readme/es.md)
+- [Russian](/readme/ru.md)
 
 Don't see your language? Just add a new language code to the [`i18n.json`](./i18n.json) file and open a PR.
