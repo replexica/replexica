@@ -1,29 +1,15 @@
 {
-  "version": 1.1,
+  "version": 1.2,
   "locale": {
     "source": "en",
     "targets": [
-      "es",
-      "fr",
-      "hi",
-      "ja",
-      "ko",
-      "de",
-      "ar",
-      "ru",
-      "zh",
-      "pt-BR"
+      "es"
     ]
   },
   "buckets": {
     "markdown": {
       "include": [
         "readme/[locale].md"
-      ]
-    },
-    "json": {
-      "include": [
-        "i18n/[locale].json"
       ]
     }
   }

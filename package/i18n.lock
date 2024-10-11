@@ -1,12 +1,16 @@
 version: 1
 checksums:
-  8c2e6e1f5acccc5962b55f93f9bcbaa7:
-    md-section-0: 64e69e9a13a1740b6e6c6186114d1832
-    md-section-1: 8dd013fb1058534ec9319efce8c51e63
-    fm-attr-title: 0603a2e4a4e94a5f112173451f78117c
-    fm-attr-createdAt: 79ee6e52777fb8a2088939b108a0fe62
-    fm-attr-updatedAt: eef3c210e3abe6306e27523732ed41dd
-    fm-attr-releasedAt: 8fb6e3ad1c833f9501b3acb8007f299f
+  375aef6881d5301adf8d576799de2210:
+    md-section-0: 5782ae0d6116076ca9ecdd18d05b5251
+    fm-attr-title: 03ddeab99b6170d63191217de2e2c0f3
+    fm-attr-file-name: 950367b45201943794aebfbdef8c8b05
+    fm-attr-slug: 9532f11ad94e91f96c3f92a18dc63d81
+    fm-attr-simple-relative-path: 5bea1a157e040ef84d5d82d4ca4b0d77
+    fm-attr-dot-relative-path: 19c7a5a88779d53acf2a175a94a437d4
+    fm-attr-absolute-path: 891c4483926b0c7c17d46b81d9669b5b
+    fm-attr-url-path: 6ce05f3f676ae92a010ce414a57063a7
+    fm-attr-protocol-relative-url: d7b2605035ba429cb589702c6ba944e6
+    fm-attr-non-http-url: d21551cdd43e7fe90eefc041dffcf957
   0d1abbacc6d742097863ba4d910983a2:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
