@@ -1,5 +1,11 @@
 # replexica
 
+## 0.44.3
+
+### Patch Changes
+
+- [`1e4cbd9`](https://github.com/replexica/replexica/commit/1e4cbd9670ea330c6938efdda3a965ac1e3e8376) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add support for symlinks in i18n.json
+
 ## 0.44.2
 
 ### Patch Changes
