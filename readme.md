@@ -60,7 +60,7 @@ Replexica offers a GitHub Action to automate localization in your CI/CD pipeline
 
 This action runs `replexica i18n` on every push, keeping your translations up-to-date automatically.
 
-For detailed configuration options and advanced usage, visit our [GitHub Action documentation](https://docs.replexica.com/setup/gha).
+For pull request mode and other configuration options, visit our [GitHub Action documentation](https://docs.replexica.com/setup/gha).
 
 ## 🥇 Why Teams Choose Replexica
 
