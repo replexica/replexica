@@ -100,5 +100,6 @@ Des questions ou des demandes ? Envoyez un e-mail à veronica@replexica.com
 - [Anglais](https://github.com/replexica/replexica)
 - [Espagnol](/readme/es.md)
 - [Français](/readme/fr.md)
+- [Russe](/readme/ru.md)
 
 Vous ne voyez pas votre langue ? Ajoutez simplement un nouveau code de langue au fichier [`i18n.json`](./i18n.json) et ouvrez une PR.
