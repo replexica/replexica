@@ -34,7 +34,7 @@ Replexica AI automates software localization end-to-end.
 
 It produces authentic translations instantly, eliminating manual work and management overhead. Replexica Localization Engine understands product context, creating perfected translations that native speakers expect across 60+ languages. As a result, teams do localization 100x faster, with state-of-the-art quality, shipping features to more paying customers worldwide.
 
-## 💫 Quick Start
+## 💫 Quickstart
 
 1. **Request access**: [talk to us](https://replexica.com/go/call) to become a customer.
 
@@ -62,15 +62,15 @@ This action runs `replexica i18n` on every push, keeping your translations up-to
 
 For pull request mode and other configuration options, visit our [GitHub Action documentation](https://docs.replexica.com/setup/gha).
 
-## 🥇 Why Teams Choose Replexica
+## 🥇 Why teams choose Replexica
 
-- 🔥 **Instant Integration**: Set up in minutes
-- 🔄 **CI/CD Automation**: Seamless pipeline integration
+- 🔥 **Instant integration**: Set up in minutes
+- 🔄 **CI/CD Automation**: Seamless dev pipeline integration
 - 🌍 **60+ Languages**: Expand globally effortlessly
 - 🧠 **AI Localization Engine**: Translations that truly fit your product
 - 📊 **Format Flexible**: Supports JSON, YAML, CSV, Markdown, and more
 
-## 🛠️ Supercharged Features
+## 🛠️ Supercharged features
 
 - ⚡️ **Lightning-Fast**: AI localization in seconds
 - 🔄 **Auto-Updates**: Syncs with the latest content
@@ -90,16 +90,14 @@ Check out the [Good First Issues](https://github.com/replexica/replexica/labels/
 
 ## 🧠 Team
 
-- **[Veronica](https://github.com/vrcprl)** - AI
-- **[Max](https://github.com/maxprilutskiy)** - Frontend
-
-## 📬 Contact
+- **[Veronica](https://github.com/vrcprl)**
+- **[Max](https://github.com/maxprilutskiy)**
 
 Questions or inquiries? Email veronica@replexica.com
 
-## 🌐 Readme in Other Languages
+## 🌐 Readme in other languages
 
-- [English](/README.md)
+- [English](https://github.com/replexica/replexica)
 - [Español](/readme/es.md)
 
-Don't see your language? Help us translate this readme into more languages! Just add a new language code to the [`i18n.json`](./i18n.json) file and open a PR.
+Don't see your language? Just add a new language code to the [`i18n.json`](./i18n.json) file and open a PR.
