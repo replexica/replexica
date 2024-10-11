@@ -16,7 +16,6 @@
   <a href="#-github-action">GitHub Action</a>
 </p>
 
-
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
     <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
@@ -29,11 +28,13 @@
   </a>
 </p>
 
+<br />
+
 Replexica AI automates software localization end-to-end.
 
 It produces authentic translations instantly, eliminating manual work and management overhead. Replexica Localization Engine understands product context, creating perfected translations that native speakers expect across 60+ languages. Teams localize 100x faster, with state-of-the-art quality, shipping features to international customers without delays.
 
-## 🚀 Quick Start
+## 💫 Quick Start
 
 1. **Become a Customer**: Ask your CTO to [talk to us](https://replexica.com/go/call) to become a customer.
 
@@ -63,23 +64,19 @@ For detailed configuration options and advanced usage, visit our [GitHub Action 
 
 ## 🥇 Why Teams Choose Replexica
 
-|  |  |
-|---------|-------------|
-| 🔥 **Instant Integration** | ⚡️ Set up in minutes |
-| 🔄 **CI/CD Automation** | 🔗 Seamless pipeline integration |
-| 🌍 **60+ Languages** | 🌐 Expand globally effortlessly |
-| 🧠 **Context-Aware AI** | 💡 Translations that truly fit your product |
-| 📊 **Format Flexible** | 🔀 Supports JSON, YAML, CSV, Markdown, and more |
+- 🔥 **Instant Integration**: Set up in minutes
+- 🔄 **CI/CD Automation**: Seamless pipeline integration
+- 🌍 **60+ Languages**: Expand globally effortlessly
+- 🧠 **Context-Aware AI**: Translations that truly fit your product
+- 📊 **Format Flexible**: Supports JSON, YAML, CSV, Markdown, and more
 
 ## 🛠️ Supercharged Features
 
-|  |  |
-|---------|-------------|
-| ⚡️ **Lightning-Fast** | 🚀 AI localization in seconds |
-| 🔄 **Auto-Updates** | 🔁 Syncs with the latest content |
-| 🌟 **Native Quality** | 🎯 Translations that sound authentic |
-| 👨‍💻 **Developer-Friendly** | 🔧 CLI that integrates with your workflow |
-| 📈 **Scalable** | 🚀 From startups to enterprise solutions |
+- ⚡️ **Lightning-Fast**: AI localization in seconds
+- 🔄 **Auto-Updates**: Syncs with the latest content
+- 🌟 **Native Quality**: Translations that sound authentic
+- 👨‍💻 **Developer-Friendly**: CLI that integrates with your workflow
+- 📈 **Scalable**: From startups to enterprise solutions
 
 ## 📚 Documentation
 
