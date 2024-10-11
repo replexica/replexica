@@ -1,79 +1,92 @@
-<table width="100%">
-    <tr>
-        <td colspan="3">
-            <a href="https://replexica.com">
-                <img src="/content/banner.dark.png" width="100%" />
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3" align="center">
-            Supported and backed by
-        </td>
-    </tr>
-    <tr>
-        <td width="33%">
-            <a target="_blank" href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=replexica_20240626">
-                <img src="/content/warp.dark.png" />
-            </a>
-        </td>
-        <td width="33%">
-            <a target="_blank" href="https://www.esade.edu/en/learning-innovation/rambla/eworks">
-                <img src="/content/eworks.dark.png" />
-            </a>
-        </td>
-        <td width="33%">
-            <a target="_blank" href="https://foundershub.startups.microsoft.com">
-                <img src="/content/ms-f-hub.dark.png" />
-            </a>
-        </td>
-    </tr>
-</table>
+<p align="center">
+  <a href="https://replexica.com">
+    <img src="/content/banner.dark.png" width="100%" alt="Replexica" />
+  </a>
+</p>
 
-# Replexica
+<p align="center">
+  <a href="https://www.ycombinator.com/">
+    <img src="/content/backed-by-yc-black.png" height="30" alt="Backed by Y Combinator" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/features/packages">
+    <img src="/content/gh-tech-partner-black.png" height="30" alt="GitHub Technology Partner" />
+  </a>
+</p>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
-[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
-[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
+<p align="center">
+  <strong>⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
+</p>
 
-[Website](https://replexica.com) •
-[Discord](https://replexica.com/go/discord) •
-[Docs](https://replexica.com/go/docs)
+<p align="center">
+  <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
+    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
+  </a>
+  <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
+  </a>
+  <a href="https://github.com/replexica/replexica/commits/main">
+    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
+  </a>
+</p>
 
-Replexica is an AI-powered i18n platform, to ship multilingual apps fast.
+Replexica AI automates software localization end-to-end.
 
-## Getting Started
+It produces authentic translations instantly, eliminating manual work and management overhead. Replexica Localization Engine understands product context, creating perfected translations that native speakers expect across 60+ languages. Teams localize 100x faster, with state-of-the-art quality, shipping features to international customers without delays.
 
-Check out our [Docs](https://replexica.com/go/docs) for more detailed guides on how to use Replexica with your app.
+## 🚀 Quick Start
 
-## Experimental JavaScript/React compiler
+1. **Become a Customer**: Ask your CTO to contact us at [https://replexica.com/go/call](https://replexica.com/go/call) to become a customer.
 
-Besides i18n tools and Replexica CLI, this repo contains an experimental JavaScript compiler. It automates making a web app multilingual without code changes or string extraction: works during build time, taking just 1 minute to plug in. You can find a brief demo [here](https://x.com/MaxPrilutskiy/status/1781011350136734055). The compiler automatically handles the entire process, eliminating manual work. It's experimental, currently under development, and not yet ready for production use. To contribute, please star this repo and reach out to us. We've got 30+ contributors on the waitlist, and you're welcome to join as well. Contact our CTO Max on Discord or via email (max@replexica.com).
+2. Once approved, initialize your project:
+   ```bash
+   npx replexica@latest init
+   ```
 
-## Authors
+3. Localize your content:
+   ```bash
+   npx replexica@latest i18n
+   ```
 
-* **[Veronica](https://github.com/vrcprl)** - Data Science, and LLMs.
-* **[Max](https://github.com/maxprilutskiy)** - React, Typescript, and Compilers.
+## 🚀 Why Teams Choose Replexica
 
-## Community
+🔥 **Instant Integration** | ⚡️ Set up in minutes
+🔄 **CI/CD Automation**    | 🔗 Seamless pipeline integration
+🌍 **60+ Languages**       | 🌐 Expand globally effortlessly
+🧠 **Context-Aware AI**    | 💡 Translations that truly fit your product
+📊 **Format Flexible**     | 🔀 Supports JSON, YAML, CSV, Markdown, and more
 
-If you're company is building a modern app that's used by people all over the world – Replexica is for you!
+## 🛠️ Supercharged Features
 
-* 🌍 Join our [Discord](https://discord.gg/GeK6AuSqzw) and tell us what you like, what you don't like, what you'd like to see next.
-* 🌟 Leave a star on our [GitHub](https://github.com/replexica/replexica).
-* 🐞 Report bugs with [GitHub Issues](https://github.com/replexica/replexica/issues) and we'll fix them as soon as we physically can.
-* 🏗️ If you're a developer, and you'd like to contribute to Replexica, check out our [Contributing Guide](./CONTRIBUTING.md).
+⚡️ **Lightning-Fast**     | 🚀 AI translations in seconds
+🔄 **Auto-Updates**        | 🔁 Syncs with the latest content
+🌟 **Native Quality**      | 🎯 Translations that sound authentic
+👨‍💻 **Developer-Friendly** | 🔧 CLI that integrates with your workflow
+📈 **Scalable**            | 🚀 From startups to enterprise solutions
 
-## Replexica README in other languages
+## 📚 Documentation
 
-🇪🇸 [Español](/readme/es.md) •
-🇫🇷 [Français](/readme/fr.md) •
-🇮🇳 [हिन्दी](/readme/hi.md) •
-🇯🇵 [日本語](/readme/ja.md) •
-🇰🇷 [한국어](/readme/ko.md) •
-🇷🇺 [Русский](/readme/ru.md) •
-🇩🇪 [Deutsch](/readme/de.md) •
-🇸🇦 [العربية](/readme/ar.md) •
-🇨🇳 [中文](/readme/zh.md)<br> •
-🇵🇰 [اردو](/readme/ur.md) •
-🇮🇷 [فارسی](/readme/fa.md)
+For detailed guides and API references, visit the [documentation](https://replexica.com/go/docs).
+
+## 🤝 Contribute
+
+Interested in contributing, even if you aren't a customer?
+
+Check out the [Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue) and read the [Contributing Guide](./CONTRIBUTING.md).
+
+## 🧠 Team
+
+- **[Veronica](https://github.com/vrcprl)** - Data Science & AI
+- **[Max](https://github.com/maxprilutskiy)** - Frontend, AI, Automations
+
+## 📬 Contact
+
+Questions or inquiries? Email veronica@replexica.com
+
+---
+
+<p align="center">
+  <a href="https://replexica.com">Website</a> •
+  <a href="https://replexica.com/go/docs">Docs</a> •
+  <a href="https://github.com/replexica/replexica">GitHub</a>
+</p>
