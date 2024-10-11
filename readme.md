@@ -1,22 +1,28 @@
-<p align="center">
-  <a href="https://replexica.com">
-    <img src="/content/banner.dark.png" width="100%" alt="Replexica" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://www.ycombinator.com/">
-    <img src="/content/backed-by-yc-black.png" height="30" alt="Backed by Y Combinator" />
-  </a>
-  &nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/features/packages">
-    <img src="/content/gh-tech-partner-black.png" height="30" alt="GitHub Technology Partner" />
-  </a>
-</p>
-
-<p align="center">
-  <strong>⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
-</p>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="center">
+      <a href="https://replexica.com">
+        <img src="/content/banner.dark.png" width="100%" alt="Replexica" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://www.ycombinator.com/">
+        <img src="/content/backed-by-yc-black.png" height="30" alt="Backed by Y Combinator" />
+      </a>
+      &nbsp;&nbsp;&nbsp;
+      <a href="https://github.com/features/packages">
+        <img src="/content/gh-tech-partner-black.png" height="30" alt="GitHub Technology Partner" />
+      </a>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
@@ -36,7 +42,7 @@ It produces authentic translations instantly, eliminating manual work and manage
 
 ## 🚀 Quick Start
 
-1. **Become a Customer**: Ask your CTO to contact us at [https://replexica.com/go/call](https://replexica.com/go/call) to become a customer.
+1. **Become a Customer**: Ask your CTO to [talk to us](https://replexica.com/go/call) to become a customer.
 
 2. Once approved, initialize your project:
    ```bash
@@ -50,19 +56,23 @@ It produces authentic translations instantly, eliminating manual work and manage
 
 ## 🚀 Why Teams Choose Replexica
 
-🔥 **Instant Integration** | ⚡️ Set up in minutes
-🔄 **CI/CD Automation**    | 🔗 Seamless pipeline integration
-🌍 **60+ Languages**       | 🌐 Expand globally effortlessly
-🧠 **Context-Aware AI**    | 💡 Translations that truly fit your product
-📊 **Format Flexible**     | 🔀 Supports JSON, YAML, CSV, Markdown, and more
+|  |  |
+|---------|-------------|
+| 🔥 **Instant Integration** | ⚡️ Set up in minutes |
+| 🔄 **CI/CD Automation** | 🔗 Seamless pipeline integration |
+| 🌍 **60+ Languages** | 🌐 Expand globally effortlessly |
+| 🧠 **Context-Aware AI** | 💡 Translations that truly fit your product |
+| 📊 **Format Flexible** | 🔀 Supports JSON, YAML, CSV, Markdown, and more |
 
 ## 🛠️ Supercharged Features
 
-⚡️ **Lightning-Fast**     | 🚀 AI translations in seconds
-🔄 **Auto-Updates**        | 🔁 Syncs with the latest content
-🌟 **Native Quality**      | 🎯 Translations that sound authentic
-👨‍💻 **Developer-Friendly** | 🔧 CLI that integrates with your workflow
-📈 **Scalable**            | 🚀 From startups to enterprise solutions
+|  |  |
+|---------|-------------|
+| ⚡️ **Lightning-Fast** | 🚀 AI localization in seconds |
+| 🔄 **Auto-Updates** | 🔁 Syncs with the latest content |
+| 🌟 **Native Quality** | 🎯 Translations that sound authentic |
+| 👨‍💻 **Developer-Friendly** | 🔧 CLI that integrates with your workflow |
+| 📈 **Scalable** | 🚀 From startups to enterprise solutions |
 
 ## 📚 Documentation
 
