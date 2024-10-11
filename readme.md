@@ -67,7 +67,7 @@ For detailed configuration options and advanced usage, visit our [GitHub Action 
 - 🔥 **Instant Integration**: Set up in minutes
 - 🔄 **CI/CD Automation**: Seamless pipeline integration
 - 🌍 **60+ Languages**: Expand globally effortlessly
-- 🧠 **Context-Aware AI**: Translations that truly fit your product
+- 🧠 **AI Localization Engine**: Translations that truly fit your product
 - 📊 **Format Flexible**: Supports JSON, YAML, CSV, Markdown, and more
 
 ## 🛠️ Supercharged Features
@@ -76,7 +76,7 @@ For detailed configuration options and advanced usage, visit our [GitHub Action 
 - 🔄 **Auto-Updates**: Syncs with the latest content
 - 🌟 **Native Quality**: Translations that sound authentic
 - 👨‍💻 **Developer-Friendly**: CLI that integrates with your workflow
-- 📈 **Scalable**: From startups to enterprise solutions
+- 📈 **Scalable**: For growing startups and enterprise teams
 
 ## 📚 Documentation
 
@@ -97,7 +97,7 @@ Check out the [Good First Issues](https://github.com/replexica/replexica/labels/
 
 Questions or inquiries? Email veronica@replexica.com
 
----
+<br />
 
 <p align="center">
   <a href="https://replexica.com">Website</a> •
