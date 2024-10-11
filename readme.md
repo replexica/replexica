@@ -14,11 +14,11 @@
   <tr>
     <td align="center">
       <a href="https://www.ycombinator.com/">
-        <img src="/content/backed-by-yc-black.png" height="30" alt="Backed by Y Combinator" />
+        <img src="/content/backed-by-yc-black.png" height="40" alt="Backed by Y Combinator" />
       </a>
-      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a href="https://github.com/features/packages">
-        <img src="/content/gh-tech-partner-black.png" height="30" alt="GitHub Technology Partner" />
+        <img src="/content/gh-tech-partner-black.png" height="40" alt="GitHub Technology Partner" />
       </a>
     </td>
   </tr>
