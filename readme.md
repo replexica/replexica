@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://replexica.com">Website</a> •
-  <a href="#-contribute">Contribute</a> •
+  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribute</a> •
   <a href="#-github-action">GitHub Action</a>
 </p>
 
@@ -32,11 +32,11 @@
 
 Replexica AI automates software localization end-to-end.
 
-It produces authentic translations instantly, eliminating manual work and management overhead. Replexica Localization Engine understands product context, creating perfected translations that native speakers expect across 60+ languages. Teams localize 100x faster, with state-of-the-art quality, shipping features to international customers without delays.
+It produces authentic translations instantly, eliminating manual work and management overhead. Replexica Localization Engine understands product context, creating perfected translations that native speakers expect across 60+ languages. As a result, teams do localization 100x faster, with state-of-the-art quality, shipping features to more paying customers worldwide.
 
 ## 💫 Quick Start
 
-1. **Become a Customer**: Ask your CTO to [talk to us](https://replexica.com/go/call) to become a customer.
+1. **Request access**: [talk to us](https://replexica.com/go/call) to become a customer.
 
 2. Once approved, initialize your project:
    ```bash
@@ -90,8 +90,8 @@ Check out the [Good First Issues](https://github.com/replexica/replexica/labels/
 
 ## 🧠 Team
 
-- **[Veronica](https://github.com/vrcprl)** - Data Science & AI
-- **[Max](https://github.com/maxprilutskiy)** - Frontend, AI, Automations
+- **[Veronica](https://github.com/vrcprl)** - AI
+- **[Max](https://github.com/maxprilutskiy)** - Frontend
 
 ## 📬 Contact
 
@@ -99,7 +99,7 @@ Questions or inquiries? Email veronica@replexica.com
 
 ## 🌐 Readme in Other Languages
 
-- [English](./README.md)
-- [Español](./readme/es.md)
+- [English](/README.md)
+- [Español](/readme/es.md)
 
-Don't see your language? Help us translate this readme into more languages! Just add a new language code to the `i18n.json` file and open a PR.
+Don't see your language? Help us translate this readme into more languages! Just add a new language code to the [`i18n.json`](./i18n.json) file and open a PR.
