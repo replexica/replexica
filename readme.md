@@ -97,10 +97,9 @@ Check out the [Good First Issues](https://github.com/replexica/replexica/labels/
 
 Questions or inquiries? Email veronica@replexica.com
 
-<br />
+## 🌐 Readme in Other Languages
 
-<p align="center">
-  <a href="https://replexica.com">Website</a> •
-  <a href="https://replexica.com/go/docs">Docs</a> •
-  <a href="https://github.com/replexica/replexica">GitHub</a>
-</p>
+- [English](./README.md)
+- [Español](./readme/es.md)
+
+Don't see your language? Help us translate this readme into more languages! Just add a new language code to the `i18n.json` file and open a PR.
