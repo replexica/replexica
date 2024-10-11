@@ -4,9 +4,14 @@
   </a>
 </p>
 
-<h2 align="center" style="margin-top: 1.5em; margin-bottom: 1.5em;">
-  <strong>⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
-</h2>
+<strong align="center">⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
+
+<p align="center">
+  <a href="https://replexica.com">Website</a> •
+  <a href="#-contribute">Contribute</a> •
+  <a href="#-github-action">GitHub Action</a>
+</p>
+
 
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
@@ -38,7 +43,21 @@ It produces authentic translations instantly, eliminating manual work and manage
    npx replexica@latest i18n
    ```
 
-## 🚀 Why Teams Choose Replexica
+## 🤖 GitHub Action
+
+Replexica offers a GitHub Action to automate localization in your CI/CD pipeline. Here's a basic setup:
+
+```yaml
+- uses: replexica/replexica@main
+  with:
+    api-key: ${{ secrets.REPLEXICA_API_KEY }}
+```
+
+This action runs `replexica i18n` on every push, keeping your translations up-to-date automatically.
+
+For detailed configuration options and advanced usage, visit our [GitHub Action documentation](https://docs.replexica.com/setup/gha).
+
+## 🥇 Why Teams Choose Replexica
 
 |  |  |
 |---------|-------------|
