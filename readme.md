@@ -12,13 +12,14 @@
     </td>
   </tr>
   <tr>
-    <td align="center">
+    <td align="center" style="padding: 20px;">
       <a href="https://www.ycombinator.com/">
-        <img src="/content/backed-by-yc-black.png" height="40" alt="Backed by Y Combinator" />
+        <img src="/content/backed-by-yc-black.png" height="60" alt="Backed by Y Combinator" />
       </a>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td align="center" style="padding: 20px;">
       <a href="https://github.com/features/packages">
-        <img src="/content/gh-tech-partner-black.png" height="40" alt="GitHub Technology Partner" />
+        <img src="/content/gh-tech-partner-black.png" height="60" alt="GitHub Technology Partner" />
       </a>
     </td>
   </tr>
