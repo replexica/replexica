@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h2 align="center">
+<h2 align="center" style="margin-top: 1.5em; margin-bottom: 1.5em;">
   <strong>⚡️ State-of-the-art AI localization for web & mobile, right from CI/CD</strong>
 </h2>
 
