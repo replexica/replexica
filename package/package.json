@@ -44,7 +44,7 @@
     "@replexica/cli": "workspace:*",
     "@replexica/compiler": "workspace:*",
     "@replexica/react": "workspace:*",
-    "typescript": "^5.4.5"
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
     "tsup": "^8.1.0"
