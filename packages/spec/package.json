@@ -20,7 +20,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "typescript": "^5.4.5",
+    "typescript": "^5.6.3",
     "vitest": "^2.1.2",
     "zod": "^3.23.8"
   },

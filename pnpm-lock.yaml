@@ -17,7 +17,7 @@ importers:
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.3.0
-        version: 19.3.0(@types/node@20.14.10)(typescript@5.4.5)
+        version: 19.3.0(@types/node@20.14.10)(typescript@5.6.3)
       '@commitlint/config-conventional':
         specifier: ^19.2.2
         version: 19.2.2
@@ -83,12 +83,12 @@ importers:
         specifier: workspace:*
         version: link:../packages/react
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.6.3
+        version: 5.6.3
     devDependencies:
       tsup:
         specifier: ^8.1.0
-        version: 8.1.0(postcss@8.4.47)(typescript@5.4.5)
+        version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
 
   packages/cli:
     dependencies:
@@ -162,8 +162,8 @@ importers:
         specifier: ^1.6.6
         version: 1.6.6
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.6.3
+        version: 5.6.3
       vitest:
         specifier: ^2.1.2
         version: 2.1.2(@types/node@20.14.10)(terser@5.31.1)
@@ -209,7 +209,7 @@ importers:
         version: 0.4.14
       tsup:
         specifier: ^8.1.0
-        version: 8.1.0(postcss@8.4.47)(typescript@5.4.5)
+        version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
 
   packages/compiler:
     dependencies:
@@ -241,8 +241,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.6.3
+        version: 5.6.3
       unplugin:
         specifier: ^1.14.1
         version: 1.14.1(webpack-sources@3.2.3)
@@ -276,7 +276,7 @@ importers:
         version: 14.2.14(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tsup:
         specifier: ^8.1.0
-        version: 8.1.0(postcss@8.4.47)(typescript@5.4.5)
+        version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
 
   packages/config: {}
 
@@ -295,8 +295,8 @@ importers:
         specifier: ^0.6.3
         version: 0.6.3
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.6.3
+        version: 5.6.3
       vitest:
         specifier: ^2.1.2
         version: 2.1.2(@types/node@20.14.10)(terser@5.31.1)
@@ -315,7 +315,7 @@ importers:
         version: 14.2.14(@babel/core@7.25.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tsup:
         specifier: ^8.1.0
-        version: 8.1.0(postcss@8.4.47)(typescript@5.4.5)
+        version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
 
   packages/sdk:
     dependencies:
@@ -326,8 +326,8 @@ importers:
         specifier: workspace:*
         version: link:../spec
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.6.3
+        version: 5.6.3
       vitest:
         specifier: ^2.1.2
         version: 2.1.2(@types/node@20.14.10)(terser@5.31.1)
@@ -337,13 +337,13 @@ importers:
     devDependencies:
       tsup:
         specifier: ^8.1.0
-        version: 8.1.0(postcss@8.4.47)(typescript@5.4.5)
+        version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
 
   packages/spec:
     dependencies:
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: ^5.6.3
+        version: 5.6.3
       vitest:
         specifier: ^2.1.2
         version: 2.1.2(@types/node@20.14.10)(terser@5.31.1)
@@ -353,7 +353,7 @@ importers:
     devDependencies:
       tsup:
         specifier: ^8.1.0
-        version: 8.1.0(postcss@8.4.47)(typescript@5.4.5)
+        version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
 
 packages:
 
@@ -3543,6 +3543,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@5.6.3:
+    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
@@ -4109,11 +4114,11 @@ snapshots:
       human-id: 1.0.2
       prettier: 2.8.8
 
-  '@commitlint/cli@19.3.0(@types/node@20.14.10)(typescript@5.4.5)':
+  '@commitlint/cli@19.3.0(@types/node@20.14.10)(typescript@5.6.3)':
     dependencies:
       '@commitlint/format': 19.3.0
       '@commitlint/lint': 19.2.2
-      '@commitlint/load': 19.2.0(@types/node@20.14.10)(typescript@5.4.5)
+      '@commitlint/load': 19.2.0(@types/node@20.14.10)(typescript@5.6.3)
       '@commitlint/read': 19.2.1
       '@commitlint/types': 19.0.3
       execa: 8.0.1
@@ -4160,15 +4165,15 @@ snapshots:
       '@commitlint/rules': 19.0.3
       '@commitlint/types': 19.0.3
 
-  '@commitlint/load@19.2.0(@types/node@20.14.10)(typescript@5.4.5)':
+  '@commitlint/load@19.2.0(@types/node@20.14.10)(typescript@5.6.3)':
     dependencies:
       '@commitlint/config-validator': 19.0.3
       '@commitlint/execute-rule': 19.0.0
       '@commitlint/resolve-extends': 19.1.0
       '@commitlint/types': 19.0.3
       chalk: 5.3.0
-      cosmiconfig: 9.0.0(typescript@5.4.5)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.14.10)(cosmiconfig@9.0.0(typescript@5.4.5))(typescript@5.4.5)
+      cosmiconfig: 9.0.0(typescript@5.6.3)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.14.10)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@5.6.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -5207,21 +5212,21 @@ snapshots:
       object-assign: 4.1.1
       vary: 1.1.2
 
-  cosmiconfig-typescript-loader@5.0.0(@types/node@20.14.10)(cosmiconfig@9.0.0(typescript@5.4.5))(typescript@5.4.5):
+  cosmiconfig-typescript-loader@5.0.0(@types/node@20.14.10)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@5.6.3):
     dependencies:
       '@types/node': 20.14.10
-      cosmiconfig: 9.0.0(typescript@5.4.5)
+      cosmiconfig: 9.0.0(typescript@5.6.3)
       jiti: 1.21.6
-      typescript: 5.4.5
+      typescript: 5.6.3
 
-  cosmiconfig@9.0.0(typescript@5.4.5):
+  cosmiconfig@9.0.0(typescript@5.6.3):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.4.5
+      typescript: 5.6.3
 
   cross-spawn@5.1.0:
     dependencies:
@@ -6998,7 +7003,7 @@ snapshots:
 
   tslib@2.6.3: {}
 
-  tsup@8.1.0(postcss@8.4.47)(typescript@5.4.5):
+  tsup@8.1.0(postcss@8.4.47)(typescript@5.6.3):
     dependencies:
       bundle-require: 4.2.1(esbuild@0.21.5)
       cac: 6.7.14
@@ -7016,7 +7021,7 @@ snapshots:
       tree-kill: 1.2.2
     optionalDependencies:
       postcss: 8.4.47
-      typescript: 5.4.5
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -7104,6 +7109,8 @@ snapshots:
       possible-typed-array-names: 1.0.0
 
   typescript@5.4.5: {}
+
+  typescript@5.6.3: {}
 
   uc.micro@2.1.0: {}
 
