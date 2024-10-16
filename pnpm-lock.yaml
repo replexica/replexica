@@ -232,8 +232,8 @@ importers:
         specifier: workspace:*
         version: link:../spec
       ignore-walk:
-        specifier: ^6.0.5
-        version: 6.0.5
+        specifier: ^7.0.0
+        version: 7.0.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2191,9 +2191,9 @@ packages:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
     engines: {node: '>=0.10.0'}
 
-  ignore-walk@6.0.5:
-    resolution: {integrity: sha512-VuuG0wCnjhnylG1ABXT3dAuIpTNDs/G8jlpmwXY03fXoXy/8ZK8/T+hMzt8L4WnrLCJgdybqgPagnF/f97cg3A==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+  ignore-walk@7.0.0:
+    resolution: {integrity: sha512-T4gbf83A4NH95zvhVYZc+qWocBBGlpzUXLPGurJggw/WIOwicfXJChLDP/iBZnN5WqROSu5Bm3hhle4z8a8YGQ==}
+    engines: {node: ^18.17.0 || >=20.5.0}
 
   ignore@5.3.1:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
@@ -5847,7 +5847,7 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  ignore-walk@6.0.5:
+  ignore-walk@7.0.0:
     dependencies:
       minimatch: 9.0.4
 
