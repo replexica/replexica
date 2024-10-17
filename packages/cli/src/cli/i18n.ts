@@ -28,7 +28,7 @@ export default new Command()
         i18nConfig,
         flags,
       ] = await Promise.all([
-        loadConfig(false),
+        loadConfig(),
         loadFlags(options),
       ]);
       const settings = await loadSettings(flags.apiKey);

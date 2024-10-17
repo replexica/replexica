@@ -45,6 +45,31 @@ const extendConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape
         return safeResult.data;
       }
 
+      const localeErrors = safeResult.error.errors
+      .filter(issue => issue.message.includes('Invalid locale code'))
+      .map(issue => {
+        let unsupportedLocale = '';
+        const path = issue.path; 
+    
+        const config = rawConfig as { locale?: { [key: string]: any } };
+    
+        if (config.locale) {
+          unsupportedLocale = path.reduce<any>((acc, key) => {
+            if (acc && typeof acc === 'object' && key in acc) {
+              return acc[key]; 
+            }
+            return acc; 
+          }, config.locale);
+        }
+    
+        return `Unsupported locale: ${unsupportedLocale}`;
+      });
+    
+
+      if (localeErrors.length > 0) {
+        throw new Error(`\n${localeErrors.join('\n')}`);
+      }
+
       const baseConfig = definition.parse(rawConfig);
       const result = upgrader(baseConfig);
       return result;
