@@ -48,6 +48,18 @@ const createV1_2Config = () => ({
   version: 1.2,
 });
 
+const createInvalidLocaleConfig = () => ({
+  version: 1,
+  locale: {
+    source: 'bbbb',
+    targets: ['es', 'aaaa'],
+  },
+  buckets: {
+    'src/ui/[locale]/.json': 'json',
+    'src/blog/[locale]/*.md': 'markdown',
+  },
+});
+
 describe('I18n Config Parser', () => {
   it('should upgrade v0 config to v1.2', () => {
     const v0Config = createV0Config();
@@ -106,5 +118,11 @@ describe('I18n Config Parser', () => {
     
     expect(result).not.toHaveProperty('extraField');
     expect(result).toEqual(createV1_1Config());
+  });
+
+  it('should throw an error for unsupported locales', () => {
+    const invalidLocaleConfig = createInvalidLocaleConfig();
+    expect(() => parseI18nConfig(invalidLocaleConfig))
+      .toThrow(`\nUnsupported locale: ${invalidLocaleConfig.locale.source}\nUnsupported locale: ${invalidLocaleConfig.locale.targets[1]}`);
   });
 });
