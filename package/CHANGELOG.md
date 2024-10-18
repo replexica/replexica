@@ -1,5 +1,16 @@
 # replexica
 
+## 0.45.0
+
+### Minor Changes
+
+- [`ad78fb2`](https://github.com/replexica/replexica/commit/ad78fb231d4044d09280127ad8d7c7f7141afe1b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - remove waitlist
+
+### Patch Changes
+
+- Updated dependencies [[`ad78fb2`](https://github.com/replexica/replexica/commit/ad78fb231d4044d09280127ad8d7c7f7141afe1b)]:
+  - @replexica/cli@0.45.0
+
 ## 0.44.3
 
 ### Patch Changes
