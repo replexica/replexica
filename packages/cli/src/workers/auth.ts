@@ -5,7 +5,6 @@ export type AuthenticatorParams = {
 
 export type AuthPayload = {
   email: string;
-  isInWaitlist: boolean;
 };
 
 export function createAuthenticator(params: AuthenticatorParams) {
@@ -26,7 +25,6 @@ export function createAuthenticator(params: AuthenticatorParams) {
 
           return {
             email: payload.email,
-            isInWaitlist: !!payload.isInWaitlist,
           };
         }
       
