@@ -25,7 +25,7 @@
     "@babel/types": "^7.24.7",
     "@replexica/spec": "workspace:*",
     "@replexica/sdk": "workspace:*",
-    "ignore-walk": "^6.0.5",
+    "ignore-walk": "^7.0.0",
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
     "typescript": "^5.6.3",
