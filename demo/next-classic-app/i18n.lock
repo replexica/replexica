@@ -1,0 +1,7 @@
+version: 1
+checksums:
+  63f4c97e43b1d06779a7f553869f769a:
+    home.title: aa72464a366b091aa6f2037ca869c09c
+    counter.title: 8a1e7a9e646c72c2259e67556795eca4
+    counter.decrement: ccc26acd514d8f23f4874a17f57c26c9
+    counter.increment: 2286b28fa37112af76d6f5952c4b928e

@@ -1,0 +1,29 @@
+{
+  "name": "next-classic-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "i18n": "npx replexica@latest i18n"
+  },
+  "dependencies": {
+    "@formatjs/intl": "^2.10.8",
+    "@formatjs/intl-localematcher": "^0.5.5",
+    "negotiator": "^0.6.3",
+    "next": "14.2.15",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-intl": "^6.8.0"
+  },
+  "devDependencies": {
+    "@types/negotiator": "^0.6.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
