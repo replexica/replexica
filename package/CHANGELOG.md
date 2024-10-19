@@ -1,5 +1,16 @@
 # replexica
 
+## 0.46.0
+
+### Minor Changes
+
+- [`8887ece`](https://github.com/replexica/replexica/commit/8887ece066eccb8da31d42b30a76b005de2219a8) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add node 18 compatibility
+
+### Patch Changes
+
+- Updated dependencies [[`8887ece`](https://github.com/replexica/replexica/commit/8887ece066eccb8da31d42b30a76b005de2219a8)]:
+  - @replexica/cli@0.46.0
+
 ## 0.45.0
 
 ### Minor Changes
