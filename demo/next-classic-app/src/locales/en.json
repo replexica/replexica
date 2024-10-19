@@ -1,0 +1,6 @@
+{
+  "home.title": "Home page",
+  "counter.title": "Counter: {count}",
+  "counter.decrement": "-",
+  "counter.increment": "+"
+}
