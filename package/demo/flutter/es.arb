@@ -57,9 +57,9 @@
       }
     }
   },
-  "currencyMessage": "Tu saldo es de {amount}",
+  "currencyMessage": "Tu saldo es {amount}",
   "@currencyMessage": {
-    "description": "Un mensaje con una cantidad monetaria",
+    "description": "Un mensaje con una cantidad de dinero",
     "placeholders": {
       "amount": {
         "type": "double",
@@ -90,7 +90,7 @@
       }
     }
   },
-  "complexMessage": "El {date}, {name} {gender, select, male{invitó a} female{invitó a} other{invitó a}} {guestCount, plural, =0{ningún invitado} =1{un invitado} other{{guestCount} invitados}} a {eventName}.",
+  "complexMessage": "El {date}, {name} {gender, select, male{invitó a sus} female{invitó a sus} other{invitó a sus}} {guestCount, plural, =0{cero invitados} =1{un invitado} other{{guestCount} invitados}} a {eventName}.",
   "@complexMessage": {
     "description": "Un mensaje complejo que combina múltiples marcadores, género y plurales",
     "placeholders": {
