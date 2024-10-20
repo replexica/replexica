@@ -1,0 +1,195 @@
+{
+  "version": "1.0",
+  "sourceLanguage": "en",
+  "strings": {
+    "greeting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hello!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Hola!"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "welcome_user": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome, %@!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Bienvenido, %@!"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "items_count": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No items"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "One item"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Two items"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld items"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld items"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld items"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {}
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "days_until_event": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The event is today!"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The event is tomorrow!"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The event is in two days"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The event is in %lld days"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The event is in %lld days"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The event is in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {}
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "complex_format": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "User %1$@ has %2$lld points and $%3$.2f balance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El usuario %1$@ tiene %2$lld puntos y un saldo de $%3$.2f"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "date_format": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today is %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoy es %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "multiline_html": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is a <b>multiline</b> string with:\n• HTML tags\n• Special characters: ©®™\n• A <a href=\"https://example.com\">link</a>"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es una cadena <b>multilínea</b> con:\n• Etiquetas HTML\n• Caracteres especiales: ©®™\n• Un <a href=\"https://example.com\">enlace</a>"
+          }
+        }
+      },
+      "extractionState": "manual"
+    }
+  }
+}

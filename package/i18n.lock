@@ -23,11 +23,21 @@ checksums:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
     home/i-am-a-developer: d8feacce28faea3fd4228a1ebcb11473
-  a2ee521da6f3f2f94a1af90f82986b4c:
+  250a4a9b39c8b90557bd4f761e5f3cbb:
     greeting: 5a06f8dbe2138bc2d66dd20061d3358a
-    plural_apples/one: be4ca22a4fc2f5a39c56fdd19c6e7767
-    plural_apples/other: b92278f9ae6a4b294a3eff51844f8690
-    formatted_date: c4137fde368529804b9c43edb293f521
-    user_info: d6f6807be581d741d0c462f1fa573900
-    long_text: 922680b2d76064f3f11e3aa06b7f911f
-    html_text: 85de85a3fa6a00ff790fedda009c2349
+    welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
+    items_count/zero: 955c31a42e9ff663a49e69e944c8c537
+    items_count/one: 154c8eed472b867c8d5af66d162abd2c
+    items_count/two: 8d5f050e1b4c80b1cb2dfd5960330dd6
+    items_count/few: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    items_count/many: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    items_count/other: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    days_until_event/zero: c36f40b15661634b9d11a6704489bb2c
+    days_until_event/one: b42325bee976924c2ec6a2e318b1edfd
+    days_until_event/two: 7f8cb60480d1a0e81b8e0ae0a1d93616
+    days_until_event/few: 2e421cd13245d454ae47fb1ef5833c6e
+    days_until_event/many: 2e421cd13245d454ae47fb1ef5833c6e
+    days_until_event/other: 2e421cd13245d454ae47fb1ef5833c6e
+    complex_format: 9442e21617626db280d376872a8bae6f
+    date_format: c4137fde368529804b9c43edb293f521
+    multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c

@@ -24,9 +24,9 @@
     "yaml-root-key": {
       "include": ["demo/yaml-root-key/[locale].yml"]
     },
-    "xcode": {
+    "xcode-xcstrings": {
       "include": [
-        "demo/xcode/Localizable.xcstrings"
+        "demo/xcode-xcstrings/Localizable.xcstrings"
       ]
     }
   }
