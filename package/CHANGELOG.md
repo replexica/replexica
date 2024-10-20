@@ -1,5 +1,30 @@
 # replexica
 
+## 0.47.0
+
+### Minor Changes
+
+- [`4dfc8d8`](https://github.com/replexica/replexica/commit/4dfc8d8b301a690875401af5d107a88f1716182a) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added support for android format
+
+- [`ca9e20e`](https://github.com/replexica/replexica/commit/ca9e20eef9047e20d39ccf9dff74d2f6069d4676) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - .strings support
+
+- [`2aedf3b`](https://github.com/replexica/replexica/commit/2aedf3bec2d9dffc7b43fc10dea0cab5742d44af) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added support for .stringsdict
+
+- [#245](https://github.com/replexica/replexica/pull/245) [`3fc9da7`](https://github.com/replexica/replexica/commit/3fc9da7e3d2ec58e7f278c79a53eae6d3dfa5896) Thanks [@Nithishvb](https://github.com/Nithishvb)! - prevented overwritting of i18n.json with a default template for unsupported locales
+
+- [`626082a`](https://github.com/replexica/replexica/commit/626082a64b88fb3b589acd950afeafe417ce5ddc) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added Flutter .arb support
+
+### Patch Changes
+
+- [`2b5e3ae`](https://github.com/replexica/replexica/commit/2b5e3aea3f0745955266f6edf2ce34830242e503) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fixed yaml-root-key loader
+
+- [`747847a`](https://github.com/replexica/replexica/commit/747847a86720d4c36f15daeb41d13d0aff129ca9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fixed .xcstrings plurals
+
+- Updated dependencies [[`2b5e3ae`](https://github.com/replexica/replexica/commit/2b5e3aea3f0745955266f6edf2ce34830242e503), [`4dfc8d8`](https://github.com/replexica/replexica/commit/4dfc8d8b301a690875401af5d107a88f1716182a), [`ca9e20e`](https://github.com/replexica/replexica/commit/ca9e20eef9047e20d39ccf9dff74d2f6069d4676), [`2aedf3b`](https://github.com/replexica/replexica/commit/2aedf3bec2d9dffc7b43fc10dea0cab5742d44af), [`747847a`](https://github.com/replexica/replexica/commit/747847a86720d4c36f15daeb41d13d0aff129ca9), [`3fc9da7`](https://github.com/replexica/replexica/commit/3fc9da7e3d2ec58e7f278c79a53eae6d3dfa5896), [`626082a`](https://github.com/replexica/replexica/commit/626082a64b88fb3b589acd950afeafe417ce5ddc)]:
+  - @replexica/cli@0.47.0
+  - @replexica/compiler@0.4.6
+  - @replexica/react@0.3.6
+
 ## 0.46.0
 
 ### Minor Changes

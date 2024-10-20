@@ -1,5 +1,15 @@
 # @replexica/spec
 
+## 0.14.0
+
+### Minor Changes
+
+- [`ca9e20e`](https://github.com/replexica/replexica/commit/ca9e20eef9047e20d39ccf9dff74d2f6069d4676) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - .strings support
+
+- [`2aedf3b`](https://github.com/replexica/replexica/commit/2aedf3bec2d9dffc7b43fc10dea0cab5742d44af) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added support for .stringsdict
+
+- [`626082a`](https://github.com/replexica/replexica/commit/626082a64b88fb3b589acd950afeafe417ce5ddc) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added Flutter .arb support
+
 ## 0.13.0
 
 ### Minor Changes
