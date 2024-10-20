@@ -17,6 +17,14 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Check for [skip i18n]
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          if echo "$COMMIT_MESSAGE" | grep -iq '\[skip i18n\]'; then
+            echo "Skipping i18n checks due to [skip i18n] in commit message."
+            exit 0
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
