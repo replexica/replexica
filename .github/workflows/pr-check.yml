@@ -17,6 +17,12 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
+          fetch-depth: 0
+          
       - name: Check for [skip i18n]
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
@@ -24,12 +30,6 @@ jobs:
             echo "Skipping i18n checks due to [skip i18n] in commit message."
             exit 0
           fi
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{github.event.pull_request.head.sha}}
-          fetch-depth: 0
 
       - name: Use Node.js
         uses: actions/setup-node@v2
