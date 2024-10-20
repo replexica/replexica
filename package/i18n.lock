@@ -41,3 +41,45 @@ checksums:
     complex_format: 9442e21617626db280d376872a8bae6f
     date_format: c4137fde368529804b9c43edb293f521
     multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
+  9c4e19808888b454eb5178a0ab79e392:
+    greeting: 5a06f8dbe2138bc2d66dd20061d3358a
+    welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
+    complex_format: 9442e21617626db280d376872a8bae6f
+    date_format: c4137fde368529804b9c43edb293f521
+    multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
+    items_count_zero: 955c31a42e9ff663a49e69e944c8c537
+    items_count_one: 154c8eed472b867c8d5af66d162abd2c
+    items_count_two: 8d5f050e1b4c80b1cb2dfd5960330dd6
+    items_count_few: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    items_count_many: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    items_count_other: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    days_until_event_zero: c36f40b15661634b9d11a6704489bb2c
+    days_until_event_one: b42325bee976924c2ec6a2e318b1edfd
+    days_until_event_two: 7f8cb60480d1a0e81b8e0ae0a1d93616
+    days_until_event_few: 2e421cd13245d454ae47fb1ef5833c6e
+    days_until_event_many: 2e421cd13245d454ae47fb1ef5833c6e
+    days_until_event_other: 2e421cd13245d454ae47fb1ef5833c6e
+  50315facd0071939973b7e534c3743b6:
+    items_count/NSStringLocalizedFormatKey: 616c996ac6538f31d31937a9187f26c0
+    items_count/items/NSStringFormatSpecTypeKey: 8cc03ef30ad5b2d8e27f3612627d932e
+    items_count/items/NSStringFormatValueTypeKey: 43427fccc66cbcc5b7e93b12f078b1d2
+    items_count/items/zero: 955c31a42e9ff663a49e69e944c8c537
+    items_count/items/one: 154c8eed472b867c8d5af66d162abd2c
+    items_count/items/two: 8d5f050e1b4c80b1cb2dfd5960330dd6
+    items_count/items/few: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    items_count/items/many: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    items_count/items/other: 74e296c76396ac5c4b6e8f3bf3a6d02d
+    days_until_event/NSStringLocalizedFormatKey: 09e8eb287d7e597de0ff05a630b09396
+    days_until_event/days/NSStringFormatSpecTypeKey: 8cc03ef30ad5b2d8e27f3612627d932e
+    days_until_event/days/NSStringFormatValueTypeKey: 43427fccc66cbcc5b7e93b12f078b1d2
+    days_until_event/days/zero: c36f40b15661634b9d11a6704489bb2c
+    days_until_event/days/one: b42325bee976924c2ec6a2e318b1edfd
+    days_until_event/days/two: 7f8cb60480d1a0e81b8e0ae0a1d93616
+    days_until_event/days/few: 2e421cd13245d454ae47fb1ef5833c6e
+    days_until_event/days/many: 2e421cd13245d454ae47fb1ef5833c6e
+    days_until_event/days/other: 2e421cd13245d454ae47fb1ef5833c6e
+    greeting: 5a06f8dbe2138bc2d66dd20061d3358a
+    welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
+    complex_format: 9442e21617626db280d376872a8bae6f
+    date_format: c4137fde368529804b9c43edb293f521
+    multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c

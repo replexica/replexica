@@ -28,6 +28,16 @@
       "include": [
         "demo/xcode-xcstrings/Localizable.xcstrings"
       ]
+    },
+    "xcode-strings": {
+      "include": [
+        "demo/xcode-strings/[locale].lproj/Localizable.strings"
+      ]
+    },
+    "xcode-stringsdict": {
+      "include": [
+        "demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"
+      ]
     }
   }
 }
