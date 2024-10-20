@@ -6,7 +6,7 @@ export const rootKeyLoader = (
 ): BucketLoader<void, Record<string, any>> => ({
   async load() {
     const input = await loader.load();
-    const result = input[locale];
+    const result = input[locale] || {};
     return result;
   },
   async save(payload) {
