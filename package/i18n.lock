@@ -137,3 +137,31 @@ checksums:
     "%40multilineMessage/description": 9b738dc852df541efeadadb453e11f5a
     htmlMessage: a9e1185f9b7d4cbb64151766e881e4a3
     "%40htmlMessage/description": b6bbed89ea7ee962bfc0ce042dcce018
+  2bc3a8ed319665fae7eff9afc672f20e:
+    app_name: c215a8d46c95f00089c5ea0d17eef742
+    don_t_forget: d8fccac92bf4abc0ed2986294de23f83
+    can_t_won_t_shouldn_t: 32a724977b1df3f505f4048be7f13358
+    quote: c03cdd6e533842fc8d567fe86e9423b3
+    mixed_quotes: 792986981ea317fb460b4c6067e7d4de
+    special_chars: b790f7f172596aa36012890bd7086b22
+    html_text: 2e47895b6c240483675fb3f3d2efcff8
+    multiline: af742e306fb0c689582cae5fea3e72a3
+    cdata_text: 2b801f941cf161367d0de14699aed32f
+    welcome_messages: 3de663b9b1da14950e0dc9458288a103
+    unicode_string: a92b4ad5d62c70b0e60fb246114d976b
+    escaped_string: 86c751fa88be9fc0fc466c5117e53872
+    app_description: 6d8ca3bdd574b2d0c42c0b85785e5c73
+    complex_format: 6d53bb54c300cc22849404edf22798d8
+    formatted_text: 2542708c0f2a1a1fc2622f036ee5e8e3
+    planets_array/0: 32b9529177f7ebae9142a2873fdc5725
+    planets_array/1: 8f344969ac006decef583f02ec48e2cb
+    planets_array/2: bd04302423f3e10e0b3cec57513fbe3f
+    planets_array/3: a2e163ad865587d0f0576ff2900752cc
+    numberOfSongsAvailable/zero: 31ec89ed9b5ae26480684390a61be633
+    numberOfSongsAvailable/one: f8be3b2314ed17611826ed95c1029195
+    numberOfSongsAvailable/two: 2c9289cadaf3013950c9001ddd0b3e49
+    numberOfSongsAvailable/few: ed1879c58d83f67060915c0821b7e019
+    numberOfSongsAvailable/many: ed1879c58d83f67060915c0821b7e019
+    numberOfSongsAvailable/other: ed1879c58d83f67060915c0821b7e019
+    is_tablet: 7b4c153f7a7be9b6b5053f21d735103b
+    max_speed: 19d25a47a74ee7755adb42ff8f6956ce

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resources>
+  <string name="app_name">Mi Aplicación</string>
+  <string name="don_t_forget">¡No olvides!</string>
+  <string name="can_t_won_t_shouldn_t">No puedo, no quiero, no debería</string>
+  <string name="quote">"Ser o no ser"</string>
+  <string name="mixed_quotes">\'Simples\' y "dobles" comillas</string>
+  <string name="special_chars">Hola @#$%^&amp;*()_+</string>
+  <string name="html_text">Visita nuestro &lt;a href="https://example.com"&gt;sitio web&lt;/a&gt;</string>
+  <string name="multiline">Este es un texto largo que abarca
+        varias líneas y preserva
+        los saltos de línea</string>
+  <string name="cdata_text">Este texto contiene etiquetas HTML en &lt;b&gt;negrita&lt;/b&gt; y en &lt;i&gt;cursiva&lt;/i&gt;</string>
+  <string name="welcome_messages">¡Bienvenido, %1$s! Tienes %2$d mensajes nuevos y tu saldo es de $%3$.2f.</string>
+  <string name="unicode_string">こんにちは世界 • Здравствуй, мир • مرحبا بالعالم</string>
+  <string name="escaped_string">Tabulación:\t Nueva línea:\n Comilla:\" Barra invertida:\\</string>
+  <string name="app_description">Bienvenido a %1$s</string>
+  <string name="complex_format">El %1$s, %2$s invitó a %3$d invitados a %4$s.</string>
+  <string name="formatted_text">El texto puede ser , ,  o .</string>
+  <string-array name="planets_array">
+    <item>Mercurio</item>
+    <item>Venus</item>
+    <item>Tierra</item>
+    <item>Marte</item>
+  </string-array>
+  <plurals name="numberOfSongsAvailable">
+    <item quantity="zero">No se encontraron canciones</item>
+    <item quantity="one">Se encontró una canción</item>
+    <item quantity="two">Se encontraron dos canciones</item>
+    <item quantity="few">Se encontraron %d canciones</item>
+    <item quantity="many">Se encontraron %d canciones</item>
+    <item quantity="other">Se encontraron %d canciones</item>
+  </plurals>
+  <bool name="is_tablet">false</bool>
+  <integer name="max_speed">75</integer>
+</resources>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Simple string -->
+    <string name="app_name">My Application</string>
+
+    <!-- String with apostrophe -->
+    <string name="don_t_forget">Don\'t forget!</string>
+
+    <!-- String with multiple apostrophes -->
+    <string name="can_t_won_t_shouldn_t">Can\'t, won\'t, shouldn\'t</string>
+
+    <!-- String with double quotes -->
+    <string name="quote">"To be or not to be"</string>
+
+    <!-- String with both apostrophe and quotes -->
+    <string name="mixed_quotes">\'Single\' and "double" quotes</string>
+
+    <!-- String with special characters -->
+    <string name="special_chars">Hello @#$%^&amp;*()_+</string>
+
+    <!-- String with HTML -->
+    <string name="html_text">Visit our &lt;a href="https://example.com"&gt;website&lt;/a&gt;</string>
+
+    <!-- Multiline string -->
+    <string name="multiline">This is a long text that spans
+        multiple lines and preserves
+        line breaks</string>
+
+    <!-- String with CDATA -->
+    <string name="cdata_text"><![CDATA[This text contains <b>bold</b> and <i>italic</i> HTML tags]]></string>
+
+    <!-- Formatted string with multiple parameters -->
+    <string name="welcome_messages">Welcome, %1$s! You have %2$d new messages and your balance is $%3$.2f.</string>
+
+    <!-- String array -->
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+
+    <!-- Quantity strings -->
+    <plurals name="numberOfSongsAvailable">
+        <item quantity="zero">No songs found</item>
+        <item quantity="one">One song found</item>
+        <item quantity="two">Two songs found</item>
+        <item quantity="few">%d songs found</item>
+        <item quantity="many">%d songs found</item>
+        <item quantity="other">%d songs found</item>
+    </plurals>
+
+    <!-- String with Unicode characters -->
+    <string name="unicode_string">こんにちは世界 • Здравствуй, мир • مرحبا بالعالم</string>
+
+    <!-- String with escape sequences -->
+    <string name="escaped_string">Tab:\t Newline:\n Quote:\" Backslash:\\</string>
+
+    <!-- String referencing another string -->
+    <string name="app_description">Welcome to %1$s</string>
+
+    <!-- Boolean value -->
+    <bool name="is_tablet">false</bool>
+
+    <!-- Integer value -->
+    <integer name="max_speed">75</integer>
+
+    <!-- String referencing a format string with multiple arguments -->
+    <string name="complex_format">On %1$s, %2$s invited %3$d guests to %4$s.</string>
+
+    <!-- String with a lot of formatting -->
+    <string name="formatted_text">Text can be <b>bold</b>, <i>italic</i>, <u>underlined</u> or <font color="#FF0000">colored</font>.</string>
+</resources>
+

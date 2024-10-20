@@ -43,6 +43,11 @@
       "include": [
         "demo/flutter/[locale].arb"
       ]
+    },
+    "android": {
+      "include": [
+        "demo/android/[locale].xml"
+      ]
     }
   }
 }
