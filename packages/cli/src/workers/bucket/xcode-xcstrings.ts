@@ -54,15 +54,13 @@ export const xcodeXcstringsLoader = (
         const originalVariations = input.strings[key]?.localizations?.[locale]?.variations?.plural || {};
         const updatedVariations: any = {};
 
-        for (const form in originalVariations) {
-          if (form in value) {
-            updatedVariations[form] = {
-              stringUnit: {
-                state: 'translated',
-                value: value[form],
-              },
-            };
-          }
+        for (const form in value) {
+          updatedVariations[form] = {
+            stringUnit: {
+              state: 'translated',
+              value: value[form],
+            },
+          };
         }
 
         langDataToMerge.strings[key] = {
