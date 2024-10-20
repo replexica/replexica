@@ -101,6 +101,15 @@ create_or_update_pr() {
     fi
 }
 
+check_skip_i18n() {
+    local commit_message="$REPLEXICA_COMMIT_MESSAGE"
+
+    if [[ "$commit_message" =~ \[\ *[sS][kK][iI][pP]\ +[iI]18[nN]\ *\] ]]; then
+        echo "::notice::i18n processing has been skipped due to '[skip i18n]' found in the commit message."
+        exit 0
+    fi
+}
+
 # Main execution
 main() {
     # Configure git for committing changes
@@ -112,6 +121,9 @@ main() {
             exit 1
         fi
     fi
+
+    # Check commit message for skip i18n
+    check_skip_i18n
 
     # Run Replexica to update translations
     run_replexica
