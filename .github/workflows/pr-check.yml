@@ -31,7 +31,7 @@ jobs:
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if echo "$COMMIT_MESSAGE" | grep -iq '\[skip i18n\]'; then
             echo "Skipping i18n checks due to [skip i18n] in commit message."
-            exit 0
+            exit 1
           fi
 
       - name: Use Node.js
