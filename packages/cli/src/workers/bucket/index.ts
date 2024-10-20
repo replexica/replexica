@@ -10,9 +10,11 @@ import { flatLoader } from './flat';
 import { yamlLoader } from './yaml';
 import { rootKeyLoader } from './root-key';
 import { markdownLoader } from './markdown';
-import { xcodeLoader } from './xcode';
+import { xcodeXcstringsLoader } from './xcode-xcstrings';
 import { androidLoader } from './android';
 import { propertiesLoader } from './properties';
+import { xcodeStringsLoader } from './xcode-strings';
+import { xcodeStringsdictLoader } from './xcode-stringsdict';
 
 // Path expansion
 export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: string): string[] {
@@ -75,6 +77,12 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
   switch (params.bucketType) {
     default:
       throw new Error(`Unsupported bucket type: ${params.bucketType}`);
+    case 'markdown':
+      return composeLoaders<string, Record<string, string>>(
+        textLoader(filepath),
+        markdownLoader(),
+        flatLoader(),
+      );
     case 'json':
       return composeLoaders<string, Record<string, string>>(
         textLoader(filepath),
@@ -87,15 +95,9 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
         yamlLoader(),
         flatLoader(),
       );
-    case 'markdown':
+    case 'xcode-xcstrings':
       return composeLoaders<string, Record<string, string>>(
-        textLoader(filepath),
-        markdownLoader(),
-        flatLoader(),
-      );
-    case 'xcode':
-      return composeLoaders<string, Record<string, string>>(
-        xcodeLoader(
+        xcodeXcstringsLoader(
           params.locale,
           composeLoaders<void, Record<string, any>>(
             textLoader(filepath),
@@ -104,6 +106,21 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
         ),
         flatLoader(),
       );
+    
+    case 'xcode-strings':
+      return composeLoaders<string, Record<string, string>>(
+        textLoader(filepath),
+        xcodeStringsLoader(),
+        flatLoader(),
+      );
+    
+    case 'xcode-stringsdict':
+      return composeLoaders<string, Record<string, string>>(
+        textLoader(filepath),
+        xcodeStringsdictLoader(),
+        flatLoader(),
+      );
+
     case 'yaml-root-key':
       return composeLoaders<string, Record<string, string>>(
         rootKeyLoader(

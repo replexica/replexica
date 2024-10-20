@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items_count</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@items@</string>
+        <key>items</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>No items</string>
+            <key>one</key>
+            <string>One item</string>
+            <key>two</key>
+            <string>Two items</string>
+            <key>few</key>
+            <string>%lld items</string>
+            <key>many</key>
+            <string>%lld items</string>
+            <key>other</key>
+            <string>%lld items</string>
+        </dict>
+    </dict>
+    <key>days_until_event</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@days@</string>
+        <key>days</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>lld</string>
+            <key>zero</key>
+            <string>The event is today!</string>
+            <key>one</key>
+            <string>The event is tomorrow!</string>
+            <key>two</key>
+            <string>The event is in two days</string>
+            <key>few</key>
+            <string>The event is in %lld days</string>
+            <key>many</key>
+            <string>The event is in %lld days</string>
+            <key>other</key>
+            <string>The event is in %lld days</string>
+        </dict>
+    </dict>
+    <key>greeting</key>
+    <string>Hello!</string>
+    <key>welcome_user</key>
+    <string>Welcome, %@!</string>
+    <key>complex_format</key>
+    <string>User %1$@ has %2$lld points and $%3$.2f balance</string>
+    <key>date_format</key>
+    <string>Today is %@</string>
+    <key>multiline_html</key>
+    <string>This is a &lt;b&gt;multiline&lt;/b&gt; string with:
+• HTML tags
+• Special characters: ©®™
+• A &lt;a href="https://example.com"&gt;link&lt;/a&gt;</string>
+</dict>
+</plist>

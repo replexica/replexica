@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>items_count</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@items@</string>
+      <key>items</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>lld</string>
+        <key>zero</key>
+        <string>No hay elementos</string>
+        <key>one</key>
+        <string>Un elemento</string>
+        <key>two</key>
+        <string>Dos elementos</string>
+        <key>few</key>
+        <string>%lld elementos</string>
+        <key>many</key>
+        <string>%lld elementos</string>
+        <key>other</key>
+        <string>%lld elementos</string>
+      </dict>
+    </dict>
+    <key>days_until_event</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>lld</string>
+        <key>zero</key>
+        <string>¡El evento es hoy!</string>
+        <key>one</key>
+        <string>¡El evento es mañana!</string>
+        <key>two</key>
+        <string>El evento es en dos días</string>
+        <key>few</key>
+        <string>El evento es en %lld días</string>
+        <key>many</key>
+        <string>El evento es en %lld días</string>
+        <key>other</key>
+        <string>El evento es en %lld días</string>
+      </dict>
+    </dict>
+    <key>greeting</key>
+    <string>¡Hola!</string>
+    <key>welcome_user</key>
+    <string>¡Bienvenido, %@!</string>
+    <key>complex_format</key>
+    <string>El usuario %1$@ tiene %2$lld puntos y un saldo de $%3$.2f</string>
+    <key>date_format</key>
+    <string>Hoy es %@</string>
+    <key>multiline_html</key>
+    <string>Esto es una cadena &lt;b&gt;multilínea&lt;/b&gt; con:
+• Etiquetas HTML
+• Caracteres especiales: ©®™
+• Un &lt;a href="https://example.com"&gt;enlace&lt;/a&gt;</string>
+  </dict>
+</plist>

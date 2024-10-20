@@ -1,0 +1,19 @@
+"greeting" = "Hello!";
+"welcome_user" = "Welcome, %@!";
+"complex_format" = "User %1$@ has %2$lld points and $%3$.2f balance";
+"date_format" = "Today is %@";
+"multiline_html" = "This is a <b>multiline</b> string with:\n• HTML tags\n• Special characters: ©®™\n• A <a href=\"https://example.com\">link</a>";
+
+"items_count_zero" = "No items";
+"items_count_one" = "One item";
+"items_count_two" = "Two items";
+"items_count_few" = "%lld items";
+"items_count_many" = "%lld items";
+"items_count_other" = "%lld items";
+
+"days_until_event_zero" = "The event is today!";
+"days_until_event_one" = "The event is tomorrow!";
+"days_until_event_two" = "The event is in two days";
+"days_until_event_few" = "The event is in %lld days";
+"days_until_event_many" = "The event is in %lld days";
+"days_until_event_other" = "The event is in %lld days";

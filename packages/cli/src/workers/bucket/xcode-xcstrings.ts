@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { BucketLoader } from "./_base";
 
-export const xcodeLoader = (
+export const xcodeXcstringsLoader = (
   locale: string,
   loader: BucketLoader<void, Record<string, any>>,
 ): BucketLoader<void, Record<string, any>> => ({

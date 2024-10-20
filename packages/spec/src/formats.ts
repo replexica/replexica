@@ -6,7 +6,9 @@ export const bucketTypes = [
   'json',
   'yaml',
   'yaml-root-key',
-  'xcode',
+  'xcode-xcstrings',
+  'xcode-strings',
+  'xcode-stringsdict',
   'android',
   'properties',
 ] as const;

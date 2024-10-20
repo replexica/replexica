@@ -1,0 +1,17 @@
+"greeting" = "¡Hola!";
+"welcome_user" = "¡Bienvenido, %@!";
+"complex_format" = "El usuario %1$@ tiene %2$lld puntos y un saldo de $%3$.2f";
+"date_format" = "Hoy es %@";
+"multiline_html" = "Esto es una cadena <b>multilínea</b> con:\n• Etiquetas HTML\n• Caracteres especiales: ©®™\n• Un <a href=\"https://example.com\">enlace</a>";
+"items_count_zero" = "No hay elementos";
+"items_count_one" = "Un elemento";
+"items_count_two" = "Dos elementos";
+"items_count_few" = "%lld elementos";
+"items_count_many" = "%lld elementos";
+"items_count_other" = "%lld elementos";
+"days_until_event_zero" = "¡El evento es hoy!";
+"days_until_event_one" = "¡El evento es mañana!";
+"days_until_event_two" = "El evento es en dos días";
+"days_until_event_few" = "El evento es en %lld días";
+"days_until_event_many" = "El evento es en %lld días";
+"days_until_event_other" = "El evento es en %lld días";
