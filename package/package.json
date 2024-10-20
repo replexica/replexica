@@ -34,6 +34,7 @@
   ],
   "scripts": {
     "replexica": "./bin/cli.mjs",
+    "i18n": "node ./bin/cli.mjs i18n",
     "dev": "tsup --watch",
     "build": "tsc --noEmit && tsup"
   },

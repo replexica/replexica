@@ -17,6 +17,17 @@
     },
     "json": {
       "include": ["demo/json/[locale].json"]
+    },
+    "yaml": {
+      "include": ["demo/yaml/[locale].yml"]
+    },
+    "yaml-root-key": {
+      "include": ["demo/yaml-root-key/[locale].yml"]
+    },
+    "xcode": {
+      "include": [
+        "demo/xcode/Localizable.xcstrings"
+      ]
     }
   }
 }
