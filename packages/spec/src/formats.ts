@@ -9,6 +9,7 @@ export const bucketTypes = [
   'xcode-xcstrings',
   'xcode-strings',
   'xcode-stringsdict',
+  'flutter',
   'android',
   'properties',
 ] as const;

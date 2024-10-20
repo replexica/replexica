@@ -1,0 +1,130 @@
+{
+  "@@locale": "es",
+  "simpleMessage": "Este es un mensaje simple.",
+  "@simpleMessage": {
+    "description": "Un mensaje básico sin marcadores de posición"
+  },
+  "messageWithPlaceholder": "¡Hola, {name}!",
+  "@messageWithPlaceholder": {
+    "description": "Un saludo con un marcador de posición para el nombre",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John"
+      }
+    }
+  },
+  "pluralMessage": "{count, plural, =0{No hay elementos} =1{Un elemento} other{{count} elementos}}",
+  "@pluralMessage": {
+    "description": "Un mensaje con formas plurales",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "genderMessage": "{gender, select, male{A él} female{A ella} other{A ellos}} le gustó tu publicación.",
+  "@genderMessage": {
+    "description": "Un mensaje específico de género",
+    "placeholders": {
+      "gender": {
+        "type": "String"
+      }
+    }
+  },
+  "nestedMessage": "Tienes {count, plural, =0{ningún mensaje nuevo} =1{un mensaje nuevo} other{{count} mensajes nuevos}} y {unread, plural, =0{ningún correo sin leer} =1{un correo sin leer} other{{unread} correos sin leer}}.",
+  "@nestedMessage": {
+    "description": "Un mensaje con plurales anidados",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      },
+      "unread": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "dateMessage": "Hoy es {date}",
+  "@dateMessage": {
+    "description": "Un mensaje con una fecha",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+  "currencyMessage": "Tu saldo es de {amount}",
+  "@currencyMessage": {
+    "description": "Un mensaje con una cantidad monetaria",
+    "placeholders": {
+      "amount": {
+        "type": "double",
+        "format": "currency",
+        "optionalParameters": {
+          "symbol": "$",
+          "decimalDigits": 2
+        }
+      }
+    }
+  },
+  "percentMessage": "Has completado el {percent} de la tarea.",
+  "@percentMessage": {
+    "description": "Un mensaje con un porcentaje",
+    "placeholders": {
+      "percent": {
+        "type": "double",
+        "format": "percentPattern"
+      }
+    }
+  },
+  "listMessage": "Tus frutas favoritas son: {fruits}",
+  "@listMessage": {
+    "description": "Un mensaje con una lista",
+    "placeholders": {
+      "fruits": {
+        "type": "List<String>"
+      }
+    }
+  },
+  "complexMessage": "El {date}, {name} {gender, select, male{invitó a} female{invitó a} other{invitó a}} {guestCount, plural, =0{ningún invitado} =1{un invitado} other{{guestCount} invitados}} a {eventName}.",
+  "@complexMessage": {
+    "description": "Un mensaje complejo que combina múltiples marcadores, género y plurales",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      },
+      "name": {
+        "type": "String",
+        "example": "Alice"
+      },
+      "gender": {
+        "type": "String"
+      },
+      "guestCount": {
+        "type": "num",
+        "format": "compact"
+      },
+      "eventName": {
+        "type": "String",
+        "example": "Fiesta de cumpleaños"
+      }
+    }
+  },
+  "escapeMessage": "Para usar llaves, escápalas así: '{' y '}'.",
+  "@escapeMessage": {
+    "description": "Un mensaje que demuestra cómo escapar caracteres especiales"
+  },
+  "multilineMessage": "Este es un mensaje largo\nque abarca varias líneas\ny preserva los saltos de línea.",
+  "@multilineMessage": {
+    "description": "Un mensaje multilínea"
+  },
+  "htmlMessage": "Este mensaje contiene etiquetas <b>HTML</b> como <i>cursiva</i> y <u>subrayado</u>.",
+  "@htmlMessage": {
+    "description": "Un mensaje con etiquetas HTML (nota: el manejo de estas requiere procesamiento adicional en la aplicación)"
+  }
+}

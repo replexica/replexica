@@ -83,3 +83,57 @@ checksums:
     complex_format: 9442e21617626db280d376872a8bae6f
     date_format: c4137fde368529804b9c43edb293f521
     multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
+  b3b7f970e3d2e81f9679d0f0de74e5bc:
+    simpleMessage: 6ab8c48d251e87acb707e43006d783f2
+    "%40simpleMessage/description": d51140d8cf31b254cb2887c465af2121
+    messageWithPlaceholder: a4028aa70eaa7049318f039837199173
+    "%40messageWithPlaceholder/description": 80a6d05342c0024a0cdce80a7b4330c3
+    "%40messageWithPlaceholder/placeholders/name/type": d9b2e6a31602b72464acbd1771cd5720
+    "%40messageWithPlaceholder/placeholders/name/example": 41853d3f04b645aa5d16b5faa5cd7a96
+    pluralMessage: 5d99c6ef240b21489e9de37118d9abe9
+    "%40pluralMessage/description": 0460d201ea86c317355c93e336256f78
+    "%40pluralMessage/placeholders/count/type": b60b53ee3b55f2f842e64dbb9becfe08
+    "%40pluralMessage/placeholders/count/format": 3a91783b8a4ca53167e22450df491216
+    genderMessage: e28d61555c4f2a82e756da7c102fdd30
+    "%40genderMessage/description": fe9eb56076be28cf1baaee1147b9fd74
+    "%40genderMessage/placeholders/gender/type": d9b2e6a31602b72464acbd1771cd5720
+    nestedMessage: 5e0dca93f6b3f140941c1d47ff115314
+    "%40nestedMessage/description": ebcd51a856fef519b41fc04844936e56
+    "%40nestedMessage/placeholders/count/type": b60b53ee3b55f2f842e64dbb9becfe08
+    "%40nestedMessage/placeholders/count/format": 3a91783b8a4ca53167e22450df491216
+    "%40nestedMessage/placeholders/unread/type": b60b53ee3b55f2f842e64dbb9becfe08
+    "%40nestedMessage/placeholders/unread/format": 3a91783b8a4ca53167e22450df491216
+    dateMessage: 8f8b3d41f4fb5849db8efce61cc983c9
+    "%40dateMessage/description": 1b74219679aac9ad36d2535642b24b55
+    "%40dateMessage/placeholders/date/type": a6ed10e8d9ba37a95152a327df102f8b
+    "%40dateMessage/placeholders/date/format": a3b36f0bf5d4dd91b8f14319e6d32280
+    currencyMessage: b6a41e9a4ccac26e01621ef82c88c287
+    "%40currencyMessage/description": ee3c723c2e96b41daeced5825e59064a
+    "%40currencyMessage/placeholders/amount/type": 3ed48c0e4300158c1d9e988fff63f9d9
+    "%40currencyMessage/placeholders/amount/format": 6d2060db7ea78e2de968a26444ec825a
+    "%40currencyMessage/placeholders/amount/optionalParameters/symbol": ce3025799d70859c869af0b2fea2ad8a
+    "%40currencyMessage/placeholders/amount/optionalParameters/decimalDigits": 7f9518f51efce718baf93aced6e39a15
+    percentMessage: e091023f926a93300645759e90848cf4
+    "%40percentMessage/description": 664e99ec8994c8b6f29046ec2d4ebbf4
+    "%40percentMessage/placeholders/percent/type": 3ed48c0e4300158c1d9e988fff63f9d9
+    "%40percentMessage/placeholders/percent/format": 3a9ba59bd14cdf6a7ddeb922a7efdbf7
+    listMessage: 12632bfd4b8c03f13bf7cd41a2c821ed
+    "%40listMessage/description": 1d64eccf032458311db54315afdd2316
+    "%40listMessage/placeholders/fruits/type": 99472cb8aaf87b3809caee2b781a0557
+    complexMessage: b30fe2a8990c467391296864126cb42d
+    "%40complexMessage/description": 50506b19586c2a944ff56db9123686c6
+    "%40complexMessage/placeholders/date/type": a6ed10e8d9ba37a95152a327df102f8b
+    "%40complexMessage/placeholders/date/format": a3b36f0bf5d4dd91b8f14319e6d32280
+    "%40complexMessage/placeholders/name/type": d9b2e6a31602b72464acbd1771cd5720
+    "%40complexMessage/placeholders/name/example": e80d4063a32adaad7b0a82b0bcc10551
+    "%40complexMessage/placeholders/gender/type": d9b2e6a31602b72464acbd1771cd5720
+    "%40complexMessage/placeholders/guestCount/type": b60b53ee3b55f2f842e64dbb9becfe08
+    "%40complexMessage/placeholders/guestCount/format": 3a91783b8a4ca53167e22450df491216
+    "%40complexMessage/placeholders/eventName/type": d9b2e6a31602b72464acbd1771cd5720
+    "%40complexMessage/placeholders/eventName/example": b5c51b2ed9c463cbcc18969e080be169
+    escapeMessage: 88d90279078fafe7a29fda6f17f99c06
+    "%40escapeMessage/description": d1115c61088acbe5c0b99d46bdba0a8b
+    multilineMessage: a54a797df1eded0bdb2d0e6078e5eb5d
+    "%40multilineMessage/description": 9b738dc852df541efeadadb453e11f5a
+    htmlMessage: a9e1185f9b7d4cbb64151766e881e4a3
+    "%40htmlMessage/description": b6bbed89ea7ee962bfc0ce042dcce018

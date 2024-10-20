@@ -38,6 +38,11 @@
       "include": [
         "demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"
       ]
+    },
+    "flutter": {
+      "include": [
+        "demo/flutter/[locale].arb"
+      ]
     }
   }
 }

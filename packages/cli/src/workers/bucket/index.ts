@@ -15,6 +15,7 @@ import { androidLoader } from './android';
 import { propertiesLoader } from './properties';
 import { xcodeStringsLoader } from './xcode-strings';
 import { xcodeStringsdictLoader } from './xcode-stringsdict';
+import { flutterLoader } from './flutter';
 
 // Path expansion
 export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: string): string[] {
@@ -95,6 +96,17 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
         yamlLoader(),
         flatLoader(),
       );
+    case 'yaml-root-key':
+      return composeLoaders<string, Record<string, string>>(
+        rootKeyLoader(
+          params.locale,
+          composeLoaders(
+            textLoader(filepath),
+            yamlLoader(),
+          ),
+        ),
+        flatLoader(),
+      );
     case 'xcode-xcstrings':
       return composeLoaders<string, Record<string, string>>(
         xcodeXcstringsLoader(
@@ -106,7 +118,6 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
         ),
         flatLoader(),
       );
-    
     case 'xcode-strings':
       return composeLoaders<string, Record<string, string>>(
         textLoader(filepath),
@@ -120,16 +131,11 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
         xcodeStringsdictLoader(),
         flatLoader(),
       );
-
-    case 'yaml-root-key':
+    case 'flutter':
       return composeLoaders<string, Record<string, string>>(
-        rootKeyLoader(
-          params.locale,
-          composeLoaders(
-            textLoader(filepath),
-            yamlLoader(),
-          ),
-        ),
+        textLoader(filepath),
+        jsonLoader(),
+        flutterLoader(params.locale),
         flatLoader(),
       );
     case 'android':

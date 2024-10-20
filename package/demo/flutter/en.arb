@@ -1,0 +1,143 @@
+{
+  "@@locale": "en",
+
+  "simpleMessage": "This is a simple message.",
+  "@simpleMessage": {
+    "description": "A basic message without any placeholders"
+  },
+
+  "messageWithPlaceholder": "Hello, {name}!",
+  "@messageWithPlaceholder": {
+    "description": "A greeting with a name placeholder",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John"
+      }
+    }
+  },
+
+  "pluralMessage": "{count, plural, =0{No items} =1{One item} other{{count} items}}",
+  "@pluralMessage": {
+    "description": "A message with plural forms",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+
+  "genderMessage": "{gender, select, male{He} female{She} other{They}} liked your post.",
+  "@genderMessage": {
+    "description": "A gender-specific message",
+    "placeholders": {
+      "gender": {
+        "type": "String"
+      }
+    }
+  },
+
+  "nestedMessage": "You have {count, plural, =0{no new messages} =1{one new message} other{{count} new messages}} and {unread, plural, =0{no unread emails} =1{one unread email} other{{unread} unread emails}}.",
+  "@nestedMessage": {
+    "description": "A message with nested plurals",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      },
+      "unread": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+
+  "dateMessage": "Today is {date}",
+  "@dateMessage": {
+    "description": "A message with a date",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+
+  "currencyMessage": "Your balance is {amount}",
+  "@currencyMessage": {
+    "description": "A message with a currency amount",
+    "placeholders": {
+      "amount": {
+        "type": "double",
+        "format": "currency",
+        "optionalParameters": {
+          "symbol": "$",
+          "decimalDigits": 2
+        }
+      }
+    }
+  },
+
+  "percentMessage": "You've completed {percent} of the task.",
+  "@percentMessage": {
+    "description": "A message with a percentage",
+    "placeholders": {
+      "percent": {
+        "type": "double",
+        "format": "percentPattern"
+      }
+    }
+  },
+
+  "listMessage": "Your favorite fruits are: {fruits}",
+  "@listMessage": {
+    "description": "A message with a list",
+    "placeholders": {
+      "fruits": {
+        "type": "List<String>"
+      }
+    }
+  },
+
+  "complexMessage": "On {date}, {name} {gender, select, male{invited his} female{invited her} other{invited their}} {guestCount, plural, =0{no guests} =1{one guest} other{{guestCount} guests}} to {eventName}.",
+  "@complexMessage": {
+    "description": "A complex message combining multiple placeholders, gender, and plurals",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      },
+      "name": {
+        "type": "String",
+        "example": "Alice"
+      },
+      "gender": {
+        "type": "String"
+      },
+      "guestCount": {
+        "type": "num",
+        "format": "compact"
+      },
+      "eventName": {
+        "type": "String",
+        "example": "Birthday Party"
+      }
+    }
+  },
+
+  "escapeMessage": "To use braces, escape them like this: '{' and '}'.",
+  "@escapeMessage": {
+    "description": "A message demonstrating how to escape special characters"
+  },
+
+  "multilineMessage": "This is a long message\nthat spans multiple lines\nand preserves line breaks.",
+  "@multilineMessage": {
+    "description": "A multiline message"
+  },
+
+  "htmlMessage": "This message contains <b>HTML</b> tags like <i>italics</i> and <u>underline</u>.",
+  "@htmlMessage": {
+    "description": "A message with HTML tags (note: handling these requires additional processing in the app)"
+  }
+}
