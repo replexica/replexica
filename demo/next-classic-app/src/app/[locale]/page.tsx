@@ -1,7 +1,8 @@
 'use server';
 
 import loadIntl from "@/i18n/server";
-import Counter from "./counter";
+import Counter from "./counter.client";
+import Inner from "./inner.server";
 
 // Example of a server component
 export default async function Page(props: any) {
@@ -10,7 +11,9 @@ export default async function Page(props: any) {
   return (
     <div>
       <h1>{i18n.formatMessage({id: 'home.title'})}</h1>
-      <Counter />
+      <Counter>
+        <Inner />
+      </Counter>
     </div>
   );
 }

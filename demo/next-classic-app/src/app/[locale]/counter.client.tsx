@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 
 // Example of a client component
-export default function Counter() {
+export default function Counter(props: any) {
   const intl = useIntl();
 
   const [count, setCount] = useState(0);
@@ -17,6 +17,9 @@ export default function Counter() {
       <h2>
         <FormattedMessage id="counter.title" values={{ count }} />
       </h2>
+      <div>
+        {props.children}
+      </div>
       <button onClick={decrement}>
         {intl.formatMessage({id: 'counter.decrement'})} {/* Example of using the intl object */}
       </button>

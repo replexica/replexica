@@ -2,5 +2,6 @@
   "home.title": "Home page",
   "counter.title": "Counter: {count}",
   "counter.decrement": "-",
-  "counter.increment": "+"
+  "counter.increment": "+",
+  "inner.title": "Hello from deeply nested server component"
 }
