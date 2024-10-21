@@ -9,7 +9,7 @@
     "new:empty": "changeset --empty"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
+    "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.2.2",
     "husky": "^9.0.11",
     "turbo": "^2.0.6"
