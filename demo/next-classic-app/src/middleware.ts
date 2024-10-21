@@ -27,18 +27,19 @@ export function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
  
-  if (pathnameLocale) return NextResponse.next({
-    headers: {
-      'X-Locale': pathnameLocale,
-    },
-  });
+  if (pathnameLocale) {
+    return NextResponse.next({
+      headers: {
+        'X-Locale': pathnameLocale,
+      },
+    });
+  }
  
   // Redirect if there is no locale
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   // e.g. incoming request is /products
   // The new URL is now /en-US/products
-
   return NextResponse.redirect(request.nextUrl, {
     headers: {
       'X-Locale': locale,
