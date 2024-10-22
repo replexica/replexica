@@ -1,5 +1,16 @@
 # replexica
 
+## 0.47.1
+
+### Patch Changes
+
+- [`2859938`](https://github.com/replexica/replexica/commit/28599388a91bf80cea3813bb4b8999bb4df302c9) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add missing locales
+
+- Updated dependencies []:
+  - @replexica/cli@0.47.1
+  - @replexica/compiler@0.4.7
+  - @replexica/react@0.3.7
+
 ## 0.47.0
 
 ### Minor Changes
