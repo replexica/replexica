@@ -40,9 +40,15 @@ const localeMap = {
   iw: ['iw-IL'],
   km: ['km-KH'],
   lv: ['lv-LV'],
+  lt: ['lt-LT'],
   no: ['no-NO'],
   ro: ['ro-RO'],
   sk: ['sk-SK'],
+  sw: ['sw-TZ', 'sw-KE'],
+  fa: ['fa-IR'],
+  fil: ['fil-PH'],
+  pa: ['pa-IN', 'pa-PK'],
+  bn: ['bn-BD', 'bn-IN'],
 } as const;
 
 export type LocaleCodeShort = keyof typeof localeMap;
