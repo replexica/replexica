@@ -10,6 +10,7 @@ import { createAuthenticator } from './../workers/auth';
 import { ReplexicaEngine } from '@replexica/sdk';
 import { expandPlaceholderedGlob, createBucketLoader } from '../workers/bucket';
 import { ensureLockfileExists } from './lockfile';
+import { ReplexicaCLIError } from '../utils/errors';
 
 export default new Command()
   .command('i18n')
@@ -34,13 +35,25 @@ export default new Command()
       const settings = await loadSettings(flags.apiKey);
 
       if (!i18nConfig) {
-        throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
+        throw new ReplexicaCLIError({
+          message: 'i18n.json not found. Please run `replexica init` to initialize the project.',
+          docUrl: "i18nNotFound"
+        });
       } else if (!i18nConfig.buckets || !Object.keys(i18nConfig.buckets).length) {
-        throw new Error('No buckets found in i18n.json. Please add at least one bucket containing i18n content.');
+        throw new ReplexicaCLIError({
+          message: "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
+          docUrl: "bucketNotFound"
+        });
       } else if (flags.locale && !i18nConfig.locale.targets.includes(flags.locale)) {
-        throw new Error(`Source locale ${i18nConfig.locale.source} does not exist in i18n.json locale.targets. Please add it to the list and try again.`);
+        throw new ReplexicaCLIError({
+          message: `Source locale ${i18nConfig.locale.source} does not exist in i18n.json locale.targets. Please add it to the list and try again.`,
+          docUrl: "localeTargetNotFound"
+        });
       } else if (flags.bucket && !i18nConfig.buckets[flags.bucket]) {
-        throw new Error(`Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`);
+        throw new ReplexicaCLIError({
+          message: `Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`,
+          docUrl: "bucketNotFound"
+        });
       } else {
         ora.succeed('Replexica configuration loaded');
       }
@@ -50,7 +63,10 @@ export default new Command()
       try {
         lockfileResult = await ensureLockfileExists();
       } catch (error: any) {
-        throw new Error(`Failed to ensure lockfile exists: ${error.message}`);
+        throw new ReplexicaCLIError({
+          message: `Failed to ensure lockfile exists: ${error.message}`,
+          docUrl: "lockFiletNotFound"
+        });
       }
       if (lockfileResult === 'exists') {
         ora.succeed(`Lockfile exists`);
@@ -65,7 +81,10 @@ export default new Command()
       });
       const auth = await authenticator.whoami();
       if (!auth) {
-        throw new Error('Not authenticated');
+        throw new ReplexicaCLIError({
+          message: 'Not authenticated',
+          docUrl: "authError"
+        });
       }
 
       ora.start('Connecting to Replexica AI engine');
@@ -76,7 +95,10 @@ export default new Command()
           apiUrl: settings.auth.apiUrl,
         });
       } catch (error: any) {
-        throw new Error(`Failed to initialize ReplexicaEngine: ${error.message}`);
+        throw new ReplexicaCLIError({
+          message: `Failed to initialize ReplexicaEngine: ${error.message}`,
+          docUrl: "failedReplexicaEngine"
+        });
       }
       ora.succeed('Replexica AI engine connected');
 
@@ -102,7 +124,10 @@ export default new Command()
           }
         }
       } catch (error: any) {
-        throw new Error(`Failed to expand placeholdered globs: ${error.message}`);
+        throw new ReplexicaCLIError({
+          message: `Failed to expand placeholdered globs: ${error.message}`,
+          docUrl: "placeHolderFailed"
+        });
       }
 
       const lockfileProcessor = createLockfileProcessor();
@@ -164,7 +189,10 @@ export default new Command()
           };
 
           if (flags.frozen && (payloadStats.processable > 0 || payloadStats.deleted > 0)) {
-            throw new Error(`Translations are not up to date. Run the command without the --frozen flag to update the translations, then try again.`);
+            throw new ReplexicaCLIError({
+              message: `Translations are not up to date. Run the command without the --frozen flag to update the translations, then try again.`,
+              docUrl: "translationFailed"
+            });
           }
 
           let processedPayload: Record<string, string> = {};

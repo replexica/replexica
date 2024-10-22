@@ -3,6 +3,7 @@ import _ from "lodash";
 import Z from 'zod';
 import Ora from 'ora';
 import { localeCodes } from "@replexica/spec";
+import { ReplexicaCLIError } from "../../utils/errors";
 
 export default new Command()
   .command("locale")
@@ -14,7 +15,10 @@ export default new Command()
     const ora = Ora();
     try {
       switch (type) {
-        default: throw new Error(`Invalid type: ${type}`);
+        default: throw new ReplexicaCLIError({
+          message: `Invalid type: ${type}`,
+          docUrl: 'invalidType'
+        });
         case 'sources':
           localeCodes.forEach((locale) => console.log(locale));
           break;

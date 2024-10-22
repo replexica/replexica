@@ -1,16 +1,23 @@
 import plist from 'plist';
 import { BucketLoader } from './_base';
+import { ReplexicaCLIError } from '../../utils/errors';
 
 export const xcodeStringsdictLoader = (): BucketLoader<string, Record<string, any>> => ({
   async load(text: string) {
     try {
       const parsed = plist.parse(text);
       if (typeof parsed !== 'object' || parsed === null) {
-        throw new Error('Invalid .stringsdict format');
+        throw new ReplexicaCLIError({
+          message: 'Invalid .stringsdict format',
+          docUrl: "invalidStringDict"
+        });
       }
       return parsed as Record<string, any>;
     } catch (error: any) {
-      throw new Error(`Invalid .stringsdict format: ${error.message}`);
+      throw new ReplexicaCLIError({
+        message: `Invalid .stringsdict format: ${error.message}`,
+        docUrl: "invalidStringDict"
+      });
     }
   },
 
