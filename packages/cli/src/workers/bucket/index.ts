@@ -16,24 +16,37 @@ import { propertiesLoader } from './properties';
 import { xcodeStringsLoader } from './xcode-strings';
 import { xcodeStringsdictLoader } from './xcode-stringsdict';
 import { flutterLoader } from './flutter';
+import { ReplexicaCLIError } from '../../utils/errors';
 
 // Path expansion
 export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: string): string[] {
   // Throw if pathPattern is an absolute path
   if (path.isAbsolute(pathPattern)) {
-    throw new Error(`Invalid path pattern: ${pathPattern}. Path pattern must be relative.`);
+    throw new ReplexicaCLIError({
+      message: `Invalid path pattern: ${pathPattern}. Path pattern must be relative.`,
+      docUrl: 'invalidPathPattern'
+    });
   }
   // Throw if pathPattern points outside the current working directory
   if (path.relative(process.cwd(), pathPattern).startsWith('..')) {
-    throw new Error(`Invalid path pattern: ${pathPattern}. Path pattern must be within the current working directory.`);
+    throw new ReplexicaCLIError({
+      message: `Invalid path pattern: ${pathPattern}. Path pattern must be within the current working directory.`,
+      docUrl: "invalidPathPattern"
+    });
   }
   // Throw error if pathPattern contains "**" – we don't support recursive path patterns
   if (pathPattern.includes('**')) {
-    throw new Error(`Invalid path pattern: ${pathPattern}. Recursive path patterns are not supported.`);
+    throw new ReplexicaCLIError({
+      message: `Invalid path pattern: ${pathPattern}. Recursive path patterns are not supported.`,
+      docUrl: 'invalidPathPattern'
+    });
   }
   // Throw error if pathPattern contains "[locale]" several times
   if (pathPattern.split('[locale]').length > 2) {
-    throw new Error(`Invalid path pattern: ${pathPattern}. Path pattern must contain at most one "[locale]" placeholder.`);
+    throw new ReplexicaCLIError({
+      message: `Invalid path pattern: ${pathPattern}. Path pattern must contain at most one "[locale]" placeholder.`,
+      docUrl: "invalidPathPattern"
+    });
   }
   // Break down path pattern into parts
   const pathPatternChunks = pathPattern.split(path.sep);
@@ -77,7 +90,10 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
   const filepath = params.placeholderedPath.replace(/\[locale\]/g, params.locale);
   switch (params.bucketType) {
     default:
-      throw new Error(`Unsupported bucket type: ${params.bucketType}`);
+      throw new ReplexicaCLIError({
+        message: `Unsupported bucket type: ${params.bucketType}`,
+        docUrl: 'invalidBucketType'
+      });
     case 'markdown':
       return composeLoaders<string, Record<string, string>>(
         textLoader(filepath),

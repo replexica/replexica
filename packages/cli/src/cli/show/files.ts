@@ -5,6 +5,7 @@ import Z from 'zod';
 import { loadConfig } from "../../workers/config";
 import { bucketTypeSchema } from "@replexica/spec";
 import { expandPlaceholderedGlob } from "../../workers/bucket";
+import { ReplexicaCLIError } from "../../utils/errors";
 
 export default new Command()
   .command("files")
@@ -16,7 +17,10 @@ export default new Command()
       const i18nConfig = await loadConfig();
 
       if (!i18nConfig) {
-        throw new Error('i18n.json not found. Please run `replexica init` to initialize the project.');
+        throw new ReplexicaCLIError({
+          message: 'i18n.json not found. Please run `replexica init` to initialize the project.',
+          docUrl: "i18nNotFound"
+        });
       }
 
       // Expand the placeholdered globs into actual (placeholdered) paths
@@ -38,7 +42,10 @@ export default new Command()
           }
         }
       } catch (error: any) {
-        throw new Error(`Failed to expand placeholdered globs: ${error.message}`);
+        throw new ReplexicaCLIError({
+          message: `Failed to expand placeholdered globs: ${error.message}`,
+          docUrl: "placeHolderFailed"
+        });
       }
 
       const files: string[] = [];

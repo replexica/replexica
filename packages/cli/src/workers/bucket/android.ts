@@ -1,5 +1,6 @@
 import { parseStringPromise, Builder } from 'xml2js';
 import { BucketLoader } from './_base';
+import { ReplexicaCLIError } from '../../utils/errors';
 
 interface AndroidResource {
   $: {
@@ -66,7 +67,10 @@ export const androidLoader = (): BucketLoader<string, Record<string, any>> => ({
       return result;
     } catch (error) {
       console.error('Error parsing Android resource file:', error);
-      throw new Error('Failed to parse Android resource file');
+      throw new ReplexicaCLIError({
+        message: 'Failed to parse Android resource file',
+        docUrl: "androidResouceError"
+      });
     }
   },
 

@@ -1,3 +1,5 @@
+import { ReplexicaCLIError } from "../utils/errors";
+
 export type AuthenticatorParams = {
   apiUrl: string;
   apiKey: string;
@@ -32,7 +34,10 @@ export function createAuthenticator(params: AuthenticatorParams) {
       } catch (error) {
         const isNetworkError = error instanceof TypeError && error.message === "fetch failed";
         if (isNetworkError) {
-          throw new Error(`Failed to connect to the API at ${params.apiUrl}. Please check your connection and try again.`);
+          throw new ReplexicaCLIError({
+            message: `Failed to connect to the API at ${params.apiUrl}. Please check your connection and try again.`,
+            docUrl: "connectionFailed"
+          });
         } else {
           throw error;
         }
