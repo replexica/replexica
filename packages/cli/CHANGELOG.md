@@ -1,5 +1,18 @@
 # replexica
 
+## 0.48.0
+
+### Minor Changes
+
+- [#264](https://github.com/replexica/replexica/pull/264) [`cdef5b7`](https://github.com/replexica/replexica/commit/cdef5b7bfbee4670c6de62cf4b4f3e0315748e25) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added format specific methods to `@replexica/sdk`
+
+### Patch Changes
+
+- [#261](https://github.com/replexica/replexica/pull/261) [`62c464d`](https://github.com/replexica/replexica/commit/62c464d5602909f8f6370dfa5009131a4d6719d0) Thanks [@Nithishvb](https://github.com/Nithishvb)! - This pr introduces a custom error handling base class for the CLI
+
+- Updated dependencies [[`cdef5b7`](https://github.com/replexica/replexica/commit/cdef5b7bfbee4670c6de62cf4b4f3e0315748e25)]:
+  - @replexica/sdk@0.4.0
+
 ## 0.47.1
 
 ### Patch Changes
