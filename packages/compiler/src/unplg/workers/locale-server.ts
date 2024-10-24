@@ -45,7 +45,7 @@ function createCachedRemoteLocalizer() {
       // create a new cache subobject from the translated changed dictionary
       const dictionaryCacheUpdate = _.mapValues(translatedChangedDictionary, hashValue);
       // merge the dictionary cache update with the existing dictionary cache
-      const newDictionaryCache = { ...dictionaryCache, ...dictionaryCacheUpdate };
+      const newDictionaryCache: Record<string, any> = { ...dictionaryCache, ...dictionaryCacheUpdate };
       // store the new dictionary cache
       cache.set(cacheKey, newDictionaryCache);
       // return the final dictionary
@@ -65,7 +65,7 @@ function createRemoteLocalizer() {
         return dictionary;
       }
 
-      const data = await rplx.localize(dictionary, {
+      const data = await rplx.localizeObject(dictionary, {
         sourceLocale,
         targetLocale,
       });

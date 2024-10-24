@@ -48,7 +48,7 @@ const replexica = new ReplexicaEngine({
 });
 
 // Localize a JSON payload
-const localizedContent = await replexica.localize(
+const localizedContent = await replexica.localizeObject(
   { myKey: 'Hello, world!' },
   { sourceLocale: 'en', targetLocale: 'es' },
   (progress) => console.log(`Localization progress: ${progress}%`) // Optional progress callback

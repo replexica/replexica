@@ -56,7 +56,7 @@ export class ReplexicaEngine {
    * @param progressCallback - Optional callback function to report progress
    * @returns Localized content
    */
-  async localize(
+  async _localizeRaw(
     payload: Z.infer<typeof payloadSchema>,
     params: Z.infer<typeof localizationParamsSchema>,
     reference?: Z.infer<typeof referenceSchema>,
@@ -177,5 +177,57 @@ export class ReplexicaEngine {
     } else {
       return 0;
     }
+  }
+
+  /**
+   * Localize a typical JavaScript object
+   * @param obj - The object to be localized
+   * @param params - Localization parameters
+   * @param progressCallback - Optional callback function to report progress
+   * @returns Localized object
+   */
+  async localizeObject(
+    obj: Record<string, any>,
+    params: Z.infer<typeof localizationParamsSchema>,
+    progressCallback?: (progress: number) => void
+  ): Promise<Record<string, any>> {
+    return this._localizeRaw(obj, params, undefined, progressCallback);
+  }
+
+  /**
+   * Localize a text document
+   * @param textDocument - The text to be localized
+   * @param params - Localization parameters
+   * @param progressCallback - Optional callback function to report progress
+   * @returns Localized text
+   */
+  async localizeDocument(
+    textDocument: string,
+    params: Z.infer<typeof localizationParamsSchema>,
+    progressCallback?: (progress: number) => void
+  ): Promise<string> {
+    const localized = await this._localizeRaw({ text: textDocument }, params, undefined, progressCallback);
+    return localized.text || '';
+  }
+
+  /**
+   * Localize a chat sequence
+   * @param chat - The chat sequence to be localized
+   * @param params - Localization parameters
+   * @param progressCallback - Optional callback function to report progress
+   * @returns Localized chat sequence
+   */
+  async localizeChat(
+    chat: Array<{ name: string; text: string }>,
+    params: Z.infer<typeof localizationParamsSchema>,
+    progressCallback?: (progress: number) => void
+  ): Promise<Array<{ name: string; text: string }>> {
+
+    const localized = await this._localizeRaw({ chat }, params, undefined, progressCallback);
+
+    return Object.entries(localized).map(([key, value]) => ({
+      name: chat[parseInt(key.split('_')[1])].name,
+      text: value,
+    }));
   }
 }
