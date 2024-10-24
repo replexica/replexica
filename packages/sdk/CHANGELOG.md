@@ -1,5 +1,11 @@
 # @replexica/sdk
 
+## 0.4.0
+
+### Minor Changes
+
+- [#264](https://github.com/replexica/replexica/pull/264) [`cdef5b7`](https://github.com/replexica/replexica/commit/cdef5b7bfbee4670c6de62cf4b4f3e0315748e25) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added format specific methods to `@replexica/sdk`
+
 ## 0.3.4
 
 ### Patch Changes
