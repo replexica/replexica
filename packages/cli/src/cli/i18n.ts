@@ -218,13 +218,12 @@ export default new Command()
                 referencePayload[i18nConfig.locale.extraSource] = extraSourcePayload;
               }
 
-              processedPayload = await replexicaEngine.localize(
+              processedPayload = await replexicaEngine.localizeObject(
                 finalPayload,
                 {
                   sourceLocale: i18nConfig.locale.source,
                   targetLocale: targetLocale,
                 },
-                referencePayload,
                 (progress) => {
                   localeOra.text = `(${progress}%) AI localization in progress...`;
                 }
