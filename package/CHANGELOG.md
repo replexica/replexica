@@ -1,5 +1,20 @@
 # replexica
 
+## 0.49.0
+
+### Minor Changes
+
+- [`0071cd6`](https://github.com/replexica/replexica/commit/0071cd66b1c868ad3898fc368390a628c5a67767) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add csv format support
+
+### Patch Changes
+
+- [`1cc0796`](https://github.com/replexica/replexica/commit/1cc07961d221e397ad5dd2917bed76cb4f2b1f04) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add path.resolve to text loaders
+
+- Updated dependencies [[`0071cd6`](https://github.com/replexica/replexica/commit/0071cd66b1c868ad3898fc368390a628c5a67767), [`1cc0796`](https://github.com/replexica/replexica/commit/1cc07961d221e397ad5dd2917bed76cb4f2b1f04)]:
+  - @replexica/cli@0.49.0
+  - @replexica/compiler@0.5.1
+  - @replexica/react@0.3.8
+
 ## 0.48.0
 
 ### Minor Changes

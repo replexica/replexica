@@ -1,5 +1,13 @@
 # @replexica/compiler
 
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies [[`0071cd6`](https://github.com/replexica/replexica/commit/0071cd66b1c868ad3898fc368390a628c5a67767)]:
+  - @replexica/spec@0.15.0
+  - @replexica/sdk@0.4.1
+
 ## 0.5.0
 
 ### Minor Changes
