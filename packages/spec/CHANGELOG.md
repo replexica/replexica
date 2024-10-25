@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.15.0
+
+### Minor Changes
+
+- [`0071cd6`](https://github.com/replexica/replexica/commit/0071cd66b1c868ad3898fc368390a628c5a67767) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add csv format support
+
 ## 0.14.1
 
 ### Patch Changes
