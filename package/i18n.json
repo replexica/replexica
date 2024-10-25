@@ -3,10 +3,15 @@
   "locale": {
     "source": "en",
     "targets": [
-      "es"
+      "it"
     ]
   },
   "buckets": {
+    "csv": {
+      "include": [
+        "demo/csv/file.csv"
+      ]
+    },
     "markdown": {
       "include": [
         "demo/markdown/[locale]/*.md"

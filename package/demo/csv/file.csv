@@ -1,0 +1,386 @@
+id,en,fr,de,it
+home,Home,,,Home
+user_management,User Management,,,Gestione Utenti
+user,User,,,Utente
+brand,Brand,,,Marchio
+role,Role,,,Ruolo
+measures,Measures,,,Misure
+claim_management,Claim Management,,,Gestione Reclami
+order_engine,Order Engine,,,Motore Ordini
+product_engine,Product Engine,,,Motore Prodotti
+create_new_product,Create new product,,,Crea nuovo prodotto
+supplier_map,Supplier Map,,,Mappa Fornitori
+compliance,Compliance,,,Conformità
+over_view,Overview,,,Panoramica
+product_compliance,Product Compliance,,,Conformità Prodotto
+reports,Reports,,,Rapporti
+reporting,Reporting,,,Reportistica
+product_lca,Product LCA,,,LCA Prodotto
+settings,Settings,,,Impostazioni
+back,Back,,,Indietro
+submit_for_review,Submit for review,,,Invia per revisione
+submitted_for_review,Submitted for review,,,Inviato per revisione
+verified,Verified,,,Verificato
+pending,Pending,,,In attesa
+brand_name,Brand name,,,Nome del marchio
+contract_start_date,Contract start date,,,Data di inizio contratto
+contract_end_date,Contract end date,,,Data di fine contratto
+max_products,Max products,,,Numero massimo di prodotti
+max_users,Max users,,,Numero massimo di utenti
+features,Features,,,Funzionalità
+contract_files,Contract file,,,File del contratto
+logo,Logo,,,Logo
+actions,Actions,,,Azioni
+add_brand,Add brand,,,Aggiungi marchio
+brands,BRANDS,,,MARCHI
+page,Page,,,Pagina
+download,Download,,,Scarica
+update_brand,UPDATE BRAND,,,AGGIORNA MARCHIO
+brand_onboarding_form,BRAND ONBOARDING FORM,,,MODULO DI ONBOARDING DEL MARCHIO
+update,Update,,,Aggiorna
+submit,Submit,,,Invia
+cancel,Cancel,,,Annulla
+delete,Delete,,,Elimina
+delete_brand,Delete brand,,,Elimina marchio
+are_you_sure_you_want_to_delete_this_brand,Are you sure you want to delete this brand ?,,,Sei sicuro di voler eliminare questo marchio?
+are_you_sure_you_want_to_delete_this_user,Are you sure you want to delete this user ?,,,Sei sicuro di voler eliminare questo utente?
+brand_name_required,Brand name is required,,,Il nome del marchio è obbligatorio
+contract_start_date_required,Contract start tate is required,,,La data di inizio contratto è obbligatoria
+contract_end_date_required,Contract end date is required,,,La data di fine contratto è obbligatoria
+max_product_required,Max products is required,,,Il numero massimo di prodotti è obbligatorio
+max_user_required,Max users is required,,,Il numero massimo di utenti è obbligatorio
+features_required,Features are required,,,Le funzionalità sono obbligatorie
+contract_files_required,Contract file is required,,,Il file del contratto è obbligatorio
+logo_required,Logo is required,,,Il logo è obbligatorio
+add_role,Add role,,,Aggiungi ruolo
+role_name,Role name,,,Nome del ruolo
+resources,Resources,,,Risorse
+loading,Loading,,,Caricamento in corso
+roles,ROLES,,,RUOLI
+edit,Edit,,,Modifica
+update_role,Update role,,,Aggiorna ruolo
+create_role,Create role,,,Crea ruolo
+role_form,Create role,,,Crea ruolo
+add_users,Add user,,,Aggiungi utente
+update_user,Update user,,,Aggiorna utente
+user_onboarding_form,User Onboarding Form,,,Modulo di onboarding utente
+first_name,First Name,,,Nome
+last_name,Last Name,,,Cognome
+email_address,Email Address,,,Indirizzo email
+password,Password,,,Password
+select_role,Select role,,,Seleziona ruolo
+select_brand,Select brand,,,Seleziona brand
+create_user_account,Create user account,,,Crea account utente
+users,USERS,,,UTENTI
+email,E-mail,,,E-mail
+begin,Begin,,,Inizia
+manage,Manage,,,Gestisci
+goals_targets,Goals and targets,,,Obiettivi e traguardi
+your_ongoing_jurney_as_a_transparent_and_commited_companies_continues_here,Your ongoing commitment to transparency continues here,,,Il tuo impegno continuo per la trasparenza prosegue qui
+goals_sets,Goal Sets,,,Set di obiettivi
+certifications_and_proof_points,Certifications and proof points,,,Certificazioni e prove
+select_category,Select claims,,,Seleziona dichiarazioni
+suggested_category,Suggested claims,,,Dichiarazioni suggerite
+discovery_mode,Discovery mode,,,Modalità scoperta
+questions_answered,Questions answered,,,Domande risposte
+view_and_reply_to_as_many_questions_as_you_can_to_discover_which_values_you_could_claim_based_on_your_data_and_documentation_of_prooof,View & reply to as many questions as you can to discover which values you could claim based on your data and documentation of proof.,,,Visualizza e rispondi a quante più domande possibili per scoprire quali valori potresti dichiarare in base ai tuoi dati e alla documentazione di prova.
+next,Next,,,Avanti
+prev,Prev,,,Indietro
+uploaded,Uploaded,,,Caricato
+you_have_set_this_as_a_goal,You've set this as a goal!,,,Hai impostato questo come obiettivo!
+set_as_future_goal,Set as future goal,,,Imposta come obiettivo futuro
+choose_file,Choose file,,,Scegli file
+file_types,"pdf, doc, docx, csv, txt, xlsx, ppt, pptx, png, jpg, jpeg",,,"pdf, doc, docx, csv, txt, xlsx, ppt, pptx, png, jpg, jpeg"
+extra_notes,Describe more,,,Descrivi ulteriormente
+pick_from_library,Pick from library,,,Scegli dalla libreria
+create_new,Create new,,,Crea nuovo
+certificate_details,Certification details,,,Dettagli della certificazione
+attachment,Attachment,,,Allegato
+insert_name,Insert name,,,Inserisci nome
+select_type,Select type,,,Seleziona tipo
+emitted_by,Emitted by,,,Emesso da
+insert_date_of_emission,Insert date of emission,,,Inserisci data di emissione
+insert_expiration_date,Insert expiration date,,,Inserisci data di scadenza
+select_certificate_owner,Select document owner,,,Seleziona proprietario del documento
+create,Create,,,Crea
+attachment_is_required,Attachment is required,,,L'allegato è obbligatorio
+name_is_required,Name is required,,,Il nome è obbligatorio
+document_type_is_required,Document type is required,,,Il tipo di documento è obbligatorio
+emitted_by_is_required,Emitted by is required,,,L'emittente è obbligatorio
+emission_date_is_required,Emission date is required,,,La data di emissione è obbligatoria
+expiration_date_is_required,Expiration date is required,,,La data di scadenza è obbligatoria
+certificate_owner_is_required,Certificate owner is required,,,Il proprietario del certificato è obbligatorio
+pick_certificate,Pick document,,,Scegli documento
+preview,Preview,,,Anteprima
+name,Name,,,Nome
+date_of_emission,Date of emission,,,Data di emissione
+expiration_date,Expiration date,,,Data di scadenza
+alerts,Alerts,,,Avvisi
+thirty_days_before_expiration_date,30 days before expiration date,,,30 giorni prima della data di scadenza
+validated,Valid,,,Valido
+form_issuing_today,Document validity,,,Validità del documento
+certifications_and_proof_points_uploaded,Certifications and proof points uploaded,,,Certificazioni e prove caricate
+verified_date,Validation date,,,Data di convalida
+privacy,Privacy,,,Privacy
+search,Search,,,Cerca
+view_profile,View Profile,,,Visualizza profilo
+user_name,User name,,,Nome utente
+user_profile,User profile,,,Profilo utente
+log_out,Log out,,,Esci
+user_details,User details,,,Dettagli utente
+full_name,Full name,,,Nome completo
+form_status,Form status,,,Stato del modulo
+visibility,Visibility,,,Visibilità
+image,Image,,,Immagine
+E_commerce_item_code, E-commerce Item Code,,,Codice articolo e-commerce
+title,Title,,,Titolo
+supply_chain,Supply Chain,,,Catena di approvvigionamento
+collection,Collection,,,Collezione
+uploaded_products,Uploaded Products,,,Prodotti caricati
+upload_product,Upload Products,,,Carica prodotti
+new_product,New Product,,,Nuovo prodotto
+additional_product_facts_form,Additional product facts form,,,Modulo informazioni aggiuntive sul prodotto
+total,Total,,,Totale
+product_title,Product title,,,Titolo del prodotto
+enter_sku,Enter SKU,,,Inserisci SKU
+e_commerce_id,E-commerce Id,,,ID e-commerce
+item_code,Item code,,,Codice articolo
+insert_collection,Insert collection,,,Inserisci collezione
+composition,Composition,,,Composizione
+additional_settings,Additional settings,,,Impostazioni aggiuntive
+care_instruction,Care instructions,,,Istruzioni di lavaggio
+additional_care_info,Additional care info,,,Informazioni aggiuntive sulla cura
+weight,Weight,,,Peso
+colors,Colors,,,Colori
+choose_category,Choose category,,,Scegli categoria
+price,Price,,,Prezzo
+save,Save,,,Salva
+enter_collection_name,Enter collection name,,,Inserisci il nome della collezione
+mandatory_for_product_creation,Mandatory for widget installation,,,Obbligatorio per l'installazione del widget
+mandatory_for_qr_generation,Mandatory for QR generation,,,Obbligatorio per la generazione del QR
+attach_image,Attach Image,,,Allega immagine
+upload_files,Upload files,,,Carica file
+upload_CSV_file,Upload CSV file,,,Carica file CSV
+upload_images_zip,Upload Images or zip file,,,Carica immagini o file zip
+update_product,Update Product,,,Aggiorna prodotto
+material,Material,,,Materiale
+percentage,Percentage,,,Percentuale
+add,Add,,,Aggiungi
+qr_id,QR Id,,,ID QR
+mandatory_ecommerceId,Mandatory e-commerce Id,,,ID e-commerce obbligatorio
+weave,Weave,,,Tessitura
+title_is_required,Title is required,,,Il titolo è obbligatorio
+weave_is_required,Weave is required,,,La tessitura è obbligatoria
+sku_id_is_required,SKU id is required,,,L'ID SKU è obbligatorio
+ecommerce_id_is_required,E-commerce id is required,,,L'ID e-commerce è obbligatorio
+cannot_contain_slash_or_underscore,Cannot contain / or _,,,Non può contenere / o _
+no_files_selected,No file selected,,,Nessun file selezionato
+invalid_file_format,Invalid file format (support only .jpeg.png),,,Formato file non valido (supporta solo .jpeg e .png)
+file_size_exceeds_limit,File size exceeds the limit of 1mb,,,La dimensione del file supera il limite di 1 MB
+total_file_size_exceeds_limit,Total file size exceeds the limit of 5mb,,,La dimensione totale dei file supera il limite di 5 MB
+active,Active,,,Attivo
+archive,Archive,,,Archivio
+download_QR,Download QR,,,Scarica QR
+no_product_found,No product found,,,Nessun prodotto trovato
+these_are_the_claim_which_are_approved_pending_and_rejected_please_take_the_action_as_requested,"These are the claim approved, pending and rejected. Please take the action as requested.",,,"Queste sono le dichiarazioni approvate, in attesa e respinte. Si prega di intraprendere l'azione richiesta."
+requested_category,Requested claims,,,Dichiarazioni richieste
+submit_the_detail_and_wait_for_approval,Submit the detail and wait for approval,,,Invia i dettagli e attendi l'approvazione
+submitted,Submitted,,,Inviato
+set_of_questions_to_be_answered,Set of questions to be answered,,,Serie di domande a cui rispondere
+verify,Verify,,,Verifica
+categories_to_be_reviewed,Claims to be reviewed,,,Dichiarazioni da esaminare
+are_you_sure_you_want_to_delete_this_certificate,Are you sure you want to delete this document?,,,Sei sicuro di voler eliminare questo documento?
+delete_certificate,Delete document,,,Elimina documento
+select_the_value_you_want_to_claim_to_easily_aggregate_your_data_in_the_section_below,Select the value you want to claim to easily aggregate your data in the section below,,,Seleziona il valore che desideri dichiarare per aggregare facilmente i tuoi dati nella sezione sottostante
+review_categories,Review Claims,,,Esamina dichiarazioni
+review,Review,,,Esamina
+categories,Claims,,,Dichiarazioni
+categories_and_claims,Claims,,,Dichiarazioni
+note_before_you_start_you_can_save_and_edit_your_questions_anytime_before_submitting,Note before you start: you can save and edit your questions anytime before submitting.,,,Nota prima di iniziare: puoi salvare e modificare le tue domande in qualsiasi momento prima dell'invio.
+enjoy_the_process,Enjoy the process.,,,Buon lavoro!
+eco_packaging,Eco packaging,,,Imballaggio ecologico
+submit_the_detail,Submit the detail,,,Invia i dettagli
+claim_status,Claim Status,,,Stato del reclamo
+create_the_claim,Create the claim,,,Crea il reclamo
+save_claim,Save claim,,,Salva reclamo
+reject_document,Reject Document,,,Rifiuta documento
+reject,Reject,,,Rifiuta
+reason_for_rejection,Reason for rejection,,,Motivo del rifiuto
+locally_made,Locally made,,,Prodotto localmente
+reviewd_category,Reviewed claims,,,Reclami esaminati
+document_already_uploaded,Document already uploaded,,,Documento già caricato
+select_or_enter_a_claim,Select or enter a claim,,,Seleziona o inserisci un reclamo
+reason,Reason,,,Motivo
+explain_for_selecting_the_particular_status_for_the_claim,Explain for selecting the particular status for the claim,,,Spiega la scelta di questo particolare stato per il reclamo
+assign_a_label,Assign a label,,,Assegna un'etichetta
+label_name,Label name,,,Nome dell'etichetta
+label_eg,"Eg., 2024 Collection",,,"Es., Collezione 2024"
+description,Description,,,Descrizione
+assign_document,Assign document,,,Assegna documento
+document_attach,Document attach,,,Allega documento
+assigned_document,Assigned document,,,Documento assegnato
+label_assigned,Label assigned,,,Etichetta assegnata
+all,All,,,Tutti
+supply_chain_management,Supply Chain Management,,,Gestione della catena di approvvigionamento
+supplier,Suppliers,,,Fornitori
+upload_csv,Upload CSV,,,Carica CSV
+add_suppliers,Add Suppliers,,,Aggiungi Fornitori
+view_claims,View Claims,,,Visualizza Dichiarazioni
+add_proudcts,Add goods or service,,,Aggiungi beni o servizi
+create_supply_chain,Create supply chain,,,Crea catena di approvvigionamento
+suppliers_have_products_or_services,Suppliers provide goods or services,,,I fornitori offrono beni o servizi
+claim_name,Claim name,,,Nome della dichiarazione
+claims,Claims,,,Dichiarazioni
+list_of_claims,List of Claims,,,Elenco delle Dichiarazioni
+add_supplier,Add Supplier,,,Aggiungi Fornitore
+name_eg,Eg.: Renoon,,,Es.: Renoon
+vanity_name,Supplier vanity name,,,Nome personalizzato del fornitore
+products,Connected products,,,Prodotti collegati
+website_url,Website URL,,,URL del sito web
+website_eg,Eg.: https://renoon.com,,,Es.: https://renoon.com
+vat_eg,Eg.: IT123456789,,,Es.: IT123456789
+vat,VAT code,,,Partita IVA
+address,Address,,,Indirizzo
+state,State,,,Stato
+city,City,,,Città
+region_country,Country/Region,,,Paese/Regione
+street,Street,,,Via
+upload_images,Upload images,,,Carica immagini
+contact,Contact,,,Contatto
+no_of_employee,No of employee,,,Numero di dipendenti
+no_of_factories,No of factories,,,Numero di stabilimenti
+add_a_new_supplier_by_submitting_this_details,Add a new supplier by submitting this details,,,Aggiungi un nuovo fornitore inserendo questi dettagli
+add_new_products,Add supplied product,,,Aggiungi prodotto fornito
+document,Document,,,Documento
+select_products,Select Products,,,Seleziona Prodotti
+more_custom_properties_may_be_added_like_colors_etc,More custom properties may be added like colors etc.,,,Possono essere aggiunte altre proprietà personalizzate come colori ecc.
+they_are_not_always_relevent_and_not_needed_for_the_mvp,They are not always relevent and not needed for the MVP.,,,Non sono sempre rilevanti e non sono necessarie per il MVP.
+vanity_name_is_required,Vanity name is required,,,Il nome personalizzato è obbligatorio
+website_url_is_required,Website URL is required,,,L'URL del sito web è obbligatorio
+vat_is_required,Vat is required,,,La partita IVA è obbligatoria
+description_is_required,Description is required,,,La descrizione è obbligatoria
+contact_name_is_required,Contact name is required,,,Il nome del contatto è obbligatorio
+contact_email_is_required,Contact email is required,,,L'email del contatto è obbligatoria
+please_enter_a_valid_email,Please enter a valid email,,,Inserisci un indirizzo email valido
+street_is_required,Street is required,,,La via è obbligatoria
+city_name_is_required,City name is required,,,Il nome della città è obbligatorio
+country_is_required,Country is required,,,Il paese è obbligatorio
+state_is_required,State is required,,,La regione è obbligatoria
+add_new,Add new,,,Aggiungi nuovo
+stage,Stage,,,Fase
+sku,SKU,,,SKU
+sku_eg,Eg.: FW24CBSHEJ66,,,Es.: FW24CBSHEJ66
+add_new_product_or_service,Add goods or service,,,Aggiungi bene o servizio
+stage_is_required,Stage is required,,,La fase è obbligatoria
+delete_supplier,Delete supplier,,,Elimina fornitore
+are_you_sure_you_want_to_delete_this_supplier,Are you sure you want to delete this supplier ?,,,Sei sicuro di voler eliminare questo fornitore?
+view_claim,View Claim,,,Visualizza richiesta
+search_products,Search goods,,,Cerca prodotti
+create_product,Create goods,,,Crea prodotto
+create_service,Create service,,,Crea servizio
+image_type," png, jpg, jpeg",,," png, jpg, jpeg"
+are_you_sure_you_want_to_delete_this_supplier_product,Are you sure you want to delete this supplier product ?,,,Sei sicuro di voler eliminare questo prodotto del fornitore?
+search_services,Search services,,,Cerca servizi
+edit_supply_chain,Edit Supply Chain,,,Modifica catena di approvvigionamento
+are_you_sure_you_want_to_delete_this_supply_chain,Are you sure you want to delete this supply chain ?,,,Sei sicuro di voler eliminare questa catena di approvvigionamento?
+delete_supply_Chain,Delete Supply Chain,,,Elimina catena di approvvigionamento
+continue,Continue,,,Continua
+select_the_supplier,Select the supplier,,,Seleziona il fornitore
+edit_product,Edit service,,,Modifica servizio
+save_draft,Save draft,,,Salva bozza
+detailed_view,Detailed View,,,Vista dettagliata
+they_are_not_always_relevant_and_not_needed_for_the_mvp,They are not always relevant and not needed for the MVP.,,,Non sono sempre rilevanti e non necessari per il MVP.
+add_products,Add products,,,Aggiungi prodotti
+select_the_supplier_product,Select the suppliers service,,,Seleziona il servizio del fornitore
+is_in_supply_chain,Is in supply chain,,,È nella catena di approvvigionamento
+country,Country,,,Paese
+has_suppliers_products,Has supplier products,,,Ha prodotti del fornitore
+sort_by,Sort by,,,Ordina per
+filter,Filter,,,Filtra
+clear_all,Clear all,,,Cancella tutto
+has_products,Has products,,,Ha prodotti
+is_in_a_supply_chain,Is in a supply chain,,,Fa parte di una catena di fornitura
+service,Service,,,Servizio
+product,Product,,,Prodotto
+type,Product type,,,Tipo di prodotto
+has_suppliers,Has suppliers,,,Ha fornitori
+are_you_sure_you_want_to_delete_this_chain_product,Are you sure you want to delete this chain's Product?,,,Sei sicuro di voler eliminare questo Prodotto dalla catena?
+are_you_sure_you_want_to_delete_this_chain_supplier,Are you sure you want to delete this chain's Supplier?,,,Sei sicuro di voler eliminare questo Fornitore dalla catena?
+zoom_in,Zoom in,,,Ingrandisci
+zoom_out,Zoom out,,,Riduci
+reset,Reset,,,Ripristina
+no_certificate_found,No document found,,,Nessun documento trovato
+reviewed_claims,REVIEWED CLAIMS,,,DICHIARAZIONI ESAMINATE
+view_all,View all,,,Visualizza tutto
+unique_Id,Unique Id,,,ID univoco
+view_docs,View docs,,,Visualizza documenti
+select_the_value_you_want_to_communicate,Select the values you want to communicate. We take care of validate them and translate them in compliant claims,,,Seleziona i valori che desideri comunicare. Ci occupiamo noi di convalidarli e tradurli in dichiarazioni conformi
+edit_supplier,Edit supplier,,,Modifica fornitore
+submit_for_approval,Submit for approval,,,Invia per approvazione
+fill_the_forms,Fill the forms,,,Compila i moduli
+the_forms_are_saved_automatically_You_can_submit_the_forms_once_all_the_questions_are_answered,"The forms below contain all the questions relevant to obtaining the selected claims, plus some generic questions.
+The forms are saved automatically. You can submit the forms once all the questions are answered.",,,"I moduli sottostanti contengono tutte le domande rilevanti per ottenere le dichiarazioni selezionate, più alcune domande generiche.
+I moduli vengono salvati automaticamente. Puoi inviare i moduli una volta risposto a tutte le domande."
+opens_the_selected_document_for_reading_with_zoom_and_scroll_functionality_Allows_quick_access_without_making_changes,"In this section you can access all the documents that have been uploaded. You can easily check certifications that are about to expire, receive expiration notifications, and take actions to renew them.
+In addition, you have the ability to edit and update any information associated with these documents, ensuring that all data is always accurate and up-to-date.",,,"In questa sezione puoi accedere a tutti i documenti che sono stati caricati. Puoi facilmente controllare le certificazioni in scadenza, ricevere notifiche di scadenza e intraprendere azioni per rinnovarle.
+Inoltre, hai la possibilità di modificare e aggiornare qualsiasi informazione associata a questi documenti, assicurando che tutti i dati siano sempre accurati e aggiornati."
+documents,DOCUMENTS AND CERTIFICATIONS,,,DOCUMENTI E CERTIFICAZIONI
+create_brand,Create Brand,,,Crea Brand
+select_claim,Select Claim,,,Seleziona Dichiarazione
+select_supplier,Select Supplier,,,Seleziona Fornitore
+select_product,Select Product,,,Seleziona Prodotto
+filter_by,Filter by,,,Filtra per
+additional_settings,Additional settings,,,Impostazioni aggiuntive
+stage_vanity_name,Stage Vanity Name,,,Nome Vanity dello Stage
+vanity_title,Vanity Title,,,Titolo Vanity
+has_not_product,Has not product,,,Non ha prodotto
+read_more,Read more,,,Leggi di più
+read_less,Read less,,,Leggi meno
+add_user,Add user,,,Aggiungi utente
+files,Files,,,File
+file_type,File type,,,Tipo di file
+deselect_all,Deselect all,,,Deseleziona tutto
+select_all,Select all,,,Seleziona tutto
+is_archived,Is Archived,,,È Archiviato
+qr_code,QR Code,,,Codice QR
+date,Date,,,Data
+only_image_files_PNG_JPEG_JPG_are_allowed,"Only image files (PNG, JPG, JPEG) are allowed.",,,"Sono consentiti solo file immagine (PNG, JPG, JPEG)."
+only_PDF_files_are_allowed,Only PDF files are allowed,,,Sono consentiti solo file PDF
+download_qr,Download QR Code,,,Scarica Codice QR
+no_category_found,No claims found,,,Nessuna richiesta trovata
+yes,Yes,,,Sì
+no,No,,,No
+Name,Name,,,Nome
+Date,Date,,,Data
+Title,Title,,,Titolo
+Stage,Stage,,,Stage
+PRODUCT,Goods,,,Prodotti
+SERVICE,SERVICE,,,SERVIZIO
+Verified,Verified,,,Verificato
+Proven,Proven,,,Comprovato
+Declared,Declared,,,Dichiarato
+Rejected,Rejected,,,Rifiutato
+additional_information,Additional Information,,,Informazioni aggiuntive
+upload,Upload,,,Carica
+SUPPLIER,Suppliers,,,Fornitori
+SUPPLIER_CHAIN,Supply chain,,,Catena di fornitura
+SUPPLIER_PRODUCT,Suppliers' Goods and services ,,,Beni e servizi dei fornitori
+BRAND_PRODUCT,Products,,,Prodotti
+Less_than_9,Less than 9,,,Less than 9
+ten_to_49,10 to 49,,,Da 10 a 49
+fifty_to_249,50 to 249,,,Da 50 a 249
+More_than_250,More than 250,,,More than 250
+VERIFIED,VERIFIED,,,VERIFICATO
+PROVEN,PROVEN,,,COMPROVATO
+DECLARED,DECLARED,,,DICHIARATO
+REJECTED,REJECTED,,,RIFIUTATO
+PENDING,PENDING,,,IN ATTESA
+duplicate,Duplicate,,,Duplica
+product_,Product +,,,Prodotto +
+supplier_,Supplier +,,,Fornitore +
+title_,title,,,titolo
+date_,date,,,data
+collectionName_,collectionName,,,nomeCollezione
+category,Category,,,Categoria
+sku_id,SKU Id,,,Codice SKU
+collection_name,Collection Name,,,Nome della Collezione

@@ -17,6 +17,7 @@ import { xcodeStringsLoader } from './xcode-strings';
 import { xcodeStringsdictLoader } from './xcode-stringsdict';
 import { flutterLoader } from './flutter';
 import { ReplexicaCLIError } from '../../utils/errors';
+import { csvLoader } from './csv';
 
 // Path expansion
 export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: string): string[] {
@@ -130,6 +131,16 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
           composeLoaders<void, Record<string, any>>(
             textLoader(filepath),
             jsonLoader(),
+          ),
+        ),
+        flatLoader(),
+      );
+    case 'csv':
+      return composeLoaders<string, Record<string, any>[]>(
+        csvLoader(
+          params.locale,
+          composeLoaders(
+            textLoader(filepath),
           ),
         ),
         flatLoader(),

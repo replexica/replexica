@@ -110,6 +110,12 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
+      csv-parse:
+        specifier: ^5.5.6
+        version: 5.5.6
+      csv-stringify:
+        specifier: ^6.5.1
+        version: 6.5.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -1650,6 +1656,12 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  csv-parse@5.5.6:
+    resolution: {integrity: sha512-uNpm30m/AGSkLxxy7d9yRXpJQFrZzVWLFBkS+6ngPcZkw/5k3L/jjFuj7tVnEpRn+QgmiXr21nDlhCiUK4ij2A==}
+
+  csv-stringify@6.5.1:
+    resolution: {integrity: sha512-+9lpZfwpLntpTIEpFbwQyWuW/hmI/eHuJZD1XzeZpfZTqkf1fyvBbBLXTJJMsBuuS11uTShMqPwzx4A6ffXgRQ==}
 
   dargs@8.1.0:
     resolution: {integrity: sha512-wAV9QHOsNbwnWdNW2FYvE1P56wtgSbM+3SZcdGiWQILwVjACCXDCI3Ai8QlCjMDB8YK5zySiXZYBiwGmNY3lnw==}
@@ -4717,6 +4729,10 @@ snapshots:
   cssesc@3.0.0: {}
 
   csstype@3.1.3: {}
+
+  csv-parse@5.5.6: {}
+
+  csv-stringify@6.5.1: {}
 
   dargs@8.1.0: {}
 

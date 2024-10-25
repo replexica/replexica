@@ -12,6 +12,7 @@ export const bucketTypes = [
   'flutter',
   'android',
   'properties',
+  'csv',
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);
