@@ -136,7 +136,7 @@ export function createBucketLoader(params: CreateBucketLoaderParams) {
         flatLoader(),
       );
     case 'csv':
-      return composeLoaders<string, Record<string, any>[]>(
+      return composeLoaders<string, Record<string, any>>(
         csvLoader(
           params.locale,
           composeLoaders(
