@@ -20,14 +20,10 @@ import { ReplexicaCLIError } from '../../utils/errors';
 import { csvLoader } from './csv';
 
 // Path expansion
-export function expandPlaceholderedGlob(pathPattern: string, sourceLocale: string): string[] {
+export function expandPlaceholderedGlob(_pathPattern: string, sourceLocale: string): string[] {
   // Throw if pathPattern is an absolute path
-  if (path.isAbsolute(pathPattern)) {
-    throw new ReplexicaCLIError({
-      message: `Invalid path pattern: ${pathPattern}. Path pattern must be relative.`,
-      docUrl: 'invalidPathPattern'
-    });
-  }
+  const absolutePathPattern = path.resolve(_pathPattern);
+  const pathPattern = path.relative(process.cwd(), absolutePathPattern);
   // Throw if pathPattern points outside the current working directory
   if (path.relative(process.cwd(), pathPattern).startsWith('..')) {
     throw new ReplexicaCLIError({
