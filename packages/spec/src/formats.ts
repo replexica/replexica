@@ -13,6 +13,7 @@ export const bucketTypes = [
   'android',
   'properties',
   'csv',
+  'html',
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

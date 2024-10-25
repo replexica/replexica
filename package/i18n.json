@@ -3,7 +3,7 @@
   "locale": {
     "source": "en",
     "targets": [
-      "it"
+      "ru"
     ]
   },
   "buckets": {
@@ -52,6 +52,11 @@
     "android": {
       "include": [
         "demo/android/[locale].xml"
+      ]
+    },
+    "html": {
+      "include": [
+        "demo/html/[locale].html"
       ]
     }
   }
