@@ -1,5 +1,14 @@
 # replexica
 
+## 0.49.1
+
+### Patch Changes
+
+- [`64cd6f3`](https://github.com/replexica/replexica/commit/64cd6f3765bb4524e9f78f93ff283e833a6f26a2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fixed path patter relativity
+
+- Updated dependencies [[`64cd6f3`](https://github.com/replexica/replexica/commit/64cd6f3765bb4524e9f78f93ff283e833a6f26a2)]:
+  - @replexica/cli@0.49.1
+
 ## 0.49.0
 
 ### Minor Changes
