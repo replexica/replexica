@@ -3,28 +3,45 @@ import { flatten, unflatten } from 'flat';
 import { describe, it, expect } from 'vitest';
 
 // Base
-export interface ILoader<I, O> {
+export interface ILoaderDefinition<I, O> {
   pull(rawData: I, locale: string): Promise<O>;
-  push(data: O, locale: string, rawData?: I): Promise<I>;
+  push(data: O, locale: string, rawData: I): Promise<I>;
 
   onStart?(): Promise<void>;
   onProgress?(current: number, total: number): Promise<void>;
   onEnd?(): Promise<void>;
 }
 
+export interface ILoader<I, O> extends ILoaderDefinition<I, O> {
+  setLocale(locale: string): this;
+
+  pull(rawData: I): Promise<O>;
+  push(data: O): Promise<I>;
+
+  onStart(): Promise<void>;
+  onProgress(current: number, total: number): Promise<void>;
+  onEnd(): Promise<void>;
+}
+
 export function composeLoaders<O>(...loaders: ILoader<any, any>[]): ILoader<void, O> {
   return {
-    pull: async (rawData: any, locale: string) => {
+    setLocale(locale: string) {
+      for (const loader of loaders) {
+        loader.setLocale?.(locale);
+      }
+      return this;
+    },
+    pull: async (rawData: any) => {
       let result = rawData;
       for (const loader of loaders) {
-        result = await loader.pull(result, locale);
+        result = await loader.pull(result);
       }
       return result;
     },
-    push: async (data: any, locale: string) => {
+    push: async (data: any) => {
       let result = data;
       for (const loader of loaders.reverse()) {
-        result = await loader.push(result, locale);
+        result = await loader.push(result);
       }
       return result;
     },
@@ -46,34 +63,47 @@ export function composeLoaders<O>(...loaders: ILoader<any, any>[]): ILoader<void
   };
 }
 
-
-
-export function createStatefulLoader<I, O>(loader: ILoader<I, O>): ILoader<I, O> {
+export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
   return {
-    ...loader,
-    async pull(rawData, locale) {
-      this.rawData = rawData;
-
-      return loader.pull(rawData, locale);
+    locale: undefined,
+    rawData: undefined,
+    setLocale(locale) {
+      if (this.locale) { throw new Error('Locale already set'); }
+      this.locale = locale;
+      return this;
     },
-    async push(data, locale) {
-      if (!this.rawData) { throw new Error('Cannot push data before pulling'); }
+    async pull(rawData) {
+      if (!this.locale) { throw new Error('Locale not set'); }
+      this.rawData = rawData || null;
 
-      return loader.push(data, locale, this.rawData);
-    }
+      return lDefinition.pull(rawData, this.locale);
+    },
+    async push(data) {
+      if (!this.locale) { throw new Error('Locale not set'); }
+      if (this.rawData === undefined) { throw new Error('Cannot push data without pulling first'); }
+
+      return lDefinition.push(data, this.locale, this.rawData);
+    },
+    async onStart() {
+      await lDefinition.onStart?.();
+    },
+    async onProgress(current, total) {
+      await lDefinition.onProgress?.(current, total);
+    },
+    async onEnd() {
+      await lDefinition.onEnd?.();
+    },
   } as ILoader<I, O>;
 }
 
-// TODO: record locale on loader creation, and forbid it from being changed between pull and push
-
 // Mock
 export function createPassThroughLoader(state: any): ILoader<void, string> {
-  return {
+  return createLoader({
     pull: async () => state.data,
     push: async (data) => {
       state.data = data;
     },
-  };
+  });
 }
 
 // Android
@@ -88,16 +118,16 @@ export function createCsvLoader(): ILoader<string, Record<string, string>> {
 
 // Flat
 export function createFlatLoader(): ILoader<Record<string, any>, Record<string, string>> {
-  return {
+  return createLoader({
     pull: async (rawData, locale) => {
-      const flattenedData = flatten(rawData) as Record<string, string>;
+      const flattenedData = flatten(rawData || {}) as Record<string, string>;
       return flattenedData;
     },
     push: async (data, locale) => {
-      const unflattenedData = unflatten(data) as Record<string, any>;
+      const unflattenedData = unflatten(data || {}) as Record<string, any>;
       return unflattenedData;
     },
-  };
+  });
 }
 
 // Flutter
@@ -112,7 +142,7 @@ export function createHtmlLoader(): ILoader<string, Record<string, any>> {
 
 // JSON
 export function createJsonLoader(): ILoader<string, Record<string, any>> {
-  return {
+  return createLoader({
     pull: async (rawData, locale) => {
       const data = JSON.parse(rawData);
       return data;
@@ -121,7 +151,7 @@ export function createJsonLoader(): ILoader<string, Record<string, any>> {
       const serializedData = JSON.stringify(data);
       return serializedData;
     },
-  };
+  });
 }
 
 // Markdown
@@ -136,7 +166,7 @@ export function createPropertiesLoader(): ILoader<string, Record<string, any>> {
 
 // Root key
 export function createRootKeyLoader(): ILoader<Record<string, any>, Record<string, any>> {
-  return createStatefulLoader({
+  return createLoader({
     async pull(rawData, locale) {
       const result = rawData[locale];
       return result;
@@ -153,7 +183,7 @@ export function createRootKeyLoader(): ILoader<Record<string, any>, Record<strin
 
 // Text
 export function createTextFileLoader(pathPattern: string): ILoader<void, string> {
-  return {
+  return createLoader({
     pull: async (rawData, locale) => {
       const finalPath = pathPattern.replace('[locale]', locale);
       const data = await fs.readFile(finalPath, 'utf-8');
@@ -163,7 +193,7 @@ export function createTextFileLoader(pathPattern: string): ILoader<void, string>
       const finalPath = pathPattern.replace('[locale]', locale);
       await fs.writeFile(finalPath, data);
     },
-  };
+  });
 }
 
 // Xcode .strings
@@ -210,9 +240,9 @@ describe('loader', () => {
       createPassThroughLoader(mockState),
       createJsonLoader(),
       createFlatLoader(),
-    );
+    ).setLocale('en');
 
-    const data = await loader.pull(undefined, 'en');
+    const data = await loader.pull(undefined);
 
     expect(data).toEqual({
       'en.messages.greeting': 'Hello',
@@ -231,9 +261,9 @@ describe('loader', () => {
       createJsonLoader(),
       createRootKeyLoader(),
       createFlatLoader(),
-    );
+    ).setLocale('en');
 
-    const data = await loader.pull(undefined, 'en');
+    const data = await loader.pull();
 
     expect(data).toEqual({
       'messages.greeting': 'Hello',
@@ -245,23 +275,40 @@ describe('loader', () => {
     const mockState = {
       data: JSON.stringify(_mockData),
     }
-    const loader = composeLoaders<Record<string, any>>(
+    const enLoader = composeLoaders<Record<string, any>>(
       createPassThroughLoader(mockState),
       createJsonLoader(),
       createRootKeyLoader(),
       createFlatLoader(),
-    );
+    ).setLocale('en');
+    const frLoader = composeLoaders<Record<string, any>>(
+      createPassThroughLoader(mockState),
+      createJsonLoader(),
+      createRootKeyLoader(),
+      createFlatLoader(),
+    ).setLocale('fr');
 
-    await loader.onStart?.();
-    await loader.pull(undefined, 'en');
-    await loader.onProgress?.(0, 1);
+    await enLoader.onStart?.();
+    await frLoader.onStart?.();
+    
+    await enLoader.pull();
+    await frLoader.pull();
+
+    await enLoader.onProgress?.(0, 1);
+    await frLoader.onProgress?.(0, 1);
+
     const processedData = {
       'messages.greeting': 'Bonjour',
       'messages.farewell': 'Au revoir',
     };
-    await loader.onProgress?.(1, 1);
-    await loader.push(processedData, 'fr');
-    await loader.onEnd?.();
+
+    await enLoader.onProgress?.(1, 1);
+    await frLoader.onProgress?.(1, 1);
+
+    await frLoader.push(processedData);
+
+    await enLoader.onEnd?.();
+    await frLoader.onEnd?.();
 
     expect(mockState.data).toEqual(JSON.stringify({
       en: {
@@ -285,3 +332,32 @@ describe('loader', () => {
     }));
   });
 });
+
+(async function main() {
+  const localizationEngine = createLocalizationEngine();
+  const config = await loadConfig();
+  const buckets = await findBuckets();
+  for (const [bucketType, bucketPath] of Object.entries(buckets)) {
+    const pathPatterns = extractPathPatterns(bucketPath);
+    for (const bucketPathPattern of pathPatterns) {
+      const sourceLoader = createBucketLoader(bucketType, bucketPathPattern).setLocale(config.locale.source);
+      for (const targetLocale of config.locale.targets) {
+        const targetLoader = createBucketLoader(bucketType, bucketPathPattern).setLocale(targetLocale);
+
+        const [sourceData, targetData] = await Promise.all([
+          sourceLoader.pull(),
+          targetLoader.pull(),
+        ]);
+        const processableData = createProcessableData(sourceData, targetData);
+
+        const processedData = await localizationEngine.process({
+          sourceData,
+          targetData,
+          processableData,
+        });
+
+        await targetLoader.push(processedData);
+      }
+    }
+  }
+})();
