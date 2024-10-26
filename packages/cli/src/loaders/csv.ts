@@ -6,7 +6,7 @@ import { createLoader } from "./_utils";
 
 export default function createCsvLoader(): ILoader<string, Record<string, string>> {
   return createLoader({
-    async pull(rawData, locale) {
+    async pull(locale, rawData) {
       const input = parse(rawData, {
         columns: true,
       });
@@ -23,7 +23,7 @@ export default function createCsvLoader(): ILoader<string, Record<string, string
 
       return result;
     },
-    async push(data, locale, rawData) {
+    async push(locale, data, rawData) {
       const input = parse(rawData, { columns: true }) as Record<string, any>[];
       const columns = Object.keys(input[0] || { id: '' });
       

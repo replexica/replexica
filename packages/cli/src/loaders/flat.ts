@@ -4,13 +4,21 @@ import { createLoader } from "./_utils";
 
 export default function createFlatLoader(): ILoader<Record<string, any>, Record<string, string>> {
   return createLoader({
-    pull: async (rawData, locale) => {
-      const flattenedData = flatten(rawData || {}) as Record<string, string>;
-      return flattenedData;
+    pull: async (locale, rawData) => {
+      return flatten(rawData || {}, {
+        delimiter: '/',
+        transformKey(key) {
+          return encodeURIComponent(String(key));
+        },
+      });
     },
-    push: async (data, locale) => {
-      const unflattenedData = unflatten(data || {}) as Record<string, any>;
-      return unflattenedData;
+    push: async (locale, data) => {
+      return unflatten(data, {
+        delimiter: '/',
+        transformKey(key) {
+          return decodeURIComponent(String(key));
+        },
+      });
     },
   });
 }

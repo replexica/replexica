@@ -1,24 +1,24 @@
 import { ILoader, ILoaderDefinition } from "./_types";
 
-export function composeLoaders<O>(...loaders: ILoader<any, any>[]): ILoader<void, O> {
+export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, any> {
   return {
-    setLocale(locale: string) {
+    setDefaultLocale(locale: string) {
       for (const loader of loaders) {
-        loader.setLocale?.(locale);
+        loader.setDefaultLocale?.(locale);
       }
       return this;
     },
-    pull: async (rawData: any) => {
-      let result = rawData;
+    pull: async (locale, rawData) => {
+      let result: any = rawData;
       for (const loader of loaders) {
-        result = await loader.pull(result);
+        result = await loader.pull(locale, result);
       }
       return result;
     },
-    push: async (data: any) => {
-      let result = data;
+    push: async (locale, data) => {
+      let result: any = data;
       for (const loader of loaders.reverse()) {
-        result = await loader.push(result);
+        result = await loader.push(locale, result);
       }
       return result;
     },
@@ -41,25 +41,38 @@ export function composeLoaders<O>(...loaders: ILoader<any, any>[]): ILoader<void
 }
 
 export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
+  const state = {
+    defaultLocale: undefined as string | undefined,
+    rawData: undefined as I | undefined,
+  };
   return {
-    locale: undefined,
-    rawData: undefined,
-    setLocale(locale) {
-      if (this.locale) { throw new Error('Locale already set'); }
-      this.locale = locale;
+    setDefaultLocale(locale) {
+      if (state.defaultLocale) { throw new Error('Default locale already set'); }
+      state.defaultLocale = locale;
       return this;
     },
-    async pull(rawData) {
-      if (!this.locale) { throw new Error('Locale not set'); }
-      this.rawData = rawData || null;
+    async pull(locale, rawData) {
+      if (!state.defaultLocale) {
+        throw new Error('Default locale not set');
+      }
+      if (state.rawData === undefined && locale !== state.defaultLocale) {
+        throw new Error('The first pull must be for the default locale');
+      }
+      if (locale === state.defaultLocale) {
+        state.rawData = rawData;
+      }
 
-      return lDefinition.pull(rawData, this.locale);
+      return lDefinition.pull(locale, rawData);
     },
-    async push(data) {
-      if (!this.locale) { throw new Error('Locale not set'); }
-      if (this.rawData === undefined) { throw new Error('Cannot push data without pulling first'); }
+    async push(locale, data) {
+      if (!state.defaultLocale) {
+        throw new Error('Default locale not set');
+      }
+      if (state.rawData === undefined) {
+        throw new Error('Cannot push data without pulling first');
+      }
 
-      return lDefinition.push(data, this.locale, this.rawData);
+      return lDefinition.push(locale, data, state.rawData);
     },
     async onStart() {
       await lDefinition.onStart?.();

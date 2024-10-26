@@ -5,7 +5,7 @@ import { createLoader } from './_utils';
 
 export default function createAndroidLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
-    async pull(rawData: string) {
+    async pull(locale, rawData) {
       try {
         const result: Record<string, any> = {};
         const parsed: AndroidResources = await parseStringPromise(rawData, { explicitArray: true });
@@ -56,7 +56,7 @@ export default function createAndroidLoader(): ILoader<string, Record<string, an
         });
       }
     },
-    async push(payload: Record<string, any>) {
+    async push(locale, payload) {
       const builder = new Builder();
       const xmlObj: AndroidResources = { resources: {} };
 

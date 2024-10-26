@@ -182,6 +182,12 @@ importers:
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
+      xmldom:
+        specifier: ^0.6.0
+        version: 0.6.0
+      xpath:
+        specifier: ^0.0.34
+        version: 0.0.34
       yaml:
         specifier: ^2.4.5
         version: 2.4.5
@@ -225,6 +231,9 @@ importers:
       '@types/xml2js':
         specifier: ^0.4.14
         version: 0.4.14
+      '@types/xmldom':
+        specifier: ^0.1.34
+        version: 0.1.34
       tsup:
         specifier: ^8.1.0
         version: 8.1.0(postcss@8.4.47)(typescript@5.6.3)
@@ -1270,6 +1279,9 @@ packages:
 
   '@types/xml2js@0.4.14':
     resolution: {integrity: sha512-4YnrRemBShWRO2QjvUin8ESA41rH+9nQGLUGZV/1IDhi3SL9OhdpNC/MrulTWuptXKwhx/aDxE7toV0f/ypIXQ==}
+
+  '@types/xmldom@0.1.34':
+    resolution: {integrity: sha512-7eZFfxI9XHYjJJuugddV6N5YNeXgQE1lArWOcd1eCOKWb/FGs5SIjacSYuEJuwhsGS3gy4RuZ5EUIcqYscuPDA==}
 
   '@vitest/expect@2.1.2':
     resolution: {integrity: sha512-FEgtlN8mIUSEAAnlvn7mP8vzaWhEaAEvhSXCqrsijM7K6QqjB11qoRZYEd4AKSCDz8p0/+yH5LzhZ47qt+EyPg==}
@@ -3455,6 +3467,14 @@ packages:
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
+  xmldom@0.6.0:
+    resolution: {integrity: sha512-iAcin401y58LckRZ0TkI4k0VSM1Qg0KGSc3i8rU+xrxe19A/BN1zHyVSJY7uoutVlaTSzYyk/v5AmkewAP7jtg==}
+    engines: {node: '>=10.0.0'}
+
+  xpath@0.0.34:
+    resolution: {integrity: sha512-FxF6+rkr1rNSQrhUNYrAFJpRXNzlDoMxeXN5qI84939ylEv3qqPFKa85Oxr6tDaJKqwW6KKyo2v26TSv3k6LeA==}
+    engines: {node: '>=0.6.0'}
+
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
@@ -4452,6 +4472,8 @@ snapshots:
   '@types/xml2js@0.4.14':
     dependencies:
       '@types/node': 20.14.10
+
+  '@types/xmldom@0.1.34': {}
 
   '@vitest/expect@2.1.2':
     dependencies:
@@ -6580,6 +6602,10 @@ snapshots:
   xmlbuilder@15.1.1: {}
 
   xmlchars@2.2.0: {}
+
+  xmldom@0.6.0: {}
+
+  xpath@0.0.34: {}
 
   y18n@5.0.8: {}
 
