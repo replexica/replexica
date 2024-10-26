@@ -22,8 +22,6 @@ export const csvLoader = (
       }
     }
 
-    console.log({ input, result });
-
     return result;
   },
 
@@ -55,8 +53,6 @@ export const csvLoader = (
     const result = stringify(updatedRows, {
       header: true
     });
-
-    console.log({result});
 
     return loader.save(result);
   }
