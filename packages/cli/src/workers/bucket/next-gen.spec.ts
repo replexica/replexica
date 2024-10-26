@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 // Base
 export interface ILoader<I, O> {
   pull(rawData: I, locale: string): Promise<O>;
-  push(data: O, locale: string): Promise<I>;
+  push(data: O, locale: string, rawData?: I): Promise<I>;
 
   onStart?(): Promise<void>;
   onProgress?(current: number, total: number): Promise<void>;
@@ -46,8 +46,28 @@ export function composeLoaders<O>(...loaders: ILoader<any, any>[]): ILoader<void
   };
 }
 
+
+
+export function createStatefulLoader<I, O>(loader: ILoader<I, O>): ILoader<I, O> {
+  return {
+    ...loader,
+    async pull(rawData, locale) {
+      this.rawData = rawData;
+
+      return loader.pull(rawData, locale);
+    },
+    async push(data, locale) {
+      if (!this.rawData) { throw new Error('Cannot push data before pulling'); }
+
+      return loader.push(data, locale, this.rawData);
+    }
+  } as ILoader<I, O>;
+}
+
+// TODO: record locale on loader creation, and forbid it from being changed between pull and push
+
 // Mock
-export function createMockLoader(state: any): ILoader<void, string> {
+export function createPassThroughLoader(state: any): ILoader<void, string> {
   return {
     pull: async () => state.data,
     push: async (data) => {
@@ -116,21 +136,19 @@ export function createPropertiesLoader(): ILoader<string, Record<string, any>> {
 
 // Root key
 export function createRootKeyLoader(): ILoader<Record<string, any>, Record<string, any>> {
-  return {
-    rawData: null,
+  return createStatefulLoader({
     async pull(rawData, locale) {
-      if (this.rawData) { return this.rawData; }
-      this.rawData = rawData;
-
-      const result = this.rawData[locale];
+      const result = rawData[locale];
       return result;
     },
-    async push(data, locale) {
-      if (!this.rawData) { throw new Error('Cannot push data before pulling'); }
-      this.rawData[locale] = data;
-      return this.rawData;
+    async push(data, locale, rawData) {
+      const result = {
+        ...rawData,
+        [locale]: data,
+      };
+      return result;
     },
-  } as ILoader<Record<string, any>, Record<string, any>>;
+  });
 }
 
 // Text
@@ -168,8 +186,6 @@ export function createYamlLoader(): ILoader<string, Record<string, any>> {
   // TODO
 }
 
-
-
 describe('loader', () => {
   const _mockData = {
     en: {
@@ -191,7 +207,7 @@ describe('loader', () => {
       data: JSON.stringify(_mockData),
     }
     const loader = composeLoaders<Record<string, string>>(
-      createMockLoader(mockState),
+      createPassThroughLoader(mockState),
       createJsonLoader(),
       createFlatLoader(),
     );
@@ -211,7 +227,7 @@ describe('loader', () => {
       data: JSON.stringify(_mockData),
     }
     const loader = composeLoaders<Record<string, any>>(
-      createMockLoader(mockState),
+      createPassThroughLoader(mockState),
       createJsonLoader(),
       createRootKeyLoader(),
       createFlatLoader(),
@@ -230,7 +246,7 @@ describe('loader', () => {
       data: JSON.stringify(_mockData),
     }
     const loader = composeLoaders<Record<string, any>>(
-      createMockLoader(mockState),
+      createPassThroughLoader(mockState),
       createJsonLoader(),
       createRootKeyLoader(),
       createFlatLoader(),
