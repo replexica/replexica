@@ -245,7 +245,7 @@ describe('bucket loaders', () => {
         'body/2/3/1/0': 'texto en cursiva',
       };
       const expectedOutput = `
-<html>
+<html lang="es">
   <head>
     <title>Mi Página</title>
     <meta name="description" content="Descripción de la página" />

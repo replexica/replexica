@@ -18,6 +18,10 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
     'input': ['placeholder'],
     'a': ['title'],
   };
+  const UNLOCALIZABLE_TAGS = [
+    'script',
+    'style',
+  ];
 
   return createLoader({
     async pull(locale, rawData) {
@@ -54,6 +58,15 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
       };
 
       const processNode = (node: Node) => {
+        // Check if node is inside an unlocalizable tag
+        let parent = node.parentElement;
+        while (parent) {
+          if (UNLOCALIZABLE_TAGS.includes(parent.tagName.toLowerCase())) {
+            return; // Skip processing this node and its children
+          }
+          parent = parent.parentElement;
+        }
+
         if (node.nodeType === 3) { // Text node
           const text = node.textContent || '';
           const normalizedText = normalizeTextContent(text, true);
@@ -96,6 +109,10 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
         rawData ?? '<!DOCTYPE html><html><head></head><body></body></html>'
       );
       const document = dom.window.document;
+
+      // Set the HTML lang attribute to the current locale
+      const htmlElement = document.documentElement;
+      htmlElement.setAttribute('lang', locale);
 
       // Sort paths to ensure proper order of creation
       const paths = Object.keys(data).sort((a, b) => {
