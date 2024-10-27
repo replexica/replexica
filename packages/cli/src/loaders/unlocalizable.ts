@@ -1,10 +1,9 @@
 import _ from 'lodash';
-import isDate from 'lodash/isDate';
-import isNumber from 'lodash/isNumber';
-import isBoolean from 'lodash/isBoolean';
 
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
+
+const { isDate, isNumber, isBoolean } = _;
 
 export default function createUnlocalizableLoader(): ILoader<Record<string, any>, Record<string, any>> {
   return createLoader({
