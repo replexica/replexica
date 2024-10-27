@@ -47,7 +47,6 @@ export default function createXcodeXcstringsLoader(): ILoader<Record<string, any
             },
           };
         } else {
-          const originalVariations = rawData.strings[key]?.localizations?.[locale]?.variations?.plural || {};
           const updatedVariations: any = {};
 
           for (const form in value) {
