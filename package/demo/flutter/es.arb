@@ -2,11 +2,11 @@
   "@@locale": "es",
   "simpleMessage": "Este es un mensaje simple.",
   "@simpleMessage": {
-    "description": "Un mensaje básico sin marcadores de posición"
+    "description": "A basic message without any placeholders"
   },
   "messageWithPlaceholder": "¡Hola, {name}!",
   "@messageWithPlaceholder": {
-    "description": "Un saludo con un marcador de posición para el nombre",
+    "description": "A greeting with a name placeholder",
     "placeholders": {
       "name": {
         "type": "String",
@@ -14,9 +14,9 @@
       }
     }
   },
-  "pluralMessage": "{count, plural, =0{No hay elementos} =1{Un elemento} other{{count} elementos}}",
+  "pluralMessage": "{count, plural, =0{Ningún elemento} =1{Un elemento} other{{count} elementos}}",
   "@pluralMessage": {
-    "description": "Un mensaje con formas plurales",
+    "description": "A message with plural forms",
     "placeholders": {
       "count": {
         "type": "num",
@@ -26,7 +26,7 @@
   },
   "genderMessage": "{gender, select, male{A él} female{A ella} other{A ellos}} le gustó tu publicación.",
   "@genderMessage": {
-    "description": "Un mensaje específico de género",
+    "description": "A gender-specific message",
     "placeholders": {
       "gender": {
         "type": "String"
@@ -35,7 +35,7 @@
   },
   "nestedMessage": "Tienes {count, plural, =0{ningún mensaje nuevo} =1{un mensaje nuevo} other{{count} mensajes nuevos}} y {unread, plural, =0{ningún correo sin leer} =1{un correo sin leer} other{{unread} correos sin leer}}.",
   "@nestedMessage": {
-    "description": "Un mensaje con plurales anidados",
+    "description": "A message with nested plurals",
     "placeholders": {
       "count": {
         "type": "num",
@@ -49,7 +49,7 @@
   },
   "dateMessage": "Hoy es {date}",
   "@dateMessage": {
-    "description": "Un mensaje con una fecha",
+    "description": "A message with a date",
     "placeholders": {
       "date": {
         "type": "DateTime",
@@ -57,9 +57,9 @@
       }
     }
   },
-  "currencyMessage": "Tu saldo es {amount}",
+  "currencyMessage": "Tu saldo es de {amount}",
   "@currencyMessage": {
-    "description": "Un mensaje con una cantidad de dinero",
+    "description": "A message with a currency amount",
     "placeholders": {
       "amount": {
         "type": "double",
@@ -73,7 +73,7 @@
   },
   "percentMessage": "Has completado el {percent} de la tarea.",
   "@percentMessage": {
-    "description": "Un mensaje con un porcentaje",
+    "description": "A message with a percentage",
     "placeholders": {
       "percent": {
         "type": "double",
@@ -83,16 +83,16 @@
   },
   "listMessage": "Tus frutas favoritas son: {fruits}",
   "@listMessage": {
-    "description": "Un mensaje con una lista",
+    "description": "A message with a list",
     "placeholders": {
       "fruits": {
         "type": "List<String>"
       }
     }
   },
-  "complexMessage": "El {date}, {name} {gender, select, male{invitó a sus} female{invitó a sus} other{invitó a sus}} {guestCount, plural, =0{cero invitados} =1{un invitado} other{{guestCount} invitados}} a {eventName}.",
+  "complexMessage": "El {date}, {name} {gender, select, male{invitó a} female{invitó a} other{invitó a}} {guestCount, plural, =0{ningún invitado} =1{un invitado} other{{guestCount} invitados}} a {eventName}.",
   "@complexMessage": {
-    "description": "Un mensaje complejo que combina múltiples marcadores, género y plurales",
+    "description": "A complex message combining multiple placeholders, gender, and plurals",
     "placeholders": {
       "date": {
         "type": "DateTime",
@@ -111,20 +111,20 @@
       },
       "eventName": {
         "type": "String",
-        "example": "Fiesta de cumpleaños"
+        "example": "Birthday Party"
       }
     }
   },
   "escapeMessage": "Para usar llaves, escápalas así: '{' y '}'.",
   "@escapeMessage": {
-    "description": "Un mensaje que demuestra cómo escapar caracteres especiales"
+    "description": "A message demonstrating how to escape special characters"
   },
   "multilineMessage": "Este es un mensaje largo\nque abarca varias líneas\ny preserva los saltos de línea.",
   "@multilineMessage": {
-    "description": "Un mensaje multilínea"
+    "description": "A multiline message"
   },
   "htmlMessage": "Este mensaje contiene etiquetas <b>HTML</b> como <i>cursiva</i> y <u>subrayado</u>.",
   "@htmlMessage": {
-    "description": "Un mensaje con etiquetas HTML (nota: el manejo de estas requiere procesamiento adicional en la aplicación)"
+    "description": "A message with HTML tags (note: handling these requires additional processing in the app)"
   }
 }
