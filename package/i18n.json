@@ -7,56 +7,9 @@
     ]
   },
   "buckets": {
-    "csv": {
-      "include": [
-        "demo/csv/file.csv"
-      ]
-    },
-    "markdown": {
-      "include": [
-        "demo/markdown/[locale]/*.md"
-      ],
-      "exclude": [
-        "demo/markdown/[locale]/ignored.md"
-      ]
-    },
-    "json": {
-      "include": ["demo/json/[locale].json"]
-    },
-    "yaml": {
-      "include": ["demo/yaml/[locale].yml"]
-    },
-    "yaml-root-key": {
-      "include": ["demo/yaml-root-key/[locale].yml"]
-    },
-    "xcode-xcstrings": {
-      "include": [
-        "demo/xcode-xcstrings/Localizable.xcstrings"
-      ]
-    },
-    "xcode-strings": {
-      "include": [
-        "demo/xcode-strings/[locale].lproj/Localizable.strings"
-      ]
-    },
-    "xcode-stringsdict": {
-      "include": [
-        "demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"
-      ]
-    },
-    "flutter": {
-      "include": [
-        "demo/flutter/[locale].arb"
-      ]
-    },
     "android": {
       "include": [
         "demo/android/[locale].xml"
-      ]
-    },
-    "html": {
-      "include": [
-        "demo/html/[locale].html"
       ]
     }
   }
