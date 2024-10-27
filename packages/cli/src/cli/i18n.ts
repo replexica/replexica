@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Z from 'zod';
-import { loadConfig } from './../workers/config';
-import { loadSettings } from './../workers/settings';
+import { getConfig } from './../workers/config';
+import { getSettings } from './../workers/settings';
 import Ora from 'ora';
 import _ from 'lodash';
 import { bucketTypeSchema, localeCodeSchema } from '@replexica/spec';
@@ -29,10 +29,10 @@ export default new Command()
         i18nConfig,
         flags,
       ] = await Promise.all([
-        loadConfig(),
+        getConfig(),
         loadFlags(options),
       ]);
-      const settings = await loadSettings(flags.apiKey);
+      const settings = await getSettings(flags.apiKey);
 
       if (!i18nConfig) {
         throw new ReplexicaCLIError({

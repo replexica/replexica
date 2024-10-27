@@ -2,7 +2,7 @@ import { Command } from "commander";
 import _ from "lodash";
 import Ora from 'ora';
 import Z from 'zod';
-import { loadConfig } from "../../workers/config";
+import { getConfig } from "../../workers/config";
 import { bucketTypeSchema } from "@replexica/spec";
 import { expandPlaceholderedGlob } from "../../workers/bucket";
 import { ReplexicaCLIError } from "../../utils/errors";
@@ -14,7 +14,7 @@ export default new Command()
   .action(async (type) => {
     const ora = Ora();
     try {
-      const i18nConfig = await loadConfig();
+      const i18nConfig = await getConfig();
 
       if (!i18nConfig) {
         throw new ReplexicaCLIError({

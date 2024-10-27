@@ -3,7 +3,7 @@ import Z from 'zod';
 import Ora from 'ora';
 import { createLockfileProcessor } from '../workers/lockfile';
 import { bucketTypeSchema } from '@replexica/spec';
-import { loadConfig } from '../workers/config';
+import { getConfig } from '../workers/config';
 import { createBucketLoader, expandPlaceholderedGlob } from '../workers/bucket';
 
 export default new Command()
@@ -38,7 +38,7 @@ export async function ensureLockfileExists(force = false) {
     await lockfileProcessor.delete();
   }
 
-  const i18nConfig = await loadConfig();
+  const i18nConfig = await getConfig();
 
   const placeholderedPathsTuples: [Z.infer<typeof bucketTypeSchema>, string][] = [];
   for (const [bucketType, bucketTypeParams] of Object.entries(i18nConfig?.buckets || {})) {

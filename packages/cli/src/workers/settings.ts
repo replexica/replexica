@@ -7,10 +7,10 @@ import Ini from "ini";
 
 export type CliSettings = Z.infer<typeof SettingsSchema>;
 
-export async function loadSettings(explicitApiKey: string | undefined): Promise<CliSettings> {
-  const env = await _loadEnv();
-  const systemFile = await _loadSystemFile();
-  const defaults = await _loadDefaults();
+export function getSettings(explicitApiKey: string | undefined): CliSettings {
+  const env = _loadEnv();
+  const systemFile = _loadSystemFile();
+  const defaults = _loadDefaults();
 
   return {
     auth: {
@@ -21,8 +21,8 @@ export async function loadSettings(explicitApiKey: string | undefined): Promise<
   };
 }
 
-export async function saveSettings(settings: CliSettings): Promise<void> {
-  await _saveSystemFile(settings);
+export function saveSettings(settings: CliSettings): void {
+  _saveSystemFile(settings);
 }
 
 const SettingsSchema = Z.object({
@@ -35,7 +35,7 @@ const SettingsSchema = Z.object({
 
 // Private
 
-async function _loadDefaults(): Promise<CliSettings> {
+function _loadDefaults(): CliSettings {
   return {
     auth: {
       apiKey: '',
@@ -45,7 +45,7 @@ async function _loadDefaults(): Promise<CliSettings> {
   };
 }
 
-async function _loadEnv() {
+function _loadEnv() {
   return Z.object({
     REPLEXICA_API_KEY: Z.string().optional(),
     REPLEXICA_API_URL: Z.string().optional(),
@@ -55,7 +55,7 @@ async function _loadEnv() {
     .parse(process.env);
 }
 
-async function _loadSystemFile() {
+function _loadSystemFile() {
   const settingsFilePath = _getSettingsFilePath();
   const content = fs.existsSync(settingsFilePath)
     ? fs.readFileSync(settingsFilePath, "utf-8")
@@ -73,7 +73,7 @@ async function _loadSystemFile() {
     .parse(data);
 }
 
-async function _saveSystemFile(settings: CliSettings) {
+function _saveSystemFile(settings: CliSettings) {
   const settingsFilePath = _getSettingsFilePath();
   const content = Ini.stringify(settings);
   fs.writeFileSync(settingsFilePath, content);

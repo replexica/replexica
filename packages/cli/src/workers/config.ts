@@ -4,10 +4,10 @@ import fs from 'fs';
 import path from 'path';
 import { I18nConfig, parseI18nConfig } from '@replexica/spec';
 
-export async function loadConfig(resave = true): Promise<I18nConfig | null> {
+export function getConfig(resave = true): I18nConfig | null {
   const configFilePath = _getConfigFilePath();
 
-  const configFileExists = await fs.existsSync(configFilePath);
+  const configFileExists = fs.existsSync(configFilePath);
   if (!configFileExists) { return null; }
 
   const fileContents = fs.readFileSync(configFilePath, "utf8");
@@ -18,13 +18,13 @@ export async function loadConfig(resave = true): Promise<I18nConfig | null> {
 
   if (resave && didConfigChange) {
     // Ensure the config is saved with the latest version / schema
-    await saveConfig(result);
+    saveConfig(result);
   }
 
   return result;
 }
 
-export async function saveConfig(config: I18nConfig) {
+export function saveConfig(config: I18nConfig) {
   const configFilePath = _getConfigFilePath();
 
   const serialized = JSON.stringify(config, null, 2);
