@@ -175,37 +175,36 @@ describe('bucket loaders', () => {
       setupFileMocks();
 
       const input = `
-        <html>
-          <head>
-            <title>My Page</title>
-            <meta name="description" content="Page description">
-          </head>
-          <body>
-           no tag 
-            <h1>Hello, world!</h1>
-            <p>
-              This is a paragraph with a 
-              <a href="https://example.com">link</a>
-              and 
-              <b>
-                bold and <i>italic text</i>
-              </b>
-              .
-            </p>
-          </body>
-        </html>
+<html>
+  <head>
+    <title>My Page</title>
+    <meta name="description" content="Page description" />
+  </head>
+  <body>
+    some simple text without an html tag
+    <h1>Hello, world!</h1>
+    <p>
+      This is a paragraph with a 
+      <a href="https://example.com">link</a>
+      and 
+      <b>
+        bold and <i>italic text</i>
+      </b>
+      .
+    </p>
+  </body>
+</html>
       `.trim();
-      // Keys are XPath expressions
       const expectedOutput = {
-        'head/0': 'My Page',
+        'head/0/0': 'My Page',
         'head/1#content': 'Page description',
-        'body/0': 'no tag',
-        'body/1': 'Hello, world!',
+        'body/0': 'some simple text without an html tag',
+        'body/1/0': 'Hello, world!',
         'body/2/0': 'This is a paragraph with a',
-        'body/2/1': 'link',
+        'body/2/1/0': 'link',
         'body/2/2': 'and',
-        'body/2/3/0': 'bold and ',
-        'body/2/3/1': 'italic text',
+        'body/2/3/0': 'bold and',
+        'body/2/3/1/0': 'italic text',
         'body/2/4': '.'
       };
 
@@ -219,7 +218,61 @@ describe('bucket loaders', () => {
     });
 
     it('should save html data', async () => {
-      expect(true).toBe(true);
+      const input = `
+<html>
+  <head>
+    <title>My Page</title>
+    <meta name="description" content="Page description" />
+  </head>
+  <body>
+    some simple text without an html tag
+    <h1>Hello, world!</h1>
+    <p>
+      This is a paragraph with a <a href="https://example.com">link</a> and <b>bold and <i>italic text</i></b>
+    </p>
+  </body>
+</html>
+      `.trim();
+      const payload = {
+        'head/0/0': 'Mi Página',
+        'head/1#content': 'Descripción de la página',
+        'body/0': 'texto simple sin etiqueta html',
+        'body/1/0': '¡Hola, mundo!',
+        'body/2/0': 'Este es un párrafo con un ',
+        'body/2/1/0': 'enlace',
+        'body/2/2': ' y ',
+        'body/2/3/0': 'texto en negrita y ',
+        'body/2/3/1/0': 'texto en cursiva',
+      };
+      const expectedOutput = `
+<html>
+  <head>
+    <title>Mi Página</title>
+    <meta name="description" content="Descripción de la página" />
+  </head>
+  <body>
+    texto simple sin etiqueta html
+    <h1>¡Hola, mundo!</h1>
+    <p>
+      Este es un párrafo con un <a href="https://example.com">enlace</a> y <b>texto en negrita y <i>texto en cursiva</i></b>
+    </p>
+  </body>
+</html>
+      `.trim() + '\n';
+
+      mockFileOperations(input);
+
+      const htmlLoader = createBucketLoader('html', 'i18n/[locale].html');
+      htmlLoader.setDefaultLocale('en');
+      await htmlLoader.pull('en');
+
+      await htmlLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.html',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
     });
   });
 

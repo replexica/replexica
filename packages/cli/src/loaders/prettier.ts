@@ -2,18 +2,23 @@ import prettier, { Options } from 'prettier';
 import { ILoader } from './_types';
 import { createLoader } from './_utils';
 
-export default function createPrettierLoader(parser: Options['parser']): ILoader<string, string> {  
+export type PrettierLoaderOptions = {
+  parser: Options['parser'];
+  alwaysFormat?: boolean;
+};
+
+export default function createPrettierLoader(options: PrettierLoaderOptions): ILoader<string, string> {  
   return createLoader({
     async pull(locale, data) {
       return data;
     },
     async push(locale, data) {
       const prettierConfig = await loadPrettierConfig();
-      if (!prettierConfig) { return data; }
+      if (!prettierConfig && !options.alwaysFormat) { return data; }
 
       const result = prettier.format(data, { 
-        ...prettierConfig,
-        parser 
+        ...prettierConfig || { printWidth: 2500 },
+        parser: options.parser,
       });
 
       return result;

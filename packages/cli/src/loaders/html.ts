@@ -7,30 +7,8 @@ function normalizeTextContent(text: string, isStandalone: boolean): string {
   const trimmed = text.trim();
   if (!trimmed) return '';
 
-  // Check if the original text is surrounded by newlines
-  const hasLeadingNewline = /^\s*\n/.test(text);
-  const hasTrailingNewline = /\n\s*$/.test(text);
-  
-  // Text is standalone if it's surrounded by newlines in the original content
-  const isActuallyStandalone = hasLeadingNewline && hasTrailingNewline;
-  
-  if (isActuallyStandalone) {
-    // For standalone text (surrounded by newlines), return just the trimmed content
-    return trimmed;
-  } else {
-    // For inline text, preserve necessary whitespace but normalize it
-    const normalized = text
-      // First normalize spaces around newlines
-      .replace(/[ \t]*\n[ \t]*/g, '\n')
-      // Then collapse multiple newlines
-      .replace(/\n+/g, '\n')
-      // Then collapse multiple spaces
-      .replace(/[ \t]+/g, ' ')
-      // Trim only leading/trailing newlines, preserve spaces
-      .replace(/^\n+|\n+$/g, '');
-
-    return normalized;
-  }
+  // For all text nodes, just return the trimmed content
+  return trimmed;
 }
 
 export default function createHtmlLoader(): ILoader<string, Record<string, any>> {
@@ -61,7 +39,7 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
             break;
           }
           
-          // Get index among significant siblings (non-whitespace text nodes and elements)
+          // Get index among significant siblings (non-empty text nodes and elements)
           const siblings = Array.from(parent.childNodes)
             .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()));
           const index = siblings.indexOf(current);
@@ -78,11 +56,9 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
       const processNode = (node: Node) => {
         if (node.nodeType === 3) { // Text node
           const text = node.textContent || '';
-          if (text.trim()) {
-            const normalizedText = normalizeTextContent(text, true);
-            if (normalizedText) {
-              result[getPath(node)] = normalizedText;
-            }
+          const normalizedText = normalizeTextContent(text, true);
+          if (normalizedText) {
+            result[getPath(node)] = normalizedText;
           }
         } else if (node.nodeType === 1) { // Element node
           const element = node as Element;
@@ -97,19 +73,10 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
             }
           });
 
-          // For elements with single text node, store content directly
-          if (element.childNodes.length === 1 && element.firstChild?.nodeType === 3) {
-            const text = element.textContent || '';
-            const normalizedText = normalizeTextContent(text, false);
-            if (normalizedText) {
-              result[getPath(element)] = normalizedText;
-            }
-          } else {
-            // Process child nodes
-            Array.from(element.childNodes)
-              .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
-              .forEach(processNode);
-          }
+          // Process all child nodes
+          Array.from(element.childNodes)
+            .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
+            .forEach(processNode);
         }
       };
 
@@ -124,8 +91,10 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
       return result;
     },
 
-    async push(locale, data) {
-      const dom = new JSDOM('<!DOCTYPE html><html><head></head><body></body></html>');
+    async push(locale, data, rawData) {
+      const dom = new JSDOM(
+        rawData ?? '<!DOCTYPE html><html><head></head><body></body></html>'
+      );
       const document = dom.window.document;
 
       // Sort paths to ensure proper order of creation
@@ -140,40 +109,48 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
         const [nodePath, attribute] = path.split('#');
         const [rootTag, ...indices] = nodePath.split('/');
         
-        let parent: any = rootTag === 'head' ? document.head : document.body;
-        let current: any = parent;
+        let parent: Element = rootTag === 'head' ? document.head : document.body;
+        let current: Node | null = parent;
 
-        // Create or navigate to the target node
+        // Navigate to the target node
         for (let i = 0; i < indices.length; i++) {
           const index = parseInt(indices[i]);
           const siblings = Array.from(parent.childNodes)
-            .filter((n: any) => n.nodeType === 1 || n.nodeType === 3);
-          
-          while (siblings.length <= index) {
+            .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()));
+
+          if (index >= siblings.length) {
+            // Create missing nodes
             if (i === indices.length - 1) {
               // Last index - create text node
-              parent.appendChild(document.createTextNode(''));
+              const textNode = document.createTextNode('');
+              parent.appendChild(textNode);
+              current = textNode;
             } else {
-              // Create element node
-              parent.appendChild(document.createElement('div'));
+              // Create intermediate element
+              const element = document.createElement('div');
+              parent.appendChild(element);
+              current = element;
+              parent = element;
             }
-            siblings.push(parent.lastChild!);
-          }
-          
-          current = siblings[index] as ChildNode;
-          if (current.nodeType === 1) {
-            parent = current as Element;
+          } else {
+            current = siblings[index];
+            if (current.nodeType === 1) {
+              parent = current as Element;
+            }
           }
         }
 
         // Set content
-        if (attribute) {
-          (current as Element).setAttribute(attribute, value);
-        } else {
-          current.textContent = value;
+        if (current) {
+          if (attribute) {
+            (current as Element).setAttribute(attribute, value);
+          } else {
+            current.textContent = value;
+          }
         }
       });
 
+      // Preserve formatting by using serialize() with pretty print
       return dom.serialize();
     }
   });

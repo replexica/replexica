@@ -36,18 +36,18 @@ export default function createBucketLoader(
     );
     case 'html': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('html'),
+      createPrettierLoader({ parser: 'html', alwaysFormat: true }),
       createHtmlLoader(),
     );
     case 'json': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('json'),
+      createPrettierLoader({ parser: 'json' }),
       createJsonLoader(),
       createFlatLoader(),
     );
     case 'markdown': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('markdown'),
+      createPrettierLoader({ parser: 'markdown' }),
       createMarkdownLoader(),
     );
     case 'properties': return composeLoaders(
@@ -65,27 +65,27 @@ export default function createBucketLoader(
     );
     case 'xcode-xcstrings': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('json'),
+      createPrettierLoader({ parser: 'json' }),
       createJsonLoader(),
       createXcodeXcstringsLoader(),
       createFlatLoader(),
     );
     case 'yaml': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('yaml'),
+      createPrettierLoader({ parser: 'yaml' }),
       createYamlLoader(),
       createFlatLoader(),
     );
     case 'yaml-root-key': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('yaml'),
+      createPrettierLoader({ parser: 'yaml' }),
       createYamlLoader(),
       createRootKeyLoader(true),
       createFlatLoader(),
     );
     case 'flutter': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      createPrettierLoader('json'),
+      createPrettierLoader({ parser: 'json' }),
       createJsonLoader(),
       createFlutterLoader(),
       createFlatLoader(),
