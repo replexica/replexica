@@ -17,6 +17,7 @@ import createXcodeStringsLoader from './xcode-strings';
 import createXcodeStringsdictLoader from './xcode-stringsdict';
 import createXcodeXcstringsLoader from './xcode-xcstrings';
 import createPrettierLoader from './prettier';
+import createUnlocalizableLoader from './unlocalizable';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -28,40 +29,48 @@ export default function createBucketLoader(
       createTextFileLoader(bucketPathPattern),
       createAndroidLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'csv': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createCsvLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'html': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createPrettierLoader({ parser: 'html', alwaysFormat: true }),
       createHtmlLoader(),
+      createUnlocalizableLoader(),
     );
     case 'json': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createPrettierLoader({ parser: 'json' }),
       createJsonLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'markdown': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createPrettierLoader({ parser: 'markdown' }),
       createMarkdownLoader(),
+      createUnlocalizableLoader(),
     );
     case 'properties': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createPropertiesLoader(),
+      createUnlocalizableLoader(),
     );
     case 'xcode-strings': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createXcodeStringsLoader(),
+      createUnlocalizableLoader(),
     );
     case 'xcode-stringsdict': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createXcodeStringsdictLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'xcode-xcstrings': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
@@ -69,12 +78,14 @@ export default function createBucketLoader(
       createJsonLoader(),
       createXcodeXcstringsLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'yaml': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createPrettierLoader({ parser: 'yaml' }),
       createYamlLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'yaml-root-key': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
@@ -82,6 +93,7 @@ export default function createBucketLoader(
       createYamlLoader(),
       createRootKeyLoader(true),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
     case 'flutter': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
@@ -89,6 +101,7 @@ export default function createBucketLoader(
       createJsonLoader(),
       createFlutterLoader(),
       createFlatLoader(),
+      createUnlocalizableLoader(),
     );
   }
 }

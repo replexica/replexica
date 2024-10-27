@@ -347,7 +347,6 @@ export default new Command()
         bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
         const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-        const passthroughSourceData = calculatePassthroughData(sourceData);
         const updatedSourceData = flags.force ? sourceData :lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
         for (const targetLocale of targetLocales) {
@@ -355,8 +354,7 @@ export default new Command()
 
           const targetData = await bucketLoader.pull(targetLocale);
 
-          const deltaData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
-          const processableData = _.omit(deltaData, Object.keys(passthroughSourceData));
+          const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
 
           const localizationEngine = createLocalizationEngineConnection({
             apiKey: settings.auth.apiKey,
@@ -372,8 +370,7 @@ export default new Command()
             ora.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
           });
 
-          const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
-          await bucketLoader.push(targetLocale, finalTargetData);
+          await bucketLoader.push(targetLocale, processedTargetData);
 
           ora.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
         }
@@ -464,22 +461,6 @@ function calculateDataDelta(args: {
     .pickBy((value, key) => newKeys.includes(key) || updatedKeys.includes(key))
     .value() as Record<string, any>;
 
-  return result;
-}
-
-function calculatePassthroughData(data: Record<string, any>) {
-  const passthroughKeys = Object.entries(data)
-    .filter(([_, value]) => {
-      const stringValue = String(value);
-      return [
-        (v: string) => !isNaN(Date.parse(v)),
-        (v: string) => !isNaN(Number(v)),
-        (v: string) => ['true', 'false'].includes(v.toLowerCase())
-      ].some(fn => fn(stringValue));
-    })
-    .map(([key, _]) => key);
-
-  const result = _.pickBy(data, (_, key) => passthroughKeys.includes(key));
   return result;
 }
 
