@@ -13,7 +13,7 @@ export default function createFlutterLoader(): ILoader<Record<string, any>, Reco
       return result;
     },
     async push(locale, data, rawData) {
-      const result = _.merge({ '@@locale': locale }, rawData, data);
+      const result = _.merge({}, rawData, { '@@locale': locale }, data);
       return result;
     }
   });

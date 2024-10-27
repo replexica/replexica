@@ -24,7 +24,7 @@ export default function createCsvLoader(): ILoader<string, Record<string, string
       return result;
     },
     async push(locale, data, rawData) {
-      const input = parse(rawData, { columns: true }) as Record<string, any>[];
+      const input = parse(rawData || '', { columns: true }) as Record<string, any>[];
       const columns = Object.keys(input[0] || { id: '' });
       
       // Update existing rows and collect new keys

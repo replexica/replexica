@@ -1,6 +1,6 @@
 export interface ILoaderDefinition<I, O> {
   pull(locale: string, rawData: I): Promise<O>;
-  push(locale: string, data: O, rawData: I): Promise<I>;
+  push(locale: string, data: O, rawData?: I | null): Promise<I>;
 
   onStart?(): Promise<void>;
   onProgress?(current: number, total: number): Promise<void>;

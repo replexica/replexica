@@ -16,6 +16,7 @@ import createPropertiesLoader from './properties';
 import createXcodeStringsLoader from './xcode-strings';
 import createXcodeStringsdictLoader from './xcode-stringsdict';
 import createXcodeXcstringsLoader from './xcode-xcstrings';
+import createPrettierLoader from './prettier';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -35,15 +36,18 @@ export default function createBucketLoader(
     );
     case 'html': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('html'),
       createHtmlLoader(),
     );
     case 'json': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('json'),
       createJsonLoader(),
       createFlatLoader(),
     );
     case 'markdown': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('markdown'),
       createMarkdownLoader(),
     );
     case 'properties': return composeLoaders(
@@ -61,23 +65,27 @@ export default function createBucketLoader(
     );
     case 'xcode-xcstrings': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('json'),
       createJsonLoader(),
       createXcodeXcstringsLoader(),
       createFlatLoader(),
     );
     case 'yaml': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('yaml'),
       createYamlLoader(),
       createFlatLoader(),
     );
     case 'yaml-root-key': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('yaml'),
       createYamlLoader(),
-      createRootKeyLoader(),
+      createRootKeyLoader(true),
       createFlatLoader(),
     );
     case 'flutter': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
+      createPrettierLoader('json'),
       createJsonLoader(),
       createFlutterLoader(),
       createFlatLoader(),

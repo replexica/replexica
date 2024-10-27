@@ -43,7 +43,7 @@ export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, an
 export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
   const state = {
     defaultLocale: undefined as string | undefined,
-    rawData: undefined as I | undefined,
+    rawData: undefined as I | undefined | null,
   };
   return {
     setDefaultLocale(locale) {
@@ -59,7 +59,7 @@ export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoade
         throw new Error('The first pull must be for the default locale');
       }
       if (locale === state.defaultLocale) {
-        state.rawData = rawData;
+        state.rawData = rawData || null;
       }
 
       return lDefinition.pull(locale, rawData);

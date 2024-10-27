@@ -57,7 +57,7 @@ export default function createAndroidLoader(): ILoader<string, Record<string, an
       }
     },
     async push(locale, payload) {
-      const builder = new Builder();
+      const builder = new Builder({headless: true});
       const xmlObj: AndroidResources = { resources: {} };
 
       for (const [key, value] of Object.entries(payload)) {

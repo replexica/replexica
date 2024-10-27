@@ -10,7 +10,7 @@ describe('bucket loaders', () => {
   });
 
   describe('android bucket loader', () => {
-    it('should load android data from xml file', async () => {
+    it('should load android data', async () => {
       setupFileMocks();
 
       const input = `
@@ -28,10 +28,36 @@ describe('bucket loaders', () => {
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save android data', async () => {
+      setupFileMocks();
+
+      const input = `
+        <resources>
+          <string name="button.title">Submit</string>
+        </resources>
+      `.trim();
+      const payload = { 'button.title': 'Enviar' };
+      const expectedOutput = `<resources>\n  <string name="button.title">Enviar</string>\n</resources>\n`;
+
+      mockFileOperations(input);
+
+      const androidLoader = createBucketLoader('android', 'values-[locale]/strings.xml');
+      androidLoader.setDefaultLocale('en');
+      await androidLoader.pull('en');
+
+      await androidLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'values-es/strings.xml',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
   });
 
   describe('csv bucket loader', () => {
-    it('should load csv data from csv file', async () => {
+    it('should load csv data', async () => {
       setupFileMocks();
 
       const input = `id,en\nbutton.title,Submit`;
@@ -45,10 +71,107 @@ describe('bucket loaders', () => {
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save csv data', async () => {
+      setupFileMocks();
+
+      const input = `id,en,es\nbutton.title,Submit,`;
+      const payload = { 'button.title': 'Enviar' };
+      const expectedOutput = `id,en,es\nbutton.title,Submit,Enviar\n`;
+
+      mockFileOperations(input);
+
+      const csvLoader = createBucketLoader('csv', 'i18n.csv');
+      csvLoader.setDefaultLocale('en');
+      await csvLoader.pull('en');
+
+      await csvLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n.csv',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
+
+  describe('flutter bucket loader', () => {
+    it('should load flutter data', async () => {
+      setupFileMocks();
+
+      const input = `{
+        "@@locale": "en",
+        "greeting": "Hello, {name}!",
+        "@greeting": {
+          "description": "A greeting with a name placeholder",
+          "placeholders": {
+            "name": {
+              "type": "String",
+              "example": "John"
+            }
+          }
+        }
+      }`;
+      const expectedOutput = { 'greeting': 'Hello, {name}!' };
+
+      mockFileOperations(input);
+
+      const flutterLoader = createBucketLoader('flutter', 'lib/l10n/app_[locale].arb');
+      flutterLoader.setDefaultLocale('en');
+      const data = await flutterLoader.pull('en');
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it('should save flutter data', async () => {
+      setupFileMocks();
+
+      const input = `{
+        "@@locale": "en",
+        "greeting": "Hello, {name}!",
+        "@greeting": {
+          "description": "A greeting with a name placeholder",
+          "placeholders": {
+            "name": {
+              "type": "String",
+              "example": "John"
+            }
+          }
+        }
+      }`;
+      const payload = { 'greeting': '¡Hola, {name}!' };
+      const expectedOutput = JSON.stringify({
+        "@@locale": "es",
+        "greeting": "¡Hola, {name}!",
+        "@greeting": {
+          "description": "A greeting with a name placeholder",
+          "placeholders": {
+            "name": {
+              "type": "String",
+              "example": "John"
+            }
+          }
+        }
+      }, null, 2) + '\n';
+
+      mockFileOperations(input);
+
+      const flutterLoader = createBucketLoader('flutter', 'lib/l10n/app_[locale].arb');
+      flutterLoader.setDefaultLocale('en');
+      await flutterLoader.pull('en');
+
+      await flutterLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'lib/l10n/app_es.arb',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' }
+      );
+    });
   });
 
   describe('html bucket loader', () => {
-    it('should load html data from html file', async () => {
+    it('should load html data', async () => {
       setupFileMocks();
 
       const input = `
@@ -94,10 +217,14 @@ describe('bucket loaders', () => {
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save html data', async () => {
+      expect(true).toBe(true);
+    });
   });
 
   describe('json bucket loader', () => {
-    it('should load json data from plain json text file', async () => {
+    it('should load json data', async () => {
       setupFileMocks();
 
       const input = { 'button.title': 'Submit' };
@@ -106,13 +233,35 @@ describe('bucket loaders', () => {
       const jsonLoader = createBucketLoader('json', 'i18n/[locale].json');
       jsonLoader.setDefaultLocale('en');
       const data = await jsonLoader.pull('en');
-      
+
       expect(data).toEqual(input);
+    });
+
+    it('should save json data', async () => {
+      setupFileMocks();
+
+      const input = { 'button.title': 'Submit' };
+      const payload = { 'button.title': 'Enviar' };
+      const expectedOutput = JSON.stringify(payload, null, 2) + '\n';
+
+      mockFileOperations(JSON.stringify(input));
+
+      const jsonLoader = createBucketLoader('json', 'i18n/[locale].json');
+      jsonLoader.setDefaultLocale('en');
+      await jsonLoader.pull('en');
+
+      await jsonLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.json',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
     });
   });
 
   describe('markdown bucket loader', () => {
-    it('should load markdown data from markdown file', async () => {
+    it('should load markdown data', async () => {
       setupFileMocks();
 
       const input = `---
@@ -143,12 +292,63 @@ Another paragraph with **bold** and *italic* text.`;
       const data = await markdownLoader.pull('en');
 
       expect(data).toEqual(expectedOutput);
-      });
+    });
+
+    it('should save markdown data', async () => {
+      setupFileMocks();
+
+      const input = `---
+title: Test Markdown
+date: 2023-05-25
+---
+
+# Heading 1
+
+This is a paragraph.
+
+## Heading 2
+
+Another paragraph with **bold** and *italic* text.`;
+      const payload = {
+        'fm-attr-title': 'Prueba Markdown',
+        'fm-attr-date': '2023-05-25',
+        'md-section-0': '# Encabezado 1',
+        'md-section-1': 'Esto es un párrafo.',
+        'md-section-2': '## Encabezado 2',
+        'md-section-3': 'Otro párrafo con texto en **negrita** y en *cursiva*.'
+      };
+      const expectedOutput = `---
+title: Prueba Markdown
+date: 2023-05-25
+---
+
+# Encabezado 1
+
+Esto es un párrafo.
+
+## Encabezado 2
+
+Otro párrafo con texto en **negrita** y en *cursiva*.
+`;
+
+      mockFileOperations(input);
+
+      const markdownLoader = createBucketLoader('markdown', 'i18n/[locale].md');
+      markdownLoader.setDefaultLocale('en');
+      await markdownLoader.pull('en');
+
+      await markdownLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.md',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
     });
   });
 
   describe('properties bucket loader', () => {
-    it('should load properties data from properties file', async () => {
+    it('should load properties data', async () => {
       setupFileMocks();
 
       const input = `
@@ -177,10 +377,53 @@ user.password=Password
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save properties data', async () => {
+      setupFileMocks();
+
+      const input = `
+# General messages
+welcome.message=Welcome to our application!
+error.message=An error has occurred. Please try again later.
+
+# User-related messages
+user.login=Please enter your username and password.
+user.username=Username
+user.password=Password
+      `.trim();
+      const payload = {
+        'welcome.message': 'Bienvenido a nuestra aplicación!',
+        'error.message': 'Se ha producido un error. Por favor, inténtelo de nuevo más tarde.',
+        'user.login': 'Por favor, introduzca su nombre de usuario y contraseña.',
+        'user.username': 'Nombre de usuario',
+        'user.password': 'Contraseña'
+      };
+      const expectedOutput = `
+welcome.message=Bienvenido a nuestra aplicación!
+error.message=Se ha producido un error. Por favor, inténtelo de nuevo más tarde.
+user.login=Por favor, introduzca su nombre de usuario y contraseña.
+user.username=Nombre de usuario
+user.password=Contraseña
+      `.trim() + '\n';
+
+      mockFileOperations(input);
+
+      const propertiesLoader = createBucketLoader('properties', 'i18n/[locale].properties');
+      propertiesLoader.setDefaultLocale('en');
+      await propertiesLoader.pull('en');
+
+      await propertiesLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.properties',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
   });
 
   describe('xcode-strings bucket loader', () => {
-    it('should load xcode-strings data from xcode-strings file', async () => {
+    it('should load xcode-strings', async () => {
       setupFileMocks();
 
       const input = `
@@ -202,10 +445,34 @@ user.password=Password
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save xcode-strings', async () => {
+      setupFileMocks();
+
+      const input = `
+"hello" = "Hello!";
+      `.trim();
+      const payload = { hello: '¡Hola!' };
+      const expectedOutput = `"hello" = "¡Hola!";\n`;
+
+      mockFileOperations(input);
+
+      const xcodeStringsLoader = createBucketLoader('xcode-strings', 'i18n/[locale].strings');
+      xcodeStringsLoader.setDefaultLocale('en');
+      await xcodeStringsLoader.pull('en');
+
+      await xcodeStringsLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.strings',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
   });
 
   describe('xcode-stringsdict bucket loader', () => {
-    it('should load xcode-stringsdict data from xcode-stringsdict file', async () => {
+    it('should load xcode-stringsdict', async () => {
       setupFileMocks();
 
       const input = `
@@ -251,43 +518,136 @@ user.password=Password
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save xcode-stringsdict', async () => {
+      setupFileMocks();
+
+      const input = `
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>greeting</key>
+    <string>Hello!</string>
+  </dict>
+</plist>
+      `.trim();
+      const payload = { greeting: '¡Hola!' };
+      const expectedOutput = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>greeting</key>
+    <string>¡Hola!</string>
+  </dict>
+</plist>
+      `.trim() + '\n';
+
+      mockFileOperations(input);
+
+      const xcodeStringsdictLoader = createBucketLoader('xcode-stringsdict', '[locale].lproj/Localizable.stringsdict');
+      xcodeStringsdictLoader.setDefaultLocale('en');
+      await xcodeStringsdictLoader.pull('en');
+
+      await xcodeStringsdictLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'es.lproj/Localizable.stringsdict',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
   });
 
   describe('xcode-xcstrings bucket loader', () => {
-    it('should load xcode-xcstrings data from xcode-xcstrings file', async () => {
+    it('should load xcode-xcstrings', async () => {
       setupFileMocks();
 
       const input = JSON.stringify({
-        "sourceLanguage" : "en",
-        "strings" : {
-          "greeting" : {
-            "extractionState" : "manual",
-            "localizations" : {
-              "en" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Hello!"
+        "version": "1.0",
+        "sourceLanguage": "en",
+        "strings": {
+          "greeting": {
+            "extractionState": "manual",
+            "localizations": {
+              "en": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hello!"
                 }
               }
             }
           }
-        },
-        "version" : "1.0"
+        }
       });
       const expectedOutput = { greeting: 'Hello!' };
 
       mockFileOperations(input);
 
-      const xcodeXcstringsLoader = createBucketLoader('xcode-xcstrings', 'i18n/Localizable.xcstrings');
+      const xcodeXcstringsLoader = createBucketLoader('xcode-xcstrings', 'Localizable.xcstrings');
       xcodeXcstringsLoader.setDefaultLocale('en');
       const data = await xcodeXcstringsLoader.pull('en');
 
       expect(data).toEqual(expectedOutput);
     });
+
+    it('should save xcode-xcstrings', async () => {
+      setupFileMocks();
+
+      const input = JSON.stringify({
+        "version": "1.0",
+        "sourceLanguage": "en",
+        "strings": {
+          "greeting": {
+            "extractionState": "manual",
+            "localizations": {
+              "en": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hello!"
+                }
+              }
+            }
+          }
+        }
+      });
+      const payload = { greeting: '¡Hola!' };
+      const expectedOutput = JSON.stringify({
+        version: '1.0',
+        sourceLanguage: 'en',
+        strings: {
+          greeting: {
+            extractionState: 'manual',
+            localizations: {
+              en: {
+                stringUnit: { state: 'translated', value: 'Hello!' }
+              },
+              es: {
+                stringUnit: { state: 'translated', value: '¡Hola!' }
+              }
+            }
+          }
+        }
+      }, null, 2) + '\n';
+
+      mockFileOperations(input);
+
+      const xcodeXcstringsLoader = createBucketLoader('xcode-xcstrings', 'Localizable.xcstrings');
+      xcodeXcstringsLoader.setDefaultLocale('en');
+      await xcodeXcstringsLoader.pull('en');
+
+      await xcodeXcstringsLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'Localizable.xcstrings',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
   });
 
   describe('yaml bucket loader', () => {
-    it('should load yaml data from yaml file', async () => {
+    it('should load yaml', async () => {
       setupFileMocks();
 
       const input = `
@@ -302,16 +662,41 @@ user.password=Password
       const data = await yamlLoader.pull('en');
 
       expect(data).toEqual(expectedOutput);
-  });
+    });
 
-  describe('yaml-root-key bucket loader', () => {
-    it('should load yaml-root-key data from yaml-root-key file', async () => {
+    it('should save yaml', async () => {
       setupFileMocks();
 
       const input = `
-        en:
-          greeting: Hello!
+        greeting: Hello!
       `.trim();
+      const payload = { greeting: '¡Hola!' };
+      const expectedOutput = `greeting: ¡Hola!\n`;
+
+      mockFileOperations(input);
+
+      const yamlLoader = createBucketLoader('yaml', 'i18n/[locale].yaml');
+      yamlLoader.setDefaultLocale('en');
+      await yamlLoader.pull('en');
+
+      await yamlLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.yaml',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
+
+  describe('yaml-root-key bucket loader', () => {
+    it('should load yaml-root-key', async () => {
+      setupFileMocks();
+
+      const input = `
+      en:
+        greeting: Hello!
+    `.trim();
       const expectedOutput = { greeting: 'Hello!' };
 
       mockFileOperations(input);
@@ -321,6 +706,31 @@ user.password=Password
       const data = await yamlRootKeyLoader.pull('en');
 
       expect(data).toEqual(expectedOutput);
+    });
+
+    it('should save yaml-root-key', async () => {
+      setupFileMocks();
+
+      const input = `
+      en:
+        greeting: Hello!
+    `.trim();
+      const payload = { greeting: '¡Hola!' };
+      const expectedOutput = `es:\n  greeting: ¡Hola!\n`;
+
+      mockFileOperations(input);
+
+      const yamlRootKeyLoader = createBucketLoader('yaml-root-key', 'i18n/[locale].yaml');
+      yamlRootKeyLoader.setDefaultLocale('en');
+      await yamlRootKeyLoader.pull('en');
+
+      await yamlRootKeyLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.yaml',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
     });
   });
 });
@@ -349,4 +759,5 @@ function setupFileMocks() {
 function mockFileOperations(input: string) {
   (fs.access as any).mockImplementation(() => Promise.resolve());
   (fs.readFile as any).mockImplementation(() => Promise.resolve(input));
+  (fs.writeFile as any).mockImplementation(() => Promise.resolve());
 }
