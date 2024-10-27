@@ -254,7 +254,13 @@ describe('bucket loaders', () => {
     texto simple sin etiqueta html
     <h1>¡Hola, mundo!</h1>
     <p>
-      Este es un párrafo con un <a href="https://example.com">enlace</a> y <b>texto en negrita y <i>texto en cursiva</i></b>
+      Este es un párrafo con un
+      <a href="https://example.com">enlace</a>
+      y
+      <b>
+        texto en negrita y
+        <i>texto en cursiva</i>
+      </b>
     </p>
   </body>
 </html>
