@@ -3,11 +3,19 @@ import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 import { ReplexicaCLIError } from '../utils/errors';
 
+const emptyData = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">',
+  '<plist version="1.0">',
+  '<dict/>',
+  '</plist>'
+].join('\n');
+
 export default function createXcodeStringsdictLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     async pull(locale, rawData) {
       try {
-        const parsed = plist.parse(rawData);
+        const parsed = plist.parse(rawData || emptyData);
         if (typeof parsed !== 'object' || parsed === null) {
           throw new ReplexicaCLIError({
             message: 'Invalid .stringsdict format',

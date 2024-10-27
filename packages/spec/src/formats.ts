@@ -7,12 +7,12 @@ export const bucketTypes = [
   'html',
   'json',
   'markdown',
+  'xcode-strings',
   
   'compiler',
   'yaml',
   'yaml-root-key',
   'xcode-xcstrings',
-  'xcode-strings',
   'xcode-stringsdict',
   'properties',
 ] as const;
