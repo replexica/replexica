@@ -19,6 +19,12 @@ export default function createPrettierLoader(options: PrettierLoaderOptions): IL
       const result = prettier.format(data, { 
         ...prettierConfig || { printWidth: 2500 },
         parser: options.parser,
+        // For HTML parser, preserve comments and quotes
+        ...(options.parser === 'html' ? {
+          htmlWhitespaceSensitivity: 'ignore',
+          singleQuote: false,
+          embeddedLanguageFormatting: 'off',
+        } : {})
       });
 
       return result;
