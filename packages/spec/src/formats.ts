@@ -8,13 +8,13 @@ export const bucketTypes = [
   'json',
   'markdown',
   'xcode-strings',
-  
-  'compiler',
+  'xcode-stringsdict',
+  'xcode-xcstrings',
   'yaml',
   'yaml-root-key',
-  'xcode-xcstrings',
-  'xcode-stringsdict',
   'properties',
+
+  'compiler',
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

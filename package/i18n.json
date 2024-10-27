@@ -1,5 +1,5 @@
 {
-  "version": 1.1,
+  "version": 1.2,
   "locale": {
     "source": "en",
     "targets": [
@@ -9,7 +9,62 @@
   "buckets": {
     "android": {
       "include": [
-        "demo/android/[locale].xml"
+        "demo/android/[locale]/*.xml"
+      ]
+    },
+    "csv": {
+      "include": [
+        "demo/csv/file.csv"
+      ]
+    },
+    "flutter": {
+      "include": [
+        "demo/flutter/[locale].arb"
+      ]
+    },
+    "html": {
+      "include": [
+        "demo/html/[locale].html"
+      ]
+    },
+    "json": {
+      "include": [
+        "demo/json/[locale].json"
+      ]
+    },
+    "markdown": {
+      "include": [
+        "demo/markdown/[locale]/*.md"
+      ]
+    },
+    "properties": {
+      "include": [
+        "demo/properties/[locale].properties"
+      ]
+    },
+    "xcode-strings": {
+      "include": [
+        "demo/xcode-strings/[locale].lproj/Localizable.strings"
+      ]
+    },
+    "xcode-stringsdict": {
+      "include": [
+        "demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"
+      ]
+    },
+    "xcode-xcstrings": {
+      "include": [
+        "demo/xcode-xcstrings/Localizable.xcstrings"
+      ]
+    },
+    "yaml": {
+      "include": [
+        "demo/yaml/[locale].yml"
+      ]
+    },
+    "yaml-root-key": {
+      "include": [
+        "demo/yaml-root-key/[locale].yml"
       ]
     }
   }
