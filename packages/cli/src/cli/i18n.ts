@@ -321,13 +321,13 @@ export default new Command()
 
     // Ensure the lockfile exists
     ora.start('Ensuring i18n.lock exists...');
-    if(!lockfileHelper.isLockfileExists()) {
+    if (!lockfileHelper.isLockfileExists()) {
       ora.start('Creating i18n.lock...');
       for (const bucket of buckets) {
         for (const pathPattern of bucket.pathPatterns) {
           const bucketLoader = createBucketLoader(bucket.type, pathPattern);
           bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
-  
+
           const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
           lockfileHelper.registerSourceData(pathPattern, sourceData);
         }
@@ -340,20 +340,23 @@ export default new Command()
     // Process each bucket
     for (const bucket of buckets) {
       for (const pathPattern of bucket.pathPatterns) {
+        console.log();
         ora.info(`Processing [${bucket.type}] ${pathPattern}`);
 
         const bucketLoader = createBucketLoader(bucket.type, pathPattern);
         bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
         const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-        const updatedSourceData = lockfileHelper.extractUpdatedData(pathPattern, sourceData);
+        const passthroughSourceData = calculatePassthroughData(sourceData);
+        const updatedSourceData = flags.force ? sourceData :lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
         for (const targetLocale of targetLocales) {
-          ora.start(`[${i18nConfig!.locale.source} -> ${targetLocale}]`);
+          ora.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization in progress...`);
 
           const targetData = await bucketLoader.pull(targetLocale);
 
-          const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData, });
+          const deltaData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
+          const processableData = _.omit(deltaData, Object.keys(passthroughSourceData));
 
           const localizationEngine = createLocalizationEngineConnection({
             apiKey: settings.auth.apiKey,
@@ -366,18 +369,20 @@ export default new Command()
             targetLocale,
             targetData,
           }, (progress) => {
-            ora.text = `(${progress}%) AI localization in progress...`;
+            ora.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
           });
 
-          await bucketLoader.push(targetLocale, processedTargetData);
+          const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+          await bucketLoader.push(targetLocale, finalTargetData);
 
-          ora.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}]`);
+          ora.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
         }
 
         lockfileHelper.registerSourceData(pathPattern, sourceData);
       }
     }
 
+    console.log();
     ora.succeed('Done');
   });
 
@@ -402,7 +407,7 @@ function createLockfileHelper() {
 
       const sectionKey = MD5(pathPattern);
       const currentChecksums = _.mapValues(sourceData, (value) => MD5(value));
-      
+
       const savedChecksums = lockfile.checksums[sectionKey] || {};
       const updatedData = _.pickBy(sourceData, (value, key) => savedChecksums[key] !== currentChecksums[key]);
 
@@ -444,10 +449,6 @@ const LockfileSchema = Z.object({
 
 // Private
 
-function _getLockfilePath() {
-  return path.join(process.cwd(), 'i18n.lock');
-}
-
 function calculateDataDelta(args: {
   sourceData: Record<string, any>;
   updatedSourceData: Record<string, any>;
@@ -457,8 +458,17 @@ function calculateDataDelta(args: {
   const newKeys = _.difference(Object.keys(args.sourceData), Object.keys(args.targetData));
   // Calculate updated keys
   const updatedKeys = Object.keys(args.updatedSourceData);
-  // Calculate passthrough keys, that should be left unchanged
-  const passthroughKeys = Object.entries(args.sourceData)
+
+  // Calculate delta payload
+  const result = _.chain(args.sourceData)
+    .pickBy((value, key) => newKeys.includes(key) || updatedKeys.includes(key))
+    .value() as Record<string, any>;
+
+  return result;
+}
+
+function calculatePassthroughData(data: Record<string, any>) {
+  const passthroughKeys = Object.entries(data)
     .filter(([_, value]) => {
       const stringValue = String(value);
       return [
@@ -469,12 +479,7 @@ function calculateDataDelta(args: {
     })
     .map(([key, _]) => key);
 
-  // Calculate delta payload
-  const result = _.chain(args.sourceData)
-    .pickBy((value, key) => newKeys.includes(key) || updatedKeys.includes(key))
-    .omitBy((value, key) => passthroughKeys.includes(key))
-    .value() as Record<string, any>;
-
+  const result = _.pickBy(data, (_, key) => passthroughKeys.includes(key));
   return result;
 }
 
@@ -495,7 +500,9 @@ function createLocalizationEngineConnection(args: {
 
       targetLocale: string;
       targetData: Record<string, any>;
-    }, onProgress: (progress: number) => void) => {
+    },
+      onProgress: (progress: number) => void,
+    ) => {
       const result = await replexicaEngine.localizeObject(
         args.processableData,
         { sourceLocale: args.sourceLocale, targetLocale: args.targetLocale },
@@ -624,7 +631,7 @@ function expandPlaceholderedGlob(_pathPattern: string, sourceLocale: string): st
         placeholderedPathChunk.substring(0, localePlaceholderIndex)
         + '[locale]'
         + placeholderedPathChunk.substring(localePlaceholderIndex + sourceLocale.length)
-      ;
+        ;
       sourcePathChunks[localeSegmentIndex] = placeholderedSegment;
     }
     const placeholderedPath = sourcePathChunks.join(path.sep);
