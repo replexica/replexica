@@ -10,7 +10,6 @@ import Negotiator from 'negotiator'
 function getLocale(request: any) {
   const headers = request.headers;
   let languages = new Negotiator({ headers }).languages()
-  console.log({languages})
   
   // If languages is empty or contains only '*', use the default locale
   if (languages.length === 0 || (languages.length === 1 && languages[0] === '*')) {

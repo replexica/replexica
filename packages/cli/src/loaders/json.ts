@@ -12,7 +12,6 @@ export default function createJsonLoader(): ILoader<string, Record<string, any>>
       } catch (error) {
         result = JSON.parse(jsonrepair(jsonString));
       }
-      console.log('json:result', result);
       return result;
     },
     push: async (locale, data) => {

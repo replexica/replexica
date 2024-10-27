@@ -280,6 +280,7 @@ async function loadFlags(options: any) {
 */
 
 import { bucketTypeSchema, I18nConfig, localeCodeSchema } from '@replexica/spec';
+import { ReplexicaEngine } from '@replexica/sdk';
 import { Command } from 'commander';
 import Z from 'zod';
 import _ from 'lodash';
@@ -359,9 +360,13 @@ export default new Command()
             apiUrl: settings.auth.apiUrl,
           });
           const processedTargetData = await localizationEngine.process({
+            sourceLocale: i18nConfig!.locale.source,
             sourceData,
-            targetData,
             processableData,
+            targetLocale,
+            targetData,
+          }, (progress) => {
+            ora.text = `(${progress}%) AI localization in progress...`;
           });
 
           await bucketLoader.push(targetLocale, processedTargetData);
@@ -477,14 +482,27 @@ function createLocalizationEngineConnection(args: {
   apiKey: string;
   apiUrl: string;
 }) {
+  const replexicaEngine = new ReplexicaEngine({
+    apiKey: args.apiKey,
+    apiUrl: args.apiUrl,
+  });
+
   return {
     process: async (args: {
+      sourceLocale: string;
       sourceData: Record<string, any>;
-      targetData: Record<string, any>;
       processableData: Record<string, any>;
-    }) => {
-      // TODO
-      return args.processableData;
+
+      targetLocale: string;
+      targetData: Record<string, any>;
+    }, onProgress: (progress: number) => void) => {
+      const result = await replexicaEngine.localizeObject(
+        args.processableData,
+        { sourceLocale: args.sourceLocale, targetLocale: args.targetLocale },
+        onProgress
+      );
+
+      return result;
     },
   };
 }

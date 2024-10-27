@@ -14,7 +14,6 @@ export default function createTextFileLoader(pathPattern: string): ILoader<void,
       if (!exists) { return ''; }
       
       const result = await fs.readFile(finalPath, 'utf-8');
-      console.log('text.file:result', result);
       return result;
     },
     push: async (locale, data) => {
