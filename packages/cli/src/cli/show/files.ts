@@ -4,8 +4,12 @@ import Ora from 'ora';
 import Z from 'zod';
 import { getConfig } from "../../workers/config";
 import { bucketTypeSchema } from "@replexica/spec";
-import { expandPlaceholderedGlob } from "../../workers/bucket";
+// import { expandPlaceholderedGlob } from "../../workers/bucket";
 import { ReplexicaCLIError } from "../../utils/errors";
+
+export function expandPlaceholderedGlob(placeholderedGlob: string, locale: string) {
+  return placeholderedGlob.replace(/\[locale\]/g, locale);
+}
 
 export default new Command()
   .command("files")
