@@ -9,7 +9,7 @@
   "buckets": {
     "android": {
       "include": [
-        "demo/android/[locale]/*.xml"
+        "demo/android/[locale].xml"
       ]
     },
     "csv": {
@@ -35,6 +35,9 @@
     "markdown": {
       "include": [
         "demo/markdown/[locale]/*.md"
+      ],
+      "exclude": [
+        "demo/markdown/[locale]/ignored.md"
       ]
     },
     "properties": {
