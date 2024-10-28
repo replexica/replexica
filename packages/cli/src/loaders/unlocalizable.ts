@@ -17,8 +17,6 @@ export default function createUnlocalizableLoader(): ILoader<Record<string, any>
             ].some(fn => fn(value));
           })
           .map(([key, _]) => key);
-
-        console.log('passthroughKeys', passthroughKeys);
       
         const result = _.omitBy(rawData, (_, key) => passthroughKeys.includes(key));
         return result;
