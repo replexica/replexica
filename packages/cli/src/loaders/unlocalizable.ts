@@ -10,14 +10,15 @@ export default function createUnlocalizableLoader(): ILoader<Record<string, any>
     async pull(locale, rawData) {
       const passthroughKeys = Object.entries(rawData)
           .filter(([_, value]) => {
-            const stringValue = String(value);
             return [
               (v: string) => isDate(v),
               (v: string) => isNumber(v),
               (v: string) => isBoolean(v),
-            ].some(fn => fn(stringValue));
+            ].some(fn => fn(value));
           })
           .map(([key, _]) => key);
+
+        console.log('passthroughKeys', passthroughKeys);
       
         const result = _.omitBy(rawData, (_, key) => passthroughKeys.includes(key));
         return result;
