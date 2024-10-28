@@ -15,7 +15,6 @@ export function createLockfileHelper() {
       const lockfile = _loadLockfile();
       
       const sectionKey = MD5(pathPattern);
-      console.log(sectionKey, pathPattern);
       const sectionChecksums = _.mapValues(sourceData, (value) => MD5(value));
 
       lockfile.checksums[sectionKey] = sectionChecksums;

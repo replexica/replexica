@@ -5,7 +5,7 @@ import { createLoader } from "./_utils";
 
 export default function createTextFileLoader(pathPattern: string): ILoader<void, string> {
   return createLoader({
-    pull: async (locale) => {
+    async pull(locale) {
       const draftPath = pathPattern.replace('[locale]', locale);
       const finalPath = path.resolve(draftPath);
       
@@ -16,7 +16,7 @@ export default function createTextFileLoader(pathPattern: string): ILoader<void,
       const result = await fs.readFile(finalPath, 'utf-8');
       return result;
     },
-    push: async (locale, data) => {
+    async push(locale, data) {
       const draftPath = pathPattern.replace('[locale]', locale);
       const finalPath = path.resolve(draftPath);
       

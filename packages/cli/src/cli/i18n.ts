@@ -100,7 +100,7 @@ export default new Command()
 
           for (const targetLocale of targetLocales) {
             bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization in progress...`);
-
+            
             const targetData = await bucketLoader.pull(targetLocale);
 
             const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });

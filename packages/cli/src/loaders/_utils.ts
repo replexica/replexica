@@ -10,15 +10,15 @@ export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, an
     },
     pull: async (locale, input) => {
       let result: any = input;
-      for (const loader of loaders) {
-        result = await loader.pull(locale, result);
+      for (let i = 0; i < loaders.length; i++) {
+        result = await loaders[i].pull(locale, result);
       }
       return result;
     },
     push: async (locale, data) => {
       let result: any = data;
-      for (const loader of loaders.reverse()) {
-        result = await loader.push(locale, result);
+      for (let i = loaders.length - 1; i >= 0; i--) {
+        result = await loaders[i].push(locale, result);
       }
       return result;
     },
