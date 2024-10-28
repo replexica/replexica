@@ -1,5 +1,18 @@
 # replexica
 
+## 0.50.0
+
+### Minor Changes
+
+- [#268](https://github.com/replexica/replexica/pull/268) [`5e282d7`](https://github.com/replexica/replexica/commit/5e282d7ffa5ca9494aa7046a090bb7c327085a86) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - composable loaders
+
+### Patch Changes
+
+- Updated dependencies [[`5e282d7`](https://github.com/replexica/replexica/commit/5e282d7ffa5ca9494aa7046a090bb7c327085a86)]:
+  - @replexica/cli@0.50.0
+  - @replexica/compiler@0.5.2
+  - @replexica/react@0.3.9
+
 ## 0.49.1
 
 ### Patch Changes
