@@ -8,8 +8,8 @@ export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, an
       }
       return this;
     },
-    pull: async (locale, rawData) => {
-      let result: any = rawData;
+    pull: async (locale, input) => {
+      let result: any = input;
       for (const loader of loaders) {
         result = await loader.pull(locale, result);
       }
@@ -43,7 +43,7 @@ export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, an
 export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
   const state = {
     defaultLocale: undefined as string | undefined,
-    rawData: undefined as I | undefined | null,
+    originalInput: undefined as I | undefined | null,
   };
   return {
     setDefaultLocale(locale) {
@@ -51,28 +51,28 @@ export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoade
       state.defaultLocale = locale;
       return this;
     },
-    async pull(locale, rawData) {
+    async pull(locale, input) {
       if (!state.defaultLocale) {
         throw new Error('Default locale not set');
       }
-      if (state.rawData === undefined && locale !== state.defaultLocale) {
+      if (state.originalInput === undefined && locale !== state.defaultLocale) {
         throw new Error('The first pull must be for the default locale');
       }
       if (locale === state.defaultLocale) {
-        state.rawData = rawData || null;
+        state.originalInput = input || null;
       }
 
-      return lDefinition.pull(locale, rawData);
+      return lDefinition.pull(locale, input);
     },
     async push(locale, data) {
       if (!state.defaultLocale) {
         throw new Error('Default locale not set');
       }
-      if (state.rawData === undefined) {
+      if (state.originalInput === undefined) {
         throw new Error('Cannot push data without pulling first');
       }
 
-      return lDefinition.push(locale, data, state.rawData);
+      return lDefinition.push(locale, data, state.originalInput);
     },
     async onStart() {
       await lDefinition.onStart?.();

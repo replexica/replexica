@@ -5,12 +5,12 @@ import { createLoader } from './_utils';
 
 export default function createAndroidLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
+    async pull(locale, input) {
       try {
         const result: Record<string, any> = {};
-        const parsed: AndroidResources = !rawData
+        const parsed: AndroidResources = !input
         ? { resources: {} }
-        : await parseStringPromise(rawData, { explicitArray: true });
+        : await parseStringPromise(input, { explicitArray: true });
 
         if (!parsed || !parsed.resources) {
           console.warn('No resources found in the Android resource file');

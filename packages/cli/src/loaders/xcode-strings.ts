@@ -3,8 +3,8 @@ import { createLoader } from "./_utils";
 
 export default function createXcodeStringsLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
-      const lines = rawData.split('\n');
+    async pull(locale, input) {
+      const lines = input.split('\n');
       const result: Record<string, string> = {};
 
       for (const line of lines) {

@@ -4,8 +4,8 @@ import { createLoader } from './_utils';
 
 export default function createYamlLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
-      return YAML.parse(rawData) || {};
+    async pull(locale, input) {
+      return YAML.parse(input) || {};
     },
     async push(locale, payload) {
       return YAML.stringify(payload, {

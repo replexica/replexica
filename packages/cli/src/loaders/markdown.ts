@@ -14,8 +14,8 @@ const yamlEngine = {
 
 export default function createMarkdownLoader(): ILoader<string, Record<string, string>> {
   return createLoader({
-    async pull(locale, rawData) {
-      const { data: frontmatter, content } = matter(rawData, {
+    async pull(locale, input) {
+      const { data: frontmatter, content } = matter(input, {
         engines: {
           yaml: yamlEngine,
         },

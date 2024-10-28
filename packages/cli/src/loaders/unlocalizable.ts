@@ -7,8 +7,8 @@ const { isDate, isNumber, isBoolean } = _;
 
 export default function createUnlocalizableLoader(): ILoader<Record<string, any>, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
-      const passthroughKeys = Object.entries(rawData)
+    async pull(locale, input) {
+      const passthroughKeys = Object.entries(input)
           .filter(([_, value]) => {
             return [
               (v: string) => isDate(v),
@@ -18,11 +18,11 @@ export default function createUnlocalizableLoader(): ILoader<Record<string, any>
           })
           .map(([key, _]) => key);
       
-        const result = _.omitBy(rawData, (_, key) => passthroughKeys.includes(key));
+        const result = _.omitBy(input, (_, key) => passthroughKeys.includes(key));
         return result;
     },
-    async push(locale, data, rawData) {
-      const result = _.merge({}, rawData, data);
+    async push(locale, data, originalInput) {
+      const result = _.merge({}, originalInput, data);
       return result;
     }
   });

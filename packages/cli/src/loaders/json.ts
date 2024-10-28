@@ -4,8 +4,8 @@ import { createLoader } from "./_utils";
 
 export default function createJsonLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
-    pull: async (locale, rawData) => {
-      const jsonString = rawData || '{}';
+    pull: async (locale, input) => {
+      const jsonString = input || '{}';
       let result: Record<string, any>;
       try {
         result = JSON.parse(jsonString);

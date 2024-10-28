@@ -4,8 +4,8 @@ import { createLoader } from "./_utils";
 
 export default function createFlatLoader(): ILoader<Record<string, any>, Record<string, string>> {
   return createLoader({
-    pull: async (locale, rawData) => {
-      return flatten(rawData || {}, {
+    pull: async (locale, input) => {
+      return flatten(input || {}, {
         delimiter: '/',
         transformKey(key) {
           return encodeURIComponent(String(key));

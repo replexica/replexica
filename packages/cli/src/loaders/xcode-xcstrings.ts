@@ -4,10 +4,10 @@ import _ from 'lodash';
 
 export default function createXcodeXcstringsLoader(): ILoader<Record<string, any>, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
+    async pull(locale, input) {
       const resultData: Record<string, any> = {};
 
-      for (const [translationKey, _translationEntity] of Object.entries(rawData.strings)) {
+      for (const [translationKey, _translationEntity] of Object.entries(input.strings)) {
         const rootTranslationEntity = _translationEntity as any;
         const langTranslationEntity = rootTranslationEntity?.localizations?.[locale];
         if (langTranslationEntity) {
@@ -29,7 +29,7 @@ export default function createXcodeXcstringsLoader(): ILoader<Record<string, any
 
       return resultData;
     },
-    async push(locale, payload, rawData) {
+    async push(locale, payload, originalInput) {
       const langDataToMerge: any = {};
       langDataToMerge.strings = {};
 
@@ -71,7 +71,7 @@ export default function createXcodeXcstringsLoader(): ILoader<Record<string, any
         }
       }
 
-      const result = _.merge({}, rawData, langDataToMerge);
+      const result = _.merge({}, originalInput, langDataToMerge);
       return result;
     }
   })

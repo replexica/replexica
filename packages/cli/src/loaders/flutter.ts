@@ -4,16 +4,16 @@ import { createLoader } from "./_utils";
 
 export default function createFlutterLoader(): ILoader<Record<string, any>, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
+    async pull(locale, input) {
       // skip all metadata (keys starting with @)
       const result = _.pickBy(
-        rawData,
+        input,
         (value, key) => !key.startsWith('@'),
       );
       return result;
     },
-    async push(locale, data, rawData) {
-      const result = _.merge({}, rawData, { '@@locale': locale }, data);
+    async push(locale, data, originalInput) {
+      const result = _.merge({}, originalInput, { '@@locale': locale }, data);
       return result;
     }
   });

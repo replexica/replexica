@@ -13,9 +13,9 @@ const emptyData = [
 
 export default function createXcodeStringsdictLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
-    async pull(locale, rawData) {
+    async pull(locale, input) {
       try {
-        const parsed = plist.parse(rawData || emptyData);
+        const parsed = plist.parse(input || emptyData);
         if (typeof parsed !== 'object' || parsed === null) {
           throw new ReplexicaCLIError({
             message: 'Invalid .stringsdict format',

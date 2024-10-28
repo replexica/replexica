@@ -24,9 +24,9 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
   ];
 
   return createLoader({
-    async pull(locale, rawData) {
+    async pull(locale, input) {
       const result: Record<string, any> = {};
-      const dom = new JSDOM(rawData);
+      const dom = new JSDOM(input);
       const document = dom.window.document;
 
       const getPath = (node: Node, attribute?: string): string => {
@@ -104,9 +104,9 @@ export default function createHtmlLoader(): ILoader<string, Record<string, any>>
       return result;
     },
 
-    async push(locale, data, rawData) {
+    async push(locale, data, originalInput) {
       const dom = new JSDOM(
-        rawData ?? '<!DOCTYPE html><html><head></head><body></body></html>'
+        originalInput ?? '<!DOCTYPE html><html><head></head><body></body></html>'
       );
       const document = dom.window.document;
 
