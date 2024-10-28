@@ -398,6 +398,10 @@ export default new Command()
               bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
             });
 
+            if (flags.verbose) {
+              bucketOra.info(JSON.stringify(processedTargetData, null, 2));
+            }
+
             await bucketLoader.push(targetLocale, processedTargetData);
 
             bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
