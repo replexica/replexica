@@ -1,4 +1,4 @@
-import { ReplexicaCLIError } from "../utils/errors";
+import { ReplexicaCLIError } from "./errors";
 
 export type AuthenticatorParams = {
   apiUrl: string;

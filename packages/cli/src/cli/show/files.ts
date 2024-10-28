@@ -2,7 +2,7 @@ import { Command } from "commander";
 import _ from "lodash";
 import Ora from 'ora';
 import Z from 'zod';
-import { getConfig } from "../../workers/config";
+import { getConfig } from "../../utils/config";
 import { bucketTypeSchema } from "@replexica/spec";
 // import { expandPlaceholderedGlob } from "../../workers/bucket";
 import { ReplexicaCLIError } from "../../utils/errors";
