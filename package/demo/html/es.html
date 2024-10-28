@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Esta meta descripción necesita localización" />
+    <meta name="keywords" content="localización, i18n, ejemplo, demostración" />
+    <title>Bienvenido a la demostración de localización</title>
+  </head>
+  <body>
+    <!-- Text in attributes -->
+    <img src="logo.png" alt="Logo de la empresa" title="Hover to see this tooltip" />
+    <input type="text" placeholder="Introduce tu nombre" aria-label="Name input field" />
+
+    <!-- Plain text content -->
+    <h1>Bienvenido a nuestra página web</h1>
+    <p>Este es un párrafo simple que necesita ser traducido.</p>
+
+    <!-- Text with HTML entities -->
+    <p>Precio: 99,99 € — ¡Oferta especial!</p>
+
+    <!-- Text with variables -->
+    <div>¡Hola, {username}! Tienes {count} mensajes.</div>
+
+    <!-- Text in different contexts -->
+    <button type="button" aria-label="Close dialog">Cerrar</button>
+    <a href="/about" title="Aprende más sobre nosotros">Sobre nosotros</a>
+
+    <!-- Lists with text -->
+    <ul>
+      <li>El primer elemento necesita traducción</li>
+      <li>
+        Segundo elemento con
+        <strong>texto formateado</strong>
+      </li>
+      <li>
+        Tercer elemento con un
+        <a href="#">enlace dentro</a>
+      </li>
+    </ul>
+
+    <!-- Form elements -->
+    <form>
+      <label for="email">Dirección de correo electrónico:</label>
+      <input type="email" id="email" required="" />
+      <select aria-label="Choose your country">
+        <option value="">Por favor, selecciona</option>
+        <option value="us">Estados Unidos</option>
+        <option value="uk">Reino Unido</option>
+      </select>
+      <button type="submit">Enviar mensaje</button>
+    </form>
+
+    <!-- Text with special characters -->
+    <p>Los caracteres especiales: "comillas" y 'apóstrofes' necesitan atención!</p>
+
+    <!-- Dynamic content -->
+    <div id="notification" role="alert" aria-live="polite">¡Has iniciado sesión correctamente!</div>
+
+    <!-- Text in JavaScript -->
+    <script>
+      const messages = {
+          welcome: 'Welcome back!',
+          error: 'Something went wrong.',
+          confirm: 'Are you sure you want to continue?'
+      };
+    </script>
+
+    <style>
+      .test {
+        content: 'This does not need translation';
+      }
+    </style>
+
+    <!-- Footer with multiple text elements -->
+    <footer>
+      <p>© 2024 Nombre de la empresa. Todos los derechos reservados.</p>
+      <small>
+        Texto legal que necesita traducción |
+        <a href="/privacy">Política de privacidad</a>
+      </small>
+    </footer>
+  </body>
+</html>

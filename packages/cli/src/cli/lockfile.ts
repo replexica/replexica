@@ -1,10 +1,11 @@
 import { Command } from 'commander';
 import Z from 'zod';
 import Ora from 'ora';
-import { createLockfileProcessor } from '../workers/lockfile';
+import { createLockfileHelper } from '../utils/lockfile';
 import { bucketTypeSchema } from '@replexica/spec';
-import { loadConfig } from '../workers/config';
-import { createBucketLoader, expandPlaceholderedGlob } from '../workers/bucket';
+import { getConfig } from '../utils/config';
+import createBucketLoader from '../loaders';
+import { getBuckets } from '../utils/buckets';
 
 export default new Command()
   .command('lockfile')
@@ -15,11 +16,22 @@ export default new Command()
     const flags = flagsSchema.parse(options);
     const ora = Ora();
 
-    ora.start('Creating lockfile');
-    const result = await ensureLockfileExists(flags.force);
-    if (result === 'exists') {
+    const lockfileHelper = createLockfileHelper();
+    if (lockfileHelper.isLockfileExists() && !flags.force) {
       ora.warn(`Lockfile won't be created because it already exists. Use --force to overwrite.`);
     } else {
+      const i18nConfig = getConfig();
+      const buckets = getBuckets(i18nConfig!);
+
+      for (const bucket of buckets) {
+        for (const pathPattern of bucket.pathPatterns) {
+          const bucketLoader = createBucketLoader(bucket.type, pathPattern);
+          bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+
+          const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+          lockfileHelper.registerSourceData(pathPattern, sourceData);
+        }
+      }
       ora.succeed('Lockfile created');
     }
   });
@@ -27,46 +39,3 @@ export default new Command()
 const flagsSchema = Z.object({
   force: Z.boolean().default(false),
 });
-
-export type EnsureLockfileResult = 'created' | 'exists';
-export async function ensureLockfileExists(force = false) {
-  const lockfileProcessor = createLockfileProcessor();
-  const lockfileExists = await lockfileProcessor.exists();
-  if (lockfileExists && !force) {
-    return 'exists';
-  } else {
-    await lockfileProcessor.delete();
-  }
-
-  const i18nConfig = await loadConfig();
-
-  const placeholderedPathsTuples: [Z.infer<typeof bucketTypeSchema>, string][] = [];
-  for (const [bucketType, bucketTypeParams] of Object.entries(i18nConfig?.buckets || {})) {
-    const includedPlaceholderedPaths = bucketTypeParams.include
-      .map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig!.locale.source))
-      .flat();
-    const excludedPlaceholderedPaths = bucketTypeParams.exclude
-      ?.map((placeholderedGlob) => expandPlaceholderedGlob(placeholderedGlob, i18nConfig!.locale.source))
-      .flat() || [];
-    const finalPlaceholderedPaths = includedPlaceholderedPaths.filter((path) => !excludedPlaceholderedPaths.includes(path));
-    for (const placeholderedPath of finalPlaceholderedPaths) {
-      placeholderedPathsTuples.push([
-        bucketType as Z.infer<typeof bucketTypeSchema>,
-        placeholderedPath
-      ]);
-    }
-  }
-
-  for (const [bucketType, placeholderedPath] of placeholderedPathsTuples) {
-    const sourcePayload = await createBucketLoader({
-      bucketType,
-      placeholderedPath,
-      locale: i18nConfig!.locale.source,
-    }).load();
-
-    const currentChecksums = await lockfileProcessor.createChecksums(sourcePayload);
-    await lockfileProcessor.saveChecksums(placeholderedPath, currentChecksums);
-  }
-
-  return 'created';
-}

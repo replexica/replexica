@@ -1,18 +1,20 @@
 import Z from 'zod';
 
 export const bucketTypes = [
-  'compiler',
-  'markdown',
+  'android',
+  'csv',
+  'flutter',
+  'html',
   'json',
-  'yaml',
-  'yaml-root-key',
-  'xcode-xcstrings',
+  'markdown',
   'xcode-strings',
   'xcode-stringsdict',
-  'flutter',
-  'android',
+  'xcode-xcstrings',
+  'yaml',
+  'yaml-root-key',
   'properties',
-  'csv',
+
+  'compiler',
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

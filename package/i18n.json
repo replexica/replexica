@@ -1,15 +1,35 @@
 {
-  "version": 1.1,
+  "version": 1.2,
   "locale": {
     "source": "en",
     "targets": [
-      "it"
+      "es"
     ]
   },
   "buckets": {
+    "android": {
+      "include": [
+        "demo/android/[locale].xml"
+      ]
+    },
     "csv": {
       "include": [
         "demo/csv/file.csv"
+      ]
+    },
+    "flutter": {
+      "include": [
+        "demo/flutter/[locale].arb"
+      ]
+    },
+    "html": {
+      "include": [
+        "demo/html/[locale].html"
+      ]
+    },
+    "json": {
+      "include": [
+        "demo/json/[locale].json"
       ]
     },
     "markdown": {
@@ -20,18 +40,9 @@
         "demo/markdown/[locale]/ignored.md"
       ]
     },
-    "json": {
-      "include": ["demo/json/[locale].json"]
-    },
-    "yaml": {
-      "include": ["demo/yaml/[locale].yml"]
-    },
-    "yaml-root-key": {
-      "include": ["demo/yaml-root-key/[locale].yml"]
-    },
-    "xcode-xcstrings": {
+    "properties": {
       "include": [
-        "demo/xcode-xcstrings/Localizable.xcstrings"
+        "demo/properties/[locale].properties"
       ]
     },
     "xcode-strings": {
@@ -44,14 +55,19 @@
         "demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"
       ]
     },
-    "flutter": {
+    "xcode-xcstrings": {
       "include": [
-        "demo/flutter/[locale].arb"
+        "demo/xcode-xcstrings/Localizable.xcstrings"
       ]
     },
-    "android": {
+    "yaml": {
       "include": [
-        "demo/android/[locale].xml"
+        "demo/yaml/[locale].yml"
+      ]
+    },
+    "yaml-root-key": {
+      "include": [
+        "demo/yaml-root-key/[locale].yml"
       ]
     }
   }

@@ -10,5 +10,10 @@ protocol-relative-url: //example.com/folder/file
 non-http-url: ftp://example.com/folder/file
 ---
 
-# Paths
+# Markdown format
 
+Markdown is a lightweight markup language with plain text formatting syntax.
+
+## What is frontmatter?
+
+Frontmatter is a YAML block at the top of a file that contains metadata about the file.

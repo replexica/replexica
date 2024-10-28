@@ -4,8 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import open from 'open';
 import readline from 'readline/promises';
-import { loadSettings, saveSettings } from "./../workers/settings";
-import { createAuthenticator } from "./../workers/auth";
+import { getSettings, saveSettings } from "../utils/settings";
+import { createAuthenticator } from "../utils/auth";
 
 export default new Command()
   .command("auth")
@@ -15,7 +15,7 @@ export default new Command()
   .option("--login", "Authenticate with Replexica API")
   .action(async (options) => {
     try {
-      let settings = await loadSettings(undefined);
+      let settings = await getSettings(undefined);
   
       if (options.logout) {
         settings.auth.apiKey = '';
@@ -25,7 +25,7 @@ export default new Command()
         const apiKey = await login(settings.auth.webUrl);
         settings.auth.apiKey = apiKey;
         await saveSettings(settings);
-        settings = await loadSettings(undefined);
+        settings = await getSettings(undefined);
       }
   
       const authenticator = createAuthenticator({

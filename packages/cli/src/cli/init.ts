@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import Ora from 'ora';
-import { loadConfig, saveConfig } from "./../workers/config";
+import { getConfig, saveConfig } from "../utils/config";
 import { defaultConfig } from "@replexica/spec";
 
 export default new Command()
@@ -10,7 +10,7 @@ export default new Command()
   .action(async (options) => {
     const spinner = Ora().start('Initializing Replexica project');
 
-    let config = await loadConfig(false);
+    let config = await getConfig(false);
     if (config) {
       spinner.fail('Replexica project already initialized');
       return process.exit(1);

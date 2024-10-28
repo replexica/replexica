@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
-  <string name="app_name">Mi Aplicación</string>
+  <string name="app_name">Mi aplicación</string>
   <string name="don_t_forget">¡No olvides!</string>
   <string name="can_t_won_t_shouldn_t">No puedo, no quiero, no debería</string>
   <string name="quote">"Ser o no ser"</string>

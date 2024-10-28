@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="This meta description needs localization">
+    <meta name="keywords" content="localization, i18n, example, demo">
+    <title>Welcome to Localization Demo</title>
+</head>
+<body>
+    <!-- Text in attributes -->
+    <img src="logo.png" alt="Company Logo" title="Hover to see this tooltip">
+    <input type="text" placeholder="Enter your name" aria-label="Name input field">
+
+    <!-- Plain text content -->
+    <h1>Welcome to Our Website</h1>
+    <p>This is a simple paragraph that needs to be translated.</p>
+
+    <!-- Text with HTML entities -->
+    <p>Price: &euro;99.99 &mdash; Special offer!</p>
+
+    <!-- Text with variables -->
+    <div>Hello, {username}! You have {count} messages.</div>
+
+    <!-- Text in different contexts -->
+    <button type="button" aria-label="Close dialog">Close</button>
+    <a href="/about" title="Learn more about us">About Us</a>
+
+    <!-- Lists with text -->
+    <ul>
+        <li>First item needs translation</li>
+        <li>Second item with <strong>formatted text</strong></li>
+        <li>Third item with a <a href="#">link inside</a></li>
+    </ul>
+
+    <!-- Form elements -->
+    <form>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" required>
+        <select aria-label="Choose your country">
+            <option value="">Please select</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+        </select>
+        <button type="submit">Send Message</button>
+    </form>
+
+    <!-- Text with special characters -->
+    <p>Special characters: "quotes" and 'apostrophes' need attention!</p>
+
+    <!-- Dynamic content -->
+    <div id="notification" role="alert" aria-live="polite">
+        You have successfully logged in!
+    </div>
+
+    <!-- Text in JavaScript -->
+    <script>
+        const messages = {
+            welcome: 'Welcome back!',
+            error: 'Something went wrong.',
+            confirm: 'Are you sure you want to continue?'
+        };
+    </script>
+
+    <style>
+      .test {
+        content: 'This does not need translation';
+      }
+    </style>
+
+    <!-- Footer with multiple text elements -->
+    <footer>
+        <p>&copy; 2024 Company Name. All rights reserved.</p>
+        <small>Legal text that needs translation | <a href="/privacy">Privacy Policy</a></small>
+    </footer>
+</body>
+</html>
+
