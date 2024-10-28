@@ -89,6 +89,27 @@ checksums:
     fm-attr-url-path: 6ce05f3f676ae92a010ce414a57063a7
     fm-attr-protocol-relative-url: d7b2605035ba429cb589702c6ba944e6
     fm-attr-non-http-url: d21551cdd43e7fe90eefc041dffcf957
+  56f7f072bcab520858a247e873141e66:
+    greeting: 5a06f8dbe2138bc2d66dd20061d3358a
+    welcome_user: 9894020e8bf63cda177c90913974de4a
+    items_count.zero: 955c31a42e9ff663a49e69e944c8c537
+    items_count.one: 154c8eed472b867c8d5af66d162abd2c
+    items_count.two: 8d5f050e1b4c80b1cb2dfd5960330dd6
+    items_count.few: e76998d93901ca2dbd145315f0026099
+    items_count.many: e76998d93901ca2dbd145315f0026099
+    items_count.other: e76998d93901ca2dbd145315f0026099
+    days_until_event.zero: c36f40b15661634b9d11a6704489bb2c
+    days_until_event.one: b42325bee976924c2ec6a2e318b1edfd
+    days_until_event.two: 7f8cb60480d1a0e81b8e0ae0a1d93616
+    days_until_event.few: 8860d8b849df0fc9c05a0105686c870a
+    days_until_event.many: 8860d8b849df0fc9c05a0105686c870a
+    days_until_event.other: 8860d8b849df0fc9c05a0105686c870a
+    complex_format: 412e9a53af55fd61a80550c462dfcfcb
+    date_format: 53fd72141572ffcdb3ebd8e5e6c4388d
+    multiline_html: 2ab8dedc68bd6e23377f8904d170a944
+    • HTML tags\n\: 1f6df3af31231e79640ffb1a2c31536e
+    "• Special characters: ©®™\\n\\": 1f6df3af31231e79640ffb1a2c31536e
+    • A <a href: dd5f8bf46232382e676565983b555bd5
   9c4e19808888b454eb5178a0ab79e392:
     greeting: 5a06f8dbe2138bc2d66dd20061d3358a
     welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
@@ -157,27 +178,3 @@ checksums:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
     home/i-am-a-developer: d8feacce28faea3fd4228a1ebcb11473
-  56f7f072bcab520858a247e873141e66:
-    greeting: 5a06f8dbe2138bc2d66dd20061d3358a
-    welcome_user: 9894020e8bf63cda177c90913974de4a
-    items_count.zero: 955c31a42e9ff663a49e69e944c8c537
-    items_count.one: 154c8eed472b867c8d5af66d162abd2c
-    items_count.two: 8d5f050e1b4c80b1cb2dfd5960330dd6
-    items_count.few: e76998d93901ca2dbd145315f0026099
-    items_count.many: e76998d93901ca2dbd145315f0026099
-    items_count.other: e76998d93901ca2dbd145315f0026099
-    days_until_event.zero: c36f40b15661634b9d11a6704489bb2c
-    days_until_event.one: b42325bee976924c2ec6a2e318b1edfd
-    days_until_event.two: 7f8cb60480d1a0e81b8e0ae0a1d93616
-    days_until_event.few: 8860d8b849df0fc9c05a0105686c870a
-    days_until_event.many: 8860d8b849df0fc9c05a0105686c870a
-    days_until_event.other: 8860d8b849df0fc9c05a0105686c870a
-    complex_format: 412e9a53af55fd61a80550c462dfcfcb
-    date_format: 53fd72141572ffcdb3ebd8e5e6c4388d
-    multiline_html: 2ab8dedc68bd6e23377f8904d170a944
-    • HTML tags\n\: 1f6df3af31231e79640ffb1a2c31536e
-    "• Special characters: ©®™\\n\\": 1f6df3af31231e79640ffb1a2c31536e
-    • A <a href: dd5f8bf46232382e676565983b555bd5
-  4ff34b299ae6fd4379507bf588c18c3f:
-    md-section-0: 2e0aaf32ad131bbf6dec1100215bd142
-    md-section-1: 0c33d941d3aed335a62d0d303fee7f26
