@@ -125,7 +125,7 @@ export default new Command()
             if (flags.verbose) {
               bucketOra.info(JSON.stringify(processedTargetData, null, 2));
             }
-            const finalTargetData = _.merge({}, targetData, processedTargetData);
+            const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
 
             await bucketLoader.push(targetLocale, finalTargetData);
 
