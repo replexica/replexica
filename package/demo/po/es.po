@@ -1,0 +1,5 @@
+msgid "greeting"
+msgstr "¡Hola, {name}!"
+
+msgid "farewell"
+msgstr "¡Adiós, {name}!"
