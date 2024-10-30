@@ -23,10 +23,10 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "@replexica/spec": "workspace:*",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.2",
+    "vitest": "^2.1.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "tsup": "^8.1.0"
+    "tsup": "^8.3.5"
   }
 }
