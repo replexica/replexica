@@ -1,5 +1,11 @@
 # replexica
 
+## 0.51.1
+
+### Patch Changes
+
+- [`e511b50`](https://github.com/replexica/replexica/commit/e511b5080dba58728e8650c7bf34d810cccdcf4e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added node@18 support
+
 ## 0.51.0
 
 ### Minor Changes
