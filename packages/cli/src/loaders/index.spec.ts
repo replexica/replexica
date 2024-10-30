@@ -406,6 +406,73 @@ Otro párrafo con texto en **negrita** y en *cursiva*.
     });
   });
 
+  describe('po bucket loader', () => {
+    it('should load and handle various po data', async () => {
+      setupFileMocks();
+
+      const input = `
+# This is a comment
+msgid "greeting"
+msgstr "Hello, {name}!"
+
+msgid "farewell"
+msgstr "Goodbye, {name}!"
+
+# Another comment
+msgid "empty"
+msgstr ""
+      `.trim();
+      const expectedOutput = {
+        greeting: 'Hello, {name}!',
+        farewell: 'Goodbye, {name}!',
+        empty: ''
+      };
+
+      mockFileOperations(input);
+
+      const poLoader = createBucketLoader('po', 'i18n/[locale].po');
+      poLoader.setDefaultLocale('en');
+      const data = await poLoader.pull('en');
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it('should save po data with variable patterns and comments', async () => {
+      setupFileMocks();
+
+      const input = `
+# This is a comment
+msgid "greeting"
+msgstr "Hello, {name}!"
+      `.trim();
+      const payload = {
+        greeting: '¡Hola, {name}!',
+        farewell: '¡Adiós, {name}!'
+      };
+      const expectedOutput = `
+msgid "greeting"
+msgstr "¡Hola, {name}!"
+
+msgid "farewell"
+msgstr "¡Adiós, {name}!"
+      `.trim() + '\n';
+
+      mockFileOperations(input);
+
+      const poLoader = createBucketLoader('po', 'i18n/[locale].po');
+      poLoader.setDefaultLocale('es');
+      await poLoader.pull('es');
+
+      await poLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.po',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
+
   describe('properties bucket loader', () => {
     it('should load properties data', async () => {
       setupFileMocks();
