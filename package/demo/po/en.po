@@ -1,0 +1,6 @@
+# This is a comment
+msgid "greeting"
+msgstr "Hello, {name}!"
+
+msgid "farewell"
+msgstr "Goodbye, {name}!"
