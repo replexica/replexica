@@ -18,6 +18,7 @@ import createXcodeStringsdictLoader from './xcode-stringsdict';
 import createXcodeXcstringsLoader from './xcode-xcstrings';
 import createPrettierLoader from './prettier';
 import createUnlocalizableLoader from './unlocalizable';
+import createPoLoader from './po';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -54,6 +55,11 @@ export default function createBucketLoader(
       createTextFileLoader(bucketPathPattern),
       createPrettierLoader({ parser: 'markdown' }),
       createMarkdownLoader(),
+      createUnlocalizableLoader(),
+    );
+    case 'po': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createPoLoader(),
       createUnlocalizableLoader(),
     );
     case 'properties': return composeLoaders(

@@ -40,6 +40,11 @@
         "demo/markdown/[locale]/ignored.md"
       ]
     },
+    "po": {
+      "include": [
+        "demo/po/[locale].po"
+      ]
+    },
     "properties": {
       "include": [
         "demo/properties/[locale].properties"

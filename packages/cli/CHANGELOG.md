@@ -1,5 +1,23 @@
 # replexica
 
+## 0.51.1
+
+### Patch Changes
+
+- [`e511b50`](https://github.com/replexica/replexica/commit/e511b5080dba58728e8650c7bf34d810cccdcf4e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added node@18 support
+
+## 0.51.0
+
+### Minor Changes
+
+- [#275](https://github.com/replexica/replexica/pull/275) [`091ee35`](https://github.com/replexica/replexica/commit/091ee353081795bf8f61c7d41483bc309c7b62ef) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add support for `.po` format
+
+### Patch Changes
+
+- Updated dependencies [[`091ee35`](https://github.com/replexica/replexica/commit/091ee353081795bf8f61c7d41483bc309c7b62ef)]:
+  - @replexica/spec@0.17.0
+  - @replexica/sdk@0.4.3
+
 ## 0.50.0
 
 ### Minor Changes
