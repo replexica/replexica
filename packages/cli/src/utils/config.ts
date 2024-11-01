@@ -2,6 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import { I18nConfig, parseI18nConfig } from '@replexica/spec';
+import detectIndent from 'detect-indent'
 
 export function getConfig(resave = true): I18nConfig | null {
   const configFilePath = _getConfigFilePath();
@@ -17,16 +18,25 @@ export function getConfig(resave = true): I18nConfig | null {
 
   if (resave && didConfigChange) {
     // Ensure the config is saved with the latest version / schema
-    saveConfig(result);
+    saveConfig(result, fileContents);
   }
 
   return result;
 }
 
-export function saveConfig(config: I18nConfig) {
+export async function saveConfig(
+  config: I18nConfig,
+  originalFileContents?: string
+) {
+  let indent = '  ';
   const configFilePath = _getConfigFilePath();
 
-  const serialized = JSON.stringify(config, null, 2);
+  if(originalFileContents){
+    indent = detectIndent(originalFileContents).indent;
+  }
+  
+  const serialized = JSON.stringify(config, null, indent);
+
   fs.writeFileSync(configFilePath, serialized);
 
   return config;
