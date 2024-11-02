@@ -1,7 +1,7 @@
 import { bucketTypeSchema, I18nConfig, localeCodeSchema } from '@replexica/spec';
 import { ReplexicaEngine } from '@replexica/sdk';
 import { Command } from 'commander';
-import Z from 'zod';
+import Z, { any } from 'zod';
 import _ from 'lodash';
 import { getConfig } from '../utils/config';
 import { getSettings } from '../utils/settings';
@@ -22,117 +22,134 @@ export default new Command()
   .option('--force', 'Ignore lockfile and process all keys')
   .option('--verbose', 'Show verbose output')
   .option('--api-key <api-key>', 'Explicitly set the API key to use')
+  .option('--strict', 'Stop on first error')
   .action(async function (options) {
     const ora = Ora();
-
+    const results: any = [];
+    const flags = parseFlags(options);
+    
     try {
       ora.start('Loading configuration...');
-      const flags = parseFlags(options);
       const i18nConfig = getConfig();
       const settings = getSettings(flags.apiKey);
       ora.succeed('Configuration loaded');
+      
+      try {
+        ora.start('Validating localization configuration...');
+        validateParams(i18nConfig, flags);
+        ora.succeed('Localization configuration is valid');
+      } catch (error:any) {
+        handleWarning('Localization configuration validation failed', error, true, results);
+        return;
+      }
 
-      ora.start('Validating localization configuration...');
-      validateParams(i18nConfig, flags);
-      ora.succeed('Localization configuration is valid');
+      try {
+        ora.start('Connecting to Replexica Localization Engine...');
+        const auth = await validateAuth(settings);
+        ora.succeed(`Authenticated as ${auth.email}`);
+      } catch (error:any) {
+        handleWarning('Failed to connect to Replexica Localization Engine', error, true, results);
+        return;
+      }
 
-      ora.start('Connecting to Replexica Localization Engine...');
-      const auth = await validateAuth(settings);
-      ora.succeed('Replexica Localization Engine connected');
-      ora.succeed(`Authenticated as ${auth.email}`);
-
-      let buckets = getBuckets(i18nConfig!);
-      if (flags.bucket) {
-        buckets = buckets.filter((bucket) => bucket.type === flags.bucket);
+      let buckets:any = [];
+      try {
+        buckets = getBuckets(i18nConfig!);
+        if (flags.bucket) {
+          buckets = buckets.filter((bucket:any) => bucket.type === flags.bucket);
+        }
+        ora.succeed('Buckets retrieved');
+      } catch (error:any) {
+        handleWarning('Failed to retrieve buckets', error, true, results);
+        return;
       }
 
       const targetLocales = getTargetLocales(i18nConfig!, flags);
       const lockfileHelper = createLockfileHelper();
 
       // Ensure the lockfile exists
-      ora.start('Ensuring i18n.lock exists...');
-      if (!lockfileHelper.isLockfileExists()) {
-        ora.start('Creating i18n.lock...');
-        for (const bucket of buckets) {
-          for (const pathPattern of bucket.pathPatterns) {
-            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+      try {
+        ora.start('Ensuring i18n.lock exists...');
+        if (!lockfileHelper.isLockfileExists()) {
+          ora.start('Creating i18n.lock...');
+          for (const bucket of buckets) {
+            for (const pathPattern of bucket.pathPatterns) {
+              const bucketLoader = createBucketLoader(bucket.type, pathPattern);
+              bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
-            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-            lockfileHelper.registerSourceData(pathPattern, sourceData);
-          }
-        }
-        ora.succeed('i18n.lock created');
-      } else {
-        ora.succeed('i18n.lock loaded');
-      }
-
-      // Exit with error if frozen flag is provided and there are any updated keys
-      if (flags.frozen) {
-        for (const bucket of buckets) {
-          for (const pathPattern of bucket.pathPatterns) {
-            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
-
-            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-            const updatedSourceData = lockfileHelper.extractUpdatedData(pathPattern, sourceData);
-            if (Object.keys(updatedSourceData).length) {
-              throw new ReplexicaCLIError({
-                message: `Translations are not up to date. Run the command without the --frozen flag to update the translations, then try again.`,
-                docUrl: "translationFailed"
-              });
+              const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+              lockfileHelper.registerSourceData(pathPattern, sourceData);
             }
           }
+          ora.succeed('i18n.lock created');
+        } else {
+          ora.succeed('i18n.lock loaded');
         }
+      } catch (error:any) {
+        handleWarning('Failed to ensure i18n.lock existence', error, true, results);
+        return;
       }
+
       // Process each bucket
       for (const bucket of buckets) {
-        console.log();
-        ora.info(`Processing bucket: ${bucket.type}`);
-        for (const pathPattern of bucket.pathPatterns) {
-          const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${pathPattern}`);
+        try {
+          console.log();
+          ora.info(`Processing bucket: ${bucket.type}`);
+          for (const pathPattern of bucket.pathPatterns) {
+            const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${pathPattern}`);
+            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
+            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
-          const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-          bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+            const updatedSourceData = flags.force ? sourceData : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
-          const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-          const updatedSourceData = flags.force ? sourceData : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
+            for (const targetLocale of targetLocales) {
+              try {
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization in progress...`);
+                
+                const targetData = await bucketLoader.pull(targetLocale);
+                const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
+                if (flags.verbose) {
+                  bucketOra.info(JSON.stringify(processableData, null, 2));
+                }
 
-          for (const targetLocale of targetLocales) {
-            bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization in progress...`);
-            
-            const targetData = await bucketLoader.pull(targetLocale);
+                const localizationEngine = createLocalizationEngineConnection({
+                  apiKey: settings.auth.apiKey,
+                  apiUrl: settings.auth.apiUrl,
+                });
+                let processedTargetData;
+                try {
+                  processedTargetData = await localizationEngine.process({
+                    sourceLocale: i18nConfig!.locale.source,
+                    sourceData,
+                    processableData,
+                    targetLocale,
+                    targetData,
+                  }, (progress) => {
+                    bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
+                  });
+                  
+                } catch (error: any) {
+                  handleWarning('Failed to process target data', error, flags.strict, results);
+                  if (flags.strict) return;
+                }
 
-            const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
-            if (flags.verbose) {
-              bucketOra.info(JSON.stringify(processableData, null, 2));
+                if (flags.verbose) {
+                  bucketOra.info(JSON.stringify(processedTargetData, null, 2));
+                }
+                const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+                await bucketLoader.push(targetLocale, finalTargetData);
+                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
+              } catch (error:any) {
+                handleWarning(`Failed to localize for ${targetLocale}`, error, flags.strict, results);
+                if (flags.strict) return;
+              }
             }
-
-            const localizationEngine = createLocalizationEngineConnection({
-              apiKey: settings.auth.apiKey,
-              apiUrl: settings.auth.apiUrl,
-            });
-            const processedTargetData = await localizationEngine.process({
-              sourceLocale: i18nConfig!.locale.source,
-              sourceData,
-              processableData,
-              targetLocale,
-              targetData,
-            }, (progress) => {
-              bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
-            });
-
-            if (flags.verbose) {
-              bucketOra.info(JSON.stringify(processedTargetData, null, 2));
-            }
-            const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
-
-            await bucketLoader.push(targetLocale, finalTargetData);
-
-            bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
+            lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
-
-          lockfileHelper.registerSourceData(pathPattern, sourceData);
+        } catch (error:any) {
+          handleWarning(`Failed to process bucket: ${bucket.type}`, error, flags.strict, results);
+          if (flags.strict) return;
         }
       }
 
@@ -141,9 +158,25 @@ export default new Command()
     } catch (error: any) {
       ora.fail(error.message);
       process.exit(1);
+    } finally {
+      displaySummary(results);
     }
   });
 
+
+function handleWarning(step: string, error: Error, strictMode: boolean| undefined, results: any[]) {
+  console.warn(`[WARNING] ${step}: ${error.message}`);
+  results.push({ step, status: "Failed", error: error.message });
+  if (strictMode) throw error;
+}
+
+function displaySummary(results: any[]) {
+  console.log("\nProcess Summary:");
+  results.forEach((result) => {
+    console.log(`${result.step}: ${result.status}`);
+    if (result.error) console.log(`  - Error: ${result.error}`);
+  });
+}
 
 function calculateDataDelta(args: {
   sourceData: Record<string, any>;
@@ -210,6 +243,7 @@ function parseFlags(options: any) {
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),
     verbose: Z.boolean().optional(),
+    strict: Z.boolean().optional(),
   }).parse(options);
 }
 
