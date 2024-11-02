@@ -39,8 +39,8 @@ export default new Command()
         validateParams(i18nConfig, flags);
         ora.succeed('Localization configuration is valid');
       } catch (error:any) {
-        handleWarning('Localization configuration validation failed', error, flags.strict, results);
-        if (flags.strict) return;
+        handleWarning('Localization configuration validation failed', error, true, results);
+        return;
       }
 
       try {
@@ -48,8 +48,8 @@ export default new Command()
         const auth = await validateAuth(settings);
         ora.succeed(`Authenticated as ${auth.email}`);
       } catch (error:any) {
-        handleWarning('Failed to connect to Replexica Localization Engine', error, flags.strict, results);
-        if (flags.strict) return;
+        handleWarning('Failed to connect to Replexica Localization Engine', error, true, results);
+        return;
       }
 
       let buckets:any = [];
@@ -60,8 +60,8 @@ export default new Command()
         }
         ora.succeed('Buckets retrieved');
       } catch (error:any) {
-        handleWarning('Failed to retrieve buckets', error, flags.strict, results);
-        if (flags.strict) return;
+        handleWarning('Failed to retrieve buckets', error, true, results);
+        return;
       }
 
       const targetLocales = getTargetLocales(i18nConfig!, flags);
@@ -86,8 +86,8 @@ export default new Command()
           ora.succeed('i18n.lock loaded');
         }
       } catch (error:any) {
-        handleWarning('Failed to ensure i18n.lock existence', error, flags.strict, results);
-        if (flags.strict) return;
+        handleWarning('Failed to ensure i18n.lock existence', error, true, results);
+        return;
       }
 
       // Process each bucket
@@ -117,15 +117,22 @@ export default new Command()
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
                 });
-                const processedTargetData = await localizationEngine.process({
-                  sourceLocale: i18nConfig!.locale.source,
-                  sourceData,
-                  processableData,
-                  targetLocale,
-                  targetData,
-                }, (progress) => {
-                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
-                });
+                let processedTargetData;
+                try {
+                  processedTargetData = await localizationEngine.process({
+                    sourceLocale: i18nConfig!.locale.source,
+                    sourceData,
+                    processableData,
+                    targetLocale,
+                    targetData,
+                  }, (progress) => {
+                    bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
+                  });
+                  
+                } catch (error: any) {
+                  handleWarning('Failed to process target data', error, flags.strict, results);
+                  if (flags.strict) return;
+                }
 
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processedTargetData, null, 2));

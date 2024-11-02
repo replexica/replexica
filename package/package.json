@@ -1,25 +1,25 @@
 {
   "name": "replexica",
-  "version": "0.50.0",
+  "version": "0.51.1",
   "description": "Replexica",
   "private": false,
   "type": "module",
   "sideEffects": false,
   "exports": {
     "./compiler": {
+      "types": "./build/compiler.d.ts",
       "import": "./build/compiler.mjs",
-      "require": "./build/compiler.cjs",
-      "types": "./build/compiler.d.ts"
+      "require": "./build/compiler.cjs"
     },
     "./react": {
+      "types": "./build/react.d.ts",
       "import": "./build/react.mjs",
-      "require": "./build/react.cjs",
-      "types": "./build/react.d.ts"
+      "require": "./build/react.cjs"
     },
     "./react-next": {
+      "types": "./build/react-next.d.ts",
       "import": "./build/react-next.mjs",
-      "require": "./build/react-next.cjs",
-      "types": "./build/react-next.d.ts"
+      "require": "./build/react-next.cjs"
     }
   },
   "engines": {
@@ -48,6 +48,6 @@
     "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "tsup": "^8.1.0"
+    "tsup": "^8.3.5"
   }
 }
