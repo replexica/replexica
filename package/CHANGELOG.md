@@ -1,5 +1,12 @@
 # replexica
 
+## 0.51.2
+
+### Patch Changes
+
+- Updated dependencies [[`6bc309c`](https://github.com/replexica/replexica/commit/6bc309c56a8e6a468510109182fd75f8f4e61b8f)]:
+  - @replexica/cli@0.52.0
+
 ## 0.51.1
 
 ### Patch Changes
