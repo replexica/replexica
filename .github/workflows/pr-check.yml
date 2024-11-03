@@ -22,13 +22,13 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.sha}}
           fetch-depth: 0
-          
+
       - name: Check for [skip i18n]
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if echo "$COMMIT_MESSAGE" | grep -iq '\[skip i18n\]'; then
             echo "Skipping i18n checks due to [skip i18n] in commit message."
-            exit 1
+            exit 0
           fi
 
       - name: Use Node.js
@@ -54,7 +54,11 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps
-        run: pnpm install
+        run: |
+          if ! pnpm install; then
+            echo "Failed to install dependencies. Check your pnpm configuration or network connectivity." >&2
+            exit 1
+          fi
 
       - name: Setup
         run: |
@@ -64,11 +68,23 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: pnpm turbo build --force
-        
+        run: |
+          if ! pnpm turbo build --force; then
+            echo "Build step failed. Ensure there are no syntax or dependency issues in your code." >&2
+            exit 1
+          fi
+
       - name: Test
-        run: pnpm turbo test --force
+        run: |
+          if ! pnpm turbo test --force; then
+            echo "Tests failed. Review the test logs for details and ensure all tests pass locally." >&2
+            exit 1
+          fi
 
       - name: Require changeset to be present in PR
         if: github.event.pull_request.user.login != 'dependabot[bot]'
-        run: pnpm changeset status --since origin/main
+        run: |
+          if ! pnpm changeset status --since origin/main; then
+            echo "Error: No changeset found for this PR. Please add a changeset before merging. See: [link to changeset documentation]" >&2
+            exit 1
+          fi

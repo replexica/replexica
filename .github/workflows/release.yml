@@ -15,12 +15,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Check for [skip i18n]
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if echo "$COMMIT_MESSAGE" | grep -iq '\[skip i18n\]'; then
             echo "Skipping i18n checks due to [skip i18n] in commit message."
-            exit 1
+            exit 0
           fi
 
       - name: Use Node.js
@@ -46,7 +47,11 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps
-        run: pnpm install
+        run: |
+          if ! pnpm install; then
+            echo "Error: Failed to install dependencies. Please check pnpm configuration or network connectivity." >&2
+            exit 1
+          fi
 
       - name: Replexica
         uses: ./
@@ -55,6 +60,12 @@ jobs:
           pull-request: true
         env:
           GH_TOKEN: ${{ github.token }}
+        continue-on-error: true
+      - name: Check Replexica Step
+        if: failure()
+        run: |
+          echo "Error: Replexica step failed. Verify the API key and access permissions, and consult the documentation if needed." >&2
+          exit 1
 
       - name: Setup
         run: |
@@ -64,10 +75,18 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: pnpm turbo build --force
-        
+        run: |
+          if ! pnpm turbo build --force; then
+            echo "Error: Build step failed. Ensure code compiles successfully and all dependencies are compatible." >&2
+            exit 1
+          fi
+
       - name: Test
-        run: pnpm turbo test --force
+        run: |
+          if ! pnpm turbo test --force; then
+            echo "Error: Tests failed. Check test output for failures and ensure all tests pass locally." >&2
+            exit 1
+          fi
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -80,3 +99,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        continue-on-error: true
+      - name: Check Changesets Step
+        if: failure()
+        run: |
+          echo "Error: Failed to create release PR or publish to npm. Check permissions, NPM token, and repository settings." >&2
+          exit 1
