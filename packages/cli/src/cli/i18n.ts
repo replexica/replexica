@@ -105,7 +105,7 @@ export default new Command()
 
             for (const targetLocale of targetLocales) {
               try {
-                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization in progress...`);
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) AI localization in progress...`);
                 
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
@@ -171,6 +171,8 @@ function handleWarning(step: string, error: Error, strictMode: boolean| undefine
 }
 
 function displaySummary(results: any[]) {
+  if (results.length === 0) { return; }
+
   console.log("\nProcess Summary:");
   results.forEach((result) => {
     console.log(`${result.step}: ${result.status}`);
