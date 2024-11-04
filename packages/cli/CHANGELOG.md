@@ -1,5 +1,17 @@
 # replexica
 
+## 0.53.0
+
+### Minor Changes
+
+- [`072e23e`](https://github.com/replexica/replexica/commit/072e23e58fca0da20bfd01f6a0ae600e6fb760a8) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - hide process summary label when there's zero elements to show
+
+## 0.52.0
+
+### Minor Changes
+
+- [#274](https://github.com/replexica/replexica/pull/274) [`6bc309c`](https://github.com/replexica/replexica/commit/6bc309c56a8e6a468510109182fd75f8f4e61b8f) Thanks [@partik03](https://github.com/partik03)! - Improved error handling for i18n command
+
 ## 0.51.1
 
 ### Patch Changes
