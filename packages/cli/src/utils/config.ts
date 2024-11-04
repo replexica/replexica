@@ -2,6 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import { I18nConfig, parseI18nConfig } from '@replexica/spec';
+import prettier from 'prettier';
 
 export function getConfig(resave = true): I18nConfig | null {
   const configFilePath = _getConfigFilePath();
@@ -23,10 +24,19 @@ export function getConfig(resave = true): I18nConfig | null {
   return result;
 }
 
-export function saveConfig(config: I18nConfig) {
+export async function saveConfig(config: I18nConfig) {
   const configFilePath = _getConfigFilePath();
 
-  const serialized = JSON.stringify(config, null, 2);
+  const prettierConfigFilePath = await prettier.resolveConfigFile(configFilePath) || ''
+
+  const prettierOptions = await prettier.resolveConfig(prettierConfigFilePath, {editorconfig: true}) || {
+    parser: 'json',
+    useTabs: false,
+    tabWidth: 2,
+  }
+    
+  const serialized = await prettier.format(JSON.stringify(config), prettierOptions);
+  
   fs.writeFileSync(configFilePath, serialized);
 
   return config;
