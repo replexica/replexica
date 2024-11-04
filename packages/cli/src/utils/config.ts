@@ -2,7 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import { I18nConfig, parseI18nConfig } from '@replexica/spec';
-import detectIndent from 'detect-indent'
+import prettier from 'prettier';
 
 export function getConfig(resave = true): I18nConfig | null {
   const configFilePath = _getConfigFilePath();
@@ -18,25 +18,25 @@ export function getConfig(resave = true): I18nConfig | null {
 
   if (resave && didConfigChange) {
     // Ensure the config is saved with the latest version / schema
-    saveConfig(result, fileContents);
+    saveConfig(result);
   }
 
   return result;
 }
 
-export async function saveConfig(
-  config: I18nConfig,
-  originalFileContents?: string
-) {
-  let indent = '  ';
+export async function saveConfig(config: I18nConfig) {
   const configFilePath = _getConfigFilePath();
 
-  if(originalFileContents){
-    indent = detectIndent(originalFileContents).indent;
-  }
-  
-  const serialized = JSON.stringify(config, null, indent);
+  const prettierConfigFilePath = await prettier.resolveConfigFile(configFilePath) || ''
 
+  const prettierOptions = await prettier.resolveConfig(prettierConfigFilePath, {editorconfig: true}) || {
+    parser: 'json',
+    useTabs: false,
+    tabWidth: 2,
+  }
+    
+  const serialized = await prettier.format(JSON.stringify(config), prettierOptions);
+  
   fs.writeFileSync(configFilePath, serialized);
 
   return config;
