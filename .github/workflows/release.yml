@@ -47,11 +47,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps
-        run: |
-          if ! pnpm install; then
-            echo "Error: Failed to install dependencies. Please check pnpm configuration or network connectivity." >&2
-            exit 1
-          fi
+        run: pnpm install
 
       - name: Replexica
         uses: ./
@@ -60,12 +56,6 @@ jobs:
           pull-request: true
         env:
           GH_TOKEN: ${{ github.token }}
-        continue-on-error: true
-      - name: Check Replexica Step
-        if: failure()
-        run: |
-          echo "Error: Replexica step failed. Verify the API key and access permissions, and consult the documentation if needed." >&2
-          exit 1
 
       - name: Setup
         run: |
@@ -75,18 +65,10 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: |
-          if ! pnpm turbo build --force; then
-            echo "Error: Build step failed. Ensure code compiles successfully and all dependencies are compatible." >&2
-            exit 1
-          fi
-
+        run: pnpm turbo build --force
+        
       - name: Test
-        run: |
-          if ! pnpm turbo test --force; then
-            echo "Error: Tests failed. Check test output for failures and ensure all tests pass locally." >&2
-            exit 1
-          fi
+        run: pnpm turbo test --force
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -99,9 +81,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        continue-on-error: true
-      - name: Check Changesets Step
-        if: failure()
-        run: |
-          echo "Error: Failed to create release PR or publish to npm. Check permissions, NPM token, and repository settings." >&2
-          exit 1

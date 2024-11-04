@@ -54,11 +54,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install deps
-        run: |
-          if ! pnpm install; then
-            echo "Failed to install dependencies. Check your pnpm configuration or network connectivity." >&2
-            exit 1
-          fi
+        run: pnpm install
 
       - name: Setup
         run: |
@@ -68,23 +64,11 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
 
       - name: Build
-        run: |
-          if ! pnpm turbo build --force; then
-            echo "Build step failed. Ensure there are no syntax or dependency issues in your code." >&2
-            exit 1
-          fi
-
+        run: pnpm turbo build --force
+  
       - name: Test
-        run: |
-          if ! pnpm turbo test --force; then
-            echo "Tests failed. Review the test logs for details and ensure all tests pass locally." >&2
-            exit 1
-          fi
+        run: pnpm turbo test --force
 
       - name: Require changeset to be present in PR
         if: github.event.pull_request.user.login != 'dependabot[bot]'
-        run: |
-          if ! pnpm changeset status --since origin/main; then
-            echo "Error: No changeset found for this PR. Please add a changeset before merging. See: [link to changeset documentation]" >&2
-            exit 1
-          fi
+        run: pnpm changeset status --since origin/main

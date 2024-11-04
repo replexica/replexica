@@ -15,14 +15,6 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
-      - name: Semantic PR Title Check
-        uses: amannn/action-semantic-pull-request@v5
+      - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
-      - name: Check for Errors
-        if: failure()
-        run: |
-          echo "Semantic PR title validation failed. Please ensure your PR title follows the required format, such as 'feat: add new feature' or 'fix: correct a bug'."
-          echo "Refer to the documentation on semantic PR titles: [https://www.conventionalcommits.org/en/v1.0.0/]"
-          exit 1
