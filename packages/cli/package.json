@@ -1,6 +1,6 @@
 {
   "name": "@replexica/cli",
-  "version": "0.53.0",
+  "version": "0.53.1",
   "description": "Replexica CLI",
   "private": false,
   "type": "module",
@@ -30,7 +30,7 @@
     "express": "^4.21.1",
     "fast-xml-parser": "^4.5.0",
     "flat": "^6.0.1",
-    "glob": "^11.0.0",
+    "glob": "^10.4.5",
     "gray-matter": "^4.0.3",
     "ini": "^5.0.0",
     "jsdom": "^25.0.1",
