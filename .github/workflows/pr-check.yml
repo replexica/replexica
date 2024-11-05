@@ -40,7 +40,7 @@ jobs:
         uses: pnpm/action-setup@v4
         id: pnpm-install
         with:
-          version: 10.7.0
+          version: 9.12.3
           run_install: false
 
       - name: Configure pnpm cache
