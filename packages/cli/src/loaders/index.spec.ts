@@ -859,6 +859,81 @@ user.password=Contraseña
       );
     });
   });
+
+  describe('XML bucket loader', () => {
+    it('should load XML data', async () => {
+      setupFileMocks();
+  
+      const input = `<root>
+    <title>Test XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introduction</section>
+      <section>Details with <b>bold</b> and <i>italic</i> text.</section>
+    </content>
+  </root>`;
+  
+      const expectedOutput = {
+        'root/title': 'Test XML',
+        'root/date': '2023-05-25',
+        'root/content/section/0': 'Introduction',
+        'root/content/section/1': 'Details with <b>bold</b> and <i>italic</i> text.',
+      };
+  
+      mockFileOperations(input);
+  
+      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      xmlLoader.setDefaultLocale('en');
+      const data = await xmlLoader.pull('en');
+      console.log("Data :   ",data);
+      
+      expect(data).toEqual(expectedOutput);
+    });
+  
+    it('should save XML data', async () => {
+      setupFileMocks();
+  
+      const input = `<root>
+    <title>Test XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introduction</section>
+      <section>Details with <b>bold</b> and <i>italic</i> text.</section>
+    </content>
+  </root>`;
+  
+      const payload = {
+        'root/title': 'Prueba XML',
+        'root/date': '2023-05-25',
+        'root/content/section/0': 'Introducción',
+        'root/content/section/1': 'Detalles con texto en <b>negrita</b> y en <i>cursiva</i>.'
+      };
+  
+      const expectedOutput = `<root>
+    <title>Prueba XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introducción</section>
+      <section>Detalles con texto en <b>negrita</b> y en <i>cursiva</i>.</section>
+    </content>
+  </root>`;
+  
+      mockFileOperations(input);
+  
+      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      xmlLoader.setDefaultLocale('en');
+      await xmlLoader.pull('en');
+  
+      await xmlLoader.push('es', payload);
+  
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.xml',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
+  
 });
 
 // Helper functions

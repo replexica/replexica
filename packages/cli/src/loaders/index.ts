@@ -19,6 +19,7 @@ import createXcodeXcstringsLoader from './xcode-xcstrings';
 import createPrettierLoader from './prettier';
 import createUnlocalizableLoader from './unlocalizable';
 import createPoLoader from './po';
+import createXmlLoader from './xml';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -109,5 +110,12 @@ export default function createBucketLoader(
       createFlatLoader(),
       createUnlocalizableLoader(),
     );
+    case 'xml': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createXmlLoader(),
+      createFlatLoader(),
+      createUnlocalizableLoader(),
+
+    )
   }
 }
