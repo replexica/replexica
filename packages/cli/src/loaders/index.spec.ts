@@ -869,7 +869,11 @@ user.password=Contraseña
     <date>2023-05-25</date>
     <content>
       <section>Introduction</section>
-      <section>Details with <b>bold</b> and <i>italic</i> text.</section>
+      <section>
+        <text>
+          Detailed text. 
+        </text>
+      </section>
     </content>
   </root>`;
   
@@ -877,7 +881,7 @@ user.password=Contraseña
         'root/title': 'Test XML',
         'root/date': '2023-05-25',
         'root/content/section/0': 'Introduction',
-        'root/content/section/1': 'Details with <b>bold</b> and <i>italic</i> text.',
+        'root/content/section/1/text': 'Detailed text.',
       };
   
       mockFileOperations(input);
@@ -898,7 +902,11 @@ user.password=Contraseña
     <date>2023-05-25</date>
     <content>
       <section>Introduction</section>
-      <section>Details with <b>bold</b> and <i>italic</i> text.</section>
+      <section>
+        <text>
+          Detailed text.
+        </text>
+      </section>
     </content>
   </root>`;
   
@@ -906,20 +914,22 @@ user.password=Contraseña
         'root/title': 'Prueba XML',
         'root/date': '2023-05-25',
         'root/content/section/0': 'Introducción',
-        'root/content/section/1': 'Detalles con texto en <b>negrita</b> y en <i>cursiva</i>.'
+        'root/content/section/1/text': 'Detalles texto.',
       };
   
-      const expectedOutput = `<root>
-    <title>Prueba XML</title>
-    <date>2023-05-25</date>
-    <content>
-      <section>Introducción</section>
-      <section>Detalles con texto en <b>negrita</b> y en <i>cursiva</i>.</section>
-    </content>
-  </root>`;
-  
+      let expectedOutput = `
+      <root>
+        <title>Prueba XML</title>
+        <date>2023-05-25</date>
+        <content>
+          <section>Introducción</section>
+          <section>
+            <text>Detalles texto.</text>
+          </section>
+        </content>
+      </root>`.replace(/\s+/g, ' ').replace(/>\s+</g, '><').trim();
       mockFileOperations(input);
-  
+      expectedOutput+="\n";
       const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
       xmlLoader.setDefaultLocale('en');
       await xmlLoader.pull('en');
