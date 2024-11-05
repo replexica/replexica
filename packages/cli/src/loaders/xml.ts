@@ -1,7 +1,6 @@
 import { parseStringPromise, Builder } from 'xml2js';
 import { ILoader } from './_types';
 import { createLoader } from './_utils';
-import { any } from 'zod';
 
 
 function normalizeXMLString(xmlString: string): string {
@@ -30,15 +29,13 @@ export default function createXmlLoader(): ILoader<string, Record<string, any>> 
     
     async push(locale, data) {
       try {
-        const builder = new Builder({ headless: true });
-        
-        // Convert JavaScript object back to XML
+        const builder = new Builder({ headless: true });        
         const xmlOutput = builder.buildObject(data);
         const expectedOutput = normalizeXMLString(xmlOutput);
         return expectedOutput;
       } catch (error) {
         console.error("Failed to build XML:", error);
-        return ''; // Return an empty string in case of build failure
+        return '';
       }
     }
   });
