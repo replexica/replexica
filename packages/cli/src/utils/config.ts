@@ -27,7 +27,7 @@ export function getConfig(resave = true): I18nConfig | null {
 export async function saveConfig(config: I18nConfig) {
   const configFilePath = _getConfigFilePath();
 
-  const prettierConfigFilePath = await prettier.resolveConfigFile(configFilePath) || ''
+  const prettierConfigFilePath = await prettier.resolveConfigFile() || ''
 
   const prettierOptions = await prettier.resolveConfig(prettierConfigFilePath, {editorconfig: true}) || {
     parser: 'json',
