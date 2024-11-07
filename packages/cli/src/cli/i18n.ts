@@ -90,6 +90,35 @@ export default new Command()
         return;
       }
 
+      if(flags.frozen){
+
+        ora.start('Checking for lockfile updates...');
+        
+        let requiresUpdate = false;
+        for (const bucket of buckets) {
+          for (const pathPattern of bucket.pathPatterns) {
+            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
+            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+      
+            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+            const updatedSourceData = lockfileHelper.extractUpdatedData(pathPattern, sourceData);
+      
+            if (Object.keys(updatedSourceData).length > 0) {
+              requiresUpdate = true;
+              break;
+            }
+          }
+          if (requiresUpdate) break;
+        }
+        
+        if (requiresUpdate) {
+          ora.fail("Localization data has changed; please update i18n.lock or run without --frozen.");
+          process.exit(1);
+        } else {
+          ora.succeed("No lockfile updates required.");
+        }
+      }
+
       // Process each bucket
       for (const bucket of buckets) {
         try {
