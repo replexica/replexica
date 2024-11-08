@@ -859,6 +859,152 @@ user.password=Contraseña
       );
     });
   });
+
+  describe('vtt bucket loader', () => {
+    it('should load complex vtt data', async () => {
+      setupFileMocks();
+  
+      // Complex VTT input
+      const input = `
+  WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+Hello world!
+
+00:00:30.000 --> 00:00:31.000 align:start line:0%
+This is a subtitle
+
+00:01:00.000 --> 00:01:01.000
+Foo
+
+00:01:50.000 --> 00:01:51.000
+Bar
+      `.trim();
+      
+      const expectedOutput ={
+        "0": {
+          "end": 1,
+          "identifier": "",
+          "start": 0,
+          "styles": "",
+          "text": "Hello world!",
+        },
+        "1":  {
+          "end": 31,
+          "identifier": "",
+          "start": 30,
+          "styles": "align:start line:0%",
+          "text": "This is a subtitle",
+        },
+        "2":  {
+          "end": 61,
+          "identifier": "",
+          "start": 60,
+          "styles": "",
+          "text": "Foo",
+        },
+        "3":  {
+          "end": 111,
+          "identifier": "",
+          "start": 110,
+          "styles": "",
+          "text": "Bar",
+        },
+      }
+      
+      mockFileOperations(input);
+      
+      const vttLoader = createBucketLoader('vtt', 'i18n/[locale].vtt');
+      vttLoader.setDefaultLocale('en');
+      const data = await vttLoader.pull('en');
+      
+      expect(data).toEqual(expectedOutput);
+    });
+    
+    it('should save complex vtt data', async () => {
+      setupFileMocks();
+      const input = `
+  WEBVTT
+  
+00:00:00.000 --> 00:00:01.000
+Hello world!
+
+00:00:30.000 --> 00:00:31.000 align:start line:0%
+This is a subtitle
+
+00:01:00.000 --> 00:01:01.000
+Foo
+
+00:01:50.000 --> 00:01:51.000
+Bar
+      `.trim();
+      
+      
+      // Complex VTT payload to save
+      const payload = [
+        {
+          end: 1,
+          identifier: "",
+          start: 0,
+          styles: "",
+          text: "¡Hola mundo!",
+        },
+        {
+          end: 31,
+          identifier: "",
+          start: 30,
+          styles: "align:start line:0%",
+          text: "Este es un subtítulo",
+        },
+        {
+          end: 61,
+          identifier: "",
+          start: 60,
+          styles: "",
+          text: "Foo",
+        },
+        {
+          end: 111,
+          identifier: "",
+          start: 110,
+          styles: "",
+          text: "Bar",
+        },
+      ];
+      
+  
+      const expectedOutput = `
+  WEBVTT
+  
+  00:00:00.000 --> 00:00:01.000
+  ¡Hola mundo!
+  
+  00:00:30.000 --> 00:00:31.000 align:start line:0%
+  Este es un subtítulo
+  
+  00:01:00.000 --> 00:01:01.000
+  Foo
+  
+  00:01:50.000 --> 00:01:51.000
+  Bar
+      `.trim();
+  
+      mockFileOperations(input); // Initial empty VTT
+  
+      const vttLoader = createBucketLoader('vtt', 'i18n/[locale].vtt');
+      vttLoader.setDefaultLocale('en');
+      await vttLoader.pull('en'); // Load initial data
+  
+      await vttLoader.push('es', payload);
+  
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.vtt',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
+  
 });
 
 // Helper functions

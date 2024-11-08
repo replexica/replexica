@@ -19,6 +19,7 @@ import createXcodeXcstringsLoader from './xcode-xcstrings';
 import createPrettierLoader from './prettier';
 import createUnlocalizableLoader from './unlocalizable';
 import createPoLoader from './po';
+import createVttLoader from './vtt';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -109,5 +110,13 @@ export default function createBucketLoader(
       createFlatLoader(),
       createUnlocalizableLoader(),
     );
+    case 'vtt': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      // createPrettierLoader({ parser: 'json' }),
+      // createJsonLoader(),
+      createVttLoader(),
+      // createFlatLoader(),
+      createUnlocalizableLoader(),
+    )
   }
 }
