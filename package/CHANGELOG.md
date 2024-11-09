@@ -1,5 +1,16 @@
 # replexica
 
+## 0.55.0
+
+### Minor Changes
+
+- [`57e395a`](https://github.com/replexica/replexica/commit/57e395aae8ab100ba470bc7d1104ddfa178249e7) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `--source` and `--target` flags to show files cmd
+
+### Patch Changes
+
+- Updated dependencies [[`57e395a`](https://github.com/replexica/replexica/commit/57e395aae8ab100ba470bc7d1104ddfa178249e7)]:
+  - @replexica/cli@0.55.0
+
 ## 0.54.0
 
 ### Minor Changes
