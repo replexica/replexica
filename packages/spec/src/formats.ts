@@ -16,6 +16,7 @@ export const bucketTypes = [
   'po',
 
   'compiler',
+  'xliff'
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

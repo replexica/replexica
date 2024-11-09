@@ -19,6 +19,7 @@ import createXcodeXcstringsLoader from './xcode-xcstrings';
 import createPrettierLoader from './prettier';
 import createUnlocalizableLoader from './unlocalizable';
 import createPoLoader from './po';
+import createXliffLoader from './xliff';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -106,6 +107,13 @@ export default function createBucketLoader(
       createPrettierLoader({ parser: 'json' }),
       createJsonLoader(),
       createFlutterLoader(),
+      createFlatLoader(),
+      createUnlocalizableLoader(),
+    );
+    case 'xliff': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createPrettierLoader({ parser: 'json' }),
+      createXliffLoader(),
       createFlatLoader(),
       createUnlocalizableLoader(),
     );
