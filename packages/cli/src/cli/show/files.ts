@@ -8,6 +8,8 @@ import { getBuckets } from "../../utils/buckets";
 export default new Command()
   .command("files")
   .description("Print out the list of files managed by Replexica")
+  .option('--source', 'Only show source files')
+  .option('--target', 'Only show target files')
   .helpOption("-h, --help", "Show help")
   .action(async (type) => {
     const ora = Ora();
@@ -27,10 +29,19 @@ export default new Command()
           for (const pathPattern of bucket.pathPatterns) {
             const sourcePath = pathPattern.replace(/\[locale\]/g, i18nConfig.locale.source);
             const targetPaths = i18nConfig.locale.targets.map((targetLocale) => pathPattern.replace(/\[locale\]/g, targetLocale));
-            [sourcePath, ...targetPaths]
-              .forEach((path) => {
-                console.log(path);
-              });
+            
+            const result: string[] = [];
+            if (!type.source && !type.target) {
+              result.push(sourcePath, ...targetPaths);
+            } else if (type.source) {
+              result.push(sourcePath);
+            } else if (type.target) {
+              result.push(...targetPaths);
+            }
+
+            result.forEach((path) => {
+              console.log(path);
+            });
           }
         }
       } catch (error: any) {
