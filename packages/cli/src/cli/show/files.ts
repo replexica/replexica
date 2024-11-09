@@ -25,8 +25,12 @@ export default new Command()
         const buckets = getBuckets(i18nConfig);
         for (const bucket of buckets) {
           for (const pathPattern of bucket.pathPatterns) {
-            const sourcePathPattern = pathPattern.replace(/\[locale\]/g, i18nConfig.locale.source);
-            console.log(sourcePathPattern);
+            const sourcePath = pathPattern.replace(/\[locale\]/g, i18nConfig.locale.source);
+            const targetPaths = i18nConfig.locale.targets.map((targetLocale) => pathPattern.replace(/\[locale\]/g, targetLocale));
+            [sourcePath, ...targetPaths]
+              .forEach((path) => {
+                console.log(path);
+              });
           }
         }
       } catch (error: any) {
