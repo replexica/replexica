@@ -1,5 +1,18 @@
 # replexica
 
+## 0.54.0
+
+### Minor Changes
+
+- [#301](https://github.com/replexica/replexica/pull/301) [`44b4cca`](https://github.com/replexica/replexica/commit/44b4cca2718bd72d55a938bac458d32a4536508a) Thanks [@partik03](https://github.com/partik03)! - --frozen flag
+
+- [`4fc27da`](https://github.com/replexica/replexica/commit/4fc27daae5810f6167726a28d76a874fd8421a5b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - replexica show files now shows both source and target paths
+
+### Patch Changes
+
+- Updated dependencies [[`44b4cca`](https://github.com/replexica/replexica/commit/44b4cca2718bd72d55a938bac458d32a4536508a), [`4fc27da`](https://github.com/replexica/replexica/commit/4fc27daae5810f6167726a28d76a874fd8421a5b)]:
+  - @replexica/cli@0.54.0
+
 ## 0.53.1
 
 ### Patch Changes
