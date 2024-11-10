@@ -102,5 +102,6 @@ Questions or inquiries? Email veronica@replexica.com
 - [French](/readme/fr.md)
 - [Russian](/readme/ru.md)
 - [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
 
 Don't see your language? Just add a new language code to the [`i18n.json`](./i18n.json) file and open a PR.
