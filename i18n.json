@@ -6,7 +6,12 @@
       "ru",
       "fr",
       "es",
-      "de"
+      "de",
+      "zh-Hans",
+      "ko",
+      "ja",
+      "it",
+      "ar"
     ]
   },
   "buckets": {

@@ -859,6 +859,73 @@ user.password=Contraseña
       );
     });
   });
+  describe('srt bucket loader', () => {
+    it('should load srt', async () => {
+      setupFileMocks();
+  
+      const input = `
+1
+00:00:00,000 --> 00:00:01,000
+Hello!
+
+2
+00:00:01,000 --> 00:00:02,000
+World!
+      `.trim();
+      const expectedOutput = {"1#00:00:00,000-00:00:01,000": "Hello!","2#00:00:01,000-00:00:02,000": "World!"};
+  
+      mockFileOperations(input);
+  
+      const srtLoader = createBucketLoader('srt', 'i18n/[locale].srt');
+      srtLoader.setDefaultLocale('en');
+      const data = await srtLoader.pull('en');
+  
+      expect(data).toEqual(expectedOutput);
+    });
+
+
+      it('should save srt', async () => {
+        setupFileMocks();
+    
+        const input = `
+1
+00:00:00,000 --> 00:00:01,000
+Hello!
+
+2
+00:00:01,000 --> 00:00:02,000
+World!
+  `.trim();
+  
+        const payload = {"1#00:00:00,000-00:00:01,000": "¡Hola!","2#00:00:01,000-00:00:02,000": "Mundo!"}
+        
+        const expectedOutput = `1
+00:00:00,000 --> 00:00:01,000
+¡Hola!
+
+2
+00:00:01,000 --> 00:00:02,000
+Mundo!\n`;
+
+    
+      mockFileOperations(input);
+
+      const srtLoader = createBucketLoader('srt', 'i18n/[locale].srt');
+      srtLoader.setDefaultLocale('en');
+      await srtLoader.pull('en');
+
+      await srtLoader.push('es', payload);
+    
+        expect(fs.writeFile).toHaveBeenCalledWith(
+          'i18n/es.srt',
+          expectedOutput,
+          { encoding: 'utf-8', flag: 'w' },
+        );
+      });
+  
+  });
+  
+
 });
 
 // Helper functions
