@@ -872,24 +872,7 @@ Hello!
 00:00:01,000 --> 00:00:02,000
 World!
       `.trim();
-      const expectedOutput = {
-        '0': {
-          startTime: '00:00:00,000',
-          startSeconds: 0,
-          endTime: '00:00:01,000',
-          id: "1",
-          endSeconds: 1,
-          text: 'Hello!',
-        },
-        '1': {
-          startTime: '00:00:01,000',
-          startSeconds: 1,
-          endTime: '00:00:02,000',
-          id: "2",
-          endSeconds: 2,
-          text: 'World!',
-        },
-      };
+      const expectedOutput = {"1#00:00:00,000-00:00:01,000": "Hello!","2#00:00:01,000-00:00:02,000": "World!"};
   
       mockFileOperations(input);
   
@@ -914,24 +897,7 @@ Hello!
 World!
   `.trim();
   
-        const payload = [
-          {
-            id: '1',
-            startTime: '00:00:00,000',
-            startSeconds: 0,
-            endTime: '00:00:01,000',
-            endSeconds: 1,
-            text: '¡Hola!'
-          },
-          {
-            id: '2',
-            startTime: '00:00:01,000',
-            startSeconds: 1,
-            endTime: '00:00:02,000',
-            endSeconds: 2,
-            text: 'Mundo!'
-          }
-        ]
+        const payload = {"1#00:00:00,000-00:00:01,000": "¡Hola!","2#00:00:01,000-00:00:02,000": "Mundo!"}
         
         const expectedOutput = `1
 00:00:00,000 --> 00:00:01,000
