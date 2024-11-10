@@ -35,7 +35,7 @@ export class PullRequestFlow extends InBranchFlow {
 
     this.ora.start('Checking if PR already exists');
     const pullRequestNumber = await this.createPrIfNotExists(this.i18nBranchName, true);
-    await this.createLabelIfNotExists(pullRequestNumber, 'replexica/i18n', false);
+    // await this.createLabelIfNotExists(pullRequestNumber, 'replexica/i18n', false);
     this.ora.succeed(`Pull request ready: https://github.com/${this.config.repositoryOwner}/${this.config.repositoryName}/pull/${pullRequestNumber}`);
   }
 
