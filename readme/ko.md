@@ -106,5 +106,6 @@ Replexica는 CI/CD 파이프라인에서 로컬라이제이션을 자동화하�
 - [한국어](/readme/ko.md)
 - [일본어](/readme/ja.md)
 - [이탈리아어](/readme/it.md)
+- [아랍어](/readme/ar.md)
 
 원하는 언어가 없나요? [`i18n.json`](./i18n.json) 파일에 새로운 언어 코드를 추가하고 PR을 열어주세요.

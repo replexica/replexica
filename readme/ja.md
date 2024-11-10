@@ -106,5 +106,6 @@ Replexicaは、CI/CDパイプラインでローカライゼーションを自動
 - [韓国語](/readme/ko.md)
 - [日本語](/readme/ja.md)
 - [イタリア語](/readme/it.md)
+- [アラビア語](/readme/ar.md)
 
 お使いの言語が見つかりませんか？[`i18n.json`](./i18n.json)ファイルに新しい言語コードを追加し、PRを開いてください。
