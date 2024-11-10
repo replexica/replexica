@@ -103,5 +103,6 @@ Replexica提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
 - [俄语](/readme/ru.md)
 - [德语](/readme/de.md)
 - [中文](/readme/zh-Hans.md)
+- [韩语](/readme/ko.md)
 
-没有看到您的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码并提交 PR。
+没有看到你的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码，然后提交一个 PR。
