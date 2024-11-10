@@ -1,47 +1,33 @@
 name: Replexica
-description: Accurate AI localization for web & mobile apps.
+description: Automated AI localization for dev teams.
 author: Replexica
 
-# Define your inputs here.
-inputs:
-  api-key:
-    description: Replexica Platform API Key
-    required: true
-  version:
-    description: Version of the Replexica CLI
-    required: false
-    default: 'latest'
-  commit-message:
-    description: 'Commit message for the changes'
-    required: false
-    default: 'feat: update translations'
-  pull-request:
-    description: 'Create a pull request with the changes'
-    required: false
-    default: 'false'
-  pull-request-title:
-    description: 'Title of the pull request'
-    required: false
-    default: 'feat: update translations'
-  pull-request-assignees:
-    description: List of PR assignees (comma separated)
-    required: false
-  pull-request-labels:
-    description: List of PR labels (comma separated)
-    required: false
+branding:
+  icon: 'aperture'
+  color: 'black'
 
 runs:
   using: 'docker'
   image: 'action/Dockerfile'
   env:
     REPLEXICA_API_KEY: ${{ inputs.api-key }}
-    REPLEXICA_VERSION: ${{ inputs.version }}
-    REPLEXICA_COMMIT_MESSAGE: ${{ inputs.commit-message }}
     REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
+    REPLEXICA_COMMIT_MESSAGE: ${{ inputs.commit-message }}
     REPLEXICA_PULL_REQUEST_TITLE: ${{ inputs.pull-request-title }}
-    REPLEXICA_PULL_REQUEST_ASSIGNEES: ${{ inputs.pull-request-assignees }}
-    REPLEXICA_PULL_REQUEST_LABELS: ${{ inputs.pull-request-labels }}
 
-branding:
-  icon: './content/logo.png'
-  color: 'black'
+inputs:
+  api-key:
+    description: 'Replexica Platform API Key'
+    required: true
+  pull-request:
+    description: 'Create a pull request with the changes'
+    default: false
+    required: false
+  commit-message:
+    description: 'Commit message'
+    default: 'feat: update translations via @replexica'
+    required: false
+  pull-request-title:
+    description: 'Pull request title'
+    default: 'feat: update translations via @replexica'
+    required: false
