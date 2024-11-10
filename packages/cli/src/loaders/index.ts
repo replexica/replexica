@@ -20,6 +20,7 @@ import createPrettierLoader from './prettier';
 import createUnlocalizableLoader from './unlocalizable';
 import createPoLoader from './po';
 import createXmlLoader from './xml';
+import createSrtLoader from './srt';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -117,5 +118,10 @@ export default function createBucketLoader(
       createUnlocalizableLoader(),
 
     )
+    case 'srt': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createSrtLoader(),
+      createUnlocalizableLoader(),
+    );
   }
 }

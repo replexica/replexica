@@ -1,15 +1,22 @@
-# Container image that runs your code
-FROM node:20-alpine
+FROM node:20.12.2-alpine
 
-# Install git and github-cli
-RUN apk add --no-cache git github-cli
+# Install git
+RUN apk add --no-cache git
 
-# Copies your code file from your action repository to the filesystem path `/` of the container
-COPY entrypoint.sh /entrypoint.sh
-COPY pr.md /pr.md
+# Set working directory
+WORKDIR /app
 
-# Make entrypoint.sh executable
-RUN chmod +x /entrypoint.sh
+# Copy necessary files
+COPY package*.json tsconfig.json /app
 
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/entrypoint.sh"]
+# Copy src directory
+COPY src /app/src
+
+# Install pnpm and dependencies
+RUN npm install -g pnpm && pnpm install
+
+# Build the TypeScript application
+RUN pnpm build
+
+# Run the Node.js / TypeScript application
+ENTRYPOINT ["node", "/app/build/index.js"]
