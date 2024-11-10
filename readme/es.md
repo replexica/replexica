@@ -102,5 +102,6 @@ Consulta los [Good First Issues](https://github.com/replexica/replexica/labels/g
 - [Francés](/readme/fr.md)
 - [Ruso](/readme/ru.md)
 - [Alemán](/readme/de.md)
+- [Chino](/readme/zh-Hans.md)
 
-¿No ves tu idioma? Simplemente agrega un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.
+¿No ves tu idioma? Simplemente añade un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.
