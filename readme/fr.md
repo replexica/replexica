@@ -104,5 +104,6 @@ Des questions ou des demandes ? Envoyez un e-mail à veronica@replexica.com
 - [Allemand](/readme/de.md)
 - [Chinois](/readme/zh-Hans.md)
 - [Coréen](/readme/ko.md)
+- [Japonais](/readme/ja.md)
 
 Vous ne voyez pas votre langue ? Ajoutez simplement un nouveau code de langue au fichier [`i18n.json`](./i18n.json) et ouvrez une PR.
