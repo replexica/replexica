@@ -33,7 +33,7 @@
     "gray-matter": "^4.0.3",
     "ini": "^5.0.0",
     "jsdom": "^25.0.1",
-    "jsonrepair": "^3.9.0",
+    "jsonrepair": "^3.10.0",
     "lodash": "^4.17.21",
     "markdown-it": "^14.1.0",
     "markdown-it-front-matter": "^0.2.4",
