@@ -27,6 +27,7 @@ const payloadSchema = Z.record(
 const localizationParamsSchema = Z.object({
   sourceLocale: localeCodeSchema,
   targetLocale: localeCodeSchema,
+  fast: Z.boolean().optional(),
 });
 
 const referenceSchema = Z.record(
@@ -83,6 +84,7 @@ export class ReplexicaEngine {
         finalParams.targetLocale,
         { data: chunk, reference },
         workflowId,
+        params.fast || false,
       );
       processedPayloadChunks.push(processedPayloadChunk);
     }
@@ -102,6 +104,7 @@ export class ReplexicaEngine {
     targetLocale: string,
     payload: { data: any; reference: any; },
     workflowId: string,
+    fast: boolean,
   ): Promise<Record<string, string>> {
     const res = await fetch(`${this.config.apiUrl}/i18n`, {
       method: "POST",
@@ -110,7 +113,7 @@ export class ReplexicaEngine {
         Authorization: `Bearer ${this.config.apiKey}`,
       },
       body: JSON.stringify({
-        params: { workflowId },
+        params: { workflowId, fast },
         locale: {
           source: sourceLocale,
           target: targetLocale,
