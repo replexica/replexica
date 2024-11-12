@@ -37,6 +37,8 @@ const referenceSchema = Z.record(
 
 /**
  * ReplexicaEngine class for interacting with the Replexica API
+ * A powerful localization engine that supports various content types including
+ * plain text, objects, chat sequences, and HTML documents.
  */
 export class ReplexicaEngine {
   private config: Z.infer<typeof engineParamsSchema>;
@@ -54,9 +56,11 @@ export class ReplexicaEngine {
   /**
    * Localize content using the Replexica API
    * @param payload - The content to be localized
-   * @param params - Localization parameters
-   * @param progressCallback - Optional callback function to report progress
+   * @param params - Localization parameters including source/target locales and fast mode option
+   * @param reference - Optional reference translations to maintain consistency
+   * @param progressCallback - Optional callback function to report progress (0-100)
    * @returns Localized content
+   * @internal
    */
   async _localizeRaw(
     payload: Z.infer<typeof payloadSchema>,
@@ -185,10 +189,13 @@ export class ReplexicaEngine {
 
   /**
    * Localize a typical JavaScript object
-   * @param obj - The object to be localized
-   * @param params - Localization parameters
-   * @param progressCallback - Optional callback function to report progress
-   * @returns Localized object
+   * @param obj - The object to be localized (strings will be extracted and translated)
+   * @param params - Localization parameters:
+   *   - sourceLocale: The source language code (e.g., 'en')
+   *   - targetLocale: The target language code (e.g., 'es')
+   *   - fast: Optional boolean to enable fast mode (faster but potentially lower quality)
+   * @param progressCallback - Optional callback function to report progress (0-100)
+   * @returns A new object with the same structure but localized string values
    */
   async localizeObject(
     obj: Record<string, any>,
@@ -198,6 +205,16 @@ export class ReplexicaEngine {
     return this._localizeRaw(obj, params, undefined, progressCallback);
   }
 
+  /**
+   * Localize a single text string
+   * @param text - The text string to be localized
+   * @param params - Localization parameters:
+   *   - sourceLocale: The source language code (e.g., 'en')
+   *   - targetLocale: The target language code (e.g., 'es')
+   *   - fast: Optional boolean to enable fast mode (faster but potentially lower quality)
+   * @param progressCallback - Optional callback function to report progress (0-100)
+   * @returns The localized text string
+   */
   async localizeText(
     text: string,
     params: Z.infer<typeof localizationParamsSchema>,
@@ -208,27 +225,14 @@ export class ReplexicaEngine {
   }
 
   /**
-   * Localize a text document
-   * @param textDocument - The text to be localized
-   * @param params - Localization parameters
-   * @param progressCallback - Optional callback function to report progress
-   * @returns Localized text
-   */
-  async localizeDocument(
-    textDocument: string,
-    params: Z.infer<typeof localizationParamsSchema>,
-    progressCallback?: (progress: number) => void
-  ): Promise<string> {
-    const localized = await this._localizeRaw({ text: textDocument }, params, undefined, progressCallback);
-    return localized.text || '';
-  }
-
-  /**
-   * Localize a chat sequence
-   * @param chat - The chat sequence to be localized
-   * @param params - Localization parameters
-   * @param progressCallback - Optional callback function to report progress
-   * @returns Localized chat sequence
+   * Localize a chat sequence while preserving speaker names
+   * @param chat - Array of chat messages, each with 'name' and 'text' properties
+   * @param params - Localization parameters:
+   *   - sourceLocale: The source language code (e.g., 'en')
+   *   - targetLocale: The target language code (e.g., 'es')
+   *   - fast: Optional boolean to enable fast mode (faster but potentially lower quality)
+   * @param progressCallback - Optional callback function to report progress (0-100)
+   * @returns Array of localized chat messages with preserved structure
    */
   async localizeChat(
     chat: Array<{ name: string; text: string }>,
@@ -245,11 +249,15 @@ export class ReplexicaEngine {
   }
 
   /**
-   * Localize an HTML document
-   * @param html - The HTML document to be localized
-   * @param params - Localization parameters
-   * @param progressCallback - Optional callback function to report progress
-   * @returns Localized HTML document
+   * Localize an HTML document while preserving structure and formatting
+   * Handles both text content and localizable attributes (alt, title, placeholder, meta content)
+   * @param html - The HTML document string to be localized
+   * @param params - Localization parameters:
+   *   - sourceLocale: The source language code (e.g., 'en')
+   *   - targetLocale: The target language code (e.g., 'es')
+   *   - fast: Optional boolean to enable fast mode (faster but potentially lower quality)
+   * @param progressCallback - Optional callback function to report progress (0-100)
+   * @returns The localized HTML document as a string, with updated lang attribute
    */
   async localizeHtml(
     html: string,
@@ -368,6 +376,11 @@ export class ReplexicaEngine {
     return dom.serialize();
   }
 
+  /**
+   * Detect the language of a given text
+   * @param text - The text to analyze
+   * @returns Promise resolving to a locale code (e.g., 'en', 'es', 'fr')
+   */
   async recognizeLocale(
     text: string,
   ): Promise<LocaleCode> {
