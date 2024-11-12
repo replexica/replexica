@@ -1,5 +1,12 @@
 # replexica
 
+## 0.56.1
+
+### Patch Changes
+
+- Updated dependencies [[`f0a77ad`](https://github.com/replexica/replexica/commit/f0a77ad774a01c30e7e9bc5a0253638176332fd2), [`a71a88e`](https://github.com/replexica/replexica/commit/a71a88e5c8bd6601b0838c381433a87763142801)]:
+  - @replexica/sdk@0.6.0
+
 ## 0.56.0
 
 ### Minor Changes
