@@ -1,5 +1,5 @@
 import Z from 'zod';
-import { localeCodeSchema } from '@replexica/spec';
+import { LocaleCode, localeCodeSchema } from '@replexica/spec';
 import { createId } from "@paralleldrive/cuid2";
 import { JSDOM } from 'jsdom';
 
@@ -363,5 +363,25 @@ export class ReplexicaEngine {
     });
 
     return dom.serialize();
+  }
+
+  async recognizeLocale(
+    text: string,
+  ): Promise<LocaleCode> {
+    const response = await fetch(`${this.config.apiUrl}/recognize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.config.apiKey}`,
+      },
+      body: JSON.stringify({ text }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error recognizing locale: ${response.statusText}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse.locale;
   }
 }
