@@ -859,6 +859,91 @@ user.password=Contraseña
       );
     });
   });
+
+  describe('XML bucket loader', () => {
+    it('should load XML data', async () => {
+      setupFileMocks();
+  
+      const input = `<root>
+    <title>Test XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introduction</section>
+      <section>
+        <text>
+          Detailed text. 
+        </text>
+      </section>
+    </content>
+  </root>`;
+  
+      const expectedOutput = {
+        'root/title': 'Test XML',
+        'root/date': '2023-05-25',
+        'root/content/section/0': 'Introduction',
+        'root/content/section/1/text': 'Detailed text.',
+      };
+  
+      mockFileOperations(input);
+  
+      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      xmlLoader.setDefaultLocale('en');
+      const data = await xmlLoader.pull('en');
+      console.log("Data :   ",data);
+      
+      expect(data).toEqual(expectedOutput);
+    });
+  
+    it('should save XML data', async () => {
+      setupFileMocks();
+  
+      const input = `<root>
+    <title>Test XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introduction</section>
+      <section>
+        <text>
+          Detailed text.
+        </text>
+      </section>
+    </content>
+  </root>`;
+  
+      const payload = {
+        'root/title': 'Prueba XML',
+        'root/date': '2023-05-25',
+        'root/content/section/0': 'Introducción',
+        'root/content/section/1/text': 'Detalles texto.',
+      };
+  
+      let expectedOutput = `
+      <root>
+        <title>Prueba XML</title>
+        <date>2023-05-25</date>
+        <content>
+          <section>Introducción</section>
+          <section>
+            <text>Detalles texto.</text>
+          </section>
+        </content>
+      </root>`.replace(/\s+/g, ' ').replace(/>\s+</g, '><').trim();
+      mockFileOperations(input);
+      expectedOutput+="\n";
+      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      xmlLoader.setDefaultLocale('en');
+      await xmlLoader.pull('en');
+  
+      await xmlLoader.push('es', payload);
+  
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.xml',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
+  
   describe('srt bucket loader', () => {
     it('should load srt', async () => {
       setupFileMocks();
