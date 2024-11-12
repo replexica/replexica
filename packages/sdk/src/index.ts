@@ -10,13 +10,13 @@ const engineParamsSchema = Z.object({
     .int()
     .gt(0)
     .lte(250)
-    .default(25),
+    .default(50),
   idealBatchItemSize: Z
     .number()
     .int()
     .gt(0)
     .lte(2500)
-    .default(200),
+    .default(500),
 }).passthrough();
 
 const payloadSchema = Z.record(
