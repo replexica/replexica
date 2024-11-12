@@ -1,6 +1,7 @@
 import Z from 'zod';
 import { localeCodeSchema } from '@replexica/spec';
 import { createId } from "@paralleldrive/cuid2";
+import { JSDOM } from 'jsdom';
 
 const engineParamsSchema = Z.object({
   apiKey: Z.string(),
@@ -194,6 +195,15 @@ export class ReplexicaEngine {
     return this._localizeRaw(obj, params, undefined, progressCallback);
   }
 
+  async localizeText(
+    text: string,
+    params: Z.infer<typeof localizationParamsSchema>,
+    progressCallback?: (progress: number) => void
+  ): Promise<string> {
+    const response = await this._localizeRaw({ text }, params, undefined, progressCallback);
+    return response.text || '';
+  }
+
   /**
    * Localize a text document
    * @param textDocument - The text to be localized
@@ -229,5 +239,129 @@ export class ReplexicaEngine {
       name: chat[parseInt(key.split('_')[1])].name,
       text: value,
     }));
+  }
+
+  /**
+   * Localize an HTML document
+   * @param html - The HTML document to be localized
+   * @param params - Localization parameters
+   * @param progressCallback - Optional callback function to report progress
+   * @returns Localized HTML document
+   */
+  async localizeHtml(
+    html: string,
+    params: Z.infer<typeof localizationParamsSchema>,
+    progressCallback?: (progress: number) => void
+  ): Promise<string> {
+    const dom = new JSDOM(html);
+    const document = dom.window.document;
+
+    const LOCALIZABLE_ATTRIBUTES: Record<string, string[]> = {
+      'meta': ['content'],
+      'img': ['alt'],
+      'input': ['placeholder'],
+      'a': ['title'],
+    };
+    const UNLOCALIZABLE_TAGS = ['script', 'style'];
+
+    const extractedContent: Record<string, string> = {};
+
+    const getPath = (node: Node, attribute?: string): string => {
+      const indices: number[] = [];
+      let current = node as ChildNode;
+      let rootParent = '';
+      
+      while (current) {
+        const parent = current.parentElement as Element;
+        if (!parent) break;
+        
+        if (parent === document.documentElement) {
+          rootParent = current.nodeName.toLowerCase();
+          break;
+        }
+        
+        const siblings = Array.from(parent.childNodes)
+          .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()));
+        const index = siblings.indexOf(current);
+        if (index !== -1) {
+          indices.unshift(index);
+        }
+        current = parent;
+      }
+      
+      const basePath = rootParent ? `${rootParent}/${indices.join('/')}` : indices.join('/');
+      return attribute ? `${basePath}#${attribute}` : basePath;
+    };
+
+    const processNode = (node: Node) => {
+      let parent = node.parentElement;
+      while (parent) {
+        if (UNLOCALIZABLE_TAGS.includes(parent.tagName.toLowerCase())) {
+          return;
+        }
+        parent = parent.parentElement;
+      }
+
+      if (node.nodeType === 3) {
+        const text = node.textContent?.trim() || '';
+        if (text) {
+          extractedContent[getPath(node)] = text;
+        }
+      } else if (node.nodeType === 1) {
+        const element = node as Element;
+        const tagName = element.tagName.toLowerCase();
+        
+        const attributes = LOCALIZABLE_ATTRIBUTES[tagName] || [];
+        attributes.forEach(attr => {
+          const value = element.getAttribute(attr);
+          if (value) {
+            extractedContent[getPath(element, attr)] = value;
+          }
+        });
+
+        Array.from(element.childNodes)
+          .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
+          .forEach(processNode);
+      }
+    };
+
+    Array.from(document.head.childNodes)
+      .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
+      .forEach(processNode);
+    Array.from(document.body.childNodes)
+      .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
+      .forEach(processNode);
+
+    const localizedContent = await this._localizeRaw(extractedContent, params, undefined, progressCallback);
+
+    // Update the DOM with localized content
+    document.documentElement.setAttribute('lang', params.targetLocale);
+
+    Object.entries(localizedContent).forEach(([path, value]) => {
+      const [nodePath, attribute] = path.split('#');
+      const [rootTag, ...indices] = nodePath.split('/');
+      
+      let parent: Element = rootTag === 'head' ? document.head : document.body;
+      let current: Node | null = parent;
+
+      for (const index of indices) {
+        const siblings = Array.from(parent.childNodes)
+          .filter(n => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()));
+        current = siblings[parseInt(index)] || null;
+        if (current?.nodeType === 1) {
+          parent = current as Element;
+        }
+      }
+
+      if (current) {
+        if (attribute) {
+          (current as Element).setAttribute(attribute, value);
+        } else {
+          current.textContent = value;
+        }
+      }
+    });
+
+    return dom.serialize();
   }
 }
