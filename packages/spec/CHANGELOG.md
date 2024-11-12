@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.18.0
+
+### Minor Changes
+
+- [#300](https://github.com/replexica/replexica/pull/300) [`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151) Thanks [@partik03](https://github.com/partik03)! - implemented srt file loader and added support for srt file format in spec
+
 ## 0.17.0
 
 ### Minor Changes

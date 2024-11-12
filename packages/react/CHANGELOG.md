@@ -1,5 +1,12 @@
 # @replexica/react
 
+## 0.3.11
+
+### Patch Changes
+
+- Updated dependencies [[`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151)]:
+  - @replexica/spec@0.18.0
+
 ## 0.3.10
 
 ### Patch Changes

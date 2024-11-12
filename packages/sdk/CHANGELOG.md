@@ -1,5 +1,18 @@
 # @replexica/sdk
 
+## 0.5.0
+
+### Minor Changes
+
+- [`ebf44cb`](https://github.com/replexica/replexica/commit/ebf44cbb462516abfe660c295c04627796c5a3a7) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - implement recognize locale
+
+- [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added .localizeHtml implementation to SDK
+
+### Patch Changes
+
+- Updated dependencies [[`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151)]:
+  - @replexica/spec@0.18.0
+
 ## 0.4.3
 
 ### Patch Changes

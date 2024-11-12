@@ -1,5 +1,21 @@
 # replexica
 
+## 0.56.0
+
+### Minor Changes
+
+- [#298](https://github.com/replexica/replexica/pull/298) [`c03437d`](https://github.com/replexica/replexica/commit/c03437dc9cfd8183e40f74926b4ba7f0874ebf81) Thanks [@partik03](https://github.com/partik03)! - implemented xml loader
+
+- [#300](https://github.com/replexica/replexica/pull/300) [`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151) Thanks [@partik03](https://github.com/partik03)! - implemented srt file loader and added support for srt file format in spec
+
+- [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added .localizeHtml implementation to SDK
+
+### Patch Changes
+
+- Updated dependencies [[`ebf44cb`](https://github.com/replexica/replexica/commit/ebf44cbb462516abfe660c295c04627796c5a3a7), [`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151), [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280)]:
+  - @replexica/sdk@0.5.0
+  - @replexica/spec@0.18.0
+
 ## 0.55.0
 
 ### Minor Changes
