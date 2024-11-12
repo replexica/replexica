@@ -1,5 +1,15 @@
 # @replexica/sdk
 
+## 0.6.0
+
+### Minor Changes
+
+- [`a71a88e`](https://github.com/replexica/replexica/commit/a71a88e5c8bd6601b0838c381433a87763142801) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fast mode
+
+### Patch Changes
+
+- [`f0a77ad`](https://github.com/replexica/replexica/commit/f0a77ad774a01c30e7e9bc5a0253638176332fd2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - updated default batch size limits in the SDK
+
 ## 0.5.0
 
 ### Minor Changes
