@@ -1,5 +1,14 @@
 # replexica
 
+## 0.56.3
+
+### Patch Changes
+
+- [`b8ad864`](https://github.com/replexica/replexica/commit/b8ad8643347088635eeeb568f1818d71d5226269) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat(cli): disable safe mode at localizable chunk level
+
+- Updated dependencies [[`b8ad864`](https://github.com/replexica/replexica/commit/b8ad8643347088635eeeb568f1818d71d5226269)]:
+  - @replexica/cli@0.56.3
+
 ## 0.56.2
 
 ### Patch Changes
