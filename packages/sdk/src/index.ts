@@ -211,7 +211,7 @@ export class ReplexicaEngine {
    * @param params - Localization parameters:
    *   - sourceLocale: The source language code (e.g., 'en')
    *   - targetLocale: The target language code (e.g., 'es')
-   *   - fast: Optional boolean to enable fast mode (faster but potentially lower quality)
+   *   - fast: Optional boolean to enable fast mode (faster for bigger batches)
    * @param progressCallback - Optional callback function to report progress (0-100)
    * @returns The localized text string
    */
@@ -222,6 +222,34 @@ export class ReplexicaEngine {
   ): Promise<string> {
     const response = await this._localizeRaw({ text }, params, undefined, progressCallback);
     return response.text || '';
+  }
+
+  /**
+   * Localize a text string to multiple target locales
+   * @param text - The text string to be localized
+   * @param params - Localization parameters:
+   *   - sourceLocale: The source language code (e.g., 'en')
+   *   - targetLocales: An array of target language codes (e.g., ['es', 'fr'])
+   *   - fast: Optional boolean to enable fast mode (for bigger batches)
+   * @returns An array of localized text strings
+   */
+  async batchLocalizeText(
+    text: string,
+    params: {
+      sourceLocale: LocaleCode,
+      targetLocales: LocaleCode[],
+      fast?: boolean,
+    },
+  ) {
+    const responses = await Promise.all(
+      params.targetLocales.map(targetLocale => this.localizeText(text, {
+        sourceLocale: params.sourceLocale,
+        targetLocale,
+        fast: params.fast,
+      })),
+    );
+
+    return responses;
   }
 
   /**
