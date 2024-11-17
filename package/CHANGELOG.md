@@ -1,5 +1,13 @@
 # replexica
 
+## 0.56.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/cli@0.56.2
+  - @replexica/compiler@0.5.6
+
 ## 0.56.1
 
 ### Patch Changes
