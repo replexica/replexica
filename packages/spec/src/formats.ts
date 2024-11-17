@@ -16,6 +16,7 @@ export const bucketTypes = [
   'po',
   'xml',
   'srt',
+  'dato',
   'compiler',
 ] as const;
 
