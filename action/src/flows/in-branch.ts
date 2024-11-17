@@ -14,31 +14,30 @@ export class InBranchFlow extends IntegrationFlow {
     this.ora.succeed('Done running Replexica');
 
     this.ora.start('Checking for changes');
-    const hasChanges = await this.checkCommitableChanges();
+    const hasChanges = this.checkCommitableChanges();
     this.ora.succeed(hasChanges ? 'Changes detected' : 'No changes detected');
 
     if (hasChanges) {
-      this.ora.start('Committing changes');
+      this.ora.start('Committing changes')
+      execSync(`git add .`, { stdio: 'inherit' });
       execSync(`git commit -m "${this.config.commitMessage}"`, { stdio: 'inherit' });
       this.ora.succeed('Changes committed');
 
       this.ora.start('Pushing changes to remote');
-      execSync(`git push origin --all`, { stdio: 'inherit' });
+      execSync(`git push origin HEAD --force`, { stdio: 'inherit' });
       this.ora.succeed('Changes pushed to remote');
     }
 
     return hasChanges;
   }
 
+  protected checkCommitableChanges() {
+    return execSync('git status --porcelain || echo "has_changes"', { encoding: 'utf8' }).length > 0;
+  }
+
   private async runReplexica() {
     execSync(`npx replexica@latest i18n --api-key ${this.config.replexicaApiKey}`, { stdio: 'inherit' });
-    execSync(`git add .`, { stdio: 'inherit' });
   }
-
-  private async checkCommitableChanges() {
-    return execSync('git diff --staged --quiet || echo "has_changes"', { encoding: 'utf8' }).includes('has_changes');
-  }
-
   
   private configureGit() {
     execSync('git config --global user.name "Replexica"');

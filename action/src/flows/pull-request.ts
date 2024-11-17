@@ -34,7 +34,7 @@ export class PullRequestFlow extends InBranchFlow {
     if (!this.i18nBranchName) { throw new Error('i18nBranchName is not set. Did you forget to call preRun?'); }
 
     this.ora.start('Checking if PR already exists');
-    const pullRequestNumber = await this.createPrIfNotExists(this.i18nBranchName, true);
+    const pullRequestNumber = await this.ensureFreshPr(this.i18nBranchName);
     // await this.createLabelIfNotExists(pullRequestNumber, 'replexica/i18n', false);
     this.ora.succeed(`Pull request ready: https://github.com/${this.config.repositoryOwner}/${this.config.repositoryName}/pull/${pullRequestNumber}`);
   }
@@ -56,8 +56,9 @@ export class PullRequestFlow extends InBranchFlow {
     return result;
   }
 
-  private async createPrIfNotExists(i18nBranchName: string, recreate: boolean) {
+  private async ensureFreshPr(i18nBranchName: string) {
     // Check if PR exists
+    this.ora.start(`Checking for existing PR with head ${i18nBranchName} and base ${this.config.baseBranchName}`);
     const existingPr = await this.octokit.rest.pulls.list({
       owner: this.config.repositoryOwner,
       repo: this.config.repositoryName,
@@ -65,22 +66,22 @@ export class PullRequestFlow extends InBranchFlow {
       base: this.config.baseBranchName,
       state: 'open',
     }).then(({ data }) => data[0]);
+    this.ora.succeed(existingPr ? 'PR found' : 'No PR found');
 
-    if (existingPr) {
-      if (!recreate) {
-        return existingPr.number;
-      }
-      
+    if (existingPr) {      
       // Close existing PR first
+      this.ora.start(`Closing existing PR ${existingPr.number}`);
       await this.octokit.rest.pulls.update({
         owner: this.config.repositoryOwner,
         repo: this.config.repositoryName,
         pull_number: existingPr.number,
         state: 'closed'
       });
+      this.ora.succeed(`Closed existing PR ${existingPr.number}`);
     }
 
     // Create new PR
+    this.ora.start(`Creating new PR`);
     const newPr = await this.octokit.rest.pulls.create({
       owner: this.config.repositoryOwner,
       repo: this.config.repositoryName,
@@ -89,49 +90,21 @@ export class PullRequestFlow extends InBranchFlow {
       title: this.config.pullRequestTitle,
       body: this.getPrBodyContent(),
     });
+    this.ora.succeed(`Created new PR ${newPr.data.number}`);
 
     if (existingPr) {
       // Post comment about outdated PR
+      this.ora.start(`Posting comment about outdated PR ${existingPr.number}`);
       await this.octokit.rest.issues.createComment({
         owner: this.config.repositoryOwner,
         repo: this.config.repositoryName,
         issue_number: existingPr.number,
         body: `This PR is now outdated. A new version has been created at #${newPr.data.number}`
       });
+      this.ora.succeed(`Posted comment about outdated PR ${existingPr.number}`);
     }
 
     return newPr.data.number;
-  }
-
-  private async createLabelIfNotExists(pullRequestNumber: number, labelName: string, recreate: boolean) {
-    // Check if label exists
-    const existingLabel = await this.octokit.rest.issues.listLabelsOnIssue({
-      owner: this.config.repositoryOwner,
-      repo: this.config.repositoryName,
-      issue_number: pullRequestNumber,
-    }).then(({ data }) => data.find(label => label.name === labelName));
-
-    if (existingLabel) {
-      if (!recreate) {
-        return;
-      }
-      
-      // Remove existing label first
-      await this.octokit.rest.issues.removeLabel({
-        owner: this.config.repositoryOwner,
-        repo: this.config.repositoryName,
-        issue_number: pullRequestNumber,
-        name: labelName
-      });
-    }
-
-    // Add new label
-    await this.octokit.rest.issues.addLabels({
-      owner: this.config.repositoryOwner,
-      repo: this.config.repositoryName,
-      issue_number: pullRequestNumber,
-      labels: [labelName]
-    });
   }
 
   private checkoutI18nBranch(i18nBranchName: string) {
@@ -145,44 +118,69 @@ export class PullRequestFlow extends InBranchFlow {
   }
 
   private syncI18nBranch() {
+    if (!this.i18nBranchName) {
+      throw new Error('i18nBranchName is not set');
+    }
+
+    this.ora.start(`Fetching latest changes from ${this.config.baseBranchName}`);
     execSync(`git fetch origin ${this.config.baseBranchName}`, { stdio: 'inherit' });
-
-    // Get list of files to preserve
-    const filesToPreserve = ['i18n.lock'];
+    this.ora.succeed(`Fetched latest changes from ${this.config.baseBranchName}`);
+    
     try {
-      const replexicaFiles = execSync('npx replexica@latest show files --target', { encoding: 'utf8' })
-        .split('\n')
-        .filter(Boolean); // Remove empty lines
-      filesToPreserve.push(...replexicaFiles);
+      this.ora.start('Attempting to rebase branch');
+      execSync(`git rebase origin/${this.config.baseBranchName}`, { stdio: 'inherit' });
+      this.ora.succeed('Successfully rebased branch');
     } catch (error) {
-      this.ora.warn('Could not get Replexica target files list, preserving only i18n.lock');
-    }
+      this.ora.warn('Rebase failed, falling back to alternative sync method');
+      
+      this.ora.start('Aborting failed rebase');
+      execSync('git rebase --abort', { stdio: 'inherit' });
+      this.ora.succeed('Aborted failed rebase');
+      
+      this.ora.start(`Resetting to ${this.config.baseBranchName}`);
+      execSync(`git reset --hard origin/${this.config.baseBranchName}`, { stdio: 'inherit' });
+      this.ora.succeed(`Reset to ${this.config.baseBranchName}`);
 
-    // Merge but don't commit yet
-    execSync(`git merge -X theirs --no-commit origin/${this.config.baseBranchName} --allow-unrelated-histories`, { stdio: 'inherit' });
-
-    // Restore all files that need to be preserved
-    for (const file of filesToPreserve) {
-      try {
-        execSync(`git checkout HEAD -- "${file}"`, { stdio: 'inherit' });
-      } catch (error) {
-        this.ora.warn(`Could not preserve ${file} (might not exist)`);
+      this.ora.start('Restoring target files');
+      const targetFiles = ['i18n.lock'];
+      const targetFileNames = execSync(`npx replexica@latest show files --target ${this.config.baseBranchName}`, { encoding: 'utf8' }).split('\n').filter(Boolean);
+      targetFiles.push(...targetFileNames);
+      execSync(`git fetch origin ${this.i18nBranchName}`, { stdio: 'inherit' });
+      for (const file of targetFiles) {
+        try {
+          // bring all files to the i18n branch's state
+          execSync(`git checkout FETCH_HEAD -- ${file}`, { stdio: 'inherit' });
+        } catch (error) {
+          // If file doesn't exist in FETCH_HEAD, that's okay - just skip it
+          this.ora.warn(`Skipping non-existent file: ${file}`);
+          continue;
+        }
       }
+      this.ora.succeed('Restored target files');
     }
 
-    execSync('git commit -m "Merge branch with preserved Replexica files"', { stdio: 'inherit' });
+    this.ora.start('Checking for changes to commit');
+    const hasChanges = this.checkCommitableChanges();
+    if (hasChanges) {
+      execSync('git add .', { stdio: 'inherit' });
+      execSync(`git commit -m "chore: sync with ${this.config.baseBranchName}"`, { stdio: 'inherit' });
+      this.ora.succeed('Committed additional changes');
+    } else {
+      this.ora.succeed('No changes to commit');
+    }
   }
 
   private getPrBodyContent(): string {
     return `
 Hey team,
 
-[**Replexica AI**](https://replexica.com) here with fresh localization updates!
+[**Replexica AI**](https://replexica.com) here with fresh translations!
 
-### What's New?
+### In this update
 
 - Added missing translations
-- Improved localization coverage
+- Performed brand voice, context and glossary checks
+- Enhanced translations using Replexica Localization Engine
 
 ### Next Steps
 
