@@ -124,6 +124,9 @@ export default function createBucketLoader(
       createSrtLoader(),
       createUnlocalizableLoader(),
     );
-    case 'dato': return createDatoLoader();
+    case 'dato': return composeLoaders(
+      createDatoLoader(bucketPathPattern),
+      createFlatLoader(),
+    );
   }
 }
