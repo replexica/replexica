@@ -146,26 +146,20 @@ export default new Command()
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
                 });
-                let processedTargetData;
-                try {
-                  processedTargetData = await localizationEngine.process({
-                    sourceLocale: i18nConfig!.locale.source,
-                    sourceData,
-                    processableData,
-                    targetLocale,
-                    targetData,
-                  }, (progress) => {
-                    bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
-                  });
-                  
-                } catch (error: any) {
-                  handleWarning('Failed to process target data', error, flags.strict, results);
-                  if (flags.strict) return;
-                }
+                const processedTargetData = await localizationEngine.process({
+                  sourceLocale: i18nConfig!.locale.source,
+                  sourceData,
+                  processableData,
+                  targetLocale,
+                  targetData,
+                }, (progress) => {
+                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
+                });
 
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processedTargetData, null, 2));
                 }
+
                 const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
                 await bucketLoader.push(targetLocale, finalTargetData);
                 bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
