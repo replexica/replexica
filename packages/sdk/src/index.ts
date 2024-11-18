@@ -9,8 +9,8 @@ const engineParamsSchema = Z.object({
   batchSize: Z.number()
     .int()
     .gt(0)
-    .lte(250)
-    .default(50),
+    .lte(100)
+    .default(25),
   idealBatchItemSize: Z
     .number()
     .int()
