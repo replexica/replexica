@@ -9,14 +9,14 @@ const engineParamsSchema = Z.object({
   batchSize: Z.number()
     .int()
     .gt(0)
-    .lte(100)
+    .lte(250)
     .default(25),
   idealBatchItemSize: Z
     .number()
     .int()
     .gt(0)
     .lte(2500)
-    .default(500),
+    .default(250),
 }).passthrough();
 
 const payloadSchema = Z.record(
