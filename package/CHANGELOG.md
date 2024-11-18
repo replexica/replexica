@@ -1,5 +1,18 @@
 # replexica
 
+## 0.58.0
+
+### Minor Changes
+
+- [`ff0d2d7`](https://github.com/replexica/replexica/commit/ff0d2d7fb12806a7264a72c03e48a8dda3526c23) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add retry with exponential backoff to the cli
+
+### Patch Changes
+
+- [`7ff7f8f`](https://github.com/replexica/replexica/commit/7ff7f8fca7318e4dba929194972d20ccf3487e9d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - display number of entries in localization completion message
+
+- Updated dependencies [[`7ff7f8f`](https://github.com/replexica/replexica/commit/7ff7f8fca7318e4dba929194972d20ccf3487e9d), [`ff0d2d7`](https://github.com/replexica/replexica/commit/ff0d2d7fb12806a7264a72c03e48a8dda3526c23)]:
+  - @replexica/cli@0.58.0
+
 ## 0.57.1
 
 ### Patch Changes
