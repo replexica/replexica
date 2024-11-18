@@ -9,6 +9,7 @@ import initCmd from './init';
 import configCmd from './show';
 import i18nCmd from './i18n';
 import lockfileCmd from './lockfile';
+import cleanupCmd from './cleanup';
 
 import packageJson from '../../package.json';
 
@@ -32,6 +33,7 @@ Website: https://replexica.com
   .addCommand(initCmd)
   .addCommand(configCmd)
   .addCommand(lockfileCmd)
+  .addCommand(cleanupCmd)
   .parse(process.argv)
 ;
 
