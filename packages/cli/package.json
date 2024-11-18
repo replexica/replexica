@@ -1,6 +1,6 @@
 {
   "name": "@replexica/cli",
-  "version": "0.57.0",
+  "version": "0.57.1",
   "description": "Replexica CLI",
   "private": false,
   "type": "module",
