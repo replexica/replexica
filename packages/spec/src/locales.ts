@@ -5,7 +5,7 @@ const localeMap = {
   vi: ['vi-VN'],
   tr: ['tr-TR'],
   ta: ['ta-IN'],
-  sr: ['sr-RS'],
+  sr: ['sr-RS', 'sr-Latn-RS', 'sr-Cyrl-RS'],
   hu: ['hu-HU'],
   he: ['he-IL'],
   et: ['et-EE'],
