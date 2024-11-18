@@ -162,7 +162,7 @@ export default new Command()
                 let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
                 finalTargetData = _.pick(finalTargetData, Object.keys(sourceData));
                 await bucketLoader.push(targetLocale, finalTargetData);
-                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
+                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] AI localization completed`);
               } catch (error:any) {
                 handleWarning(`Failed to localize for ${targetLocale}`, error, flags.strict, results);
                 if (flags.strict) return;
