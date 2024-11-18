@@ -160,10 +160,8 @@ export default new Command()
                   bucketOra.info(JSON.stringify(processedTargetData, null, 2));
                 }
 
-                const finalTargetData = _.pick(
-                  _.merge({}, sourceData, targetData, processedTargetData),
-                  Object.keys(sourceData)
-                );
+                let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+                finalTargetData = _.pick(finalTargetData, Object.keys(sourceData));
                 await bucketLoader.push(targetLocale, finalTargetData);
                 bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
               } catch (error:any) {
