@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.19.0
+
+### Minor Changes
+
+- [`5cb3c93`](https://github.com/replexica/replexica/commit/5cb3c930fff6e30cff5cc2266b794f75a0db646d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added Latin / Cyrilic modifiers for Serbian
+
 ## 0.18.0
 
 ### Minor Changes
