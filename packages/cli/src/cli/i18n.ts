@@ -134,14 +134,13 @@ export default new Command()
 
             for (const targetLocale of targetLocales) {
               try {
-                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) AI localization in progress...`);
-                
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processableData, null, 2));
                 }
 
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (0%) AI localization in progress...`);
                 const localizationEngine = createLocalizationEngineConnection({
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
@@ -153,7 +152,7 @@ export default new Command()
                   targetLocale,
                   targetData,
                 }, (progress) => {
-                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
+                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
                 });
 
                 if (flags.verbose) {
