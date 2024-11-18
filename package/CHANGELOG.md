@@ -1,5 +1,21 @@
 # replexica
 
+## 0.57.0
+
+### Minor Changes
+
+- [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `cleanup` command
+
+### Patch Changes
+
+- [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - filter out non extistent keys
+
+- [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - improve progress logging in cli
+
+- Updated dependencies [[`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91), [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5), [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402)]:
+  - @replexica/cli@0.57.0
+  - @replexica/compiler@0.5.7
+
 ## 0.56.3
 
 ### Patch Changes

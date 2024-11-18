@@ -1,5 +1,13 @@
 # @replexica/sdk
 
+## 0.7.1
+
+### Patch Changes
+
+- [`db819a4`](https://github.com/replexica/replexica/commit/db819a42412ceb67fedbe729b7d018952686d60b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - reduce default batch size to avoid hitting rate limits
+
+- [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - filter out non extistent keys
+
 ## 0.7.0
 
 ### Minor Changes

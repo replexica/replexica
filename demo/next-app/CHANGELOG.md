@@ -1,5 +1,12 @@
 # @replexica/demo/next-app
 
+## 0.1.57
+
+### Patch Changes
+
+- Updated dependencies [[`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91), [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5), [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402)]:
+  - replexica@0.57.0
+
 ## 0.1.56
 
 ### Patch Changes
