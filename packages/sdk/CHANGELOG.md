@@ -1,5 +1,11 @@
 # @replexica/sdk
 
+## 0.7.3
+
+### Patch Changes
+
+- [`cbef8f3`](https://github.com/replexica/replexica/commit/cbef8f3cafdc955d61053ce885d98e425acb668d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - moved jsdom import into the html handler function
+
 ## 0.7.2
 
 ### Patch Changes
