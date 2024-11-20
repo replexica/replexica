@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.20.0
+
+### Minor Changes
+
+- [`1556977`](https://github.com/replexica/replexica/commit/1556977332a6f949100283bfa8c9a9ff5e74b156) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add new locales
+
 ## 0.19.0
 
 ### Minor Changes
