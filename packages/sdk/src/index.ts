@@ -1,7 +1,6 @@
 import Z from 'zod';
 import { LocaleCode, localeCodeSchema } from '@replexica/spec';
 import { createId } from "@paralleldrive/cuid2";
-import { JSDOM } from 'jsdom';
 
 const engineParamsSchema = Z.object({
   apiKey: Z.string(),
@@ -292,6 +291,8 @@ export class ReplexicaEngine {
     params: Z.infer<typeof localizationParamsSchema>,
     progressCallback?: (progress: number) => void
   ): Promise<string> {
+    const jsdomPackage = await import('jsdom');
+    const { JSDOM } = jsdomPackage;
     const dom = new JSDOM(html);
     const document = dom.window.document;
 
