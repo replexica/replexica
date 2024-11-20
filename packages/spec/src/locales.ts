@@ -1,54 +1,179 @@
 import Z from 'zod';
 
 const localeMap = {
+  // Urdu (Pakistan)
   ur: ['ur-PK'],
+  // Vietnamese (Vietnam)
   vi: ['vi-VN'],
+  // Turkish (Turkey)
   tr: ['tr-TR'],
+  // Tamil (India)
   ta: ['ta-IN'],
-  sr: ['sr-RS', 'sr-Latn-RS', 'sr-Cyrl-RS'],
+  // Serbian
+  sr: [
+    'sr-RS',      // Serbian (Latin)
+    'sr-Latn-RS', // Serbian (Latin)
+    'sr-Cyrl-RS', // Serbian (Cyrillic)
+  ],
+  // Hungarian (Hungary)
   hu: ['hu-HU'],
+  // Hebrew (Israel)
   he: ['he-IL'],
+  // Estonian (Estonia)
   et: ['et-EE'],
+  // Greek (Greece)
   el: ['el-GR'],
+  // Danish (Denmark)
   da: ['da-DK'],
+  // Azerbaijani (Azerbaijan)
   az: ['az-AZ'],
+  // Thai (Thailand)
   th: ['th-TH'],
+  // Swedish (Sweden)
   sv: ['sv-SE'],
-  en: ['en-US', 'en-GB', 'en-AU', 'en-CA'],
-  es: ['es-ES', 'es-419', 'es-MX', 'es-AR'],
-  fr: ['fr-FR', 'fr-CA', 'fr-BE'],
+  // English
+  en: [
+    'en-US', // United States
+    'en-GB', // United Kingdom
+    'en-AU', // Australia
+    'en-CA', // Canada
+  ],
+  // Spanish
+  es: [
+    'es-ES',  // Spain
+    'es-419', // Latin America
+    'es-MX',  // Mexico
+    'es-AR',  // Argentina
+  ],
+  // French
+  fr: [
+    'fr-FR', // France
+    'fr-CA', // Canada
+    'fr-BE', // Belgium
+  ],
+  // Catalan (Spain)
   ca: ['ca-ES'],
+  // Japanese (Japan)
   ja: ['ja-JP'],
-  de: ['de-DE', 'de-AT', 'de-CH'],
-  pt: ['pt-PT', 'pt-BR'],
-  it: ['it-IT', 'it-CH'],
-  ru: ['ru-RU', 'ru-BY'],
+  // German
+  de: [
+    'de-DE', // Germany
+    'de-AT', // Austria
+    'de-CH', // Switzerland
+  ],
+  // Portuguese
+  pt: [
+    'pt-PT', // Portugal
+    'pt-BR', // Brazil
+  ],
+  // Italian
+  it: [
+    'it-IT', // Italy
+    'it-CH', // Switzerland
+  ],
+  // Russian
+  ru: [
+    'ru-RU', // Russia
+    'ru-BY', // Belarus
+  ],
+  // Ukrainian (Ukraine)
   uk: ['uk-UA'],
+  // Hindi (India)
   hi: ['hi-IN'],
-  zh: ['zh-CN', 'zh-TW', 'zh-HK', 'zh-Hans', 'zh-Hant', 'zh-Hant-HK', 'zh-Hant-TW', 'zh-Hans-CN'],
+  // Chinese
+  zh: [
+    'zh-CN',     // Simplified Chinese (China)
+    'zh-TW',     // Traditional Chinese (Taiwan)
+    'zh-HK',     // Traditional Chinese (Hong Kong)
+    'zh-Hans',   // Simplified Chinese
+    'zh-Hant',   // Traditional Chinese
+    'zh-Hant-HK',// Traditional Chinese (Hong Kong)
+    'zh-Hant-TW',// Traditional Chinese (Taiwan)
+    'zh-Hans-CN',// Simplified Chinese (China)
+  ],
+  // Korean (South Korea)
   ko: ['ko-KR'],
-  ar: ['ar-EG', 'ar-SA', 'ar-AE', 'ar-MA'],
+  // Arabic
+  ar: [
+    'ar-EG', // Egypt
+    'ar-SA', // Saudi Arabia
+    'ar-AE', // United Arab Emirates
+    'ar-MA', // Morocco
+  ],
+  // Bulgarian (Bulgaria)
   bg: ['bg-BG'],
+  // Czech (Czech Republic)
   cs: ['cs-CZ'],
-  nl: ['nl-NL', 'nl-BE'],
+  // Dutch
+  nl: [
+    'nl-NL', // Netherlands
+    'nl-BE', // Belgium
+  ],
+  // Polish (Poland)
   pl: ['pl-PL'],
+  // Indonesian (Indonesia)
   id: ['id-ID'],
+  // Malay (Malaysia)
   ms: ['ms-MY'],
+  // Finnish (Finland)
   fi: ['fi-FI'],
+  // Basque (Spain)
   eu: ['eu-ES'],
+  // Croatian (Croatia)
   hr: ['hr-HR'],
+  // Hebrew (Israel) - alternative code
   iw: ['iw-IL'],
+  // Khmer (Cambodia)
   km: ['km-KH'],
+  // Latvian (Latvia)
   lv: ['lv-LV'],
+  // Lithuanian (Lithuania)
   lt: ['lt-LT'],
+  // Norwegian (Norway)
   no: ['no-NO'],
+  // Romanian (Romania)
   ro: ['ro-RO'],
+  // Slovak (Slovakia)
   sk: ['sk-SK'],
-  sw: ['sw-TZ', 'sw-KE'],
+  // Swahili
+  sw: [
+    'sw-TZ', // Tanzania
+    'sw-KE', // Kenya
+  ],
+  // Persian (Iran)
   fa: ['fa-IR'],
+  // Filipino (Philippines)
   fil: ['fil-PH'],
-  pa: ['pa-IN', 'pa-PK'],
-  bn: ['bn-BD', 'bn-IN'],
+  // Punjabi
+  pa: [
+    'pa-IN', // India
+    'pa-PK', // Pakistan
+  ],
+  // Bengali
+  bn: [
+    'bn-BD', // Bangladesh
+    'bn-IN', // India
+  ],
+  // Irish (Ireland)
+  ga: ['ga-IE'],
+  // Maltese (Malta)
+  mt: ['mt-MT'],
+  // Slovenian (Slovenia)
+  sl: ['sl-SI'],
+  // Albanian (Albania)
+  sq: ['sq-AL'],
+  // Bavarian (Germany)
+  bar: ['bar-DE'],
+  // Neapolitan (Italy)
+  nap: ['nap-IT'],
+  // Afrikaans (South Africa)
+  af: ['af-ZA'],
+  // Somali (Somalia)
+  so: ['so-SO'],
+  // Tigrinya (Ethiopia)
+  ti: ['ti-ET'],
+  // Standard Moroccan Tamazight (Morocco)
+  zgh: ['zgh-MA'],
 } as const;
 
 export type LocaleCodeShort = keyof typeof localeMap;
