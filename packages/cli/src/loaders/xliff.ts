@@ -9,8 +9,9 @@ export default function createXliffLoader(): ILoader<string, Record<string, any>
       const js = await xliff.xliff2js(input)
       return js || {};
     },
-    async push(locale, payload) {      
-      return await xliff.js2xliff(payload);
+    async push(locale, payload) { 
+      const res  = await xliff.js2xliff(payload); 
+      return res.trim();
     }
   });
 }

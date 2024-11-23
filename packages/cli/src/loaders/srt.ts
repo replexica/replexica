@@ -34,8 +34,6 @@ export default function createSrtLoader(): ILoader<string, Record<string, any>> 
       });
 
       const srtContent = parser.toSrt(output).trim().replace(/\r?\n/g, '\n');
-      console.log(srtContent);
-
       return srtContent;
     }
   });
