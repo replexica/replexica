@@ -1,5 +1,62 @@
 # @replexica/sdk
 
+## 0.7.4
+
+### Patch Changes
+
+- Updated dependencies [[`1556977`](https://github.com/replexica/replexica/commit/1556977332a6f949100283bfa8c9a9ff5e74b156)]:
+  - @replexica/spec@0.20.0
+
+## 0.7.3
+
+### Patch Changes
+
+- [`cbef8f3`](https://github.com/replexica/replexica/commit/cbef8f3cafdc955d61053ce885d98e425acb668d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - moved jsdom import into the html handler function
+
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`5cb3c93`](https://github.com/replexica/replexica/commit/5cb3c930fff6e30cff5cc2266b794f75a0db646d)]:
+  - @replexica/spec@0.19.0
+
+## 0.7.1
+
+### Patch Changes
+
+- [`db819a4`](https://github.com/replexica/replexica/commit/db819a42412ceb67fedbe729b7d018952686d60b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - reduce default batch size to avoid hitting rate limits
+
+- [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - filter out non extistent keys
+
+## 0.7.0
+
+### Minor Changes
+
+- [`c42dc2d`](https://github.com/replexica/replexica/commit/c42dc2d5b4efe95e804b5a7e7f6d354cf8622dc7) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `batchLocalizeText` to sdk
+
+## 0.6.0
+
+### Minor Changes
+
+- [`a71a88e`](https://github.com/replexica/replexica/commit/a71a88e5c8bd6601b0838c381433a87763142801) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fast mode
+
+### Patch Changes
+
+- [`f0a77ad`](https://github.com/replexica/replexica/commit/f0a77ad774a01c30e7e9bc5a0253638176332fd2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - updated default batch size limits in the SDK
+
+## 0.5.0
+
+### Minor Changes
+
+- [`ebf44cb`](https://github.com/replexica/replexica/commit/ebf44cbb462516abfe660c295c04627796c5a3a7) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - implement recognize locale
+
+- [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added .localizeHtml implementation to SDK
+
+### Patch Changes
+
+- Updated dependencies [[`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151)]:
+  - @replexica/spec@0.18.0
+
 ## 0.4.3
 
 ### Patch Changes

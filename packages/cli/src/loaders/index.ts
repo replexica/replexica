@@ -112,9 +112,8 @@ export default function createBucketLoader(
     );
     case 'xliff': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      // createPrettierLoader({ parser: 'xliff' }),
       createXliffLoader(),
-      // createFlatLoader(),
+      createFlatLoader(),
       createUnlocalizableLoader(),
     )
   }

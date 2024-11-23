@@ -15,6 +15,8 @@ export const bucketTypes = [
   'properties',
   'po',
   'xliff',
+  'xml',
+  'srt',
   'compiler',
 ] as const;
 

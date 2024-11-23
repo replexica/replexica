@@ -134,41 +134,35 @@ export default new Command()
 
             for (const targetLocale of targetLocales) {
               try {
-                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) AI localization in progress...`);
-                
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processableData, null, 2));
                 }
 
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (0%) AI localization in progress...`);
                 const localizationEngine = createLocalizationEngineConnection({
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
                 });
-                let processedTargetData;
-                try {
-                  processedTargetData = await localizationEngine.process({
-                    sourceLocale: i18nConfig!.locale.source,
-                    sourceData,
-                    processableData,
-                    targetLocale,
-                    targetData,
-                  }, (progress) => {
-                    bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
-                  });
-                  
-                } catch (error: any) {
-                  handleWarning('Failed to process target data', error, flags.strict, results);
-                  if (flags.strict) return;
-                }
+                const processedTargetData = await localizationEngine.process({
+                  sourceLocale: i18nConfig!.locale.source,
+                  sourceData,
+                  processableData,
+                  targetLocale,
+                  targetData,
+                }, (progress) => {
+                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+                });
 
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processedTargetData, null, 2));
                 }
-                const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+
+                let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+                finalTargetData = _.pick(finalTargetData, Object.keys(sourceData));
                 await bucketLoader.push(targetLocale, finalTargetData);
-                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
+                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] AI localization completed`);
               } catch (error:any) {
                 handleWarning(`Failed to localize for ${targetLocale}`, error, flags.strict, results);
                 if (flags.strict) return;
@@ -227,13 +221,32 @@ function calculateDataDelta(args: {
   return result;
 }
 
-function createLocalizationEngineConnection(args: {
+async function retryWithExponentialBackoff<T>(
+  operation: () => Promise<T>,
+  maxAttempts: number,
+  baseDelay: number = 1000
+): Promise<T> {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === maxAttempts - 1) throw error;
+      
+      const delay = baseDelay * Math.pow(2, attempt);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error('Unreachable code');
+}
+
+function createLocalizationEngineConnection(params: {
   apiKey: string;
   apiUrl: string;
+  maxRetries?: number;
 }) {
   const replexicaEngine = new ReplexicaEngine({
-    apiKey: args.apiKey,
-    apiUrl: args.apiUrl,
+    apiKey: params.apiKey,
+    apiUrl: params.apiUrl,
   });
 
   return {
@@ -241,19 +254,19 @@ function createLocalizationEngineConnection(args: {
       sourceLocale: string;
       sourceData: Record<string, any>;
       processableData: Record<string, any>;
-
       targetLocale: string;
       targetData: Record<string, any>;
     },
-      onProgress: (progress: number) => void,
+    onProgress: (progress: number) => void,
     ) => {
-      const result = await replexicaEngine.localizeObject(
-        args.processableData,
-        { sourceLocale: args.sourceLocale, targetLocale: args.targetLocale },
-        onProgress
+      return retryWithExponentialBackoff(
+        () => replexicaEngine.localizeObject(
+          args.processableData,
+          { sourceLocale: args.sourceLocale, targetLocale: args.targetLocale },
+          onProgress
+        ),
+        params.maxRetries ?? 3
       );
-
-      return result;
     },
   };
 }

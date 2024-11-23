@@ -1,5 +1,85 @@
 # @replexica/demo/next-app
 
+## 0.1.61
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/react@0.3.13
+  - replexica@0.58.2
+
+## 0.1.60
+
+### Patch Changes
+
+- Updated dependencies []:
+  - replexica@0.58.1
+
+## 0.1.59
+
+### Patch Changes
+
+- Updated dependencies [[`7ff7f8f`](https://github.com/replexica/replexica/commit/7ff7f8fca7318e4dba929194972d20ccf3487e9d), [`ff0d2d7`](https://github.com/replexica/replexica/commit/ff0d2d7fb12806a7264a72c03e48a8dda3526c23)]:
+  - replexica@0.58.0
+
+## 0.1.58
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/react@0.3.12
+  - replexica@0.57.1
+
+## 0.1.57
+
+### Patch Changes
+
+- Updated dependencies [[`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91), [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5), [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402)]:
+  - replexica@0.57.0
+
+## 0.1.56
+
+### Patch Changes
+
+- Updated dependencies [[`b8ad864`](https://github.com/replexica/replexica/commit/b8ad8643347088635eeeb568f1818d71d5226269)]:
+  - replexica@0.56.3
+
+## 0.1.55
+
+### Patch Changes
+
+- Updated dependencies []:
+  - replexica@0.56.2
+
+## 0.1.54
+
+### Patch Changes
+
+- Updated dependencies []:
+  - replexica@0.56.1
+
+## 0.1.53
+
+### Patch Changes
+
+- Updated dependencies [[`c03437d`](https://github.com/replexica/replexica/commit/c03437dc9cfd8183e40f74926b4ba7f0874ebf81), [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280)]:
+  - replexica@0.56.0
+  - @replexica/react@0.3.11
+
+## 0.1.52
+
+### Patch Changes
+
+- Updated dependencies [[`57e395a`](https://github.com/replexica/replexica/commit/57e395aae8ab100ba470bc7d1104ddfa178249e7)]:
+  - replexica@0.55.0
+
+## 0.1.51
+
+### Patch Changes
+
+- Updated dependencies [[`44b4cca`](https://github.com/replexica/replexica/commit/44b4cca2718bd72d55a938bac458d32a4536508a), [`4fc27da`](https://github.com/replexica/replexica/commit/4fc27daae5810f6167726a28d76a874fd8421a5b)]:
+  - replexica@0.54.0
+
 ## 0.1.50
 
 ### Patch Changes
