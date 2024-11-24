@@ -13,7 +13,8 @@
 <p align="center">
   <a href="https://replexica.com">Website</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribute</a> •
-  <a href="#-github-action">GitHub Action</a>
+  <a href="#-github-action">GitHub Action</a> •
+  <a href="#-localization-compiler-experimental>Localization Compiler</a>
 </p>
 
 <p align="center">
@@ -61,6 +62,14 @@ Replexica offers a GitHub Action to automate localization in your CI/CD pipeline
 This action runs `replexica i18n` on every push, keeping your translations up-to-date automatically.
 
 For pull request mode and other configuration options, visit our [GitHub Action documentation](https://docs.replexica.com/setup/gha).
+
+## 🧪 Localization compiler (experimental)
+
+This repository also contains our new experiment: a JS/React localization compiler.
+
+It lets dev teams do frontend localization **without extracting strings to translation files**. Teams can get multilingual frontend with just one line of code. It works at build time, uses abstract syntax tree (AST) manipulation and code generation.
+
+You can see the demo [here](https://x.com/MaxPrilutskiy/status/1781011350136734055).
 
 ## 🥇 Why teams choose Replexica
 
