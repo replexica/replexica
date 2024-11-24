@@ -115,7 +115,6 @@ export default function createBucketLoader(
     case 'vtt': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createVttLoader(),
-      // createFlatLoader(),
       createUnlocalizableLoader(),
     )
     case 'xml': return composeLoaders(
