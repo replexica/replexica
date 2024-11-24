@@ -14,7 +14,7 @@
   <a href="https://replexica.com">Website</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribute</a> •
   <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental>Localization Compiler</a>
+  <a href="#-localization-compiler-experimental">Localization Compiler</a>
 </p>
 
 <p align="center">
