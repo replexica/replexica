@@ -20,6 +20,8 @@ import createPrettierLoader from './prettier';
 import createUnlocalizableLoader from './unlocalizable';
 import createPoLoader from './po';
 import createVttLoader from './vtt';
+import createXmlLoader from './xml';
+import createSrtLoader from './srt';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -112,11 +114,21 @@ export default function createBucketLoader(
     );
     case 'vtt': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
-      // createPrettierLoader({ parser: 'json' }),
-      // createJsonLoader(),
       createVttLoader(),
       // createFlatLoader(),
       createUnlocalizableLoader(),
     )
+    case 'xml': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createXmlLoader(),
+      createFlatLoader(),
+      createUnlocalizableLoader(),
+
+    )
+    case 'srt': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createSrtLoader(),
+      createUnlocalizableLoader(),
+    );
   }
 }

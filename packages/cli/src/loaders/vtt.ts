@@ -5,10 +5,40 @@ import { createLoader } from './_utils';
 export default function createVttLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     async pull(locale, input) {
-      return webvtt.parse(input)?.cues || {};
+      
+      const vtt = webvtt.parse(input)?.cues;
+      if (Object.keys(vtt).length === 0) {
+        return {};
+      } else {
+        return vtt.reduce((result:any, cue:any, index:number) => {
+          const key = `${index}#${cue.start}-${cue.end}#${cue.identifier}#${cue.styles}`
+          result[key] = cue.text;
+          return result;
+        }, {});
+      }
     },
     async push(locale, payload) {
-      return webvtt.compile(payload);
+      const output = Object.entries(payload).map(([key, text]) => {
+        
+        const [id, timeRange, identifier, styles] = key.split('#');
+        const [startTime, endTime] = timeRange.split('-');
+        
+        return {
+          end: Number(endTime),
+          identifier: identifier,
+          start: Number(startTime),
+          styles: styles,
+          text: text,
+        };
+      });
+
+      const input = {
+        valid: true,
+        strict: true,
+        cues: output
+      }
+
+      return webvtt.compile(input);
     }
   });
 }

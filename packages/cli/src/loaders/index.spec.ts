@@ -864,7 +864,6 @@ user.password=Contraseña
     it('should load complex vtt data', async () => {
       setupFileMocks();
   
-      // Complex VTT input
       const input = `
   WEBVTT
 
@@ -882,34 +881,10 @@ Bar
       `.trim();
       
       const expectedOutput ={
-        "0": {
-          "end": 1,
-          "identifier": "",
-          "start": 0,
-          "styles": "",
-          "text": "Hello world!",
-        },
-        "1":  {
-          "end": 31,
-          "identifier": "",
-          "start": 30,
-          "styles": "align:start line:0%",
-          "text": "This is a subtitle",
-        },
-        "2":  {
-          "end": 61,
-          "identifier": "",
-          "start": 60,
-          "styles": "",
-          "text": "Foo",
-        },
-        "3":  {
-          "end": 111,
-          "identifier": "",
-          "start": 110,
-          "styles": "",
-          "text": "Bar",
-        },
+        "0#0-1##": "Hello world!",
+        "1#30-31##align:start line:0%": "This is a subtitle",
+        "2#60-61##": "Foo",
+        "3#110-111##": "Bar",
       }
       
       mockFileOperations(input);
@@ -925,7 +900,7 @@ Bar
       setupFileMocks();
       const input = `
   WEBVTT
-  
+
 00:00:00.000 --> 00:00:01.000
 Hello world!
 
@@ -939,72 +914,196 @@ Foo
 Bar
       `.trim();
       
-      
-      // Complex VTT payload to save
-      const payload = [
-        {
-          end: 1,
-          identifier: "",
-          start: 0,
-          styles: "",
-          text: "¡Hola mundo!",
-        },
-        {
-          end: 31,
-          identifier: "",
-          start: 30,
-          styles: "align:start line:0%",
-          text: "Este es un subtítulo",
-        },
-        {
-          end: 61,
-          identifier: "",
-          start: 60,
-          styles: "",
-          text: "Foo",
-        },
-        {
-          end: 111,
-          identifier: "",
-          start: 110,
-          styles: "",
-          text: "Bar",
-        },
-      ];
+//       // Complex VTT payload to save
+      const payload ={
+        "0#0-1##": "¡Hola mundo!",
+        "1#30-31##align:start line:0%": "Este es un subtítulo",
+        "2#60-61##": "Foo",
+        "3#110-111##": "Bar",
+      }
       
   
       const expectedOutput = `
   WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+¡Hola mundo!
+
+00:00:30.000 --> 00:00:31.000 align:start line:0%
+Este es un subtítulo
+
+00:01:00.000 --> 00:01:01.000
+Foo
+
+00:01:50.000 --> 00:01:51.000
+Bar`.trim()+"\n";
   
-  00:00:00.000 --> 00:00:01.000
-  ¡Hola mundo!
-  
-  00:00:30.000 --> 00:00:31.000 align:start line:0%
-  Este es un subtítulo
-  
-  00:01:00.000 --> 00:01:01.000
-  Foo
-  
-  00:01:50.000 --> 00:01:51.000
-  Bar
-      `.trim();
-  
-      mockFileOperations(input); // Initial empty VTT
+      mockFileOperations(input);
   
       const vttLoader = createBucketLoader('vtt', 'i18n/[locale].vtt');
       vttLoader.setDefaultLocale('en');
-      await vttLoader.pull('en'); // Load initial data
+      await vttLoader.pull('en');
   
       await vttLoader.push('es', payload);
   
       expect(fs.writeFile).toHaveBeenCalledWith(
         'i18n/es.vtt',
+          expectedOutput,
+          { encoding: 'utf-8', flag: 'w' },
+        );
+    })
+})
+
+  describe('XML bucket loader', () => {
+    it('should load XML data', async () => {
+      setupFileMocks();
+  
+      const input = `<root>
+    <title>Test XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introduction</section>
+      <section>
+        <text>
+          Detailed text. 
+        </text>
+      </section>
+    </content>
+  </root>`;
+  
+      const expectedOutput = {
+        'root/title': 'Test XML',
+        'root/date': '2023-05-25',
+        'root/content/section/0': 'Introduction',
+        'root/content/section/1/text': 'Detailed text.',
+      };
+  
+      mockFileOperations(input);
+  
+      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      xmlLoader.setDefaultLocale('en');
+      const data = await xmlLoader.pull('en');
+      
+      expect(data).toEqual(expectedOutput);
+    });
+  
+    it('should save XML data', async () => {
+      setupFileMocks();
+  
+      const input = `<root>
+    <title>Test XML</title>
+    <date>2023-05-25</date>
+    <content>
+      <section>Introduction</section>
+      <section>
+        <text>
+          Detailed text.
+        </text>
+      </section>
+    </content>
+  </root>`;
+  
+      const payload = {
+        'root/title': 'Prueba XML',
+        'root/date': '2023-05-25',
+        'root/content/section/0': 'Introducción',
+        'root/content/section/1/text': 'Detalles texto.',
+      };
+  
+      let expectedOutput = `
+      <root>
+        <title>Prueba XML</title>
+        <date>2023-05-25</date>
+        <content>
+          <section>Introducción</section>
+          <section>
+            <text>Detalles texto.</text>
+          </section>
+        </content>
+      </root>`.replace(/\s+/g, ' ').replace(/>\s+</g, '><').trim();
+      mockFileOperations(input);
+      expectedOutput+="\n";
+      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      xmlLoader.setDefaultLocale('en');
+      await xmlLoader.pull('en');
+  
+      await xmlLoader.push('es', payload);
+  
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.xml',
         expectedOutput,
         { encoding: 'utf-8', flag: 'w' },
       );
     });
   });
   
+  describe('srt bucket loader', () => {
+    it('should load srt', async () => {
+      setupFileMocks();
+  
+      const input = `
+1
+00:00:00,000 --> 00:00:01,000
+Hello!
+
+2
+00:00:01,000 --> 00:00:02,000
+World!
+      `.trim();
+      const expectedOutput = {"1#00:00:00,000-00:00:01,000": "Hello!","2#00:00:01,000-00:00:02,000": "World!"};
+  
+      mockFileOperations(input);
+  
+      const srtLoader = createBucketLoader('srt', 'i18n/[locale].srt');
+      srtLoader.setDefaultLocale('en');
+      const data = await srtLoader.pull('en');
+  
+      expect(data).toEqual(expectedOutput);
+    });
+
+
+      it('should save srt', async () => {
+        setupFileMocks();
+    
+        const input = `
+1
+00:00:00,000 --> 00:00:01,000
+Hello!
+
+2
+00:00:01,000 --> 00:00:02,000
+World!
+  `.trim();
+  
+        const payload = {"1#00:00:00,000-00:00:01,000": "¡Hola!","2#00:00:01,000-00:00:02,000": "Mundo!"}
+        
+        const expectedOutput = `1
+00:00:00,000 --> 00:00:01,000
+¡Hola!
+
+2
+00:00:01,000 --> 00:00:02,000
+Mundo!\n`;
+
+    
+      mockFileOperations(input);
+
+      const srtLoader = createBucketLoader('srt', 'i18n/[locale].srt');
+      srtLoader.setDefaultLocale('en');
+      await srtLoader.pull('en');
+
+      await srtLoader.push('es', payload);
+    
+        expect(fs.writeFile).toHaveBeenCalledWith(
+          'i18n/es.srt',
+          expectedOutput,
+          { encoding: 'utf-8', flag: 'w' },
+        );
+      });
+  
+  });
+  
+
 });
 
 // Helper functions

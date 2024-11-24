@@ -14,8 +14,10 @@ export const bucketTypes = [
   'yaml-root-key',
   'properties',
   'po',
-
+  'xml',
+  'srt',
   'compiler',
+  'vtt'
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

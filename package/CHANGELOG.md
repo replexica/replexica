@@ -1,5 +1,124 @@
 # replexica
 
+## 0.58.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/cli@0.58.2
+  - @replexica/compiler@0.5.10
+  - @replexica/react@0.3.13
+
+## 0.58.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/cli@0.58.1
+  - @replexica/compiler@0.5.9
+
+## 0.58.0
+
+### Minor Changes
+
+- [`ff0d2d7`](https://github.com/replexica/replexica/commit/ff0d2d7fb12806a7264a72c03e48a8dda3526c23) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add retry with exponential backoff to the cli
+
+### Patch Changes
+
+- [`7ff7f8f`](https://github.com/replexica/replexica/commit/7ff7f8fca7318e4dba929194972d20ccf3487e9d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - display number of entries in localization completion message
+
+- Updated dependencies [[`7ff7f8f`](https://github.com/replexica/replexica/commit/7ff7f8fca7318e4dba929194972d20ccf3487e9d), [`ff0d2d7`](https://github.com/replexica/replexica/commit/ff0d2d7fb12806a7264a72c03e48a8dda3526c23)]:
+  - @replexica/cli@0.58.0
+
+## 0.57.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/cli@0.57.1
+  - @replexica/compiler@0.5.8
+  - @replexica/react@0.3.12
+
+## 0.57.0
+
+### Minor Changes
+
+- [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `cleanup` command
+
+### Patch Changes
+
+- [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - filter out non extistent keys
+
+- [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - improve progress logging in cli
+
+- Updated dependencies [[`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91), [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5), [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402)]:
+  - @replexica/cli@0.57.0
+  - @replexica/compiler@0.5.7
+
+## 0.56.3
+
+### Patch Changes
+
+- [`b8ad864`](https://github.com/replexica/replexica/commit/b8ad8643347088635eeeb568f1818d71d5226269) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat(cli): disable safe mode at localizable chunk level
+
+- Updated dependencies [[`b8ad864`](https://github.com/replexica/replexica/commit/b8ad8643347088635eeeb568f1818d71d5226269)]:
+  - @replexica/cli@0.56.3
+
+## 0.56.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/cli@0.56.2
+  - @replexica/compiler@0.5.6
+
+## 0.56.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/cli@0.56.1
+  - @replexica/compiler@0.5.5
+
+## 0.56.0
+
+### Minor Changes
+
+- [#298](https://github.com/replexica/replexica/pull/298) [`c03437d`](https://github.com/replexica/replexica/commit/c03437dc9cfd8183e40f74926b4ba7f0874ebf81) Thanks [@partik03](https://github.com/partik03)! - implemented xml loader
+
+- [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added .localizeHtml implementation to SDK
+
+### Patch Changes
+
+- Updated dependencies [[`c03437d`](https://github.com/replexica/replexica/commit/c03437dc9cfd8183e40f74926b4ba7f0874ebf81), [`a6b22a3`](https://github.com/replexica/replexica/commit/a6b22a3237f574455d8119f914d82b0b247b4151), [`42d0a5a`](https://github.com/replexica/replexica/commit/42d0a5a7a53e296192a31e8f1d67c126793ea280)]:
+  - @replexica/cli@0.56.0
+  - @replexica/compiler@0.5.4
+  - @replexica/react@0.3.11
+
+## 0.55.0
+
+### Minor Changes
+
+- [`57e395a`](https://github.com/replexica/replexica/commit/57e395aae8ab100ba470bc7d1104ddfa178249e7) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `--source` and `--target` flags to show files cmd
+
+### Patch Changes
+
+- Updated dependencies [[`57e395a`](https://github.com/replexica/replexica/commit/57e395aae8ab100ba470bc7d1104ddfa178249e7)]:
+  - @replexica/cli@0.55.0
+
+## 0.54.0
+
+### Minor Changes
+
+- [#301](https://github.com/replexica/replexica/pull/301) [`44b4cca`](https://github.com/replexica/replexica/commit/44b4cca2718bd72d55a938bac458d32a4536508a) Thanks [@partik03](https://github.com/partik03)! - --frozen flag
+
+- [`4fc27da`](https://github.com/replexica/replexica/commit/4fc27daae5810f6167726a28d76a874fd8421a5b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - replexica show files now shows both source and target paths
+
+### Patch Changes
+
+- Updated dependencies [[`44b4cca`](https://github.com/replexica/replexica/commit/44b4cca2718bd72d55a938bac458d32a4536508a), [`4fc27da`](https://github.com/replexica/replexica/commit/4fc27daae5810f6167726a28d76a874fd8421a5b)]:
+  - @replexica/cli@0.54.0
+
 ## 0.53.1
 
 ### Patch Changes
