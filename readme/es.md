@@ -67,9 +67,11 @@ Para el modo de pull request y otras opciones de configuración, visita nuestra 
 
 Este repositorio también contiene nuestro nuevo experimento: un compilador de localización para JS/React.
 
-Permite a los equipos de desarrollo realizar la localización frontend **sin extraer cadenas a archivos de traducción**. Los equipos pueden obtener un frontend multilingüe con solo una línea de código. Funciona en tiempo de compilación, utiliza manipulación del árbol de sintaxis abstracta (AST) y generación de código.
+Permite que los equipos de desarrollo realicen la localización frontend **sin extraer cadenas a archivos de traducción**. Los equipos pueden obtener un frontend multilingüe con solo una línea de código. Funciona en tiempo de compilación, utiliza manipulación del árbol de sintaxis abstracta (AST) y generación de código.
 
 Puedes ver la demo [aquí](https://x.com/MaxPrilutskiy/status/1781011350136734055).
+
+Si deseas experimentar con el compilador por tu cuenta, asegúrate de ejecutar primero `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f`.
 
 ## 🥇 Por qué los equipos eligen Replexica
 

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ KI-gestützte Lokalisierung auf dem neuesten Stand der Technik für Web & Mobile, direkt aus der CI/CD-Pipeline.</strong>
+  <strong>⚡️ Hochmoderne KI-Lokalisierung für Web & Mobile, direkt aus der CI/CD-Pipeline.</strong>
 </p>
 
 <br />
@@ -33,7 +33,7 @@
 
 Replexica KI automatisiert die Software-Lokalisierung von Anfang bis Ende.
 
-Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Replexica Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch 100-mal schneller lokalisieren, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
+Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Replexica Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch Lokalisierung 100-mal schneller durchführen, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
 
 ## 💫 Schnellstart
 
@@ -67,9 +67,11 @@ Für den Pull-Request-Modus und weitere Konfigurationsoptionen besuchen Sie unse
 
 Dieses Repository enthält auch unser neues Experiment: einen JS/React-Lokalisierungs-Compiler.
 
-Damit können Entwicklerteams Frontend-Lokalisierung durchführen, **ohne Strings in Übersetzungsdateien zu extrahieren**. Teams können mit nur einer Codezeile mehrsprachiges Frontend erstellen. Es arbeitet zur Build-Zeit und nutzt Abstract Syntax Tree (AST)-Manipulation und Code-Generierung.
+Damit können Entwicklerteams Frontend-Lokalisierung durchführen, **ohne Strings in Übersetzungsdateien extrahieren zu müssen**. Teams können mit nur einer Codezeile ein mehrsprachiges Frontend erstellen. Der Compiler arbeitet zur Build-Zeit und nutzt Abstract Syntax Tree (AST)-Manipulation und Code-Generierung.
 
 Die Demo können Sie [hier](https://x.com/MaxPrilutskiy/status/1781011350136734055) sehen.
+
+Wenn Sie selbst mit dem Compiler experimentieren möchten, führen Sie zuerst `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f` aus.
 
 ## 🥇 Warum Teams Replexica wählen
 

@@ -31,9 +31,9 @@
 
 <br />
 
-Replexica IA automatise la localisation logicielle de bout en bout.
+Replexica IA automatise la localisation des logiciels de bout en bout.
 
-Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Replexica comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. Résultat : les équipes localisent 100 fois plus rapidement, avec une qualité de pointe, déployant des fonctionnalités à plus de clients payants dans le monde entier.
+Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Replexica comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. En conséquence, les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant des fonctionnalités à davantage de clients payants dans le monde entier.
 
 ## 💫 Démarrage rapide
 
@@ -67,9 +67,11 @@ Pour le mode pull request et d'autres options de configuration, consultez notre 
 
 Ce dépôt contient également notre nouvelle expérimentation : un compilateur de localisation JS/React.
 
-Il permet aux équipes de dev de faire de la localisation frontend **sans extraire les chaînes dans des fichiers de traduction**. Les équipes peuvent obtenir une interface multilingue avec une seule ligne de code. Il fonctionne au moment de la compilation, utilise la manipulation d'arbre syntaxique abstrait (AST) et la génération de code.
+Il permet aux équipes de développement de faire de la localisation frontend **sans extraire les chaînes dans des fichiers de traduction**. Les équipes peuvent obtenir une interface multilingue avec une seule ligne de code. Il fonctionne au moment de la compilation, utilise la manipulation d'arbre de syntaxe abstraite (AST) et la génération de code.
 
 Vous pouvez voir la démo [ici](https://x.com/MaxPrilutskiy/status/1781011350136734055).
+
+Si vous souhaitez expérimenter le compilateur par vous-même, assurez-vous d'abord de faire `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f`.
 
 ## 🥇 Pourquoi les équipes choisissent Replexica
 

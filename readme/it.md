@@ -14,7 +14,7 @@
   <a href="https://replexica.com">Website</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribuisci</a> •
   <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">Compiler di localizzazione</a>
+  <a href="#-localization-compiler-experimental">Compilatore di localizzazione</a>
 </p>
 
 <p align="center">
@@ -65,11 +65,13 @@ Per la modalità pull request e altre opzioni di configurazione, visita la nostr
 
 ## 🧪 Compiler di localizzazione (sperimentale)
 
-Questa repository contiene anche il nostro nuovo esperimento: un compiler di localizzazione per JS/React.
+Questa repository contiene anche il nostro nuovo esperimento: un compilatore di localizzazione JS/React.
 
-Permette ai team di sviluppo di fare localizzazione frontend **senza estrarre le stringhe nei file di traduzione**. I team possono ottenere un frontend multilingue con una sola riga di codice. Funziona durante il build time, utilizza la manipolazione dell'abstract syntax tree (AST) e la generazione del codice.
+Permette ai team di sviluppo di fare localizzazione frontend **senza estrarre le stringhe nei file di traduzione**. I team possono ottenere un frontend multilingue con una sola riga di codice. Funziona durante la compilazione, utilizza la manipolazione dell'abstract syntax tree (AST) e la generazione del codice.
 
 Puoi vedere la demo [qui](https://x.com/MaxPrilutskiy/status/1781011350136734055).
+
+Se vuoi sperimentare con il compilatore per conto tuo, assicurati prima di eseguire `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f`.
 
 ## 🥇 Perché i team scelgono Replexica
 
