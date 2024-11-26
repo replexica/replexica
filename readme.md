@@ -71,6 +71,8 @@ It lets dev teams do frontend localization **without extracting strings to trans
 
 You can see the demo [here](https://x.com/MaxPrilutskiy/status/1781011350136734055).
 
+If you'd like to play with the compiler on your own, be sure to `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f` first.
+
 ## 🥇 Why teams choose Replexica
 
 - 🔥 **Instant integration**: Set up in minutes
