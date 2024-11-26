@@ -5,26 +5,27 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ 直接从CI/CD实现网页和移动端的最先进AI本地化。</strong>
+  <strong>⚡️ 直接从CI/CD实现最先进的Web和移动端AI本地化。</strong>
 </p>
 
 <br />
 
 <p align="center">
-  <a href="https://replexica.com">网站</a> •
-  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">贡献</a> •
-  <a href="#-github-action">GitHub Action</a>
+  <a href="https://replexica.com">官网</a> •
+  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">参与贡献</a> •
+  <a href="#-github-action">GitHub Action</a> •
+  <a href="#-localization-compiler-experimental">本地化编译器</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
-    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="发布" />
+    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
   </a>
   <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="许可证" />
+    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
   </a>
   <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="最后提交" />
+    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
   </a>
 </p>
 
@@ -32,7 +33,7 @@
 
 Replexica AI实现软件本地化的端到端自动化。
 
-它即时生成地道的翻译，消除了手动工作和管理开销。Replexica本地化引擎理解产品上下文，为60多种语言创建完美的翻译，符合母语使用者的期望。因此，团队可以以最先进的质量进行100倍速的本地化，将功能推广给全球更多付费客户。
+它能即时生成地道的翻译，消除人工工作和管理开销。Replexica本地化引擎深入理解产品上下文，为60多种语言创建完美的本地化内容，确保符合母语者的期望。因此，团队可以以最先进的质量实现100倍速的本地化，将功能快速推向全球更多付费用户。
 
 ## 💫 快速开始
 
@@ -62,31 +63,41 @@ Replexica提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
 
 关于拉取请求模式和其他配置选项，请访问我们的[GitHub Action文档](https://docs.replexica.com/setup/gha)。
 
+## 🧪 本地化编译器（实验性）
+
+这个代码库还包含我们的新实验：JS/React本地化编译器。
+
+它让开发团队可以**无需将字符串提取到翻译文件**就能完成前端本地化。团队只需一行代码就能实现多语言前端。它在构建时工作，使用抽象语法树（AST）操作和代码生成。
+
+你可以在[这里](https://x.com/MaxPrilutskiy/status/1781011350136734055)查看演示。
+
+如果你想自己尝试编译器，请确保先执行 `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f`。
+
 ## 🥇 团队选择 Replexica 的原因
 
 - 🔥 **即时集成**：几分钟内完成设置
 - 🔄 **CI/CD 自动化**：无缝集成开发流程
-- 🌍 **60+ 种语言**：轻松实现全球化
-- 🧠 **AI 本地化引擎**：真正适合您产品的翻译
-- 📊 **格式灵活**：支持 JSON、YAML、CSV、Markdown 等
+- 🌍 **支持 60+ 语言**：轻松实现全球化
+- 🧠 **AI 本地化引擎**：真正适合你产品的翻译
+- 📊 **灵活的格式支持**：支持 JSON、YAML、CSV、Markdown 等
 
-## 🛠️ 超强功能
+## 🛠️ 增强功能
 
-- ⚡️ **闪电般速度**：AI 本地化仅需几秒
+- ⚡️ **闪电般速度**：AI 本地化仅需数秒
 - 🔄 **自动更新**：与最新内容同步
-- 🌟 **原生品质**：听起来地道的翻译
-- 👨‍💻 **开发者友好**：与您的工作流程集成的 CLI
-- 📈 **可扩展**：适用于成长中的初创公司和企业团队
+- 🌟 **原生品质**：地道的翻译效果
+- 👨‍💻 **开发者友好**：集成到工作流程的 CLI
+- 📈 **可扩展性**：适用于成长型初创企业和企业团队
 
 ## 📚 文档
 
-有关详细指南和 API 参考，请访问[文档](https://replexica.com/go/docs)。
+有关详细指南和API参考，请访问[文档](https://replexica.com/go/docs)。
 
-## 🤝 贡献
+## 🤝 参与贡献
 
-即使您不是客户，也对贡献感兴趣吗？
+想要参与贡献，即使你不是客户？
 
-查看[适合新手的问题](https://github.com/replexica/replexica/labels/good%20first%20issue)并阅读[贡献指南](./CONTRIBUTING.md)。
+查看[适合新手的议题](https://github.com/replexica/replexica/labels/good%20first%20issue)并阅读[贡献指南](./CONTRIBUTING.md)。
 
 ## 🧠 团队
 
@@ -95,17 +106,17 @@ Replexica提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
 
 有问题或咨询？请发送邮件至 veronica@replexica.com
 
-## 🌐 其他语言的 Readme
+## 🌐 其他语言版本的说明文档
 
-- [英文](https://github.com/replexica/replexica)
-- [西班牙语](/readme/es.md)
-- [法语](/readme/fr.md)
-- [俄语](/readme/ru.md)
-- [德语](/readme/de.md)
-- [中文](/readme/zh-Hans.md)
-- [韩语](/readme/ko.md)
-- [日语](/readme/ja.md)
-- [意大利语](/readme/it.md)
-- [阿拉伯语](/readme/ar.md)
+- [English](https://github.com/replexica/replexica)
+- [Spanish](/readme/es.md)
+- [French](/readme/fr.md)
+- [Russian](/readme/ru.md)
+- [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
+- [Korean](/readme/ko.md)
+- [Japanese](/readme/ja.md)
+- [Italian](/readme/it.md)
+- [Arabic](/readme/ar.md)
 
-没有看到你的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码，然后提交一个 PR。
+没有看到你的语言？只需在[`i18n.json`](./i18n.json)文件中添加新的语言代码并提交PR即可。
