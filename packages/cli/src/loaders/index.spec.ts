@@ -1009,6 +1009,127 @@ Mundo!\n`;
       });
   
   });
+
+
+
+  describe('tmx bucket loader', () => {
+    it('should load tmx', async () => {
+      setupFileMocks();
+
+      const input = `<?xml version="1.0" encoding="UTF-8"?>
+      <tmx version="1.4">
+        <header
+          creationtool="MyTranslationTool"
+          creationtoolversion="1.0"
+          segtype="sentence"
+          o-tmf="tmx"
+          adminlang="en-US"
+          srclang="en-US"
+          datatype="plaintext"
+        />
+        <body>
+          <tu>
+            <tuv xml:lang="en-US" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>Hello, how are you?</seg>
+            </tuv>
+            <tuv xml:lang="fr-FR" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>Bonjour, comment vas-tu?</seg>
+            </tuv>
+            <tuv xml:lang="es-ES" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>Hola, ¿cómo estás?</seg>
+            </tuv>
+          </tu>
+          <tu>
+            <tuv xml:lang="en-US" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>I am fine, thank you.</seg>
+            </tuv>
+            <tuv xml:lang="fr-FR" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>Je vais bien, merci.</seg>
+            </tuv>
+            <tuv xml:lang="es-ES" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>Estoy bien, gracias.</seg>
+            </tuv>
+          </tu>
+        </body>
+      </tmx>`;
+      const expectedOutput = { "body/tu/1": 'Hello, how are you?', "body/tu/2": "I am fine, thank you." };
+
+      mockFileOperations(input);
+
+      const tmxLoader = createBucketLoader('tmx', 'i18n/Localizable.tmx');
+      tmxLoader.setDefaultLocale('en');
+      const data = await tmxLoader.pull('en');
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it('should save tmx', async () => {
+      setupFileMocks();
+      const input = `<?xml version="1.0" encoding="UTF-8"?>
+      <tmx version="1.4">
+        <header
+          creationtool="MyTranslationTool"
+          creationtoolversion="1.0"
+          segtype="sentence"
+          o-tmf="tmx"
+          adminlang="en-US"
+          srclang="en-US"
+          datatype="plaintext"
+        />
+        <body>
+          <tu>
+            <tuv xml:lang="en-US" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>Hello, how are you?</seg>
+            </tuv>
+          </tu>
+          <tu>
+            <tuv xml:lang="en-US" creationdate="20240212T191726" lastusagedate="20240212T191726">
+              <seg>I am fine, thank you.</seg>
+            </tuv>
+          </tu>
+        </body>
+      </tmx>`;
+
+      const payload = { "body/tu/1": 'Hola, ¿cómo estás?', "body/tu/2" : "Estoy bien, gracias." };
+
+      const expectedOutput = `<?xml version="1.0" encoding="UTF-8"?>
+<tmx version="1.4">
+  <header creationtool="MyTranslationTool" creationtoolversion="1.0" segtype="sentence" o-tmf="tmx" adminlang="en-US" srclang="en-US" datatype="plaintext"/>
+  <body>
+    <tu>
+      <tuv xml:lang="en-US" creationdate="20240212T191726" lastusagedate="20240212T191726">
+        <seg>Hello, how are you?</seg>
+      </tuv>
+      <tuv xml:lang="es-ES" creationdate="20240212T191726" lastusagedate="20240212T191726">
+        <seg>Hola, ¿cómo estás?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="en-US" creationdate="20240212T191726" lastusagedate="20240212T191726">
+        <seg>I am fine, thank you.</seg>
+      </tuv>
+      <tuv xml:lang="es-ES" creationdate="20240212T191726" lastusagedate="20240212T191726">
+        <seg>Estoy bien, gracias.</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>`.trim()+"\n";
+
+      mockFileOperations(input);
+
+      const tmxLoader = createBucketLoader('tmx', 'i18n/Localizable.tmx');
+      tmxLoader.setDefaultLocale('en');
+      await tmxLoader.pull('en');
+
+      await tmxLoader.push('es', payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/Localizable.tmx',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' },
+      );
+    });
+  });
   
 
 });
