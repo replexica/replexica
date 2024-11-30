@@ -21,6 +21,7 @@ import createUnlocalizableLoader from './unlocalizable';
 import createPoLoader from './po';
 import createXmlLoader from './xml';
 import createSrtLoader from './srt';
+import createTmxLoader from './tmx';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -121,6 +122,11 @@ export default function createBucketLoader(
     case 'srt': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createSrtLoader(),
+      createUnlocalizableLoader(),
+    );
+    case 'tmx': return composeLoaders(
+      createTextFileLoader(bucketPathPattern),
+      createTmxLoader(),
       createUnlocalizableLoader(),
     );
   }

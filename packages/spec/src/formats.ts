@@ -17,6 +17,7 @@ export const bucketTypes = [
   'xml',
   'srt',
   'compiler',
+  'tmx'
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);
