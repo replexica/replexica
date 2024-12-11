@@ -8,6 +8,18 @@
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
   "main": "build/index.cjs",
+  "directus:extension": {
+    "type": "operation",
+    "path": {
+      "app": "build/app.mjs",
+      "api": "build/api.mjs"
+    },
+    "source": {
+      "app": "src/app.ts",
+      "api": "src/api.ts"
+    },
+    "host": "^10.10.0"
+  },
   "files": [
     "build"
   ],
@@ -26,17 +38,5 @@
     "@directus/extensions-sdk": "12.1.4",
     "tsup": "^8.3.5",
     "vitest": "^2.1.4"
-  },
-  "directus:extension": {
-    "type": "operation",
-    "path": {
-      "app": "build/app.mjs",
-      "api": "build/api.mjs"
-    },
-    "source": {
-      "app": "src/app.ts",
-      "api": "src/api.ts"
-    },
-    "host": "^10.10.0"
   }
 }
