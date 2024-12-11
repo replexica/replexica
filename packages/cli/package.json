@@ -49,6 +49,7 @@
     "srt-parser-2": "^1.2.3",
     "typescript": "^5.6.3",
     "vitest": "^2.1.4",
+    "xliff": "^6.2.1",
     "xml2js": "^0.6.2",
     "xmldom": "^0.6.0",
     "xpath": "^0.0.34",

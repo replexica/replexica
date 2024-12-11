@@ -859,7 +859,6 @@ user.password=Contraseña
       );
     });
   });
-
   describe('XML bucket loader', () => {
     it('should load XML data', async () => {
       setupFileMocks();
@@ -886,11 +885,9 @@ user.password=Contraseña
   
       mockFileOperations(input);
   
-      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      const xmlLoader = createBucketLoader("xml", 'i18n/[locale].xml');
       xmlLoader.setDefaultLocale('en');
-      const data = await xmlLoader.pull('en');
-      console.log("Data :   ",data);
-      
+      const data = await xmlLoader.pull('en');      
       expect(data).toEqual(expectedOutput);
     });
   
@@ -930,7 +927,7 @@ user.password=Contraseña
       </root>`.replace(/\s+/g, ' ').replace(/>\s+</g, '><').trim();
       mockFileOperations(input);
       expectedOutput+="\n";
-      const xmlLoader = createBucketLoader('xml', 'i18n/[locale].xml');
+      const xmlLoader = createBucketLoader("xml", 'i18n/[locale].xml');
       xmlLoader.setDefaultLocale('en');
       await xmlLoader.pull('en');
   
@@ -1009,6 +1006,155 @@ Mundo!\n`;
       });
   
   });
+
+  describe('xliff bucket loader', () => {
+    it('should load xliff data', async () => {
+      setupFileMocks();
+  
+      const input = `
+  <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-US">
+    <file id="namespace1">
+      <unit id="key1">
+        <segment>
+          <source>Hello</source>
+        </segment>
+      </unit>
+      <unit id="key2">
+        <segment>
+          <source>An application to manipulate and process XLIFF documents</source>
+        </segment>
+      </unit>
+      <unit id="key.nested">
+        <segment>
+          <source>XLIFF Data Manager</source>
+        </segment>
+      </unit>
+      <group id="group">
+        <unit id="groupUnit">
+          <segment>
+            <source>Group</source>
+          </segment>
+        </unit>
+      </group>
+    </file>
+  </xliff>
+      `.trim();
+      
+      const expectedOutput =  {
+        "resources/namespace1/group/groupUnits/groupUnit/source": "Group","resources/namespace1/key.nested/source": "XLIFF Data Manager","resources/namespace1/key1/source": "Hello",
+        "resources/namespace1/key2/source": "An application to manipulate and process XLIFF documents",
+        "sourceLanguage": "en-US",
+          };
+  
+          mockFileOperations(input);
+          
+          const xliffLoader = createBucketLoader('xliff', 'i18n/[locale].xliff');
+          xliffLoader.setDefaultLocale('en');
+          const data = await xliffLoader.pull('en');
+          
+          expect(data).toEqual(expectedOutput);
+        });
+        
+        it('should save xliff data', async () => {
+          setupFileMocks();
+          
+        const input = `
+    <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-US">
+      <file id="namespace1">
+        <unit id="key1">
+          <segment>
+            <source>Hello</source>
+          </segment>
+        </unit>
+        <unit id="key2">
+          <segment>
+            <source>An application to manipulate and process XLIFF documents</source>
+          </segment>
+        </unit>
+        <unit id="key.nested">
+          <segment>
+            <source>XLIFF Data Manager</source>
+          </segment>
+        </unit>
+        <group id="group">
+          <unit id="groupUnit">
+            <segment>
+              <source>Group</source>
+            </segment>
+          </unit>
+        </group>
+      </file>
+    </xliff>
+        `.trim();
+        const payload =  {
+          "resources":  {
+            "namespace1":  {
+              "group":  {
+                "groupUnits":  {
+                  "groupUnit":  {
+                    "source": "Grupo",
+                  },
+                },
+              },
+              "key.nested":  {
+                "source": "Administrador de Datos XLIFF",
+              },
+              "key1":  {
+                "source": "Hola",
+              },
+              "key2":  {
+                "source": "Una aplicación para manipular y procesar documentos XLIFF",
+              },
+            },
+          },
+          "sourceLanguage": "es-ES",
+        };
+        
+    
+        const expectedOutput = `
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="es-ES">
+  <file id="namespace1">
+    <unit id="key1">
+      <segment>
+        <source>Hola</source>
+      </segment>
+    </unit>
+    <unit id="key2">
+      <segment>
+        <source>Una aplicación para manipular y procesar documentos XLIFF</source>
+      </segment>
+    </unit>
+    <unit id="key.nested">
+      <segment>
+        <source>Administrador de Datos XLIFF</source>
+      </segment>
+    </unit>
+    <group id="group">
+      <unit id="groupUnit">
+        <segment>
+          <source>Grupo</source>
+        </segment>
+      </unit>
+    </group>
+  </file>
+</xliff>`.trim()+"\n";
+
+  
+      mockFileOperations(input);
+  
+      const xliffLoader = createBucketLoader('xliff', 'i18n/[locale].xlf');
+      xliffLoader.setDefaultLocale('en');
+      await xliffLoader.pull('en');
+  
+      await xliffLoader.push('es', payload);
+  
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        'i18n/es.xlf',
+        expectedOutput,
+        { encoding: 'utf-8', flag: 'w' }
+        )
+      })
+  })
   
 
 });

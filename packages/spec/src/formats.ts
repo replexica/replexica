@@ -14,6 +14,7 @@ export const bucketTypes = [
   'yaml-root-key',
   'properties',
   'po',
+  'xliff',
   'xml',
   'srt',
   'compiler',

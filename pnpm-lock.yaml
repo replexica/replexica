@@ -201,6 +201,9 @@ importers:
       vitest:
         specifier: ^2.1.4
         version: 2.1.4(@types/node@22.8.4)(jsdom@25.0.1)(terser@5.36.0)
+      xliff:
+        specifier: ^6.2.1
+        version: 6.2.1
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
@@ -4703,6 +4706,13 @@ packages:
       utf-8-validate:
         optional: true
 
+  xliff@6.2.1:
+    resolution: {integrity: sha512-uLdfmBHCG4ftZdgLHhzP7qFTt8/pOv4Hpr1lWcX0HKLZdvhu5f7zThLlPFHnXH7mHbFT+6LCaf82UB3zbLpweQ==}
+
+  xml-js@1.6.11:
+    resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
+    hasBin: true
+
   xml-name-validator@5.0.0:
     resolution: {integrity: sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==}
     engines: {node: '>=18'}
@@ -9049,6 +9059,14 @@ snapshots:
   wrappy@1.0.2: {}
 
   ws@8.18.0: {}
+
+  xliff@6.2.1:
+    dependencies:
+      xml-js: 1.6.11
+
+  xml-js@1.6.11:
+    dependencies:
+      sax: 1.4.1
 
   xml-name-validator@5.0.0: {}
 
