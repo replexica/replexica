@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "jsx": "react-jsx",
     "moduleResolution": "Bundler",
     "module": "ESNext",

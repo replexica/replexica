@@ -3,12 +3,15 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   clean: true,
   target: "esnext",
-  entry: ["src/index.ts"],
+  entry: [
+    "src/api.ts",
+    "src/app.ts",
+  ],
   outDir: "build",
   format: ["cjs", "esm"],
-  dts: true,
   cjsInterop: true,
   splitting: true,
+  external: ["@replexica/sdk"],
   outExtension: (ctx) => ({
     js: ctx.format === "cjs" ? ".cjs" : ".mjs",
   }),
