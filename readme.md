@@ -37,14 +37,16 @@ It produces authentic translations instantly, eliminating manual work and manage
 
 ## 💫 Quickstart
 
-1. **Request access**: [talk to us](https://replexica.com/go/call) to become a customer.
+1. Create an account on [the website](https://replexica.com)
 
-2. Once approved, initialize your project:
+2. Initialize your project:
    ```bash
    npx replexica@latest init
    ```
 
-3. Localize your content:
+3. Check out our docs: [docs.replexica.com](https://docs.replexica.com)
+
+4. Localize your app (takes seconds):
    ```bash
    npx replexica@latest i18n
    ```
@@ -62,16 +64,6 @@ Replexica offers a GitHub Action to automate localization in your CI/CD pipeline
 This action runs `replexica i18n` on every push, keeping your translations up-to-date automatically.
 
 For pull request mode and other configuration options, visit our [GitHub Action documentation](https://docs.replexica.com/setup/gha).
-
-## 🧪 Localization compiler (experimental)
-
-This repository also contains our new experiment: a JS/React localization compiler.
-
-It lets dev teams do frontend localization **without extracting strings to translation files**. Teams can get multilingual frontend with just one line of code. It works at build time, uses abstract syntax tree (AST) manipulation and code generation.
-
-You can see the demo [here](https://x.com/MaxPrilutskiy/status/1781011350136734055).
-
-If you'd like to play with the compiler on your own, be sure to `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f` first.
 
 ## 🥇 Why teams choose Replexica
 
