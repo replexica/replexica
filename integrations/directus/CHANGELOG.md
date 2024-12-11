@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.1
+
+### Patch Changes
+
+- [`22490ab`](https://github.com/replexica/replexica/commit/22490ab94f22d8e5769b23dc58d811fc8483f714) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add Directus integration
+
 ## 0.1.0
 
 ### Minor Changes
