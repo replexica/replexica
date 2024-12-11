@@ -1,5 +1,12 @@
 # @replexica/integration-directus
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @replexica/sdk@0.7.5
+
 ## 0.1.1
 
 ### Patch Changes
