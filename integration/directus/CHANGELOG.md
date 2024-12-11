@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.0
+
+### Minor Changes
+
+- [`03b4506`](https://github.com/replexica/replexica/commit/03b45063f435715967825f70daf3f5bbdb05b9a0) Thanks [@vrcprl](https://github.com/vrcprl)! - Replexica integration for Directus
+
 ## 0.0.1
 
 ### Patch Changes
