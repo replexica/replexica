@@ -15,6 +15,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Debug Permissions
+        run: |
+          ls -la
+          ls -la integrations/
+          ls -la integrations/directus/
 
       - name: Check for [skip i18n]
         run: |
