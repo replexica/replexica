@@ -37,14 +37,16 @@ Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'
 
 ## 💫 Avvio rapido
 
-1. **Richiedi l'accesso**: [parlaci](https://replexica.com/go/call) per diventare un cliente.
+1. Crea un account sul [sito web](https://replexica.com)
 
-2. Una volta approvato, inizializza il tuo progetto:
+2. Inizializza il tuo progetto:
    ```bash
    npx replexica@latest init
    ```
 
-3. Localizza il tuo contenuto:
+3. Consulta la nostra documentazione: [docs.replexica.com](https://docs.replexica.com)
+
+4. Localizza la tua app (in pochi secondi):
    ```bash
    npx replexica@latest i18n
    ```
@@ -63,27 +65,17 @@ Questa action esegue `replexica i18n` ad ogni push, mantenendo le tue traduzioni
 
 Per la modalità pull request e altre opzioni di configurazione, visita la nostra [documentazione GitHub Action](https://docs.replexica.com/setup/gha).
 
-## 🧪 Compiler di localizzazione (sperimentale)
-
-Questa repository contiene anche il nostro nuovo esperimento: un compilatore di localizzazione JS/React.
-
-Permette ai team di sviluppo di fare localizzazione frontend **senza estrarre le stringhe nei file di traduzione**. I team possono ottenere un frontend multilingue con una sola riga di codice. Funziona durante la compilazione, utilizza la manipolazione dell'abstract syntax tree (AST) e la generazione del codice.
-
-Puoi vedere la demo [qui](https://x.com/MaxPrilutskiy/status/1781011350136734055).
-
-Se vuoi sperimentare con il compilatore per conto tuo, assicurati prima di eseguire `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f`.
-
 ## 🥇 Perché i team scelgono Replexica
 
 - 🔥 **Integrazione istantanea**: Setup in pochi minuti
-- 🔄 **Automazione CI/CD**: Integrazione perfetta nella pipeline di sviluppo
+- 🔄 **Automazione CI/CD**: Integrazione perfetta nel pipeline di sviluppo
 - 🌍 **Oltre 60 lingue**: Espansione globale senza sforzo
 - 🧠 **Motore di localizzazione AI**: Traduzioni che si adattano perfettamente al tuo prodotto
-- 📊 **Flessibilità nei formati**: Supporta JSON, YAML, CSV, Markdown e altro
+- 📊 **Flessibilità nei formati**: Supporto per JSON, YAML, CSV, Markdown e altro
 
 ## 🛠️ Funzionalità potenziate
 
-- ⚡️ **Velocità fulminea**: Localizzazione AI in pochi secondi
+- ⚡️ **Ultra veloce**: Localizzazione AI in pochi secondi
 - 🔄 **Aggiornamenti automatici**: Sincronizzazione con i contenuti più recenti
 - 🌟 **Qualità nativa**: Traduzioni che suonano autentiche
 - 👨‍💻 **Developer-friendly**: CLI che si integra nel tuo workflow
@@ -97,7 +89,7 @@ Per guide dettagliate e riferimenti API, visita la [documentazione](https://repl
 
 Interessato a contribuire, anche se non sei un cliente?
 
-Dai un'occhiata ai [Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue) e leggi la [Guida per Contribuire](./CONTRIBUTING.md).
+Dai un'occhiata alle [Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue) e leggi la [Guida per contribuire](./CONTRIBUTING.md).
 
 ## 🧠 Team
 

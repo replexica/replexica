@@ -37,14 +37,16 @@ Elle produit instantanément des traductions authentiques, éliminant le travail
 
 ## 💫 Démarrage rapide
 
-1. **Demandez l'accès** : [contactez-nous](https://replexica.com/go/call) pour devenir client.
+1. Créez un compte sur [le site web](https://replexica.com)
 
-2. Une fois approuvé, initialisez votre projet :
+2. Initialisez votre projet :
    ```bash
    npx replexica@latest init
    ```
 
-3. Localisez votre contenu :
+3. Consultez notre documentation : [docs.replexica.com](https://docs.replexica.com)
+
+4. Localisez votre application (en quelques secondes) :
    ```bash
    npx replexica@latest i18n
    ```
@@ -63,31 +65,21 @@ Cette action exécute `replexica i18n` à chaque push, maintenant automatiquemen
 
 Pour le mode pull request et d'autres options de configuration, consultez notre [documentation GitHub Action](https://docs.replexica.com/setup/gha).
 
-## 🧪 Compilateur de localisation (expérimental)
-
-Ce dépôt contient également notre nouvelle expérimentation : un compilateur de localisation JS/React.
-
-Il permet aux équipes de développement de faire de la localisation frontend **sans extraire les chaînes dans des fichiers de traduction**. Les équipes peuvent obtenir une interface multilingue avec une seule ligne de code. Il fonctionne au moment de la compilation, utilise la manipulation d'arbre de syntaxe abstraite (AST) et la génération de code.
-
-Vous pouvez voir la démo [ici](https://x.com/MaxPrilutskiy/status/1781011350136734055).
-
-Si vous souhaitez expérimenter le compilateur par vous-même, assurez-vous d'abord de faire `git checkout 6c6d59e8aa27836fd608f9258ea4dea82961120f`.
-
 ## 🥇 Pourquoi les équipes choisissent Replexica
 
 - 🔥 **Intégration instantanée** : Configuration en quelques minutes
-- 🔄 **Automatisation CI/CD** : Intégration transparente au pipeline de dev
+- 🔄 **Automatisation CI/CD** : Intégration transparente dans le pipeline de développement
 - 🌍 **Plus de 60 langues** : Expansion mondiale sans effort
 - 🧠 **Moteur de localisation IA** : Des traductions parfaitement adaptées à votre produit
-- 📊 **Flexible en formats** : Supporte JSON, YAML, CSV, Markdown et plus
+- 📊 **Flexible en formats** : Supporte JSON, YAML, CSV, Markdown et plus encore
 
 ## 🛠️ Fonctionnalités surpuissantes
 
 - ⚡️ **Ultra-rapide** : Localisation IA en quelques secondes
-- 🔄 **Mises à jour auto** : Synchronisation avec le contenu le plus récent
-- 🌟 **Qualité native** : Des traductions qui sonnent authentique
-- 👨‍💻 **Dev-friendly** : CLI qui s'intègre à votre workflow
-- 📈 **Scalable** : Pour startups en croissance et équipes enterprise
+- 🔄 **Mises à jour automatiques** : Synchronisation avec le contenu le plus récent
+- 🌟 **Qualité native** : Des traductions qui sonnent authentiques
+- 👨‍💻 **Adapté aux développeurs** : CLI qui s'intègre à votre workflow
+- 📈 **Évolutif** : Pour les startups en croissance et les équipes enterprise
 
 ## 📚 Documentation
 
