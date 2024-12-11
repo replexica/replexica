@@ -1,5 +1,16 @@
 # replexica
 
+## 0.58.3
+
+### Patch Changes
+
+- [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - noop
+
+- Updated dependencies [[`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b), [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d)]:
+  - @replexica/cli@0.59.0
+  - @replexica/compiler@0.5.11
+  - @replexica/react@0.3.14
+
 ## 0.58.2
 
 ### Patch Changes
