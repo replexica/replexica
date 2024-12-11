@@ -1,5 +1,5 @@
 packages:
   - "./package"
   - "./packages/*"
-  - "./integration/*"
+  - "./integrations/*"
   - "./demo/next-app"

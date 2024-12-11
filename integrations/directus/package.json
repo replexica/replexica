@@ -21,7 +21,9 @@
     "host": "^10.10.0"
   },
   "files": [
-    "build"
+    "build",
+    "readme.md",
+    "changelog.md"
   ],
   "scripts": {
     "dev": "tsup --watch",
