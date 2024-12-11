@@ -3,11 +3,7 @@
   "version": "0.1.0",
   "description": "Replexica integration for Directus",
   "private": false,
-  "type": "module",
   "sideEffects": false,
-  "types": "build/index.d.ts",
-  "module": "build/index.mjs",
-  "main": "build/index.cjs",
   "directus:extension": {
     "type": "operation",
     "path": {
@@ -30,8 +26,6 @@
     "build": "tsc --noEmit && tsup",
     "test": "vitest run"
   },
-  "keywords": [],
-  "author": "",
   "license": "Apache-2.0",
   "dependencies": {
     "@replexica/sdk": "workspace:*"
