@@ -33,6 +33,6 @@
   "devDependencies": {
     "@directus/extensions-sdk": "12.1.4",
     "tsup": "^8.3.5",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.8"
   }
 }
