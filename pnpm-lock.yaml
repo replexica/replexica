@@ -71,7 +71,7 @@ importers:
         specifier: ^5.6.3
         version: 5.6.3
 
-  integration/directus:
+  integrations/directus:
     dependencies:
       '@replexica/sdk':
         specifier: workspace:*
