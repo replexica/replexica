@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@replexica/react": "workspace:*",
-    "next": "14.2.14",
+    "next": "15.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "replexica": "workspace:*"
