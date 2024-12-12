@@ -174,6 +174,8 @@ const localeMap = {
   ti: ['ti-ET'],
   // Standard Moroccan Tamazight (Morocco)
   zgh: ['zgh-MA'],
+  // Tagalog (Philippines)
+  tl: ['tl-PH'],
 } as const;
 
 export type LocaleCodeShort = keyof typeof localeMap;
