@@ -1,5 +1,20 @@
 # replexica
 
+## 0.59.0
+
+### Minor Changes
+
+- [`63daf00`](https://github.com/replexica/replexica/commit/63daf00e80004775f12c9e1d426cdd2bbf10f5a4) Thanks [@vrcprl](https://github.com/vrcprl)! - noop
+
+### Patch Changes
+
+- [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - noop
+
+- Updated dependencies [[`63daf00`](https://github.com/replexica/replexica/commit/63daf00e80004775f12c9e1d426cdd2bbf10f5a4), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b), [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d)]:
+  - @replexica/cli@0.59.0
+  - @replexica/compiler@0.5.11
+  - @replexica/react@0.3.14
+
 ## 0.58.2
 
 ### Patch Changes

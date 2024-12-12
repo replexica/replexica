@@ -1,5 +1,23 @@
 # replexica
 
+## 0.59.0
+
+### Minor Changes
+
+- [`63daf00`](https://github.com/replexica/replexica/commit/63daf00e80004775f12c9e1d426cdd2bbf10f5a4) Thanks [@vrcprl](https://github.com/vrcprl)! - noop
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - added support for xliff loader
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - feat(cli): implemented xliff
+
+### Patch Changes
+
+- [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - noop
+
+- Updated dependencies [[`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b)]:
+  - @replexica/spec@0.21.0
+  - @replexica/sdk@0.7.5
+
 ## 0.58.2
 
 ### Patch Changes
