@@ -74,8 +74,8 @@ importers:
   integrations/directus:
     dependencies:
       '@replexica/sdk':
-        specifier: workspace:*
-        version: link:../../packages/sdk
+        specifier: ^0.7.5
+        version: 0.7.5(@types/node@22.8.4)(terser@5.36.0)
     devDependencies:
       '@directus/extensions-sdk':
         specifier: 12.1.4
@@ -1450,6 +1450,12 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@replexica/sdk@0.7.5':
+    resolution: {integrity: sha512-17EKHxM5lfEtWh0Stq6Y2K4hGCiDjtQHBseBEil0lO2mE4InNUz1Z0SiEX1BfXkVeYA6S0OQN8nifYqkmYIK9A==}
+
+  '@replexica/spec@0.21.0':
+    resolution: {integrity: sha512-MtAAxJ2YqczWGlqHnj5viWpn3epB8lVd4xNH/SxTQ9rMDwgt40QbgExShtvqEDbTN+D889yEG8+uuy8b7UuvYg==}
 
   '@rollup/plugin-commonjs@25.0.8':
     resolution: {integrity: sha512-ZEZWTK5n6Qde0to4vS9Mr5x/0UZoqCxPVR9KRUjU4kA2sO7GEUn1fop0DAwpO6z0Nw/kJON9bDmSxdWxO/TT1A==}
@@ -5822,6 +5828,55 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@replexica/sdk@0.7.5(@types/node@22.8.4)(terser@5.36.0)':
+    dependencies:
+      '@paralleldrive/cuid2': 2.2.2
+      '@replexica/spec': 0.21.0(@types/node@22.8.4)(jsdom@25.0.1)(terser@5.36.0)
+      jsdom: 25.0.1
+      typescript: 5.6.3
+      vitest: 2.1.4(@types/node@22.8.4)(jsdom@25.0.1)(terser@5.36.0)
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - bufferutil
+      - canvas
+      - happy-dom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - utf-8-validate
+
+  '@replexica/spec@0.21.0(@types/node@22.8.4)(jsdom@25.0.1)(terser@5.36.0)':
+    dependencies:
+      typescript: 5.6.3
+      vitest: 2.1.4(@types/node@22.8.4)(jsdom@25.0.1)(terser@5.36.0)
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - happy-dom
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
 
   '@rollup/plugin-commonjs@25.0.8(rollup@3.29.4)':
     dependencies:

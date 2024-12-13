@@ -28,7 +28,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@replexica/sdk": "workspace:*"
+    "@replexica/sdk": "^0.7.5"
   },
   "devDependencies": {
     "@directus/extensions-sdk": "12.1.4",
