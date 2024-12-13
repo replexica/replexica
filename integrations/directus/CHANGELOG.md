@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.3
+
+### Patch Changes
+
+- [`75253b6`](https://github.com/replexica/replexica/commit/75253b66833b000bf80d6880e92e3c60f5bcd068) Thanks [@vrcprl](https://github.com/vrcprl)! - Update replexica sdk version
+
 ## 0.1.2
 
 ### Patch Changes
