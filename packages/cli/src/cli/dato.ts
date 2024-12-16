@@ -1,10 +1,9 @@
 import { Command } from "commander";
 import Ora from 'ora';
 import { getConfig } from "../utils/config";
-import { createDatoApiLoader, createDatoLoader } from "../loaders/dato";
-import { composeLoaders } from "../loaders/_utils";
-import createFlatLoader from "../loaders/flat";
-import { ILoader } from "../loaders/_types";
+import createBucketLoader from "../loaders";
+import { ReplexicaEngine } from '@replexica/sdk';
+import { getSettings } from "../utils/settings";
 
 export default new Command()
   .command("dato")
@@ -15,38 +14,26 @@ export default new Command()
   .action(async (options) => {
     const spinner = Ora().start('Processing DatoCMS data');
     const config = getConfig(false);
+    const settings = getSettings(undefined);
+
     if (!config) {
       spinner.fail('No configuration found');
       return process.exit(1);
     }
-    const projectId = options.projectId;
-    if (!projectId) {
-      spinner.fail('Project ID is required');
-      return process.exit(1);
-    }
 
-    const postId = options.postId;  
-    if (!postId) {
-      spinner.fail('Post ID is required');
-      return process.exit(1);
-    }
-
-    const loader: ILoader<void, Record<string, string>> = composeLoaders(
-      createDatoApiLoader(projectId, postId),
-      createDatoLoader(),
-      createFlatLoader(),
-    );
+    const loader = createBucketLoader('dato', '');
     loader.setDefaultLocale('en');
 
     const result = await loader.pull('en');
-    const localizedResult = await doFakeLocalization(result);
+    console.log(`[dato] Pulled en`, JSON.stringify(result, null, 2));
+
+    const replexicaEngine = new ReplexicaEngine({
+      apiKey: settings.auth.apiKey,
+      apiUrl: settings.auth.apiUrl,
+    });
+    const localizedResult = await replexicaEngine.localizeObject(result, { sourceLocale: 'en', targetLocale: 'es' });
+    console.log(`[dato] Localized en`, localizedResult);
     await loader.push('es', localizedResult);
 
     spinner.succeed('DatoCMS data processed');
   });
-  
-  async function doFakeLocalization(data: Record<string, string>) {
-    return Object.fromEntries(
-      Object.entries(data).map(([key, value]) => [key, `ES:${value}`])
-    );
-  }
