@@ -1,6 +1,6 @@
 {
   "name": "@replexica/integration-directus",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Replexica integration for Directus",
   "private": false,
   "sideEffects": false,
