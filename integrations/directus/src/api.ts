@@ -61,6 +61,9 @@ export default defineOperationApi<Options>({
 			const languagesService = new ItemsService(language_table, { schema });
 			const translationsService = new ItemsService(translation_table, { schema });
 
+			// Get the primary key field for the collection
+      const collection_pk = schema.collections[collection].primary;
+
 			// Get collection fields and their types
 			const collectionFields = schema.collections[translation_table].fields;
 
@@ -68,7 +71,7 @@ export default defineOperationApi<Options>({
 			const existingTranslations = await translationsService.readByQuery({
 				fields: ['*'],
 				filter: {
-					[`${collection}_id`]: { _eq: item_id }
+					[`${collection}_${collection_pk}`]: { _eq: item_id }
 				}
 			});
 
@@ -189,7 +192,7 @@ export default defineOperationApi<Options>({
 							result = await translationsService.createOne({
 								...translatedData,
 								languages_code: language.code,
-								[`${collection}_id`]: item_id
+								[`${collection}_${collection_pk}`]: item_id
 							});
 						}
 
