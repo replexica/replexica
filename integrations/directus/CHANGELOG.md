@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.4
+
+### Patch Changes
+
+- [`998a4a6`](https://github.com/replexica/replexica/commit/998a4a6267ff8542279a8f6d812d5579e3a78a42) Thanks [@vrcprl](https://github.com/vrcprl)! - Update primary key selection
+
 ## 0.1.3
 
 ### Patch Changes
