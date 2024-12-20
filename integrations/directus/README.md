@@ -99,7 +99,7 @@ Go to Content and run the Flow on the collection to localize your content.
 
 The Flow will automatically translate the content in the selected collection.
 
-![Flow Results](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/run-flow.png)
+![Flow Results](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/flow-results.png)
 
 ## Replexica Extension Inputs
 
