@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.6
+
+### Patch Changes
+
+- [`e808190`](https://github.com/replexica/replexica/commit/e80819059b89f4a3f69980bab0979432cb7823bf) Thanks [@vrcprl](https://github.com/vrcprl)! - Fixed screenshot
+
 ## 0.1.5
 
 ### Patch Changes
