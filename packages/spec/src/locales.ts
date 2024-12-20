@@ -176,6 +176,8 @@ const localeMap = {
   zgh: ['zgh-MA'],
   // Tagalog (Philippines)
   tl: ['tl-PH'],
+  // Telugu (India)
+  te: ['te-IN'],
 } as const;
 
 export type LocaleCodeShort = keyof typeof localeMap;
