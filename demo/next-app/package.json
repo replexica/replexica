@@ -1,6 +1,6 @@
 {
   "name": "@replexica/demo/next-app",
-  "version": "0.1.62",
+  "version": "0.1.63",
   "private": true,
   "scripts": {
     "dev": "next dev",

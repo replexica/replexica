@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.21.1
+
+### Patch Changes
+
+- [`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98) Thanks [@vrcprl](https://github.com/vrcprl)! - Added Telugu (India) locale
+
 ## 0.21.0
 
 ### Minor Changes
