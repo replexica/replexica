@@ -1,5 +1,33 @@
 # @replexica/spec
 
+## 0.21.1
+
+### Patch Changes
+
+- [`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98) Thanks [@vrcprl](https://github.com/vrcprl)! - Added Telugu (India) locale
+
+## 0.21.0
+
+### Minor Changes
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - added support for xliff loader
+
+### Patch Changes
+
+- [`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007) Thanks [@vrcprl](https://github.com/vrcprl)! - Add Tagalog
+
+## 0.20.0
+
+### Minor Changes
+
+- [`1556977`](https://github.com/replexica/replexica/commit/1556977332a6f949100283bfa8c9a9ff5e74b156) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add new locales
+
+## 0.19.0
+
+### Minor Changes
+
+- [`5cb3c93`](https://github.com/replexica/replexica/commit/5cb3c930fff6e30cff5cc2266b794f75a0db646d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - added Latin / Cyrilic modifiers for Serbian
+
 ## 0.18.0
 
 ### Minor Changes

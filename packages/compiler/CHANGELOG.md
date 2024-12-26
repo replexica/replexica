@@ -1,5 +1,51 @@
 # @replexica/compiler
 
+## 0.5.12
+
+### Patch Changes
+
+- Updated dependencies [[`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98)]:
+  - @replexica/spec@0.21.1
+  - @replexica/sdk@0.7.6
+
+## 0.5.11
+
+### Patch Changes
+
+- Updated dependencies [[`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b)]:
+  - @replexica/spec@0.21.0
+  - @replexica/sdk@0.7.5
+
+## 0.5.10
+
+### Patch Changes
+
+- Updated dependencies [[`1556977`](https://github.com/replexica/replexica/commit/1556977332a6f949100283bfa8c9a9ff5e74b156)]:
+  - @replexica/spec@0.20.0
+  - @replexica/sdk@0.7.4
+
+## 0.5.9
+
+### Patch Changes
+
+- Updated dependencies [[`cbef8f3`](https://github.com/replexica/replexica/commit/cbef8f3cafdc955d61053ce885d98e425acb668d)]:
+  - @replexica/sdk@0.7.3
+
+## 0.5.8
+
+### Patch Changes
+
+- Updated dependencies [[`5cb3c93`](https://github.com/replexica/replexica/commit/5cb3c930fff6e30cff5cc2266b794f75a0db646d)]:
+  - @replexica/spec@0.19.0
+  - @replexica/sdk@0.7.2
+
+## 0.5.7
+
+### Patch Changes
+
+- Updated dependencies [[`db819a4`](https://github.com/replexica/replexica/commit/db819a42412ceb67fedbe729b7d018952686d60b), [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91)]:
+  - @replexica/sdk@0.7.1
+
 ## 0.5.6
 
 ### Patch Changes

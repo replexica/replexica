@@ -1,6 +1,6 @@
 {
   "name": "@replexica/sdk",
-  "version": "0.7.0",
+  "version": "0.7.6",
   "description": "Replexica JS SDK",
   "private": false,
   "type": "module",
@@ -24,7 +24,7 @@
     "@replexica/spec": "workspace:*",
     "jsdom": "^25.0.1",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4",
+    "vitest": "^2.1.8",
     "zod": "^3.23.8"
   },
   "devDependencies": {

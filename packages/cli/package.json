@@ -1,6 +1,6 @@
 {
   "name": "@replexica/cli",
-  "version": "0.56.3",
+  "version": "0.59.1",
   "description": "Replexica CLI",
   "private": false,
   "type": "module",
@@ -19,7 +19,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@datocms/cma-client-node": "^3.3.15",
-    "@inquirer/prompts": "^7.0.1",
+    "@inquirer/prompts": "^7.2.0",
     "@paralleldrive/cuid2": "^2.2.2",
     "@replexica/sdk": "workspace:*",
     "@replexica/spec": "workspace:*",
@@ -54,7 +54,8 @@
     "slugify": "^1.6.6",
     "srt-parser-2": "^1.2.3",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4",
+    "vitest": "^2.1.8",
+    "xliff": "^6.2.1",
     "xml2js": "^0.6.2",
     "xmldom": "^0.6.0",
     "xpath": "^0.0.34",

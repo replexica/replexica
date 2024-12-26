@@ -5,15 +5,16 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ Hochmoderne KI-Lokalisierung für Web & Mobile, direkt aus CI/CD.</strong>
+  <strong>⚡️ Hochmoderne KI-Lokalisierung für Web & Mobile, direkt aus der CI/CD-Pipeline.</strong>
 </p>
 
 <br />
 
 <p align="center">
   <a href="https://replexica.com">Website</a> •
-  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Mitwirken</a> •
-  <a href="#-github-action">GitHub Action</a>
+  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Mitmachen</a> •
+  <a href="#-github-action">GitHub Action</a> •
+  <a href="#-localization-compiler-experimental">Lokalisierungs-Compiler</a>
 </p>
 
 <p align="center">
@@ -30,20 +31,22 @@
 
 <br />
 
-Replexica AI automatisiert die Software-Lokalisierung von Anfang bis Ende.
+Replexica KI automatisiert die Software-Lokalisierung von Anfang bis Ende.
 
-Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Replexica Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Dadurch führen Teams Lokalisierungen 100-mal schneller durch, mit modernster Qualität, und liefern Funktionen an mehr zahlende Kunden weltweit.
+Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Replexica Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch Lokalisierung 100-mal schneller durchführen, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
 
 ## 💫 Schnellstart
 
-1. **Zugang anfordern**: [Sprechen Sie mit uns](https://replexica.com/go/call), um Kunde zu werden.
+1. Erstellen Sie ein Konto auf [der Website](https://replexica.com)
 
-2. Nach der Freigabe initialisieren Sie Ihr Projekt:
+2. Initialisieren Sie Ihr Projekt:
    ```bash
    npx replexica@latest init
    ```
 
-3. Lokalisieren Sie Ihre Inhalte:
+3. Lesen Sie unsere Dokumentation: [docs.replexica.com](https://docs.replexica.com)
+
+4. Lokalisieren Sie Ihre App (dauert nur Sekunden):
    ```bash
    npx replexica@latest i18n
    ```
@@ -64,29 +67,29 @@ Für den Pull-Request-Modus und weitere Konfigurationsoptionen besuchen Sie unse
 
 ## 🥇 Warum Teams Replexica wählen
 
-- 🔥 **Sofortige Integration**: In Minuten eingerichtet
-- 🔄 **CI/CD-Automatisierung**: Nahtlose Integration in den Entwicklungsprozess
-- 🌍 **Über 60 Sprachen**: Mühelose globale Expansion
+- 🔥 **Sofortige Integration**: Setup in Minuten
+- 🔄 **CI/CD Automation**: Nahtlose Integration in Dev-Pipelines
+- 🌍 **60+ Sprachen**: Mühelose globale Expansion
 - 🧠 **KI-Lokalisierungs-Engine**: Übersetzungen, die wirklich zu Ihrem Produkt passen
-- 📊 **Formatflexibel**: Unterstützt JSON, YAML, CSV, Markdown und mehr
+- 📊 **Format-Flexibel**: Unterstützt JSON, YAML, CSV, Markdown und mehr
 
-## 🛠️ Leistungsstarke Funktionen
+## 🛠️ Leistungsstarke Features
 
-- ⚡️ **Blitzschnell**: KI-Lokalisierung in Sekundenschnelle
-- 🔄 **Automatische Updates**: Synchronisiert mit den neuesten Inhalten
-- 🌟 **Muttersprachliche Qualität**: Übersetzungen, die authentisch klingen
-- 👨‍💻 **Entwicklerfreundlich**: CLI, die sich in Ihren Workflow integriert
-- 📈 **Skalierbar**: Für wachsende Startups und Unternehmensteams
+- ⚡️ **Blitzschnell**: KI-Lokalisierung in Sekunden
+- 🔄 **Auto-Updates**: Synchronisiert mit den neuesten Inhalten
+- 🌟 **Native Qualität**: Authentisch klingende Übersetzungen
+- 👨‍💻 **Developer-Friendly**: CLI, das sich in Ihren Workflow integriert
+- 📈 **Skalierbar**: Für wachsende Startups und Enterprise-Teams
 
 ## 📚 Dokumentation
 
 Detaillierte Anleitungen und API-Referenzen finden Sie in der [Dokumentation](https://replexica.com/go/docs).
 
-## 🤝 Mitwirken
+## 🤝 Mitmachen
 
-Interessiert daran, einen Beitrag zu leisten, auch wenn Sie kein Kunde sind?
+Interesse am Mitwirken, auch wenn Sie kein Kunde sind?
 
-Schauen Sie sich die [Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue) an und lesen Sie den [Leitfaden für Mitwirkende](./CONTRIBUTING.md).
+Sehen Sie sich die [Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue) an und lesen Sie den [Contributing Guide](./CONTRIBUTING.md).
 
 ## 🧠 Team
 
@@ -97,15 +100,15 @@ Fragen oder Anfragen? E-Mail an veronica@replexica.com
 
 ## 🌐 Readme in anderen Sprachen
 
-- [Englisch](https://github.com/replexica/replexica)
-- [Spanisch](/readme/es.md)
-- [Französisch](/readme/fr.md)
-- [Russisch](/readme/ru.md)
-- [Deutsch](/readme/de.md)
-- [Chinesisch](/readme/zh-Hans.md)
-- [Koreanisch](/readme/ko.md)
-- [Japanisch](/readme/ja.md)
-- [Italienisch](/readme/it.md)
-- [Arabisch](/readme/ar.md)
+- [English](https://github.com/replexica/replexica)
+- [Spanish](/readme/es.md)
+- [French](/readme/fr.md)
+- [Russian](/readme/ru.md)
+- [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
+- [Korean](/readme/ko.md)
+- [Japanese](/readme/ja.md)
+- [Italian](/readme/it.md)
+- [Arabic](/readme/ar.md)
 
-Siehst du deine sprache nicht? Füge einfach einen neuen sprachcode zur datei [`i18n.json`](./i18n.json) hinzu und eröffne einen PR.
+Ihre Sprache nicht dabei? Fügen Sie einfach einen neuen Sprachcode zur [`i18n.json`](./i18n.json) Datei hinzu und öffnen Sie einen PR.

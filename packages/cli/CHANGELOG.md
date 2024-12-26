@@ -1,5 +1,79 @@
 # replexica
 
+## 0.59.1
+
+### Patch Changes
+
+- Updated dependencies [[`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98)]:
+  - @replexica/spec@0.21.1
+  - @replexica/sdk@0.7.6
+
+## 0.59.0
+
+### Minor Changes
+
+- [`63daf00`](https://github.com/replexica/replexica/commit/63daf00e80004775f12c9e1d426cdd2bbf10f5a4) Thanks [@vrcprl](https://github.com/vrcprl)! - noop
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - added support for xliff loader
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - feat(cli): implemented xliff
+
+### Patch Changes
+
+- [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - noop
+
+- Updated dependencies [[`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b)]:
+  - @replexica/spec@0.21.0
+  - @replexica/sdk@0.7.5
+
+## 0.58.2
+
+### Patch Changes
+
+- Updated dependencies [[`1556977`](https://github.com/replexica/replexica/commit/1556977332a6f949100283bfa8c9a9ff5e74b156)]:
+  - @replexica/spec@0.20.0
+  - @replexica/sdk@0.7.4
+
+## 0.58.1
+
+### Patch Changes
+
+- Updated dependencies [[`cbef8f3`](https://github.com/replexica/replexica/commit/cbef8f3cafdc955d61053ce885d98e425acb668d)]:
+  - @replexica/sdk@0.7.3
+
+## 0.58.0
+
+### Minor Changes
+
+- [`ff0d2d7`](https://github.com/replexica/replexica/commit/ff0d2d7fb12806a7264a72c03e48a8dda3526c23) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add retry with exponential backoff to the cli
+
+### Patch Changes
+
+- [`7ff7f8f`](https://github.com/replexica/replexica/commit/7ff7f8fca7318e4dba929194972d20ccf3487e9d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - display number of entries in localization completion message
+
+## 0.57.1
+
+### Patch Changes
+
+- Updated dependencies [[`5cb3c93`](https://github.com/replexica/replexica/commit/5cb3c930fff6e30cff5cc2266b794f75a0db646d)]:
+  - @replexica/spec@0.19.0
+  - @replexica/sdk@0.7.2
+
+## 0.57.0
+
+### Minor Changes
+
+- [`8e2cee4`](https://github.com/replexica/replexica/commit/8e2cee4b282c39fef1e00fa429e03e1c1e489cc5) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add `cleanup` command
+
+### Patch Changes
+
+- [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - filter out non extistent keys
+
+- [`ca10072`](https://github.com/replexica/replexica/commit/ca10072f636d8bd1105ed0f6cc84cf0af5a12402) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - improve progress logging in cli
+
+- Updated dependencies [[`db819a4`](https://github.com/replexica/replexica/commit/db819a42412ceb67fedbe729b7d018952686d60b), [`2c5cbcf`](https://github.com/replexica/replexica/commit/2c5cbcfbf6feb28440255cdea0818c8cefa61d91)]:
+  - @replexica/sdk@0.7.1
+
 ## 0.56.3
 
 ### Patch Changes

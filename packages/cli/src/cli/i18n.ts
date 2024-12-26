@@ -117,13 +117,13 @@ export default new Command()
             for (const targetLocale of targetLocales) {
               try {
                 bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`);
-                
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processableData, null, 2));
                 }
 
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (0%) AI localization in progress...`);
                 const localizationEngine = createLocalizationEngineConnection({
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
@@ -135,7 +135,7 @@ export default new Command()
                   targetLocale,
                   targetData,
                 }, (progress) => {
-                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) Localization in progress...`;
+                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
                 });
 
                 if (flags.verbose) {
@@ -218,13 +218,32 @@ function calculateDataDelta(args: {
   return result;
 }
 
-function createLocalizationEngineConnection(args: {
+async function retryWithExponentialBackoff<T>(
+  operation: () => Promise<T>,
+  maxAttempts: number,
+  baseDelay: number = 1000
+): Promise<T> {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === maxAttempts - 1) throw error;
+      
+      const delay = baseDelay * Math.pow(2, attempt);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error('Unreachable code');
+}
+
+function createLocalizationEngineConnection(params: {
   apiKey: string;
   apiUrl: string;
+  maxRetries?: number;
 }) {
   const replexicaEngine = new ReplexicaEngine({
-    apiKey: args.apiKey,
-    apiUrl: args.apiUrl,
+    apiKey: params.apiKey,
+    apiUrl: params.apiUrl,
   });
 
   return {
@@ -232,19 +251,19 @@ function createLocalizationEngineConnection(args: {
       sourceLocale: string;
       sourceData: Record<string, any>;
       processableData: Record<string, any>;
-
       targetLocale: string;
       targetData: Record<string, any>;
     },
-      onProgress: (progress: number) => void,
+    onProgress: (progress: number) => void,
     ) => {
-      const result = await replexicaEngine.localizeObject(
-        args.processableData,
-        { sourceLocale: args.sourceLocale, targetLocale: args.targetLocale },
-        onProgress
+      return retryWithExponentialBackoff(
+        () => replexicaEngine.localizeObject(
+          args.processableData,
+          { sourceLocale: args.sourceLocale, targetLocale: args.targetLocale },
+          onProgress
+        ),
+        params.maxRetries ?? 3
       );
-
-      return result;
     },
   };
 }

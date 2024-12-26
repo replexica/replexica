@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ CI/CD에서 바로 사용 가능한 최첨단 AI 웹 & 모바일 로컬라이제이션.</strong>
+  <strong>⚡️ CI/CD에서 바로 사용 가능한 최첨단 AI 로컬라이제이션 솔루션</strong>
 </p>
 
 <br />
@@ -13,7 +13,8 @@
 <p align="center">
   <a href="https://replexica.com">웹사이트</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">기여하기</a> •
-  <a href="#-github-action">GitHub Action</a>
+  <a href="#-github-action">GitHub Action</a> •
+  <a href="#-localization-compiler-experimental">로컬라이제이션 컴파일러</a>
 </p>
 
 <p align="center">
@@ -32,18 +33,20 @@
 
 Replexica AI는 소프트웨어 로컬라이제이션을 엔드투엔드로 자동화합니다.
 
-수작업과 관리 오버헤드를 제거하고 즉시 정통한 번역을 생성합니다. Replexica 로컬라이제이션 엔진은 제품 컨텍스트를 이해하여 60개 이상의 언어에서 원어민이 기대하는 완벽한 번역을 만들어냅니다. 결과적으로 팀은 최첨단 품질로 100배 더 빠르게 로컬라이제이션을 수행하여 전 세계의 더 많은 유료 고객에게 기능을 제공할 수 있습니다.
+수동 작업과 관리 오버헤드를 제거하고 즉시 자연스러운 번역을 제공합니다. Replexica 로컬라이제이션 엔진은 제품 컨텍스트를 이해하여 60개 이상의 언어에서 원어민이 기대하는 수준의 완벽한 번역을 생성합니다. 결과적으로 팀은 최첨단 품질의 로컬라이제이션을 100배 더 빠르게 수행하여 전 세계의 더 많은 고객에게 기능을 제공할 수 있습니다.
 
 ## 💫 빠른 시작
 
-1. **액세스 요청**: [문의하기](https://replexica.com/go/call)를 통해 고객이 되세요.
+1. [웹사이트](https://replexica.com)에서 계정 생성하기
 
-2. 승인되면 프로젝트를 초기화하세요:
+2. 프로젝트 초기화:
    ```bash
    npx replexica@latest init
    ```
 
-3. 콘텐츠를 로컬라이즈하세요:
+3. 문서 확인하기: [docs.replexica.com](https://docs.replexica.com)
+
+4. 앱 현지화하기 (몇 초면 완료):
    ```bash
    npx replexica@latest i18n
    ```
@@ -66,46 +69,46 @@ Replexica는 CI/CD 파이프라인에서 로컬라이제이션을 자동화하�
 
 - 🔥 **즉시 통합**: 몇 분 만에 설정 완료
 - 🔄 **CI/CD 자동화**: 개발 파이프라인과 원활한 통합
-- 🌍 **60개 이상의 언어**: 손쉽게 글로벌 확장
-- 🧠 **AI 현지화 엔진**: 제품에 정말로 맞는 번역
-- 📊 **유연한 형식**: JSON, YAML, CSV, 마크다운 등 지원
+- 🌍 **60개 이상의 언어**: 손쉬운 글로벌 확장
+- 🧠 **AI 현지화 엔진**: 제품에 완벽하게 맞는 번역
+- 📊 **유연한 포맷**: JSON, YAML, CSV, Markdown 등 지원
 
 ## 🛠️ 강력한 기능
 
 - ⚡️ **초고속**: 몇 초 만에 AI 현지화
 - 🔄 **자동 업데이트**: 최신 콘텐츠와 동기화
-- 🌟 **네이티브 품질**: 자연스럽게 들리는 번역
+- 🌟 **네이티브 품질**: 자연스러운 번역
 - 👨‍💻 **개발자 친화적**: 워크플로우와 통합되는 CLI
-- 📈 **확장 가능**: 성장하는 스타트업과 엔터프라이즈 팀을 위해
+- 📈 **확장성**: 성장하는 스타트업과 엔터프라이즈 팀을 위한 솔루션
 
 ## 📚 문서
 
-자세한 가이드와 API 참조는 [문서](https://replexica.com/go/docs)를 참조하세요.
+자세한 가이드와 API 레퍼런스는 [문서](https://replexica.com/go/docs)를 참조하세요.
 
 ## 🤝 기여하기
 
-고객이 아니더라도 기여하는 데 관심이 있으신가요?
+고객이 아니더라도 기여하고 싶으신가요?
 
-[초보자를 위한 이슈](https://github.com/replexica/replexica/labels/good%20first%20issue)를 확인하고 [기여 가이드](./CONTRIBUTING.md)를 읽어보세요.
+[Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue)를 확인하고 [기여 가이드](./CONTRIBUTING.md)를 읽어보세요.
 
 ## 🧠 팀
 
-- **[베로니카](https://github.com/vrcprl)**
-- **[맥스](https://github.com/maxprilutskiy)**
+- **[Veronica](https://github.com/vrcprl)**
+- **[Max](https://github.com/maxprilutskiy)**
 
-질문이나 문의사항이 있으신가요? veronica@replexica.com으로 이메일을 보내주세요.
+문의사항이 있으신가요? veronica@replexica.com으로 이메일을 보내주세요
 
-## 🌐 다른 언어로 된 리드미
+## 🌐 다른 언어로 된 Readme
 
-- [영어](https://github.com/replexica/replexica)
-- [스페인어](/readme/es.md)
-- [프랑스어](/readme/fr.md)
-- [러시아어](/readme/ru.md)
-- [독일어](/readme/de.md)
-- [중국어](/readme/zh-Hans.md)
-- [한국어](/readme/ko.md)
-- [일본어](/readme/ja.md)
-- [이탈리아어](/readme/it.md)
-- [아랍어](/readme/ar.md)
+- [English](https://github.com/replexica/replexica)
+- [Spanish](/readme/es.md)
+- [French](/readme/fr.md)
+- [Russian](/readme/ru.md)
+- [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
+- [Korean](/readme/ko.md)
+- [Japanese](/readme/ja.md)
+- [Italian](/readme/it.md)
+- [Arabic](/readme/ar.md)
 
 원하는 언어가 없나요? [`i18n.json`](./i18n.json) 파일에 새로운 언어 코드를 추가하고 PR을 열어주세요.
