@@ -17,6 +17,7 @@ export const bucketTypes = [
   'xliff',
   'xml',
   'srt',
+  'dato',
   'compiler',
 ] as const;
 

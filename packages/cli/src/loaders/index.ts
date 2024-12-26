@@ -22,6 +22,7 @@ import createPoLoader from './po';
 import createXliffLoader from './xliff';
 import createXmlLoader from './xml';
 import createSrtLoader from './srt';
+import createDatoLoader from './dato';
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -128,6 +129,10 @@ export default function createBucketLoader(
     case 'srt': return composeLoaders(
       createTextFileLoader(bucketPathPattern),
       createSrtLoader(),
+      createUnlocalizableLoader(),
+    );
+    case 'dato': return composeLoaders(
+      createDatoLoader(bucketPathPattern),
       createUnlocalizableLoader(),
     );
   }

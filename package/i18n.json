@@ -3,10 +3,19 @@
   "locale": {
     "source": "en",
     "targets": [
-      "es"
+      "es",
+      "fr",
+      "it",
+      "de"
     ]
   },
   "buckets": {
+    "dato": {
+      "include": [
+        "demo/dato/documentation_page.json5",
+        "demo/dato/change_log.json5"
+      ]
+    },
     "android": {
       "include": [
         "demo/android/[locale].xml"

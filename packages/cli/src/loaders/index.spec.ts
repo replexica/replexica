@@ -887,7 +887,7 @@ user.password=Contraseña
   
       const xmlLoader = createBucketLoader("xml", 'i18n/[locale].xml');
       xmlLoader.setDefaultLocale('en');
-      const data = await xmlLoader.pull('en');      
+      const data = await xmlLoader.pull('en');
       expect(data).toEqual(expectedOutput);
     });
   

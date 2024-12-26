@@ -20,18 +20,18 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/core": "^7.26.0",
-    "@babel/generator": "^7.26.2",
-    "@babel/parser": "^7.26.2",
-    "@babel/types": "^7.26.0",
+    "@babel/generator": "^7.26.3",
+    "@babel/parser": "^7.26.3",
+    "@babel/types": "^7.26.3",
     "@replexica/sdk": "workspace:*",
     "@replexica/spec": "workspace:*",
     "ignore-walk": "^7.0.0",
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
-    "typescript": "^5.6.3",
-    "unplugin": "^1.15.0",
+    "typescript": "^5.7.2",
+    "unplugin": "^2.1.0",
     "vitest": "^2.1.8",
-    "zod": "^3.23.8"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",

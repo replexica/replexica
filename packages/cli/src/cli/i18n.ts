@@ -11,65 +11,53 @@ import createBucketLoader from '../loaders';
 import { createLockfileHelper } from '../utils/lockfile';
 import { createAuthenticator } from '../utils/auth';
 import { getBuckets } from '../utils/buckets';
+import chalk from 'chalk';
+import { createTwoFilesPatch } from 'diff';
+import inquirer from 'inquirer';
+import externalEditor from 'external-editor';
 
 export default new Command()
   .command('i18n')
-  .description('Run AI localization engine')
+  .description('Run Localization engine')
   .helpOption('-h, --help', 'Show help')
   .option('--locale <locale>', 'Locale to process')
   .option('--bucket <bucket>', 'Bucket to process')
   .option('--frozen', `Don't update the translations and fail if an update is needed`)
   .option('--force', 'Ignore lockfile and process all keys')
   .option('--verbose', 'Show verbose output')
+  .option('--interactive', 'Interactive mode')
   .option('--api-key <api-key>', 'Explicitly set the API key to use')
   .option('--strict', 'Stop on first error')
   .action(async function (options) {
     const ora = Ora();
-    const results: any = [];
     const flags = parseFlags(options);
-    
+
+    let hasErrors = false;
     try {
       ora.start('Loading configuration...');
       const i18nConfig = getConfig();
       const settings = getSettings(flags.apiKey);
       ora.succeed('Configuration loaded');
       
-      try {
-        ora.start('Validating localization configuration...');
-        validateParams(i18nConfig, flags);
-        ora.succeed('Localization configuration is valid');
-      } catch (error:any) {
-        handleWarning('Localization configuration validation failed', error, true, results);
-        return;
-      }
+      ora.start('Validating localization configuration...');
+      validateParams(i18nConfig, flags);
+      ora.succeed('Localization configuration is valid');
 
-      try {
-        ora.start('Connecting to Replexica Localization Engine...');
-        const auth = await validateAuth(settings);
-        ora.succeed(`Authenticated as ${auth.email}`);
-      } catch (error:any) {
-        handleWarning('Failed to connect to Replexica Localization Engine', error, true, results);
-        return;
-      }
+      ora.start('Connecting to Replexica Localization Engine...');
+      const auth = await validateAuth(settings);
+      ora.succeed(`Authenticated as ${auth.email}`);
 
-      let buckets:any = [];
-      try {
-        buckets = getBuckets(i18nConfig!);
+      let buckets = getBuckets(i18nConfig!);
         if (flags.bucket) {
           buckets = buckets.filter((bucket:any) => bucket.type === flags.bucket);
         }
         ora.succeed('Buckets retrieved');
-      } catch (error:any) {
-        handleWarning('Failed to retrieve buckets', error, true, results);
-        return;
-      }
 
       const targetLocales = getTargetLocales(i18nConfig!, flags);
       const lockfileHelper = createLockfileHelper();
 
       // Ensure the lockfile exists
-      try {
-        ora.start('Ensuring i18n.lock exists...');
+      ora.start('Ensuring i18n.lock exists...');
         if (!lockfileHelper.isLockfileExists()) {
           ora.start('Creating i18n.lock...');
           for (const bucket of buckets) {
@@ -85,15 +73,9 @@ export default new Command()
         } else {
           ora.succeed('i18n.lock loaded');
         }
-      } catch (error:any) {
-        handleWarning('Failed to ensure i18n.lock existence', error, true, results);
-        return;
-      }
 
       if(flags.frozen){
-
         ora.start('Checking for lockfile updates...');
-        
         let requiresUpdate = false;
         for (const bucket of buckets) {
           for (const pathPattern of bucket.pathPatterns) {
@@ -134,6 +116,7 @@ export default new Command()
 
             for (const targetLocale of targetLocales) {
               try {
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`);
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
                 if (flags.verbose) {
@@ -160,48 +143,62 @@ export default new Command()
                 }
 
                 let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
-                finalTargetData = _.pick(finalTargetData, Object.keys(sourceData));
-                await bucketLoader.push(targetLocale, finalTargetData);
-                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] AI localization completed`);
-              } catch (error:any) {
-                handleWarning(`Failed to localize for ${targetLocale}`, error, flags.strict, results);
-                if (flags.strict) return;
+
+                if (flags.interactive) {
+                  bucketOra.stop();
+                  const reviewedData = await reviewChanges({
+                    pathPattern,
+                    targetLocale,
+                    currentData: targetData,
+                    proposedData: finalTargetData,
+                    sourceData,
+                    force: flags.force!,
+                  });
+                  
+                  finalTargetData = reviewedData;
+                  bucketOra.start(`Applying changes to ${pathPattern} (${targetLocale})`);
+                }
+
+                const finalDiffSize = _.chain(finalTargetData).omitBy((value, key) => value === targetData[key]).size().value();
+                if (finalDiffSize > 0) {
+                  await bucketLoader.push(targetLocale, finalTargetData);
+                  bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed`);
+                } else {
+                  bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed (no changes).`);
+                }
+              } catch (_error: any) {
+                const error = new Error(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization failed: ${_error.message}`);
+                if (flags.strict) {
+                  throw error;
+                } else {
+                  bucketOra.fail(error.message);
+                  hasErrors = true;
+                }
               }
             }
             lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
-        } catch (error:any) {
-          handleWarning(`Failed to process bucket: ${bucket.type}`, error, flags.strict, results);
-          if (flags.strict) return;
+        } catch (_error: any) {
+          const error = new Error(`Failed to process bucket ${bucket.type}: ${_error.message}`);
+          if (flags.strict) {
+            throw error;
+          } else {
+            ora.fail(error.message);
+            hasErrors = true;
+          }
         }
       }
-
       console.log();
-      ora.succeed('AI localization completed!');
+      if (!hasErrors) {
+        ora.succeed('Localization completed.');
+      } else {
+        ora.warn('Localization completed with errors.');
+      }
     } catch (error: any) {
       ora.fail(error.message);
       process.exit(1);
-    } finally {
-      displaySummary(results);
     }
   });
-
-
-function handleWarning(step: string, error: Error, strictMode: boolean| undefined, results: any[]) {
-  console.warn(`[WARNING] ${step}: ${error.message}`);
-  results.push({ step, status: "Failed", error: error.message });
-  if (strictMode) throw error;
-}
-
-function displaySummary(results: any[]) {
-  if (results.length === 0) { return; }
-
-  console.log("\nProcess Summary:");
-  results.forEach((result) => {
-    console.log(`${result.step}: ${result.status}`);
-    if (result.error) console.log(`  - Error: ${result.error}`);
-  });
-}
 
 function calculateDataDelta(args: {
   sourceData: Record<string, any>;
@@ -288,6 +285,7 @@ function parseFlags(options: any) {
     frozen: Z.boolean().optional(),
     verbose: Z.boolean().optional(),
     strict: Z.boolean().optional(),
+    interactive: Z.boolean().default(false),
   }).parse(options);
 }
 
@@ -336,4 +334,119 @@ function validateParams(i18nConfig: I18nConfig | null, flags: ReturnType<typeof 
       docUrl: "bucketNotFound"
     });
   }
+}
+
+async function reviewChanges(args: {
+  pathPattern: string,
+  targetLocale: string,
+  currentData: Record<string, any>,
+  proposedData: Record<string, any>,
+  sourceData: Record<string, any>,
+  force: boolean,
+}): Promise<Record<string, any>> {
+  const currentStr = JSON.stringify(args.currentData, null, 2);
+  const proposedStr = JSON.stringify(args.proposedData, null, 2);
+  
+  // Early return if no changes
+  if (currentStr === proposedStr && !args.force) {
+    console.log(`\n${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}): ${chalk.gray('No changes to review')}`);
+    return args.proposedData;
+  }
+  
+  const patch = createTwoFilesPatch(
+    `${args.pathPattern} (current)`,
+    `${args.pathPattern} (proposed)`,
+    currentStr,
+    proposedStr,
+    undefined,
+    undefined,
+    { context: 3 }
+  );
+
+  // Color the diff output
+  const coloredDiff = patch.split('\n').map(line => {
+    if (line.startsWith('+')) return chalk.green(line);
+    if (line.startsWith('-')) return chalk.red(line);
+    if (line.startsWith('@')) return chalk.cyan(line);
+    return line;
+  }).join('\n');
+
+  console.log(`\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}):`);
+  console.log(coloredDiff);
+
+  const { action } = await inquirer.prompt([{
+    type: 'list',
+    name: 'action',
+    message: 'Choose action:',
+    choices: [
+      { name: 'Approve changes', value: 'approve' },
+      { name: 'Skip changes', value: 'skip' },
+      { name: 'Edit individually', value: 'edit' }
+    ],
+    default: 'approve'
+  }]);
+
+  if (action === 'approve') {
+    return args.proposedData;
+  }
+
+  if (action === 'skip') {
+    return args.currentData;
+  }
+
+  // If edit was chosen, prompt for each changed value
+  const customData = { ...args.currentData };
+  const changes = _.reduce(args.proposedData, (result: string[], value: string, key: string) => {
+    if (args.currentData[key] !== value) {
+      result.push(key);
+    }
+    return result;
+  }, []);
+
+  for (const key of changes) {
+    console.log(`\nEditing value for: ${chalk.cyan(key)}`);
+    console.log(chalk.gray('Source text:'), chalk.blue(args.sourceData[key]));
+    console.log(chalk.gray('Current value:'), chalk.red(args.currentData[key] || '(empty)'));
+    console.log(chalk.gray('Suggested value:'), chalk.green(args.proposedData[key]));
+    console.log(chalk.gray('\nYour editor will open. Edit the text and save to continue.'));
+    console.log(chalk.gray('------------'));
+
+    try {
+      // Prepare the editor content with a header comment and the suggested value
+      const editorContent = [
+        '# Edit the translation below.',
+        '# Lines starting with # will be ignored.',
+        '# Save and exit the editor to continue.',
+        '#',
+        `# Source text (${chalk.blue('English')}):`,
+        `# ${args.sourceData[key]}`,
+        '#',
+        `# Current value (${chalk.red(args.targetLocale)}):`,
+        `# ${args.currentData[key] || '(empty)'}`,
+        '#',
+        args.proposedData[key]
+      ].join('\n');
+
+      const result = externalEditor.edit(editorContent);
+      
+      // Clean up the result by removing comments and trimming
+      const customValue = result
+        .split('\n')
+        .filter(line => !line.startsWith('#'))
+        .join('\n')
+        .trim();
+
+      if (customValue) {
+        customData[key] = customValue;
+      } else {
+        console.log(chalk.yellow('Empty value provided, keeping the current value.'));
+        customData[key] = args.currentData[key] || args.proposedData[key];
+      }
+    } catch (error) {
+      console.log(chalk.red('Error while editing, keeping the suggested value.'));
+      customData[key] = args.proposedData[key];
+    }
+  }
+
+  return customData;
 }
