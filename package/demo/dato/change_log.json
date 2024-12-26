@@ -1,8 +1,0 @@
-{
-  "projectId": "146425",
-  "localizables": {
-    "change_log": {
-      "fields": ["title", "content", "description"]
-    }
-  }
-}

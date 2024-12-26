@@ -1,4 +1,5 @@
 import fs from 'fs';
+import JSON5 from 'json5';
 import createOra from 'ora';
 import { composeLoaders } from '../_utils';
 import { DastContent, DatoConfig, datoConfigSchema, DatoField, DatoFieldAny, DatoSettings, datoSettingsSchema, DEFAULT_LOCALE } from './_base';
@@ -8,43 +9,48 @@ import { createLoader } from '../_utils';
 import { DastNode, DatoRecord } from './_base';
 
 export default function createDatoLoader(configFilePath: string) {
-  const config = getDatoConfig(configFilePath);
-  const settings = getDatoSettings();
+  try {
+    const configContent = fs.readFileSync(configFilePath, 'utf-8');
+    const datoConfig = datoConfigSchema.parse(JSON5.parse(configContent));
 
-  return composeLoaders(
-    createDatoCMSApiLoader({
-      apiKey: settings.auth.apiKey,
-      projectId: config.projectId,
-      modelId: Object.keys(config.localizables)[0],
-      fields: config.localizables[Object.keys(config.localizables)[0]].fields,
-    }),
-    createDatoCmsStructureLoader({
-      fields: config.localizables[Object.keys(config.localizables)[0]].fields,
-    }),
-    createDatoCmsContentLoader(),
-  );
+    return composeLoaders(
+      createDatoCMSApiLoader(datoConfig),
+      createDatoCmsStructureLoader(datoConfig),
+      createDatoCmsContentLoader(),
+    );
+  } catch (error: any) {
+    throw new Error([
+      `Failed to parse DatoCMS config file.`,
+      `Error: ${error.message}`,
+    ].join('\n\n'));
+  }
 }
 
 export type DatoCmsApiLoaderParams = {
-  apiKey: string;
-  projectId: string;
-  modelId: string;
+  project: string;
+  model: string;
   fields: string[];
+  records: string[];
 }
 
 export function createDatoCMSApiLoader(params: DatoCmsApiLoaderParams): ILoader<void, Record<string, DatoRecord>> {
   return createLoader({
-    async pull(locale) {
+    async pull(locale, input) {
+      const ora = createOra({ indent: 4 });
       const dato = createDatoClient({
-        apiKey: params.apiKey,
-        projectId: params.projectId,
-        modelId: params.modelId,
+        apiKey: process.env.DATO_API_TOKEN || '',
+        projectId: params.project,
+        modelId: params.model,
+        records: params.records,
       });
 
       for (const field of params.fields) {
         await dato.enableFieldLocalization(field);
       }
+
+      ora.start(`[${locale}] Fetching records for ${params.model}...`);
       const records = await dato.findRecords();
+      ora.succeed(`[${locale}] Processed ${records.length} records for ${params.model}.`);
 
       const result: Record<string, DatoRecord> = {};
       for (const record of records) {
@@ -55,9 +61,10 @@ export function createDatoCMSApiLoader(params: DatoCmsApiLoaderParams): ILoader<
 
     async push(locale, data) {
       const dato = createDatoClient({
-        apiKey: params.apiKey,
-        projectId: params.projectId,
-        modelId: params.modelId,
+        apiKey: process.env.DATO_API_TOKEN || '',
+        projectId: params.project,
+        modelId: params.model,
+        records: params.records,
       });
 
       for (const record of Object.values(data)) {
@@ -223,6 +230,7 @@ type DatoClientParams = {
   apiKey: string;
   projectId: string;
   modelId: string;
+  records: string[];
 };
 
 function createDatoClient(params: DatoClientParams) {
@@ -240,6 +248,7 @@ function createDatoClient(params: DatoClientParams) {
             filter: {
               projectId: params.projectId,
               type: params.modelId,
+              ids: !params.records.length ? undefined : params.records.join(','),
             },
           })
           .catch((error: any) => Promise.reject(error?.response?.body?.data?.[0] || error));
@@ -304,24 +313,4 @@ function createDatoClient(params: DatoClientParams) {
       }
     }
   };
-}
-
-
-function getDatoSettings(): DatoSettings {
-  return datoSettingsSchema
-    .passthrough()
-    .parse({
-      auth: {
-        apiKey: process.env.DATO_API_TOKEN || '',
-      }
-    });
-}
-
-function getDatoConfig(configFilePath: string): DatoConfig {
-  try {
-    const config = fs.readFileSync(configFilePath, 'utf-8');
-    return datoConfigSchema.parse(JSON.parse(config));
-  } catch (error: any) {
-    throw new Error(`Failed to parse DatoCMS config file: ${error.message}`);
-  }
 }

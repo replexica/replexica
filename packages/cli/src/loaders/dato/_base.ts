@@ -2,11 +2,10 @@ import Z from 'zod';
 
 // DatoCMS config
 export const datoConfigSchema = Z.object({
-  projectId: Z.string(),
-  localizables: Z.record(
-    Z.string(),
-    Z.object({ fields: Z.array(Z.string()) }),
-  ),
+  project: Z.string(),
+  model: Z.string(),
+  records: Z.array(Z.string()).optional().default([]),
+  fields: Z.array(Z.string()),
 });
 
 export type DatoConfig = Z.infer<typeof datoConfigSchema>;

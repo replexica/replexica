@@ -1,8 +1,0 @@
-{
-  "projectId": "146425",
-  "localizables": {
-    "documentation_page": {
-      "fields": ["title", "subtitle", "content"]
-    }
-  }
-}
