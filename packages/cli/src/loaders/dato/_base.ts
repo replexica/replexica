@@ -31,7 +31,7 @@ export type DastNode = {
 
 export type DastContent = {
   schema: 'dast';
-  document: {
+  document?: {
     type: 'root';
     children: DastNode[];
   };

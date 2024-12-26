@@ -35,7 +35,6 @@ export type DatoCmsApiLoaderParams = {
 export function createDatoCMSApiLoader(params: DatoCmsApiLoaderParams): ILoader<void, Record<string, DatoRecord>> {
   return createLoader({
     async pull(locale) {
-      const ora = createOra({ indent: 4 });
       const dato = createDatoClient({
         apiKey: params.apiKey,
         projectId: params.projectId,
@@ -62,6 +61,7 @@ export function createDatoCMSApiLoader(params: DatoCmsApiLoaderParams): ILoader<
       });
 
       for (const record of Object.values(data)) {
+        console.log('Updating record', record.id);
         await dato.updateRecord(record.id, record as any);
       }
     }
@@ -119,9 +119,9 @@ function createDatoCmsContentLoader(): ILoader<Record<string, Record<string, Dat
         for (const [fieldId, field] of Object.entries(record)) {
           if (field.type === 'string') {
             result[`${recordId}/${fieldId}`] = field.value[locale];
-          } else if (field.type === 'dast') {
+          } else if (field.type === 'dast' && field.value[locale]?.document) {
             traverseDast(field.value[locale].document, (node, path) => {
-              if (node.type === 'text' && node.value) {
+              if (node.type === 'span' && node.value) {
                 result[`${recordId}/${fieldId}/${path}`] = node.value;
               }
             });
@@ -145,9 +145,9 @@ function createDatoCmsContentLoader(): ILoader<Record<string, Record<string, Dat
                 [locale]: data[`${recordId}/${fieldId}`],
               },
             };
-          } else if (field.type === 'dast') {
+          } else if (field.type === 'dast' && field.value[locale]?.document) {
             traverseDast(field.value[locale].document, (node, path) => {
-              if (node.type === 'text' && node.value) {
+              if (node.type === 'span' && node.value) {
                 node.value = data[`${recordId}/${fieldId}/${path}`];
               }
             });

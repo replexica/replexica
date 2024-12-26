@@ -18,7 +18,7 @@ import externalEditor from 'external-editor';
 
 export default new Command()
   .command('i18n')
-  .description('Run AI localization engine')
+  .description('Run Localization engine')
   .helpOption('-h, --help', 'Show help')
   .option('--locale <locale>', 'Locale to process')
   .option('--bucket <bucket>', 'Bucket to process')
@@ -116,7 +116,7 @@ export default new Command()
 
             for (const targetLocale of targetLocales) {
               try {
-                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) AI localization in progress...`);
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`);
                 
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
@@ -135,7 +135,7 @@ export default new Command()
                   targetLocale,
                   targetData,
                 }, (progress) => {
-                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) AI localization in progress...`;
+                  bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] (${progress}%) Localization in progress...`;
                 });
 
                 if (flags.verbose) {
@@ -159,10 +159,15 @@ export default new Command()
                   bucketOra.start(`Applying changes to ${pathPattern} (${targetLocale})`);
                 }
 
-                await bucketLoader.push(targetLocale, finalTargetData);
-                bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
+                const finalDiffSize = _.chain(finalTargetData).omitBy((value, key) => value === targetData[key]).size().value();
+                if (finalDiffSize > 0) {
+                  await bucketLoader.push(targetLocale, finalTargetData);
+                  bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed`);
+                } else {
+                  bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed (no changes).`);
+                }
               } catch (_error: any) {
-                const error = new Error(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization failed: ${_error.message}`);
+                const error = new Error(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization failed: ${_error.message}`);
                 if (flags.strict) {
                   throw error;
                 } else {
@@ -185,9 +190,9 @@ export default new Command()
       }
       console.log();
       if (!hasErrors) {
-        ora.succeed('AI localization completed.');
+        ora.succeed('Localization completed.');
       } else {
-        ora.warn('AI localization completed with errors.');
+        ora.warn('Localization completed with errors.');
       }
     } catch (error: any) {
       ora.fail(error.message);
