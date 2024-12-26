@@ -125,9 +125,7 @@ export default function createBucketLoader(
       createUnlocalizableLoader(),
     );
     case 'dato': return composeLoaders(
-      createDatoLoader({
-        fields: ['title', 'content', 'description']  // Fields to translate
-      }),
+      createDatoLoader(bucketPathPattern),
       createUnlocalizableLoader(),
     );
   }

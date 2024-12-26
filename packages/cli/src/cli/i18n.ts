@@ -25,51 +25,34 @@ export default new Command()
   .option('--strict', 'Stop on first error')
   .action(async function (options) {
     const ora = Ora();
-    const results: any = [];
     const flags = parseFlags(options);
-    
+
+    let hasErrors = false;
     try {
       ora.start('Loading configuration...');
       const i18nConfig = getConfig();
       const settings = getSettings(flags.apiKey);
       ora.succeed('Configuration loaded');
       
-      try {
-        ora.start('Validating localization configuration...');
-        validateParams(i18nConfig, flags);
-        ora.succeed('Localization configuration is valid');
-      } catch (error:any) {
-        handleWarning('Localization configuration validation failed', error, true, results);
-        return;
-      }
+      ora.start('Validating localization configuration...');
+      validateParams(i18nConfig, flags);
+      ora.succeed('Localization configuration is valid');
 
-      try {
-        ora.start('Connecting to Replexica Localization Engine...');
-        const auth = await validateAuth(settings);
-        ora.succeed(`Authenticated as ${auth.email}`);
-      } catch (error:any) {
-        handleWarning('Failed to connect to Replexica Localization Engine', error, true, results);
-        return;
-      }
+      ora.start('Connecting to Replexica Localization Engine...');
+      const auth = await validateAuth(settings);
+      ora.succeed(`Authenticated as ${auth.email}`);
 
-      let buckets:any = [];
-      try {
-        buckets = getBuckets(i18nConfig!);
+      let buckets = getBuckets(i18nConfig!);
         if (flags.bucket) {
           buckets = buckets.filter((bucket:any) => bucket.type === flags.bucket);
         }
         ora.succeed('Buckets retrieved');
-      } catch (error:any) {
-        handleWarning('Failed to retrieve buckets', error, true, results);
-        return;
-      }
 
       const targetLocales = getTargetLocales(i18nConfig!, flags);
       const lockfileHelper = createLockfileHelper();
 
       // Ensure the lockfile exists
-      try {
-        ora.start('Ensuring i18n.lock exists...');
+      ora.start('Ensuring i18n.lock exists...');
         if (!lockfileHelper.isLockfileExists()) {
           ora.start('Creating i18n.lock...');
           for (const bucket of buckets) {
@@ -85,15 +68,9 @@ export default new Command()
         } else {
           ora.succeed('i18n.lock loaded');
         }
-      } catch (error:any) {
-        handleWarning('Failed to ensure i18n.lock existence', error, true, results);
-        return;
-      }
 
       if(flags.frozen){
-
         ora.start('Checking for lockfile updates...');
-        
         let requiresUpdate = false;
         for (const bucket of buckets) {
           for (const pathPattern of bucket.pathPatterns) {
@@ -163,45 +140,39 @@ export default new Command()
                 const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
                 await bucketLoader.push(targetLocale, finalTargetData);
                 bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
-              } catch (error:any) {
-                handleWarning(`Failed to localize for ${targetLocale}`, error, flags.strict, results);
-                if (flags.strict) return;
+              } catch (_error: any) {
+                const error = new Error(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization failed: ${_error.message}`);
+                if (flags.strict) {
+                  throw error;
+                } else {
+                  bucketOra.fail(error.message);
+                  hasErrors = true;
+                }
               }
             }
             lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
-        } catch (error:any) {
-          handleWarning(`Failed to process bucket: ${bucket.type}`, error, flags.strict, results);
-          if (flags.strict) return;
+        } catch (_error: any) {
+          const error = new Error(`Failed to process bucket ${bucket.type}: ${_error.message}`);
+          if (flags.strict) {
+            throw error;
+          } else {
+            ora.fail(error.message);
+            hasErrors = true;
+          }
         }
       }
-
       console.log();
-      ora.succeed('AI localization completed!');
+      if (!hasErrors) {
+        ora.succeed('AI localization completed.');
+      } else {
+        ora.warn('AI localization completed with errors.');
+      }
     } catch (error: any) {
       ora.fail(error.message);
       process.exit(1);
-    } finally {
-      displaySummary(results);
     }
   });
-
-
-function handleWarning(step: string, error: Error, strictMode: boolean| undefined, results: any[]) {
-  console.warn(`[WARNING] ${step}: ${error.message}`);
-  results.push({ step, status: "Failed", error: error.message });
-  if (strictMode) throw error;
-}
-
-function displaySummary(results: any[]) {
-  if (results.length === 0) { return; }
-
-  console.log("\nProcess Summary:");
-  results.forEach((result) => {
-    console.log(`${result.step}: ${result.status}`);
-    if (result.error) console.log(`  - Error: ${result.error}`);
-  });
-}
 
 function calculateDataDelta(args: {
   sourceData: Record<string, any>;
