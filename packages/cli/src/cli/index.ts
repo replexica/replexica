@@ -7,7 +7,6 @@ import { Command } from 'commander';
 import authCmd from './auth';
 import initCmd from './init';
 import configCmd from './show';
-import datoCmd from './dato';
 import i18nCmd from './i18n';
 import lockfileCmd from './lockfile';
 
@@ -33,6 +32,5 @@ Website: https://replexica.com
   .addCommand(initCmd)
   .addCommand(configCmd)
   .addCommand(lockfileCmd)
-  .addCommand(datoCmd)
   .parse(process.argv)
 ;

@@ -11,6 +11,10 @@ import createBucketLoader from '../loaders';
 import { createLockfileHelper } from '../utils/lockfile';
 import { createAuthenticator } from '../utils/auth';
 import { getBuckets } from '../utils/buckets';
+import chalk from 'chalk';
+import { createTwoFilesPatch } from 'diff';
+import inquirer from 'inquirer';
+import externalEditor from 'external-editor';
 
 export default new Command()
   .command('i18n')
@@ -21,6 +25,7 @@ export default new Command()
   .option('--frozen', `Don't update the translations and fail if an update is needed`)
   .option('--force', 'Ignore lockfile and process all keys')
   .option('--verbose', 'Show verbose output')
+  .option('--interactive', 'Interactive mode')
   .option('--api-key <api-key>', 'Explicitly set the API key to use')
   .option('--strict', 'Stop on first error')
   .action(async function (options) {
@@ -137,7 +142,22 @@ export default new Command()
                   bucketOra.info(JSON.stringify(processedTargetData, null, 2));
                 }
 
-                const finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+                let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
+
+                // Add interactive review
+                if (flags.interactive) {
+                  bucketOra.stop();
+                  const reviewedData = await reviewChanges({
+                    pathPattern,
+                    targetLocale,
+                    currentData: targetData,
+                    proposedData: finalTargetData
+                  });
+                  
+                  finalTargetData = reviewedData;
+                  bucketOra.start(`Applying changes to ${pathPattern} (${targetLocale})`);
+                }
+
                 await bucketLoader.push(targetLocale, finalTargetData);
                 bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] AI localization completed`);
               } catch (_error: any) {
@@ -240,6 +260,7 @@ function parseFlags(options: any) {
     frozen: Z.boolean().optional(),
     verbose: Z.boolean().optional(),
     strict: Z.boolean().optional(),
+    interactive: Z.boolean().default(false),
   }).parse(options);
 }
 
@@ -288,4 +309,102 @@ function validateParams(i18nConfig: I18nConfig | null, flags: ReturnType<typeof 
       docUrl: "bucketNotFound"
     });
   }
+}
+
+async function reviewChanges(args: {
+  pathPattern: string,
+  targetLocale: string,
+  currentData: Record<string, any>,
+  proposedData: Record<string, any>,
+}): Promise<Record<string, any>> {
+  const currentStr = JSON.stringify(args.currentData, null, 2);
+  const proposedStr = JSON.stringify(args.proposedData, null, 2);
+  
+  // Early return if no changes
+  if (currentStr === proposedStr) {
+    console.log(`\n${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}): ${chalk.gray('No changes to review')}`);
+    return args.proposedData;
+  }
+  
+  const patch = createTwoFilesPatch(
+    `${args.pathPattern} (current)`,
+    `${args.pathPattern} (proposed)`,
+    currentStr,
+    proposedStr,
+    undefined,
+    undefined,
+    { context: 3 }
+  );
+
+  // Color the diff output
+  const coloredDiff = patch.split('\n').map(line => {
+    if (line.startsWith('+')) return chalk.green(line);
+    if (line.startsWith('-')) return chalk.red(line);
+    if (line.startsWith('@')) return chalk.cyan(line);
+    return line;
+  }).join('\n');
+
+  console.log(`\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}):`);
+  console.log(coloredDiff);
+
+  const { approve } = await inquirer.prompt([{
+    type: 'confirm',
+    name: 'approve',
+    message: 'Accept these changes?',
+    default: true
+  }]);
+
+  if (approve) {
+    return args.proposedData;
+  }
+
+  // If changes were rejected, prompt for each changed value
+  const customData = { ...args.currentData };
+  const changes = _.reduce(args.proposedData, (result: string[], value: string, key: string) => {
+    if (args.currentData[key] !== value) {
+      result.push(key);
+    }
+    return result;
+  }, []);
+
+  for (const key of changes) {
+    console.log(`\nEditing value for: ${chalk.cyan(key)}`);
+    console.log(chalk.gray('Current value:'), chalk.red(args.currentData[key] || '(empty)'));
+    console.log(chalk.gray('Suggested value:'), chalk.green(args.proposedData[key]));
+    console.log(chalk.gray('\nYour editor will open. Edit the text and save to continue.'));
+    console.log(chalk.gray('------------'));
+
+    try {
+      // Prepare the editor content with a header comment and the suggested value
+      const editorContent = [
+        '# Edit the translation below.',
+        '# Lines starting with # will be ignored.',
+        '# Save and exit the editor to continue.',
+        '# Current value: ' + (args.currentData[key] || '(empty)'),
+        '#',
+        args.proposedData[key]
+      ].join('\n');
+
+      const result = externalEditor.edit(editorContent);
+      
+      // Clean up the result by removing comments and trimming
+      const customValue = result
+        .split('\n')
+        .filter(line => !line.startsWith('#'))
+        .join('\n')
+        .trim();
+
+      if (customValue) {
+        customData[key] = customValue;
+      } else {
+        console.log(chalk.yellow('Empty value provided, keeping the current value.'));
+        customData[key] = args.currentData[key] || args.proposedData[key];
+      }
+    } catch (error) {
+      console.log(chalk.red('Error while editing, keeping the suggested value.'));
+      customData[key] = args.proposedData[key];
+    }
+  }
+
+  return customData;
 }
