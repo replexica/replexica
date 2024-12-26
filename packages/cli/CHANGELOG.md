@@ -1,5 +1,17 @@
 # replexica
 
+## 0.60.0
+
+### Minor Changes
+
+- [#356](https://github.com/replexica/replexica/pull/356) [`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add dato support
+
+### Patch Changes
+
+- Updated dependencies [[`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048)]:
+  - @replexica/spec@0.22.0
+  - @replexica/sdk@0.7.7
+
 ## 0.59.1
 
 ### Patch Changes

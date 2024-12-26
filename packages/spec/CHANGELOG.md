@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.22.0
+
+### Minor Changes
+
+- [#356](https://github.com/replexica/replexica/pull/356) [`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add dato support
+
 ## 0.21.1
 
 ### Patch Changes
