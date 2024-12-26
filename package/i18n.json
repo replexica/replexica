@@ -12,7 +12,7 @@
   "buckets": {
     "dato": {
       "include": [
-        "demo/dato/localizable.json"
+        "demo/dato/documentation_page.json"
       ]
     },
     "android": {

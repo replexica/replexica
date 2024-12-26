@@ -144,14 +144,15 @@ export default new Command()
 
                 let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
 
-                // Add interactive review
                 if (flags.interactive) {
                   bucketOra.stop();
                   const reviewedData = await reviewChanges({
                     pathPattern,
                     targetLocale,
                     currentData: targetData,
-                    proposedData: finalTargetData
+                    proposedData: finalTargetData,
+                    sourceData,
+                    force: flags.force!,
                   });
                   
                   finalTargetData = reviewedData;
@@ -316,12 +317,14 @@ async function reviewChanges(args: {
   targetLocale: string,
   currentData: Record<string, any>,
   proposedData: Record<string, any>,
+  sourceData: Record<string, any>,
+  force: boolean,
 }): Promise<Record<string, any>> {
   const currentStr = JSON.stringify(args.currentData, null, 2);
   const proposedStr = JSON.stringify(args.proposedData, null, 2);
   
   // Early return if no changes
-  if (currentStr === proposedStr) {
+  if (currentStr === proposedStr && !args.force) {
     console.log(`\n${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}): ${chalk.gray('No changes to review')}`);
     return args.proposedData;
   }
@@ -347,18 +350,27 @@ async function reviewChanges(args: {
   console.log(`\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}):`);
   console.log(coloredDiff);
 
-  const { approve } = await inquirer.prompt([{
-    type: 'confirm',
-    name: 'approve',
-    message: 'Accept these changes?',
-    default: true
+  const { action } = await inquirer.prompt([{
+    type: 'list',
+    name: 'action',
+    message: 'Choose action:',
+    choices: [
+      { name: 'Approve changes', value: 'approve' },
+      { name: 'Skip changes', value: 'skip' },
+      { name: 'Edit individually', value: 'edit' }
+    ],
+    default: 'approve'
   }]);
 
-  if (approve) {
+  if (action === 'approve') {
     return args.proposedData;
   }
 
-  // If changes were rejected, prompt for each changed value
+  if (action === 'skip') {
+    return args.currentData;
+  }
+
+  // If edit was chosen, prompt for each changed value
   const customData = { ...args.currentData };
   const changes = _.reduce(args.proposedData, (result: string[], value: string, key: string) => {
     if (args.currentData[key] !== value) {
@@ -369,6 +381,7 @@ async function reviewChanges(args: {
 
   for (const key of changes) {
     console.log(`\nEditing value for: ${chalk.cyan(key)}`);
+    console.log(chalk.gray('Source text:'), chalk.blue(args.sourceData[key]));
     console.log(chalk.gray('Current value:'), chalk.red(args.currentData[key] || '(empty)'));
     console.log(chalk.gray('Suggested value:'), chalk.green(args.proposedData[key]));
     console.log(chalk.gray('\nYour editor will open. Edit the text and save to continue.'));
@@ -380,7 +393,12 @@ async function reviewChanges(args: {
         '# Edit the translation below.',
         '# Lines starting with # will be ignored.',
         '# Save and exit the editor to continue.',
-        '# Current value: ' + (args.currentData[key] || '(empty)'),
+        '#',
+        `# Source text (${chalk.blue('English')}):`,
+        `# ${args.sourceData[key]}`,
+        '#',
+        `# Current value (${chalk.red(args.targetLocale)}):`,
+        `# ${args.currentData[key] || '(empty)'}`,
         '#',
         args.proposedData[key]
       ].join('\n');
