@@ -74,8 +74,8 @@ importers:
   integrations/directus:
     dependencies:
       '@replexica/sdk':
-        specifier: ^0.7.6
-        version: 0.7.6(@types/node@22.10.2)(terser@5.36.0)
+        specifier: ^0.7.7
+        version: 0.7.7(@types/node@22.10.2)(terser@5.36.0)
     devDependencies:
       '@directus/extensions-sdk':
         specifier: 12.1.4
@@ -1471,11 +1471,11 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@replexica/sdk@0.7.6':
-    resolution: {integrity: sha512-dWb0B1GqmgpBPyslVBjBDk3Ub4PoM+YoETZMJOJqHn2ZTHB8pvngjxvpsQJjX7lpp2OD//MAkOn42Mo0fkQo6Q==}
+  '@replexica/sdk@0.7.7':
+    resolution: {integrity: sha512-kE8AILyPLQz8Mhho6BRjD4YDDA+WSYCl6jD8C9qdIVne+Oppo84rlTBJynIWrfM9mgCyIzRwLJqstYkLJ3v/wg==}
 
-  '@replexica/spec@0.21.1':
-    resolution: {integrity: sha512-386RKJiqhI51XZ3+V2kVBw6szYiPRS20QALPlK/VQrixQvZlUeGqp3iYTE8kLrfpXkXKSueYvw8G2oBnBrYwBQ==}
+  '@replexica/spec@0.22.0':
+    resolution: {integrity: sha512-GqCxrAATe3MLysGwaR+6IC72D2635rwJzZqH3h0u2HOOyNAJehfAyK73HCDBEEC2zHfH/m5MUQE9lWaIoljB2w==}
 
   '@rollup/plugin-commonjs@25.0.8':
     resolution: {integrity: sha512-ZEZWTK5n6Qde0to4vS9Mr5x/0UZoqCxPVR9KRUjU4kA2sO7GEUn1fop0DAwpO6z0Nw/kJON9bDmSxdWxO/TT1A==}
@@ -5998,10 +5998,10 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@replexica/sdk@0.7.6(@types/node@22.10.2)(terser@5.36.0)':
+  '@replexica/sdk@0.7.7(@types/node@22.10.2)(terser@5.36.0)':
     dependencies:
       '@paralleldrive/cuid2': 2.2.2
-      '@replexica/spec': 0.21.1(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
+      '@replexica/spec': 0.22.0(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
       jsdom: 25.0.1
       typescript: 5.7.2
       vitest: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
@@ -6025,7 +6025,7 @@ snapshots:
       - terser
       - utf-8-validate
 
-  '@replexica/spec@0.21.1(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)':
+  '@replexica/spec@0.22.0(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)':
     dependencies:
       typescript: 5.7.2
       vitest: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
