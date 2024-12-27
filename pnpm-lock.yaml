@@ -74,7 +74,7 @@ importers:
   integrations/directus:
     dependencies:
       '@replexica/sdk':
-        specifier: ^0.7.5
+        specifier: ^0.7.6
         version: 0.7.6(@types/node@22.10.2)(terser@5.36.0)
     devDependencies:
       '@directus/extensions-sdk':
@@ -6005,7 +6005,7 @@ snapshots:
       jsdom: 25.0.1
       typescript: 5.7.2
       vitest: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
-      zod: 3.23.8
+      zod: 3.24.1
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@types/node'
@@ -6029,7 +6029,7 @@ snapshots:
     dependencies:
       typescript: 5.7.2
       vitest: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
-      zod: 3.23.8
+      zod: 3.24.1
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@types/node'
