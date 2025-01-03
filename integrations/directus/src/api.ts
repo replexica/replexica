@@ -7,16 +7,10 @@ interface Options {
 	language_table: string;
 	replexica_api_key: string;
 	source_language?: string;
+  target_languages: string[];
 }
 
 interface Context {
-	data?: {
-		$trigger?: {
-			body?: {
-				target_language?: string;
-			};
-		};
-	};
 	services: {
 		ItemsService: any;
 	};
@@ -32,7 +26,6 @@ interface TranslationResult {
 }
 
 interface TranslationSummary {
-	mode: 'single' | 'all';
 	successful: number;
 	failed: number;
 	updated: number;
@@ -42,13 +35,11 @@ interface TranslationSummary {
 
 export default defineOperationApi<Options>({
 	id: 'replexica-integration-directus',
-	handler: async ({ item_id, collection, translation_table, language_table, replexica_api_key, source_language = 'en-US' }, context: Context) => {
+	handler: async ({ item_id, collection, translation_table, language_table, replexica_api_key, source_language = 'en-US', target_languages }, context: Context) => {
 		if (!replexica_api_key) {
 			throw new Error('Replexica API Key not defined');
 		}
 
-		const targetLanguageCode = context?.data?.$trigger?.body?.target_language;
-		console.log('Target Language:', targetLanguageCode);
 
 		try {
 			const { ReplexicaEngine } = await import('@replexica/sdk');
@@ -83,14 +74,14 @@ export default defineOperationApi<Options>({
 			// Get target languages
 			const targetLanguages = await languagesService.readByQuery({
 				fields: ['code', 'name'],
-				filter: targetLanguageCode
-					? { code: { _eq: targetLanguageCode } }
+				filter: target_languages && target_languages.length > 0					
+          ? { code: { _in: target_languages } }
 					: { code: { _neq: source_language } }
 			});
 
 			if (!targetLanguages.length) {
-				throw new Error(targetLanguageCode
-					? `Target language ${targetLanguageCode} not found in language table`
+				throw new Error(target_languages
+					? `Target language ${target_languages} not found in language table`
 					: 'No target languages found in table'
 				);
 			}
@@ -211,15 +202,28 @@ export default defineOperationApi<Options>({
 					}
 				})
 			);
+      
+      
+      const requestedLanguages = new Set(target_languages || []);
+      const missingLanguages = target_languages?.filter(
+        code => !targetLanguages.find((lang: { code: string }) => lang.code === code)
+      ) || [];
 
-			const summary: TranslationSummary = {
-				mode: targetLanguageCode ? 'single' : 'all',
-				successful: results.filter(r => r.success).length,
-				failed: results.filter(r => !r.success).length,
-				updated: results.filter(r => r.operation === 'updated').length,
-				created: results.filter(r => r.operation === 'created').length,
-				details: results
-			};
+      const missingResults: TranslationResult[] = missingLanguages.map(code => ({
+        success: false,
+        language: code,
+        error: `Language ${code} not found in language table`
+      }));
+
+			const allResults = [...results, ...missingResults];
+      
+      const summary: TranslationSummary = {
+        successful: allResults.filter(r => r.success).length,
+        failed: allResults.filter(r => !r.success).length,
+        updated: allResults.filter(r => r.operation === 'updated').length,
+        created: allResults.filter(r => r.operation === 'created').length,
+        details: allResults
+      };
 
 			return summary;
 

@@ -41,6 +41,15 @@ export default defineOperationApp({
 			meta: {
 				interface: 'input',
 				width: 'half',
+			},
+		},
+    {
+			field: 'target_languages',
+			name: 'Target Languages',
+      type: 'string',
+			meta: {
+				interface: 'input',
+				width: 'half',
 			}
 		},
 		{
