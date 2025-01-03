@@ -29,7 +29,7 @@
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
     "typescript": "^5.7.2",
-    "unplugin": "^2.1.0",
+    "unplugin": "^2.1.2",
     "vitest": "^2.1.8",
     "zod": "^3.24.1"
   },
