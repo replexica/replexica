@@ -29,7 +29,6 @@ image: directus/directus:11.x.y
 - add the `build` section:
 
 ```yaml
-image: directus/directus:11.x.y
 build:
   context: ./
 ```
@@ -79,15 +78,19 @@ On startup, Directus will automatically load any extension installed in the prev
 
 ![Select Trigger](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/create-new-flow-trigger.png)
 
-4. Click '+' to add a new operation and select Replexica Integration for Directus.
+4. Add Confirmation dialog with Target Languages and Save.
+
+![Add Confirmation Dialog](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/confirmation-dialog.png)
+
+5. Click '+' to add a new operation and select Replexica Integration for Directus.
 
 ![Add Operation](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/replexica-operation.png)
 
-5. Configure the operation with the required parameters.
+6. Configure the operation with the required parameters.
 
 ![Configure Operation](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/replexica-operation-settings.png)
 
-6. Save the Flow.
+7. Save the Flow.
 
 ## 3. Run the Flow
 
@@ -111,6 +114,7 @@ The integration provides a Directus operation that accepts the following paramet
 - `language_table`: The table containing supported languages
 - `replexica_api_key`: Your Replexica API key
 - `source_language`: Source language code (defaults to 'en-US')
+- `target_languages`: Array of target language codes (example: ['fr-FR', 'de-DE'])
 
 ## Development
 
@@ -157,4 +161,4 @@ This will start Directus at [http://localhost:8055](http://localhost:8055).
 For questions and support:
 
 - [Replexica Discord](https://replexica.com/go/discord)
-- Email: veronica@replexica.com
+- Email: <veronica@replexica.com>
