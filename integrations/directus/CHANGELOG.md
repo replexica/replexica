@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.8
+
+### Patch Changes
+
+- [`2571fcd`](https://github.com/replexica/replexica/commit/2571fcdce6e969d9df96526188c9f3f89dd80677) Thanks [@vrcprl](https://github.com/vrcprl)! - Added multimple target languages option
+
 ## 0.1.7
 
 ### Patch Changes
