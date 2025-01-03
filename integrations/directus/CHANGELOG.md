@@ -1,5 +1,11 @@
 # @replexica/integration-directus
 
+## 0.1.9
+
+### Patch Changes
+
+- [`fc3cb88`](https://github.com/replexica/replexica/commit/fc3cb8839cbbb574b69087625dd5f97cf37d5d35) Thanks [@vrcprl](https://github.com/vrcprl)! - Updated README file with target languages changes
+
 ## 0.1.8
 
 ### Patch Changes
