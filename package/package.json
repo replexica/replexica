@@ -6,11 +6,6 @@
   "type": "module",
   "sideEffects": false,
   "exports": {
-    "./compiler": {
-      "types": "./build/compiler.d.ts",
-      "import": "./build/compiler.mjs",
-      "require": "./build/compiler.cjs"
-    },
     "./react": {
       "types": "./build/react.d.ts",
       "import": "./build/react.mjs",
@@ -43,7 +38,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@replexica/cli": "workspace:*",
-    "@replexica/compiler": "workspace:*",
     "@replexica/react": "workspace:*",
     "typescript": "^5.7.2"
   },

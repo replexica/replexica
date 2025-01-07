@@ -1,8 +1,19 @@
 {
-  "extends": "../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "build",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "target": "ESNext"
   },
   "include": [
     "src/**/*.ts",
