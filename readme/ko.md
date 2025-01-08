@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ CI/CD에서 바로 사용 가능한 최첨단 AI 로컬라이제이션 솔루션</strong>
+  <strong>⚡️ CI/CD에서 바로 사용 가능한 최첨단 AI 웹 & 모바일 현지화 솔루션</strong>
 </p>
 
 <br />
@@ -13,8 +13,7 @@
 <p align="center">
   <a href="https://replexica.com">웹사이트</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">기여하기</a> •
-  <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">로컬라이제이션 컴파일러</a>
+  <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
@@ -31,9 +30,9 @@
 
 <br />
 
-Replexica AI는 소프트웨어 로컬라이제이션을 엔드투엔드로 자동화합니다.
+Replexica AI는 소프트웨어 현지화를 처음부터 끝까지 자동화합니다.
 
-수동 작업과 관리 오버헤드를 제거하고 즉시 자연스러운 번역을 제공합니다. Replexica 로컬라이제이션 엔진은 제품 컨텍스트를 이해하여 60개 이상의 언어에서 원어민이 기대하는 수준의 완벽한 번역을 생성합니다. 결과적으로 팀은 최첨단 품질의 로컬라이제이션을 100배 더 빠르게 수행하여 전 세계의 더 많은 고객에게 기능을 제공할 수 있습니다.
+수작업과 관리 부담을 없애고 즉시 자연스러운 번역을 제공합니다. Replexica 현지화 엔진은 제품의 맥락을 이해하여 60개 이상의 언어에서 원어민이 기대하는 수준의 완벽한 번역을 만들어냅니다. 결과적으로 팀은 최첨단 품질을 유지하면서 100배 더 빠른 현지화를 수행하여 전 세계의 더 많은 고객에게 새로운 기능을 제공할 수 있습니다.
 
 ## 💫 빠른 시작
 
