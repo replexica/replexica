@@ -4,7 +4,6 @@ export default defineConfig({
   clean: true,
   target: "esnext",
   entry: {
-    'compiler': 'src/compiler.ts',
     'react': 'src/react.ts',
     'react-next': 'src/react-next.ts',
   },
