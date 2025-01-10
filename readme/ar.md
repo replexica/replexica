@@ -11,29 +11,28 @@
 <br />
 
 <p align="center">
-  <a href="https://replexica.com">الموقع</a> •
+  <a href="https://replexica.com">الموقع الإلكتروني</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">المساهمة</a> •
-  <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">مترجم التوطين</a>
+  <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
-    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
+    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="الإصدار" />
   </a>
   <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
+    <img src="https://img.shields.io/github/license/replexica/replexica" alt="الترخيص" />
   </a>
   <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
+    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="آخر تحديث" />
   </a>
 </p>
 
 <br />
 
-يقوم Replexica AI بأتمتة توطين البرمجيات بشكل كامل من البداية إلى النهاية.
+يقوم Replexica AI بأتمتة عملية الترجمة البرمجية من البداية إلى النهاية.
 
-ينتج ترجمات أصيلة بشكل فوري، مما يلغي العمل اليدوي والأعباء الإدارية. يفهم محرك Replexica للتوطين سياق المنتج، مما يؤدي إلى إنشاء ترجمات مثالية يتوقعها المتحدثون الأصليون في أكثر من 60 لغة. ونتيجة لذلك، تقوم الفرق بالتوطين بسرعة أكبر 100 مرة، مع جودة متطورة، مما يتيح إطلاق الميزات لمزيد من العملاء الدافعين حول العالم.
+ينتج ترجمات أصيلة بشكل فوري، مما يلغي العمل اليدوي والأعباء الإدارية. يفهم محرك Replexica للترجمة سياق المنتج، مما يؤدي إلى إنشاء ترجمات مثالية يتوقعها المتحدثون الأصليون في أكثر من 60 لغة. ونتيجة لذلك، تقوم الفرق بالترجمة بسرعة أكبر 100 مرة، مع جودة متطورة، مما يتيح إطلاق الميزات لمزيد من العملاء الدافعين حول العالم.
 
 ## 💫 البدء السريع
 

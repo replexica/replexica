@@ -13,8 +13,7 @@
 <p align="center">
   <a href="https://replexica.com">Website</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Mitmachen</a> •
-  <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">Lokalisierungs-Compiler</a>
+  <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
@@ -22,18 +21,18 @@
     <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
   </a>
   <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="Lizenz" />
+    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
   </a>
   <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Letzter Commit" />
+    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
   </a>
 </p>
 
 <br />
 
-Replexica KI automatisiert die Software-Lokalisierung von Anfang bis Ende.
+Replexica AI automatisiert die Software-Lokalisierung von Anfang bis Ende.
 
-Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Replexica Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch Lokalisierung 100-mal schneller durchführen, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
+Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Replexica Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch 100-mal schneller lokalisieren, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
 
 ## 💫 Schnellstart
 

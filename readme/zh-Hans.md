@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ 直接从CI/CD实现最先进的Web和移动端AI本地化。</strong>
+  <strong>⚡️ 直接从CI/CD实现最先进的网页和移动端AI本地化。</strong>
 </p>
 
 <br />
@@ -13,19 +13,18 @@
 <p align="center">
   <a href="https://replexica.com">官网</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">参与贡献</a> •
-  <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">本地化编译器</a>
+  <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
-    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
+    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="发布" />
   </a>
   <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
+    <img src="https://img.shields.io/github/license/replexica/replexica" alt="许可证" />
   </a>
   <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
+    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="最新提交" />
   </a>
 </p>
 

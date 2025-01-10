@@ -13,8 +13,7 @@
 <p align="center">
   <a href="https://replexica.com">Site web</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribuer</a> •
-  <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">Compilateur de localisation</a>
+  <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
@@ -31,9 +30,9 @@
 
 <br />
 
-Replexica IA automatise la localisation des logiciels de bout en bout.
+Replexica AI automatise la localisation des logiciels de bout en bout.
 
-Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Replexica comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. En conséquence, les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant des fonctionnalités à davantage de clients payants dans le monde entier.
+Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Replexica comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. Résultat : les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant ainsi leurs fonctionnalités à davantage de clients payants dans le monde entier.
 
 ## 💫 Démarrage rapide
 

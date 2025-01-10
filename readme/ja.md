@@ -13,19 +13,18 @@
 <p align="center">
   <a href="https://replexica.com">ウェブサイト</a> •
   <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">コントリビュート</a> •
-  <a href="#-github-action">GitHub Action</a> •
-  <a href="#-localization-compiler-experimental">ローカライゼーションコンパイラー</a>
+  <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
-    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
+    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="リリース" />
   </a>
   <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
+    <img src="https://img.shields.io/github/license/replexica/replexica" alt="ライセンス" />
   </a>
   <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
+    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="最終コミット" />
   </a>
 </p>
 
