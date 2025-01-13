@@ -1,5 +1,17 @@
 # replexica
 
+## 0.60.1
+
+### Patch Changes
+
+- [#372](https://github.com/replexica/replexica/pull/372) [`b9a8350`](https://github.com/replexica/replexica/commit/b9a83502803f4a62fc9a62b4348f853f2baff20d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix single-file results overwriting
+
+- [#371](https://github.com/replexica/replexica/pull/371) [`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca) Thanks [@mathio](https://github.com/mathio)! - support underscore in locale code
+
+- Updated dependencies [[`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca)]:
+  - @replexica/spec@0.22.1
+  - @replexica/sdk@0.7.8
+
 ## 0.60.0
 
 ### Minor Changes

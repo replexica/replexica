@@ -1,5 +1,12 @@
 # @replexica/sdk
 
+## 0.7.8
+
+### Patch Changes
+
+- Updated dependencies [[`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca)]:
+  - @replexica/spec@0.22.1
+
 ## 0.7.7
 
 ### Patch Changes
