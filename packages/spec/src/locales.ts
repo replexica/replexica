@@ -186,7 +186,8 @@ export type LocaleCode = LocaleCodeShort | LocaleCodeFull;
 
 export const localeCodesShort = Object.keys(localeMap) as LocaleCodeShort[];
 export const localeCodesFull = Object.values(localeMap).flat() as LocaleCodeFull[];
-export const localeCodes = [...localeCodesShort, ...localeCodesFull] as LocaleCode[];
+export const localeCodesFullUnderscore = localeCodesFull.map(value => value.replace('-', '_'));
+export const localeCodes = [...localeCodesShort, ...localeCodesFull, ...localeCodesFullUnderscore] as LocaleCode[];
 
 export const localeCodeSchema = Z
   .string()

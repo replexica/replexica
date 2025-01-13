@@ -24,7 +24,7 @@ const createV1_1Config = () => ({
   version: 1.1,
   locale: {
     source: 'en',
-    targets: ['es', 'fr'],
+    targets: ['es', 'fr', 'pt-PT', 'pt_BR'],
   },
   buckets: {
     json: {
