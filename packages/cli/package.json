@@ -36,7 +36,7 @@
     "glob": "<11.0.0",
     "gray-matter": "^4.0.3",
     "ini": "^5.0.0",
-    "inquirer": "^12.3.0",
+    "inquirer": "^12.3.1",
     "jsdom": "^25.0.1",
     "json5": "^2.2.3",
     "jsonrepair": "^3.11.2",
