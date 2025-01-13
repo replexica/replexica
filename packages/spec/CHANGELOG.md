@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.22.1
+
+### Patch Changes
+
+- [#371](https://github.com/replexica/replexica/pull/371) [`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca) Thanks [@mathio](https://github.com/mathio)! - support underscore in locale code
+
 ## 0.22.0
 
 ### Minor Changes
