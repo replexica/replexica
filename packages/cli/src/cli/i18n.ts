@@ -108,14 +108,15 @@ export default new Command()
           ora.info(`Processing bucket: ${bucket.type}`);
           for (const pathPattern of bucket.pathPatterns) {
             const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${pathPattern}`);
-            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
-
-            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-            const updatedSourceData = flags.force ? sourceData : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
             for (const targetLocale of targetLocales) {
               try {
+                const bucketLoader = createBucketLoader(bucket.type, pathPattern);
+                bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+
+                const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+                const updatedSourceData = flags.force ? sourceData : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
+
                 bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`);
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({ sourceData, updatedSourceData, targetData });
@@ -166,6 +167,8 @@ export default new Command()
                 } else {
                   bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed (no changes).`);
                 }
+
+                lockfileHelper.registerSourceData(pathPattern, sourceData);
               } catch (_error: any) {
                 const error = new Error(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization failed: ${_error.message}`);
                 if (flags.strict) {
@@ -176,7 +179,6 @@ export default new Command()
                 }
               }
             }
-            lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
         } catch (_error: any) {
           const error = new Error(`Failed to process bucket ${bucket.type}: ${_error.message}`);
