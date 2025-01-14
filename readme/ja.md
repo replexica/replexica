@@ -39,6 +39,7 @@ Replexica AIはソフトウェアのローカライゼーションを完全に�
 1. [ウェブサイト](https://replexica.com)でアカウントを作成
 
 2. プロジェクトの初期化:
+
    ```bash
    npx replexica@latest init
    ```

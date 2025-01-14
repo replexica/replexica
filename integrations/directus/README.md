@@ -124,7 +124,7 @@ To run the integration locally:
 # Clone the repo
 git clone https://github.com/replexica/replexica
 
-# Install dependencies 
+# Install dependencies
 cd integrations/directus
 pnpm install
 

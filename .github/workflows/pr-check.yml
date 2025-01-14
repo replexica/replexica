@@ -65,7 +65,7 @@ jobs:
 
       - name: Build
         run: pnpm turbo build --force
-  
+
       - name: Test
         run: pnpm turbo test --force
 

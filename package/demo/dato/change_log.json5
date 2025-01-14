@@ -1,7 +1,5 @@
 {
-  "project": "146425",
-  "model": "change_log",
-  "fields": [
-    "content", 
-  ]
+  project: "146425",
+  model: "change_log",
+  fields: ["content"],
 }

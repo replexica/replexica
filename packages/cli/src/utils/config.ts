@@ -1,13 +1,15 @@
-import _ from 'lodash';
-import fs from 'fs';
-import path from 'path';
-import { I18nConfig, parseI18nConfig } from '@replexica/spec';
+import _ from "lodash";
+import fs from "fs";
+import path from "path";
+import { I18nConfig, parseI18nConfig } from "@replexica/spec";
 
 export function getConfig(resave = true): I18nConfig | null {
   const configFilePath = _getConfigFilePath();
 
   const configFileExists = fs.existsSync(configFilePath);
-  if (!configFileExists) { return null; }
+  if (!configFileExists) {
+    return null;
+  }
 
   const fileContents = fs.readFileSync(configFilePath, "utf8");
   const rawConfig = JSON.parse(fileContents);

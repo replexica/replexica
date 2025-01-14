@@ -9,7 +9,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
   return {
     /**
      * Load the I18n instance from the current React Server Components context.
-     * 
+     *
      * @returns I18n instance.
      */
     async fromRscContext() {
@@ -20,9 +20,9 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
 
     /**
      * Load the I18n instance from the current route props.
-     * 
+     *
      * @param props Route props containing the locale parameter.
-     * @returns 
+     * @returns
      */
     async fromRouteProps(props: { params: { locale?: string | null } }) {
       const i18n = await _load(props.params.locale);
@@ -31,7 +31,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
 
     /**
      * Load the I18n instance from the current static context.
-     * 
+     *
      * @param ctx Static context.
      * @returns I18n instance.
      */
@@ -42,7 +42,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
 
     /**
      * Load the I18n instance from the current server-side context.
-     * 
+     *
      * @param ctx Server-side context.
      * @returns I18n instance.
      */
@@ -53,7 +53,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
     },
     /**
      * Load the I18n instance from the raw locale string.
-     * 
+     *
      * @param locale Locale string.
      * @returns I18n instance.
      */
@@ -61,33 +61,35 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
       return await _load(locale);
     },
     /**
-     * 
+     *
      * THIS METHOD IS FOR INTERNAL USE ONLY.
-     * 
+     *
      * Set the loaders for the I18n instance.
-     * 
+     *
      * @param locales Locales and their loaders.
      * @returns Current I18n instance.
-     * 
-     * @deprecated 
+     *
+     * @deprecated
      */
     withLoaders(newLocales: Record<string, () => Promise<any>>) {
       return createI18n(newLocales);
     },
   };
 
-  async function _load<C>(locale: string | undefined | null): Promise<I18nInstance> {
+  async function _load<C>(
+    locale: string | undefined | null,
+  ): Promise<I18nInstance> {
     const supportedLocales = Object.keys(locales);
     // if (supportedLocales.length === 0) {
     //   throw new Error('No locale dictionaries provided.');
     // }
 
-    const fallbackLocale = 'en';
+    const fallbackLocale = "en";
     const defaultLocale = supportedLocales[0] || fallbackLocale;
     const currentLocale = locale || defaultLocale;
-    const localeLoader = locales[currentLocale] || (() => Promise.resolve({ default: {} }));
-    const data = await localeLoader()
-      .then((mod) => mod.default) || {};
+    const localeLoader =
+      locales[currentLocale] || (() => Promise.resolve({ default: {} }));
+    const data = (await localeLoader().then((mod) => mod.default)) || {};
 
     return {
       supportedLocales,

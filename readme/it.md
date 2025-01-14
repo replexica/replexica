@@ -39,6 +39,7 @@ Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'
 1. Crea un account sul [sito web](https://replexica.com)
 
 2. Inizializza il tuo progetto:
+
    ```bash
    npx replexica@latest init
    ```

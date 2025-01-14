@@ -1,6 +1,6 @@
 // stub test with vitest
-import { test, expect } from 'vitest';
+import { test, expect } from "vitest";
 
-test('stub', () => {
+test("stub", () => {
   expect(true).toBe(true);
 });

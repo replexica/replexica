@@ -1,9 +1,9 @@
 import { Command } from "commander";
-import Ora from 'ora';
-import express from 'express';
-import cors from 'cors';
-import open from 'open';
-import readline from 'readline/promises';
+import Ora from "ora";
+import express from "express";
+import cors from "cors";
+import open from "open";
+import readline from "readline/promises";
 import { getSettings, saveSettings } from "../utils/settings";
 import { createAuthenticator } from "../utils/auth";
 
@@ -16,9 +16,9 @@ export default new Command()
   .action(async (options) => {
     try {
       let settings = await getSettings(undefined);
-  
+
       if (options.logout) {
-        settings.auth.apiKey = '';
+        settings.auth.apiKey = "";
         await saveSettings(settings);
       }
       if (options.login) {
@@ -27,14 +27,14 @@ export default new Command()
         await saveSettings(settings);
         settings = await getSettings(undefined);
       }
-  
+
       const authenticator = createAuthenticator({
         apiUrl: settings.auth.apiUrl,
         apiKey: settings.auth.apiKey!,
       });
       const auth = await authenticator.whoami();
       if (!auth) {
-        Ora().warn('Not authenticated');
+        Ora().warn("Not authenticated");
       } else {
         Ora().succeed(`Authenticated as ${auth.email}`);
       }
@@ -45,22 +45,26 @@ export default new Command()
   });
 
 async function login(webAppUrl: string) {
-  await readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  }).question(`
+  await readline
+    .createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    })
+    .question(
+      `
 Press Enter to open the browser for authentication.
 
 ---
 
 Having issues? Put REPLEXICA_API_KEY in your .env file instead.
-    `.trim() + '\n');
+    `.trim() + "\n",
+    );
 
-  const spinner = Ora().start('Waiting for the API key');
+  const spinner = Ora().start("Waiting for the API key");
   const apiKey = await waitForApiKey(async (port) => {
     await open(`${webAppUrl}/app/cli?port=${port}`, { wait: false });
   });
-  spinner.succeed('API key received');
+  spinner.succeed("API key received");
 
   return apiKey;
 }

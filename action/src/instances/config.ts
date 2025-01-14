@@ -1,4 +1,4 @@
-import loadEnv from './_env.js';
+import loadEnv from "./_env.js";
 
 export default async function loadConfig() {
   const env = await loadEnv();
@@ -11,6 +11,6 @@ export default async function loadConfig() {
     baseBranchName: env.GITHUB_REF_NAME,
     repositoryOwner: env.GITHUB_REPOSITORY_OWNER,
     repositoryFullName: env.GITHUB_REPOSITORY,
-    repositoryName: env.GITHUB_REPOSITORY.split('/')[1],
+    repositoryName: env.GITHUB_REPOSITORY.split("/")[1],
   };
 }

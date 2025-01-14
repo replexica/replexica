@@ -39,6 +39,7 @@ Replexica AI实现软件本地化的端到端自动化。
 1. 在[官网](https://replexica.com)创建账户
 
 2. 初始化你的项目：
+
    ```bash
    npx replexica@latest init
    ```

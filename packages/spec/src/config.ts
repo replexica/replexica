@@ -1,6 +1,6 @@
-import Z from 'zod';
-import { localeCodeSchema } from './locales';
-import { bucketTypeSchema } from './formats';
+import Z from "zod";
+import { localeCodeSchema } from "./locales";
+import { bucketTypeSchema } from "./formats";
 
 // common
 export const localeSchema = Z.object({
@@ -14,27 +14,38 @@ type ConfigDefinition<T extends Z.ZodRawShape, P extends Z.ZodRawShape> = {
   defaultValue: Z.infer<Z.ZodObject<T>>;
   parse: (rawConfig: unknown) => Z.infer<Z.ZodObject<T>>;
 };
-const createConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape>(
+const createConfigDefinition = <
+  T extends Z.ZodRawShape,
+  P extends Z.ZodRawShape,
+>(
   definition: ConfigDefinition<T, P>,
 ) => definition;
 
-
-type ConfigDefinitionExtensionParams<T extends Z.ZodRawShape, P extends Z.ZodRawShape> = {
+type ConfigDefinitionExtensionParams<
+  T extends Z.ZodRawShape,
+  P extends Z.ZodRawShape,
+> = {
   createSchema: (baseSchema: Z.ZodObject<P>) => Z.ZodObject<T>;
-  createDefaultValue: (baseDefaultValue: Z.infer<Z.ZodObject<P>>) => Z.infer<Z.ZodObject<T>>;
+  createDefaultValue: (
+    baseDefaultValue: Z.infer<Z.ZodObject<P>>,
+  ) => Z.infer<Z.ZodObject<T>>;
   createUpgrader: (
     config: Z.infer<Z.ZodObject<P>>,
     schema: Z.ZodObject<T>,
     defaultValue: Z.infer<Z.ZodObject<T>>,
   ) => Z.infer<Z.ZodObject<T>>;
 };
-const extendConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape>(
+const extendConfigDefinition = <
+  T extends Z.ZodRawShape,
+  P extends Z.ZodRawShape,
+>(
   definition: ConfigDefinition<P, any>,
   params: ConfigDefinitionExtensionParams<T, P>,
 ) => {
   const schema = params.createSchema(definition.schema);
   const defaultValue = params.createDefaultValue(definition.defaultValue);
-  const upgrader = (config: Z.infer<Z.ZodObject<P>>) => params.createUpgrader(config, schema, defaultValue);
+  const upgrader = (config: Z.infer<Z.ZodObject<P>>) =>
+    params.createUpgrader(config, schema, defaultValue);
 
   return createConfigDefinition({
     schema,
@@ -46,34 +57,33 @@ const extendConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape
       }
 
       const localeErrors = safeResult.error.errors
-      .filter(issue => issue.message.includes('Invalid locale code'))
-      .map(issue => {
-        let unsupportedLocale = '';
-        const path = issue.path; 
-    
-        const config = rawConfig as { locale?: { [key: string]: any } };
-    
-        if (config.locale) {
-          unsupportedLocale = path.reduce<any>((acc, key) => {
-            if (acc && typeof acc === 'object' && key in acc) {
-              return acc[key]; 
-            }
-            return acc; 
-          }, config.locale);
-        }
-    
-        return `Unsupported locale: ${unsupportedLocale}`;
-      });
-    
+        .filter((issue) => issue.message.includes("Invalid locale code"))
+        .map((issue) => {
+          let unsupportedLocale = "";
+          const path = issue.path;
+
+          const config = rawConfig as { locale?: { [key: string]: any } };
+
+          if (config.locale) {
+            unsupportedLocale = path.reduce<any>((acc, key) => {
+              if (acc && typeof acc === "object" && key in acc) {
+                return acc[key];
+              }
+              return acc;
+            }, config.locale);
+          }
+
+          return `Unsupported locale: ${unsupportedLocale}`;
+        });
 
       if (localeErrors.length > 0) {
-        throw new Error(`\n${localeErrors.join('\n')}`);
+        throw new Error(`\n${localeErrors.join("\n")}`);
       }
 
       const baseConfig = definition.parse(rawConfig);
       const result = upgrader(baseConfig);
       return result;
-    }
+    },
   });
 };
 
@@ -91,30 +101,24 @@ export const configV0Definition = createConfigDefinition({
 
 // v0 -> v1
 export const configV1Definition = extendConfigDefinition(configV0Definition, {
-  createSchema: (baseSchema) => baseSchema.extend({
-    locale: localeSchema,
-    buckets: Z.record(
-      Z.string(),
-      bucketTypeSchema,
-    ).default({}).optional(),
-  }),
+  createSchema: (baseSchema) =>
+    baseSchema.extend({
+      locale: localeSchema,
+      buckets: Z.record(Z.string(), bucketTypeSchema).default({}).optional(),
+    }),
   createDefaultValue: () => ({
     version: 1,
     locale: {
-      source: 'en' as const,
-      targets: [
-        'es' as const,
-      ],
+      source: "en" as const,
+      targets: ["es" as const],
     },
     buckets: {},
   }),
   createUpgrader: () => ({
     version: 1,
     locale: {
-      source: 'en' as const,
-      targets: [
-        'es' as const,
-      ],
+      source: "en" as const,
+      targets: ["es" as const],
     },
     buckets: {},
   }),
@@ -122,15 +126,16 @@ export const configV1Definition = extendConfigDefinition(configV0Definition, {
 
 // v1 -> v1.1
 export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
-  createSchema: (baseSchema) => baseSchema.extend({
-    buckets: Z.record(
-      bucketTypeSchema,
-      Z.object({
-        include: Z.array(Z.string()).default([]),
-        exclude: Z.array(Z.string()).default([]).optional(),
-      }),
-    ).default({}),
-  }),
+  createSchema: (baseSchema) =>
+    baseSchema.extend({
+      buckets: Z.record(
+        bucketTypeSchema,
+        Z.object({
+          include: Z.array(Z.string()).default([]),
+          exclude: Z.array(Z.string()).default([]).optional(),
+        }),
+      ).default({}),
+    }),
   createDefaultValue: (baseDefaultValue) => ({
     ...baseDefaultValue,
     version: 1.1,
@@ -145,7 +150,9 @@ export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
 
     // Transform buckets from v1 to v1.1 format
     if (oldConfig.buckets) {
-      for (const [bucketPath, bucketType] of Object.entries(oldConfig.buckets)) {
+      for (const [bucketPath, bucketType] of Object.entries(
+        oldConfig.buckets,
+      )) {
         if (!upgradedConfig.buckets[bucketType]) {
           upgradedConfig.buckets[bucketType] = {
             include: [],
@@ -161,26 +168,30 @@ export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
 
 // v1.1 -> v1.2
 // Changes: Add "extraSource" optional field to the locale node of the config
-export const configV1_2Definition = extendConfigDefinition(configV1_1Definition, {
-  createSchema: (baseSchema) => baseSchema.extend({
-    locale: localeSchema.extend({
-      extraSource: localeCodeSchema.optional(),
+export const configV1_2Definition = extendConfigDefinition(
+  configV1_1Definition,
+  {
+    createSchema: (baseSchema) =>
+      baseSchema.extend({
+        locale: localeSchema.extend({
+          extraSource: localeCodeSchema.optional(),
+        }),
+      }),
+    createDefaultValue: (baseDefaultValue) => ({
+      ...baseDefaultValue,
+      version: 1.2,
     }),
-  }),
-  createDefaultValue: (baseDefaultValue) => ({
-    ...baseDefaultValue,
-    version: 1.2,
-  }),
-  createUpgrader: (oldConfig) => ({
-    ...oldConfig,
-    version: 1.2,
-  }),
-});
+    createUpgrader: (oldConfig) => ({
+      ...oldConfig,
+      version: 1.2,
+    }),
+  },
+);
 
 // exports
 const LATEST_CONFIG_DEFINITION = configV1_2Definition;
 
-export type I18nConfig = Z.infer<typeof LATEST_CONFIG_DEFINITION['schema']>;
+export type I18nConfig = Z.infer<(typeof LATEST_CONFIG_DEFINITION)["schema"]>;
 
 export function parseI18nConfig(rawConfig: unknown) {
   try {

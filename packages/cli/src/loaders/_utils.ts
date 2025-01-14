@@ -1,6 +1,8 @@
 import { ILoader, ILoaderDefinition } from "./_types";
 
-export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, any> {
+export function composeLoaders(
+  ...loaders: ILoader<any, any>[]
+): ILoader<any, any> {
   return {
     setDefaultLocale(locale: string) {
       for (const loader of loaders) {
@@ -40,23 +42,27 @@ export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, an
   };
 }
 
-export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
+export function createLoader<I, O>(
+  lDefinition: ILoaderDefinition<I, O>,
+): ILoader<I, O> {
   const state = {
     defaultLocale: undefined as string | undefined,
     originalInput: undefined as I | undefined | null,
   };
   return {
     setDefaultLocale(locale) {
-      if (state.defaultLocale) { throw new Error('Default locale already set'); }
+      if (state.defaultLocale) {
+        throw new Error("Default locale already set");
+      }
       state.defaultLocale = locale;
       return this;
     },
     async pull(locale, input) {
       if (!state.defaultLocale) {
-        throw new Error('Default locale not set');
+        throw new Error("Default locale not set");
       }
       if (state.originalInput === undefined && locale !== state.defaultLocale) {
-        throw new Error('The first pull must be for the default locale');
+        throw new Error("The first pull must be for the default locale");
       }
       if (locale === state.defaultLocale) {
         state.originalInput = input || null;
@@ -66,10 +72,10 @@ export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoade
     },
     async push(locale, data) {
       if (!state.defaultLocale) {
-        throw new Error('Default locale not set');
+        throw new Error("Default locale not set");
       }
       if (state.originalInput === undefined) {
-        throw new Error('Cannot push data without pulling first');
+        throw new Error("Cannot push data without pulling first");
       }
 
       return lDefinition.push(locale, data, state.originalInput);

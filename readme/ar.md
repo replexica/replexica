@@ -39,6 +39,7 @@
 1. قم بإنشاء حساب على [الموقع](https://replexica.com)
 
 2. قم بتهيئة مشروعك:
+
    ```bash
    npx replexica@latest init
    ```

@@ -6,7 +6,8 @@
     "build": "turbo build",
     "test": "turbo test",
     "new": "changeset",
-    "new:empty": "changeset --empty"
+    "new:empty": "changeset --empty",
+    "prettier": "prettier . --write"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

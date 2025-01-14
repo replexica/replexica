@@ -13,7 +13,7 @@ export abstract class IntegrationFlow implements IIntegrationFlow {
     protected ora: Ora,
     protected octokit: Awaited<ReturnType<typeof loadOctokit>>,
     protected config: Awaited<ReturnType<typeof loadConfig>>,
-  ) { }
+  ) {}
 
   abstract run(): Promise<boolean>;
 }

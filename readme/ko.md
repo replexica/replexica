@@ -39,6 +39,7 @@ Replexica AI는 소프트웨어 현지화를 처음부터 끝까지 자동화합
 1. [웹사이트](https://replexica.com)에서 계정 생성하기
 
 2. 프로젝트 초기화:
+
    ```bash
    npx replexica@latest init
    ```

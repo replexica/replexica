@@ -4,8 +4,8 @@ export default defineConfig({
   clean: true,
   target: "esnext",
   entry: {
-    'react': 'src/react.ts',
-    'react-next': 'src/react-next.ts',
+    react: "src/react.ts",
+    "react-next": "src/react-next.ts",
   },
   outDir: "build",
   format: ["cjs", "esm"],

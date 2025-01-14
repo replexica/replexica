@@ -1,12 +1,8 @@
 {
-  "project": "146425",
-  "model": "documentation_page",
-  "records": [
+  project: "146425",
+  model: "documentation_page",
+  records: [
     "185834003", // Documentation page
   ],
-  "fields": [
-    "title",
-    "subtitle",
-    "content",
-  ]
+  fields: ["title", "subtitle", "content"],
 }

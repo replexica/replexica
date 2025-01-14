@@ -14,9 +14,19 @@ export function getSettings(explicitApiKey: string | undefined): CliSettings {
 
   return {
     auth: {
-      apiKey: explicitApiKey || env.REPLEXICA_API_KEY || systemFile.auth?.apiKey || defaults.auth.apiKey,
-      apiUrl: env.REPLEXICA_API_URL || systemFile.auth?.apiUrl || defaults.auth.apiUrl,
-      webUrl: env.REPLEXICA_WEB_URL || systemFile.auth?.webUrl || defaults.auth.webUrl,
+      apiKey:
+        explicitApiKey ||
+        env.REPLEXICA_API_KEY ||
+        systemFile.auth?.apiKey ||
+        defaults.auth.apiKey,
+      apiUrl:
+        env.REPLEXICA_API_URL ||
+        systemFile.auth?.apiUrl ||
+        defaults.auth.apiUrl,
+      webUrl:
+        env.REPLEXICA_WEB_URL ||
+        systemFile.auth?.webUrl ||
+        defaults.auth.webUrl,
     },
   };
 }
@@ -38,7 +48,7 @@ const SettingsSchema = Z.object({
 function _loadDefaults(): CliSettings {
   return {
     auth: {
-      apiKey: '',
+      apiKey: "",
       apiUrl: "https://engine.replexica.com",
       webUrl: "https://replexica.com",
     },

@@ -1,10 +1,13 @@
-import Z from 'zod';
+import Z from "zod";
 
 export default async function loadEnv() {
   return Z.object({
     // Replexica
     REPLEXICA_API_KEY: Z.string(),
-    REPLEXICA_PULL_REQUEST: Z.preprocess((val) => val === 'true' || val === true, Z.boolean()),
+    REPLEXICA_PULL_REQUEST: Z.preprocess(
+      (val) => val === "true" || val === true,
+      Z.boolean(),
+    ),
     REPLEXICA_COMMIT_MESSAGE: Z.string(),
     REPLEXICA_PULL_REQUEST_TITLE: Z.string(),
     // Github
@@ -15,6 +18,5 @@ export default async function loadEnv() {
     GITHUB_HEAD_REF: Z.string(),
     // Custom env
     GH_TOKEN: Z.string().optional(),
-  })
-    .parse(process.env);
+  }).parse(process.env);
 }

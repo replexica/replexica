@@ -3,12 +3,12 @@ description: Automated AI localization for dev teams.
 author: Replexica
 
 branding:
-  icon: 'aperture'
-  color: 'black'
+  icon: "aperture"
+  color: "black"
 
 runs:
-  using: 'docker'
-  image: 'action/Dockerfile'
+  using: "docker"
+  image: "action/Dockerfile"
   env:
     REPLEXICA_API_KEY: ${{ inputs.api-key }}
     REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
@@ -17,17 +17,17 @@ runs:
 
 inputs:
   api-key:
-    description: 'Replexica Platform API Key'
+    description: "Replexica Platform API Key"
     required: true
   pull-request:
-    description: 'Create a pull request with the changes'
+    description: "Create a pull request with the changes"
     default: false
     required: false
   commit-message:
-    description: 'Commit message'
-    default: 'feat: update translations via @replexica'
+    description: "Commit message"
+    default: "feat: update translations via @replexica"
     required: false
   pull-request-title:
-    description: 'Pull request title'
-    default: 'feat: update translations via @replexica'
+    description: "Pull request title"
+    default: "feat: update translations via @replexica"
     required: false

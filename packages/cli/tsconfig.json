@@ -15,13 +15,6 @@
     "module": "ESNext",
     "target": "ESNext"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "types"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }
