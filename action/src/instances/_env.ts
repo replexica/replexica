@@ -18,5 +18,6 @@ export default async function loadEnv() {
     GITHUB_HEAD_REF: Z.string(),
     // Custom env
     GH_TOKEN: Z.string().optional(),
+    BB_TOKEN: Z.string().optional(),
   }).parse(process.env);
 }

@@ -52,14 +52,11 @@ export class PullRequestFlow extends InBranchFlow {
   }
 
   private async checkBranchExistance(prBranchName: string) {
-    const result = await this.octokit.rest.repos
-      .getBranch({
-        owner: this.config.repositoryOwner,
-        repo: this.config.repositoryName,
-        branch: prBranchName,
-      })
-      .then((r) => r.data)
-      .catch((r) => (r.status === 404 ? false : Promise.reject(r)));
+    const result = await this.octokit.branchExists({
+      owner: this.config.repositoryOwner,
+      repo: this.config.repositoryName,
+      branch: prBranchName,
+    });
 
     return result;
   }
@@ -69,32 +66,28 @@ export class PullRequestFlow extends InBranchFlow {
     this.ora.start(
       `Checking for existing PR with head ${i18nBranchName} and base ${this.config.baseBranchName}`,
     );
-    const existingPr = await this.octokit.rest.pulls
-      .list({
-        owner: this.config.repositoryOwner,
-        repo: this.config.repositoryName,
-        head: `${this.config.repositoryOwner}:${i18nBranchName}`,
-        base: this.config.baseBranchName,
-        state: "open",
-      })
-      .then(({ data }) => data[0]);
-    this.ora.succeed(existingPr ? "PR found" : "No PR found");
+    const existingPrNumber = await this.octokit.getOpenPullRequestNumber({
+      owner: this.config.repositoryOwner,
+      repo: this.config.repositoryName,
+      head: `${this.config.repositoryOwner}:${i18nBranchName}`,
+      base: this.config.baseBranchName,
+    });
+    this.ora.succeed(existingPrNumber ? "PR found" : "No PR found");
 
-    if (existingPr) {
+    if (existingPrNumber) {
       // Close existing PR first
-      this.ora.start(`Closing existing PR ${existingPr.number}`);
-      await this.octokit.rest.pulls.update({
+      this.ora.start(`Closing existing PR ${existingPrNumber}`);
+      await this.octokit.closePullRequest({
         owner: this.config.repositoryOwner,
         repo: this.config.repositoryName,
-        pull_number: existingPr.number,
-        state: "closed",
+        pull_number: existingPrNumber,
       });
-      this.ora.succeed(`Closed existing PR ${existingPr.number}`);
+      this.ora.succeed(`Closed existing PR ${existingPrNumber}`);
     }
 
     // Create new PR
     this.ora.start(`Creating new PR`);
-    const newPr = await this.octokit.rest.pulls.create({
+    const newPrNumber = await this.octokit.createPullRequest({
       owner: this.config.repositoryOwner,
       repo: this.config.repositoryName,
       head: i18nBranchName,
@@ -102,21 +95,21 @@ export class PullRequestFlow extends InBranchFlow {
       title: this.config.pullRequestTitle,
       body: this.getPrBodyContent(),
     });
-    this.ora.succeed(`Created new PR ${newPr.data.number}`);
+    this.ora.succeed(`Created new PR ${newPrNumber}`);
 
-    if (existingPr) {
+    if (existingPrNumber) {
       // Post comment about outdated PR
-      this.ora.start(`Posting comment about outdated PR ${existingPr.number}`);
-      await this.octokit.rest.issues.createComment({
+      this.ora.start(`Posting comment about outdated PR ${existingPrNumber}`);
+      await this.octokit.commentOnPullRequest({
         owner: this.config.repositoryOwner,
         repo: this.config.repositoryName,
-        issue_number: existingPr.number,
-        body: `This PR is now outdated. A new version has been created at #${newPr.data.number}`,
+        issue_number: existingPrNumber,
+        body: `This PR is now outdated. A new version has been created at #${newPrNumber}`,
       });
-      this.ora.succeed(`Posted comment about outdated PR ${existingPr.number}`);
+      this.ora.succeed(`Posted comment about outdated PR ${existingPrNumber}`);
     }
 
-    return newPr.data.number;
+    return newPrNumber;
   }
 
   private checkoutI18nBranch(i18nBranchName: string) {
