@@ -1,5 +1,11 @@
 # replexica
 
+## 0.61.0
+
+### Minor Changes
+
+- [`9d38df2`](https://github.com/replexica/replexica/commit/9d38df2fdbe23fdcbb1b7e2e207de650e714e433) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fixed same-file locale rewrites
+
 ## 0.60.1
 
 ### Patch Changes
