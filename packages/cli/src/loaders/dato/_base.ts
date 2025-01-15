@@ -33,25 +33,22 @@ export type DatoValue = DatoSimpleValue | DatoComplexValue;
 export type DatoSimpleValue = DatoPrimitive | DastDocument;
 export type DatoComplexValue = DatoBlock | DatoBlock[];
 
-export type DatoPrimitive =
-| null
-| string
-| boolean
-| number
-;
+export type DatoPrimitive = null | string | boolean | number;
 
 export type DastDocument = {
-  schema: 'dast';
+  schema: "dast";
   document: DastDocumentNode;
 };
 
 export type DastDocumentNode = {
-  type: 'root' |'span' | 'paragraph';
+  type: "root" | "span" | "paragraph";
   value?: DatoPrimitive;
   children?: DastDocumentNode[];
 };
 
 export type DatoBlock = {
-  type: 'item';
+  id?: string;
+  type: "item";
   attributes: Record<string, DatoSimpleValue>;
+  relationships: any;
 };

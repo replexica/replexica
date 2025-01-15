@@ -1,14 +1,6 @@
 {
   project: "146425",
   model: "test_model",
-  fields: [
-    "single_line_field",
-    "multiple_paragraph_text",
-    "structured_text",
-    "single_block",
-    "multiple_blocks",
-  ],
-  records: [
-    "SZq8PfPOS321fA9UzZEqnA",
-  ]
+  fields: ["single_block", "multiple_blocks"],
+  records: ["SZq8PfPOS321fA9UzZEqnA"],
 }
