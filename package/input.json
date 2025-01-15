@@ -1,0 +1,139 @@
+{
+  "2102353": {
+    "fields": [
+      {
+        "id": "10970423",
+        "type": "field",
+        "label": "Tag",
+        "field_type": "string",
+        "api_key": "tag",
+        "hint": null,
+        "localized": true,
+        "validators": {
+          "required": {},
+          "unique": {},
+          "length": {
+            "max": 20
+          }
+        },
+        "position": 1,
+        "appearance": {
+          "addons": [],
+          "editor": "single_line",
+          "parameters": {
+            "heading": true,
+            "placeholder": null
+          },
+          "type": "title"
+        },
+        "default_value": {
+          "en": "",
+          "it": "",
+          "de": "",
+          "fr": "",
+          "pt": "",
+          "sv": "",
+          "ru": "",
+          "es": null
+        },
+        "deep_filtering_enabled": false,
+        "item_type": {
+          "id": "2102353",
+          "type": "item_type"
+        },
+        "fieldset": null
+      },
+      {
+        "id": "11268120",
+        "type": "field",
+        "label": "Slug",
+        "field_type": "slug",
+        "api_key": "slug",
+        "hint": null,
+        "localized": true,
+        "validators": {
+          "slug_title_field": {
+            "title_field_id": "10970423"
+          },
+          "slug_format": {
+            "predefined_pattern": "webpage_slug"
+          },
+          "required": {}
+        },
+        "position": 2,
+        "appearance": {
+          "addons": [],
+          "editor": "slug",
+          "parameters": {
+            "url_prefix": null,
+            "placeholder": null
+          }
+        },
+        "default_value": {
+          "en": null,
+          "it": null,
+          "de": null,
+          "fr": null,
+          "pt": null,
+          "sv": null,
+          "ru": null,
+          "es": null
+        },
+        "deep_filtering_enabled": false,
+        "item_type": {
+          "id": "2102353",
+          "type": "item_type"
+        },
+        "fieldset": null
+      }
+    ],
+    "records": [
+      {
+        "id": "180663383",
+        "type": "item",
+        "tag": {
+          "de": "Engagement",
+          "en": "Engagement",
+          "es": "es-Engagement",
+          "fr": "Mobilisation",
+          "it": "Impegno",
+          "pt": "Participação",
+          "ru": "Помолвка",
+          "sv": "Engagemang"
+        },
+        "slug": {
+          "de": null,
+          "en": "engagement",
+          "es": null,
+          "fr": null,
+          "it": null,
+          "pt": null,
+          "ru": null,
+          "sv": null
+        },
+        "item_type": {
+          "id": "2102353",
+          "type": "item_type"
+        },
+        "creator": {
+          "id": "129344",
+          "type": "account"
+        },
+        "meta": {
+          "created_at": "2023-08-01T13:36:23.307+01:00",
+          "updated_at": "2025-01-26T22:20:43.012+00:00",
+          "published_at": "2025-01-26T22:20:43.040+00:00",
+          "publication_scheduled_at": null,
+          "unpublishing_scheduled_at": null,
+          "first_published_at": "2023-08-01T13:36:23.345+01:00",
+          "is_valid": false,
+          "is_current_version_valid": false,
+          "is_published_version_valid": false,
+          "status": "published",
+          "current_version": "KGk13AMZTDSKG-ip8ObZ3A",
+          "stage": null
+        }
+      }
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import _ from "lodash";
+import _isUrl from "is-url";
 
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
@@ -10,9 +11,11 @@ export default function createUnlocalizableLoader(): ILoader<Record<string, any>
         .filter(([key, value]) => {
           return [
             (v: any) => _.isEmpty(v),
-            (v: string) => _.isDate(v),
-            (v: string) => _.isNumber(v),
+            (v: string) => _.isString(v) && new Date(v).toString() !== "Invalid Date",
+            (v: string) => !_.isNaN(_.toNumber(v)),
             (v: string) => _.isBoolean(v),
+            (v: string) => _.isString(v) && _isSystemId(v),
+            (v: string) => _.isString(v) && _isUrl(v),
           ].some((fn) => fn(value));
         })
         .map(([key, _]) => key);
@@ -25,4 +28,8 @@ export default function createUnlocalizableLoader(): ILoader<Record<string, any>
       return result;
     },
   });
+}
+
+function _isSystemId(v: string) {
+  return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z0-9]{22}$/.test(v);
 }

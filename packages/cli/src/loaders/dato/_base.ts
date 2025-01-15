@@ -3,9 +3,13 @@ import Z from "zod";
 // DatoCMS config
 export const datoConfigSchema = Z.object({
   project: Z.string(),
-  model: Z.string(),
-  records: Z.array(Z.string()).optional().default([]),
-  fields: Z.array(Z.string()),
+  models: Z.record(
+    Z.string(),
+    Z.object({
+      records: Z.array(Z.string()).optional(),
+      fields: Z.array(Z.string()).optional(),
+    }),
+  ),
 });
 
 export type DatoConfig = Z.infer<typeof datoConfigSchema>;

@@ -28,10 +28,22 @@ export default new Command()
   .option("--verbose", "Show verbose output")
   .option("--interactive", "Interactive mode")
   .option("--api-key <api-key>", "Explicitly set the API key to use")
+  .option("--debug", "Debug mode")
   .option("--strict", "Stop on first error")
   .action(async function (options) {
     const ora = Ora();
     const flags = parseFlags(options);
+
+    if (flags.debug) {
+      // wait for user input, use inquirer
+      const { debug } = await inquirer.prompt([
+        {
+          type: "confirm",
+          name: "debug",
+          message: "Debug mode. Wait for user input before continuing.",
+        },
+      ]);
+    }
 
     let hasErrors = false;
     try {
@@ -67,6 +79,7 @@ export default new Command()
 
             const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
             bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
 
             const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
             lockfileHelper.registerSourceData(bucketConfig.pathPattern, sourceData);
@@ -86,6 +99,7 @@ export default new Command()
 
             const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
             bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
 
             const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
             const updatedSourceData = lockfileHelper.extractUpdatedData(bucketConfig.pathPattern, sourceData);
@@ -118,6 +132,7 @@ export default new Command()
 
             const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
             bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
             let sourceData = await bucketLoader.pull(sourceLocale);
 
             for (const _targetLocale of targetLocales) {
@@ -318,6 +333,7 @@ function parseFlags(options: any) {
     strict: Z.boolean().optional(),
     key: Z.string().optional(),
     interactive: Z.boolean().default(false),
+    debug: Z.boolean().default(false),
   }).parse(options);
 }
 
