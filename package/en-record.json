@@ -1,0 +1,255 @@
+{
+  "SZq8PfPOS321fA9UzZEqnA": {
+    "id": "SZq8PfPOS321fA9UzZEqnA",
+    "type": "item",
+    "integer_number": 9,
+    "another_single_line_string": "ten",
+    "single_line_field": {
+      "de": "Eins",
+      "en": "One",
+      "es": "Uno",
+      "fr": "Un",
+      "it": "Uno"
+    },
+    "boolean": {
+      "de": false,
+      "en": true,
+      "es": false,
+      "fr": false,
+      "it": false
+    },
+    "multiple_paragraph_text": {
+      "de": "Zwei **drei** *vier*",
+      "en": "Two **three** *four*",
+      "es": "Dos **tres** *cuatro*",
+      "fr": "Deux **trois** *quatre*",
+      "it": "Due **tre** *quattro*"
+    },
+    "structured_text": {
+      "de": {
+        "schema": "dast",
+        "document": {
+          "children": [
+            {
+              "children": [
+                {
+                  "type": "span",
+                  "value": "fünf sechs "
+                },
+                {
+                  "marks": [
+                    "strong"
+                  ],
+                  "type": "span",
+                  "value": "sieben"
+                },
+                {
+                  "type": "span",
+                  "value": " acht"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "root"
+        }
+      },
+      "en": {
+        "schema": "dast",
+        "document": {
+          "children": [
+            {
+              "children": [
+                {
+                  "type": "span",
+                  "value": "five six "
+                },
+                {
+                  "marks": [
+                    "strong"
+                  ],
+                  "type": "span",
+                  "value": "seven"
+                },
+                {
+                  "type": "span",
+                  "value": " eight"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "root"
+        }
+      },
+      "es": {
+        "schema": "dast",
+        "document": {
+          "children": [
+            {
+              "children": [
+                {
+                  "type": "span",
+                  "value": "cinco seis "
+                },
+                {
+                  "marks": [
+                    "strong"
+                  ],
+                  "type": "span",
+                  "value": "siete"
+                },
+                {
+                  "type": "span",
+                  "value": " ocho"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "root"
+        }
+      },
+      "fr": {
+        "schema": "dast",
+        "document": {
+          "children": [
+            {
+              "children": [
+                {
+                  "type": "span",
+                  "value": "cinq six "
+                },
+                {
+                  "marks": [
+                    "strong"
+                  ],
+                  "type": "span",
+                  "value": "sept"
+                },
+                {
+                  "type": "span",
+                  "value": " huit"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "root"
+        }
+      },
+      "it": {
+        "schema": "dast",
+        "document": {
+          "children": [
+            {
+              "children": [
+                {
+                  "type": "span",
+                  "value": "cinque sei "
+                },
+                {
+                  "marks": [
+                    "strong"
+                  ],
+                  "type": "span",
+                  "value": "sette"
+                },
+                {
+                  "type": "span",
+                  "value": " otto"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "type": "root"
+        }
+      }
+    },
+    "single_block": {
+      "de": null,
+      "en": {
+        "type": "item",
+        "attributes": {
+          "single_line_field_inside_a_block": "twelve",
+          "multi_paragraph_text": "thirteen"
+        },
+        "relationships": {
+          "item_type": {
+            "data": {
+              "id": "KuP8EJMzSfe2397iw6WDaQ",
+              "type": "item_type"
+            }
+          }
+        },
+        "id": "UI8WzX6LT9yPFmMYklIs5g"
+      },
+      "es": null,
+      "fr": null,
+      "it": null
+    },
+    "multiple_blocks": {
+      "de": [],
+      "en": [
+        {
+          "type": "item",
+          "attributes": {
+            "single_line_field_inside_a_block": "fourteen",
+            "multi_paragraph_text": "fifteen"
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "KuP8EJMzSfe2397iw6WDaQ",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "Noz9kRphTNW54CrCt60Gyw"
+        },
+        {
+          "type": "item",
+          "attributes": {
+            "single_line_field_inside_a_block": "sixteen",
+            "multi_paragraph_text": "seventeen"
+          },
+          "relationships": {
+            "item_type": {
+              "data": {
+                "id": "KuP8EJMzSfe2397iw6WDaQ",
+                "type": "item_type"
+              }
+            }
+          },
+          "id": "Pn6ioCrzTjmk1--QZgPc5g"
+        }
+      ],
+      "es": [],
+      "fr": [],
+      "it": []
+    },
+    "item_type": {
+      "id": "WP9CWv8-STyGfbu-CL_UYA",
+      "type": "item_type"
+    },
+    "creator": {
+      "id": "65361",
+      "type": "user"
+    },
+    "meta": {
+      "created_at": "2025-01-14T14:15:30.716+00:00",
+      "updated_at": "2025-01-14T14:32:12.218+00:00",
+      "published_at": "2025-01-14T14:32:12.274+00:00",
+      "publication_scheduled_at": null,
+      "unpublishing_scheduled_at": null,
+      "first_published_at": "2025-01-14T14:15:30.754+00:00",
+      "is_valid": true,
+      "is_current_version_valid": true,
+      "is_published_version_valid": true,
+      "status": "published",
+      "current_version": "KM3v4GcZTBKAvcRn5gozQQ",
+      "stage": null
+    }
+  }
+}

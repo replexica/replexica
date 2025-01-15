@@ -1,21 +1,18 @@
+import path from "path";
+import _ from "lodash";
 import fs from "fs";
 import JSON5 from "json5";
 import createOra from "ora";
 import { composeLoaders } from "../_utils";
 import {
-  DastContent,
-  DatoConfig,
+  DastDocumentNode,
   datoConfigSchema,
-  DatoField,
-  DatoFieldAny,
-  DatoSettings,
-  datoSettingsSchema,
-  DEFAULT_LOCALE,
+  DatoRecordPayload,
+  DatoValue,
 } from "./_base";
 import { buildClient } from "@datocms/cma-client-node";
 import { ILoader } from "../_types";
 import { createLoader } from "../_utils";
-import { DastNode, DatoRecord } from "./_base";
 
 export default function createDatoLoader(configFilePath: string) {
   try {
@@ -23,9 +20,9 @@ export default function createDatoLoader(configFilePath: string) {
     const datoConfig = datoConfigSchema.parse(JSON5.parse(configContent));
 
     return composeLoaders(
-      createDatoCMSApiLoader(datoConfig),
-      createDatoCmsStructureLoader(datoConfig),
-      createDatoCmsContentLoader(),
+      createDatoApiLoader(datoConfig),
+      createDatoCleanupLoader(datoConfig),
+      createDatoStructureLoader(datoConfig),
     );
   } catch (error: any) {
     throw new Error(
@@ -36,234 +33,223 @@ export default function createDatoLoader(configFilePath: string) {
   }
 }
 
-export type DatoCmsApiLoaderParams = {
+export type DatoApiLoaderParams = {
   project: string;
   model: string;
   fields: string[];
   records: string[];
 };
 
-export function createDatoCMSApiLoader(
-  params: DatoCmsApiLoaderParams,
-): ILoader<void, Record<string, DatoRecord>> {
+export function createDatoApiLoader(params: DatoApiLoaderParams): ILoader<void, Record<string, DatoRecordPayload>> {
   return createLoader({
-    async pull(locale, input) {
-      const ora = createOra({ indent: 4 });
+    async pull(locale) {
+      const ora = createOra({ indent: 4, prefixText: `[${locale}] ` });
       const dato = createDatoClient({
         apiKey: process.env.DATO_API_TOKEN || "",
         projectId: params.project,
         modelId: params.model,
         records: params.records,
+        fields: params.fields,
       });
 
-      for (const field of params.fields) {
-        await dato.enableFieldLocalization(field);
+      ora.start(`Syncing with DatoCMS...`);
+      const zeroestRecord = await dato.findRecords(1).then(records => records[0]);
+      if (!zeroestRecord) {
+        throw new Error(`No records found for ${params.model}.`);
+      }
+      ora.succeed(`DatoCMS sync completed.`);
+
+      const unconfiguredFields = params.fields.filter(field => !zeroestRecord[field]?.hasOwnProperty('en'));
+
+      if (unconfiguredFields.length) {
+        ora.start(`Enabling localization for fields: ${unconfiguredFields.join(', ')}...`);
+        for (const field of unconfiguredFields) {
+          await dato.enableFieldLocalization(field);
+        }
+        ora.succeed(`Localization enabled for fields: ${unconfiguredFields.join(', ')}`);
       }
 
-      ora.start(`[${locale}] Fetching records for ${params.model}...`);
       const records = await dato.findRecords();
-      ora.succeed(
-        `[${locale}] Processed ${records.length} records for ${params.model}.`,
-      );
-
-      const result: Record<string, DatoRecord> = {};
+      const result: Record<string, DatoRecordPayload> = {};
       for (const record of records) {
-        result[record.id] = record;
+        result[record.id] = record as DatoRecordPayload;
       }
+
+      if (1) {
+        fs.writeFileSync(path.join(process.cwd(), `${locale}-record.json`), JSON.stringify(result, null, 2));
+      }
+
       return result;
     },
-
     async push(locale, data) {
+      const ora = createOra({ indent: 4, prefixText: `[${locale}] ` });
       const dato = createDatoClient({
         apiKey: process.env.DATO_API_TOKEN || "",
         projectId: params.project,
         modelId: params.model,
         records: params.records,
+        fields: params.fields,
       });
 
       for (const record of Object.values(data)) {
-        console.log("Updating record", record.id);
-        await dato.updateRecord(record.id, record as any);
+        ora.start(`Updating record ${record.id}...`);
+        await dato.updateRecord(record.id as any as string, record as any);
+        ora.succeed(`Updated record ${record.id}.`);
       }
-    },
+    }
   });
 }
 
-export type DatoCmsStructureLoaderParams = {
+export type DatoCleanupLoaderParams = {
   fields: string[];
 };
 
-export function createDatoCmsStructureLoader(
-  params: DatoCmsStructureLoaderParams,
-): ILoader<
-  Record<string, DatoRecord>,
-  Record<string, Record<string, DatoFieldAny>>
-> {
+export function createDatoCleanupLoader(params: DatoCleanupLoaderParams): ILoader<Record<string, DatoRecordPayload>, Record<string, Record<string, DatoValue>>> {
   return createLoader({
     async pull(locale, input) {
-      const result: Record<string, Record<string, DatoFieldAny>> = {};
+      const result: Record<
+        // Record ID
+        string,
+        // Record fields
+        Record<
+          // Field ID
+          string,
+          // Field value
+          DatoValue
+        >
+      > = {};
 
       for (const [recordId, record] of Object.entries(input)) {
         result[recordId] = {};
-        for (const field of params.fields) {
-          const datoField = parseDatoField(field, record[field]);
-          if (!datoField) {
-            continue;
-          }
+        for (const [fieldName, fieldValue] of Object.entries(record)) {
+          if (!params.fields.includes(fieldName)) { continue; }
 
-          result[recordId][field] = datoField;
+          result[recordId][fieldName] = fieldValue[locale];
         }
+      }
+
+      if (1) {
+        fs.writeFileSync(path.join(process.cwd(), `${locale}-record-cleaned.json`), JSON.stringify(result, null, 2));
       }
 
       return result;
     },
+    async push(locale, data, originalInput = {}) {
+      const originalInputCopy: Record<string, DatoRecordPayload> = _.cloneDeep(originalInput) || {};
 
-    async push(locale, data, originalInput) {
-      const result = { ...originalInput };
-
-      for (const [recordId, record] of Object.entries(data)) {
-        for (const [fieldId, field] of Object.entries(record)) {
-          result[recordId][fieldId] = field.value;
-
-          for (const [localeId, localizedContent] of Object.entries(
-            field.value,
-          )) {
-            if (!localizedContent) {
-              result[recordId][fieldId][localeId] =
-                result[recordId][fieldId][DEFAULT_LOCALE];
-            }
-          }
+      for (const [recordId, record] of Object.entries(originalInputCopy)) {
+        for (const [fieldId, fieldValues] of Object.entries(record)) {
+          _.merge(originalInputCopy[recordId][fieldId][locale], data[recordId][fieldId]);
         }
       }
 
-      return result;
-    },
+      return originalInputCopy;
+    }
   });
 }
 
-function createDatoCmsContentLoader(): ILoader<
-  Record<string, Record<string, DatoFieldAny>>,
-  Record<string, string>
-> {
+export type DatoStructureLoaderParams = {};
+
+export function createDatoStructureLoader(params: DatoStructureLoaderParams): ILoader<Record<string, Record<string, DatoValue>>, Record<string, string>> {
   return createLoader({
     async pull(locale, input) {
       const result: Record<string, string> = {};
 
       for (const [recordId, record] of Object.entries(input)) {
-        for (const [fieldId, field] of Object.entries(record)) {
-          if (field.type === "string") {
-            result[`${recordId}/${fieldId}`] = field.value[locale];
-          } else if (field.type === "dast" && field.value[locale]?.document) {
-            traverseDast(field.value[locale].document, (node, path) => {
-              if (node.type === "span" && node.value) {
-                result[`${recordId}/${fieldId}/${path}`] = node.value;
-              }
-            });
+        traverseDatoValue(record, (fieldId, localizableValue) => {
+          const valueId = `${recordId}/${fieldId}`;
+          if (localizableValue) {
+            result[valueId] = localizableValue as any;
           }
-        }
+        });
+      }
+
+      if (1) {
+        fs.writeFileSync(path.join(process.cwd(), `${locale}-record-structured.json`), JSON.stringify(result, null, 2));
       }
 
       return result;
     },
-    async push(locale, data, originalInput) {
-      const result = { ...originalInput };
+    async push(locale, data, originalInput = {}) {
+      const result = _.cloneDeep(originalInput) || {};
 
       for (const [recordId, record] of Object.entries(result)) {
-        for (const [fieldId, _field] of Object.entries(record)) {
-          const field = _field as DatoFieldAny;
-          if (field.type === "string") {
-            result[recordId][fieldId] = {
-              ...field,
-              value: {
-                ...field.value,
-                [locale]: data[`${recordId}/${fieldId}`],
-              },
-            };
-          } else if (field.type === "dast" && field.value[locale]?.document) {
-            traverseDast(field.value[locale].document, (node, path) => {
-              if (node.type === "span" && node.value) {
-                node.value = data[`${recordId}/${fieldId}/${path}`];
-              }
-            });
+        traverseDatoValue(record, (fieldId, localizableValue) => {
+          const valueId = `${recordId}/${fieldId}`;
+          const localizedValue = data[valueId];
+          if (localizedValue) {
+            localizableValue = localizedValue;
           }
-        }
+        });
+      }
+
+
+      if (1) {
+        fs.writeFileSync(path.join(process.cwd(), 'record-structured-pushed.json'), JSON.stringify({
+          data,
+          originalInput,
+          result,
+        }, null, 2));
+        process.exit(0);
       }
 
       return result;
     },
   });
-}
 
-function parseDatoField(
-  key: string,
-  payload: any,
-): DatoField<"string", string> | DatoField<"dast", DastContent> | null {
-  if (!payload) {
-    return null;
-  }
-
-  if (
-    typeof payload === "object" &&
-    DEFAULT_LOCALE in payload &&
-    typeof payload[DEFAULT_LOCALE] === "string"
+  function traverseDatoValue(
+    record: Record<string, DatoValue>,
+    callback: (fieldId: string, value: any) => void,
+    path: string[] = [],
   ) {
-    return {
-      type: "string",
-      localizationEnabled: true,
-      key,
-      value: payload,
-    };
-  } else if (
-    typeof payload === "object" &&
-    DEFAULT_LOCALE in payload &&
-    typeof payload[DEFAULT_LOCALE] === "object" &&
-    payload[DEFAULT_LOCALE].schema === "dast"
-  ) {
-    return {
-      type: "dast",
-      localizationEnabled: true,
-      key,
-      value: payload,
-    };
-  } else if (
-    typeof payload === "object" &&
-    payload.schema === "dast" &&
-    payload.document
-  ) {
-    return {
-      type: "dast",
-      localizationEnabled: false,
-      key,
-      value: {
-        [DEFAULT_LOCALE]: payload,
-      },
-    };
-  } else if (typeof payload === "string") {
-    return {
-      type: "string",
-      localizationEnabled: false,
-      key,
-      value: {
-        [DEFAULT_LOCALE]: payload,
-      },
-    };
-  } else {
-    throw new Error(
-      `Invalid DatoCMS field value. Received: ${JSON.stringify(payload)}`,
-    );
+    for (const [key, value] of Object.entries(record)) {
+      const fieldId = [...path, key].join('/');
+      if (!_.isArray(value)) {
+        if (_.isString(value)) {
+          callback(fieldId, value);
+        } else if (_.isBoolean(value)) {
+          callback(fieldId, value);
+        } else if (_.isNumber(value)) {
+          callback(fieldId, value);
+        } else if (_.isNull(value)) {
+          callback(fieldId, value);
+        } else if (_.isObject(value)) {
+          if ('schema' in value && value.schema === 'dast') {
+            const subResult: Record<string, DatoValue> = {};
+            traverseDastNode(value.document, (fieldId, node) => {
+              if (!node.value) { return; }
+              subResult[fieldId] = node.value;
+            });
+            callback(fieldId, subResult);
+          } else if ('type' in value && value.type === 'item') {
+            return traverseDatoValue(
+              value.attributes,
+              callback,
+              [...path, key],
+            );
+          }
+        }
+      } else if (_.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          traverseDatoValue(value[i].attributes, callback, [...path, key, i.toString()]);
+        }
+      } else {
+        throw new Error('Unreachable code.');
+      }
+    }
   }
 }
 
-function traverseDast(
-  node: DastNode,
-  callback: (node: DastNode, path: string) => void,
-  path: string = "",
+function traverseDastNode(
+  node: DastDocumentNode,
+  callback: (fieldId: string, node: DastDocumentNode) => void,
+  path: string[] = [],
 ) {
-  callback(node, path);
-  if (node.children) {
-    node.children.forEach((child, index) =>
-      traverseDast(child, callback, [path, index].filter(Boolean).join("/")),
-    );
+  callback([...path, node.type].join('/'), node);
+  if (node.children?.length) {
+    for (let i = 0; i < node.children.length; i++) {
+      traverseDastNode(node.children[i], callback, [...path, i.toString()]);
+    }
   }
 }
 
@@ -272,6 +258,7 @@ type DatoClientParams = {
   projectId: string;
   modelId: string;
   records: string[];
+  fields: string[];
 };
 
 function createDatoClient(params: DatoClientParams) {
@@ -283,13 +270,17 @@ function createDatoClient(params: DatoClientParams) {
   const dato = buildClient({ apiToken: params.apiKey });
 
   return {
-    async findRecords() {
+    async findRecords(limit: number = 100) {
       try {
         return dato.items
           .list({
+            nested: true,
+            version: 'current',
+            limit,
             filter: {
               projectId: params.projectId,
               type: params.modelId,
+              only_valid: 'true',
               ids: !params.records.length
                 ? undefined
                 : params.records.join(","),
@@ -354,6 +345,15 @@ function createDatoClient(params: DatoClientParams) {
             Promise.reject(error?.response?.body?.data?.[0] || error),
           );
       } catch (_error: any) {
+        if (_error?.attributes?.code === "NOT_FOUND") {
+          throw new Error(
+            [
+              `Field "${fieldId}" not found in model "${params.modelId}".`,
+              `Error: ${JSON.stringify(_error, null, 2)}`,
+            ].join("\n\n"),
+          );
+        }
+
         if (_error?.attributes?.details?.message) {
           throw new Error(
             [
