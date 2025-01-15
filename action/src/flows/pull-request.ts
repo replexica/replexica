@@ -5,7 +5,10 @@ export class PullRequestFlow extends InBranchFlow {
   private i18nBranchName?: string;
 
   async preRun() {
-    await super.preRun?.();
+    const canContinue = await super.preRun?.();
+    if (!canContinue) {
+      return false;
+    }
 
     this.ora.start("Calculating automated branch name");
     this.i18nBranchName = this.calculatePrBranchName();
@@ -32,6 +35,8 @@ export class PullRequestFlow extends InBranchFlow {
       this.createI18nBranch(this.i18nBranchName);
       this.ora.succeed(`Created branch ${this.i18nBranchName}`);
     }
+
+    return true;
   }
 
   async postRun() {

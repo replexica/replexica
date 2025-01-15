@@ -19,4 +19,4 @@ RUN npm install -g pnpm && pnpm install
 RUN pnpm build
 
 # Run the Node.js / TypeScript application
-ENTRYPOINT ["node", "/app/build/github.js"]
+ENTRYPOINT ["node", "/app/build/index.js"]

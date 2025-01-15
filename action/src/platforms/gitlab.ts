@@ -1,6 +1,7 @@
 import { Gitlab } from "@gitbeaker/rest";
 import Z from "zod";
 import { PlatformKit } from "./_base.js";
+import { execSync } from "child_process";
 
 const gl = new Gitlab({ token: "" });
 
@@ -10,8 +11,8 @@ export class GitlabPlatformKit extends PlatformKit {
   constructor() {
     super();
 
-    // change direcotry to current repository before executing replexica
-    process.chdir(this.platformConfig.repositoryDir);
+    // change directory to current repository before executing replexica
+    process.chdir(this.platformConfig.projectDir);
   }
 
   get gitlab() {
@@ -27,37 +28,22 @@ export class GitlabPlatformKit extends PlatformKit {
     const env = Z.object({
       GL_TOKEN: Z.string().optional(),
       CI_COMMIT_BRANCH: Z.string(), // CI_DEFAULT_BRANCH ?
-      CI_PROJECT_PATH_SLUG: Z.string(),
+      CI_PROJECT_NAMESPACE: Z.string(),
       CI_PROJECT_NAME: Z.string(),
       CI_PROJECT_ID: Z.string(),
       CI_PROJECT_DIR: Z.string(),
       CI_REPOSITORY_URL: Z.string(),
     }).parse(process.env);
 
-    console.log(">> CI_PROJECT_PATH", process.env.CI_PROJECT_PATH);
-    console.log(">> CI_PROJECT_URL", process.env.CI_PROJECT_URL);
-    console.log(">> CI_COMMIT_BRANCH", process.env.CI_COMMIT_BRANCH);
-    console.log(">> CI_PROJECT_DIR", process.env.CI_PROJECT_DIR);
-    console.log(">> CI_REPOSITORY_URL", process.env.CI_REPOSITORY_URL);
-    console.log(">> CI_PROJECT_ID", process.env.CI_PROJECT_ID);
-    console.log(">> CI_PROJECT_NAMESPACE", process.env.CI_PROJECT_NAMESPACE);
-    console.log(
-      ">> CI_PROJECT_NAMESPACE_ID",
-      process.env.CI_PROJECT_NAMESPACE_ID,
-    );
-    console.log(">> CI_PROJECT_PATH_SLUG", process.env.CI_PROJECT_PATH_SLUG);
-
     const config = {
       glToken: env.GL_TOKEN,
       baseBranchName: env.CI_COMMIT_BRANCH,
-      repositoryOwner: env.CI_PROJECT_PATH_SLUG,
+      repositoryOwner: env.CI_PROJECT_NAMESPACE,
       repositoryName: env.CI_PROJECT_NAME,
       gitlabProjectId: env.CI_PROJECT_ID,
-      repoUrl: env.CI_REPOSITORY_URL,
-      repositoryDir: env.CI_PROJECT_DIR,
+      projectDir: env.CI_PROJECT_DIR,
+      reporitoryUrl: env.CI_REPOSITORY_URL,
     };
-
-    console.log(">> config", config);
 
     return config;
   }
@@ -132,6 +118,16 @@ export class GitlabPlatformKit extends PlatformKit {
       pullRequestNumber,
       body,
     );
+  }
+
+  gitConfig(): Promise<void> | void {
+    const url = `https://gitlab-ci-token:${this.platformConfig.glToken}@gitlab.com/${this.platformConfig.repositoryOwner}/${this.platformConfig.repositoryName}.git`;
+    execSync(`git remote set-url origin ${url}`, {
+      stdio: "inherit",
+    });
+    execSync(`git checkout -b ${this.platformConfig.baseBranchName}`, {
+      stdio: "inherit",
+    });
   }
 
   buildPullRequestUrl(pullRequestNumber: number): string {

@@ -1,11 +1,13 @@
 import { execSync } from "child_process";
-import { IntegrationFlow } from "./_base.js";
+import { gitConfig, IntegrationFlow } from "./_base.js";
 
 export class InBranchFlow extends IntegrationFlow {
   async preRun() {
     this.ora.start("Configuring git");
-    this.configureGit();
+    const canContinue = this.configureGit();
     this.ora.succeed("Git configured");
+
+    return canContinue;
   }
 
   async run() {
@@ -17,6 +19,9 @@ export class InBranchFlow extends IntegrationFlow {
     const hasChanges = this.checkCommitableChanges();
     this.ora.succeed(hasChanges ? "Changes detected" : "No changes detected");
 
+    execSync(`git status`, { stdio: "inherit" });
+    execSync(`git branch`, { stdio: "inherit" });
+
     if (hasChanges) {
       this.ora.start("Committing changes");
       execSync(`git add .`, { stdio: "inherit" });
@@ -25,8 +30,13 @@ export class InBranchFlow extends IntegrationFlow {
       });
       this.ora.succeed("Changes committed");
 
+      execSync(`git remote -v`, { stdio: "inherit" });
+
       this.ora.start("Pushing changes to remote");
-      execSync(`git push origin HEAD --force`, { stdio: "inherit" });
+      execSync(
+        `git push origin ${this.platformKit.platformConfig.baseBranchName} --force`,
+        { stdio: "inherit" },
+      );
       this.ora.succeed("Changes pushed to remote");
     }
 
@@ -49,9 +59,20 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   private configureGit() {
-    execSync('git config --global user.name "Replexica"');
-    execSync('git config --global user.email "support@replexica.com"');
+    const currentAuthor = `${gitConfig.userName} <${gitConfig.userEmail}>`;
+    const authorOfLastCommit = execSync(
+      `git log -1 --pretty=format:'%an <%ae>'`,
+    ).toString();
+    if (authorOfLastCommit === currentAuthor) {
+      this.ora.fail(`The action will not run on commits by ${currentAuthor}`);
+      return false;
+    }
+
+    execSync(`git config --global user.name "${gitConfig.userName}"`);
+    execSync(`git config --global user.email "${gitConfig.userEmail}"`);
     execSync(`git config --global safe.directory ${process.cwd()}`);
     this.platformKit?.gitConfig();
+
+    return true;
   }
 }
