@@ -1,3 +1,8 @@
+import { execSync } from "child_process";
+import { entrypoint } from "./_base.js";
 import { GitlabPlatformKit } from "./platforms/gitlab.js";
 
-export const platformKit = new GitlabPlatformKit();
+(async function main() {
+  const gitlabKit = new GitlabPlatformKit();
+  // await entrypoint(gitlabKit);
+})();

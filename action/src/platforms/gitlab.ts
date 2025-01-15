@@ -2,39 +2,64 @@ import { Gitlab } from "@gitbeaker/rest";
 import Z from "zod";
 import { PlatformKit } from "./_base.js";
 
-interface GitlabPlatformConfig {
-  baseBranchName: string;
-  repositoryOwner: string;
-  repositoryName: string;
-  gitlabProjectId: string;
-}
+const gl = new Gitlab({ token: "" });
 
-export class GitlabPlatformKit extends PlatformKit<GitlabPlatformConfig> {
-  private gitlab: Gitlab;
+export class GitlabPlatformKit extends PlatformKit {
+  private _gitlab?: InstanceType<typeof Gitlab>;
 
   constructor() {
     super();
-    const token = process.env.GITLAB_TOKEN;
-    if (!token) {
-      throw new Error("GITLAB_TOKEN environment variable is required");
-    }
-    this.gitlab = new Gitlab({ token });
+
+    // change direcotry to current repository before executing replexica
+    process.chdir(this.platformConfig.repositoryDir);
   }
 
-  get platformConfig(): GitlabPlatformConfig {
+  get gitlab() {
+    if (!this._gitlab) {
+      this._gitlab = new Gitlab({
+        token: this.platformConfig.glToken || "",
+      });
+    }
+    return this._gitlab;
+  }
+
+  get platformConfig() {
     const env = Z.object({
-      GITLAB_BASE_BRANCH: Z.string(),
-      GITLAB_REPOSITORY_OWNER: Z.string(),
-      GITLAB_REPOSITORY_NAME: Z.string(),
-      GITLAB_PROJECT_ID: Z.string(),
+      GL_TOKEN: Z.string().optional(),
+      CI_COMMIT_BRANCH: Z.string(), // CI_DEFAULT_BRANCH ?
+      CI_PROJECT_PATH_SLUG: Z.string(),
+      CI_PROJECT_NAME: Z.string(),
+      CI_PROJECT_ID: Z.string(),
+      CI_PROJECT_DIR: Z.string(),
+      CI_REPOSITORY_URL: Z.string(),
     }).parse(process.env);
 
-    return {
-      baseBranchName: env.GITLAB_BASE_BRANCH,
-      repositoryOwner: env.GITLAB_REPOSITORY_OWNER,
-      repositoryName: env.GITLAB_REPOSITORY_NAME,
-      gitlabProjectId: env.GITLAB_PROJECT_ID,
+    console.log(">> CI_PROJECT_PATH", process.env.CI_PROJECT_PATH);
+    console.log(">> CI_PROJECT_URL", process.env.CI_PROJECT_URL);
+    console.log(">> CI_COMMIT_BRANCH", process.env.CI_COMMIT_BRANCH);
+    console.log(">> CI_PROJECT_DIR", process.env.CI_PROJECT_DIR);
+    console.log(">> CI_REPOSITORY_URL", process.env.CI_REPOSITORY_URL);
+    console.log(">> CI_PROJECT_ID", process.env.CI_PROJECT_ID);
+    console.log(">> CI_PROJECT_NAMESPACE", process.env.CI_PROJECT_NAMESPACE);
+    console.log(
+      ">> CI_PROJECT_NAMESPACE_ID",
+      process.env.CI_PROJECT_NAMESPACE_ID,
+    );
+    console.log(">> CI_PROJECT_PATH_SLUG", process.env.CI_PROJECT_PATH_SLUG);
+
+    const config = {
+      glToken: env.GL_TOKEN,
+      baseBranchName: env.CI_COMMIT_BRANCH,
+      repositoryOwner: env.CI_PROJECT_PATH_SLUG,
+      repositoryName: env.CI_PROJECT_NAME,
+      gitlabProjectId: env.CI_PROJECT_ID,
+      repoUrl: env.CI_REPOSITORY_URL,
+      repositoryDir: env.CI_PROJECT_DIR,
     };
+
+    console.log(">> config", config);
+
+    return config;
   }
 
   async branchExists({ branch }: { branch: string }): Promise<boolean> {

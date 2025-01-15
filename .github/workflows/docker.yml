@@ -7,6 +7,7 @@ on:
       - action/**
     branches:
       - main
+      - feat/gitlab
 
 jobs:
   docker:
@@ -23,11 +24,19 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build BitBucket image and push
+      # - name: Build BitBucket image and push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     push: true
+      #     platforms: linux/amd64
+      #     context: ./action
+      #     file: ./action/Dockerfile-bitbucket
+      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/bitbucket:latest
+      - name: Build Gitlab image and push
         uses: docker/build-push-action@v6
         with:
           push: true
           platforms: linux/amd64
           context: ./action
-          file: ./action/Dockerfile-bitbucket
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bitbucket:latest
+          file: ./action/Dockerfile-gitlab
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gitlab:v8

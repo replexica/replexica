@@ -1,25 +1,22 @@
-FROM node:20-alpine
+FROM node:20.12.2-alpine
 
+# Install git
+RUN apk add --no-cache git
+
+# Set working directory
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && \
-    pnpm install --frozen-lockfile
+# Copy necessary files
+COPY package*.json tsconfig.json /app
 
-COPY tsconfig.json ./
-COPY src ./src
+# Copy src directory
+COPY src /app/src
 
+# Install pnpm and dependencies
+RUN npm install -g pnpm && pnpm install
+
+# Build the TypeScript application
 RUN pnpm build
 
-ENV GITLAB_TOKEN=""
-ENV GITLAB_BASE_BRANCH=""
-ENV GITLAB_REPOSITORY_OWNER=""
-ENV GITLAB_REPOSITORY_NAME=""
-ENV GITLAB_PROJECT_ID=""
-
-ENV REPLEXICA_API_KEY=""
-ENV REPLEXICA_PULL_REQUEST=""
-ENV REPLEXICA_COMMIT_MESSAGE=""
-ENV REPLEXICA_PULL_REQUEST_TITLE=""
-
-CMD ["node", "build/gitlab.js"] 
+# Run the Node.js / TypeScript application
+ENTRYPOINT ["node", "/app/build/gitlab.js"]
