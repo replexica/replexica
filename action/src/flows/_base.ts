@@ -1,6 +1,5 @@
 import { Ora } from "ora";
-import loadOctokit from "../instances/octokit.js";
-import loadConfig from "../instances/config.js";
+import { PlatformKit } from "../platforms/_base.js";
 
 export interface IIntegrationFlow {
   preRun?(): Promise<void>;
@@ -11,8 +10,7 @@ export interface IIntegrationFlow {
 export abstract class IntegrationFlow implements IIntegrationFlow {
   constructor(
     protected ora: Ora,
-    protected octokit: Awaited<ReturnType<typeof loadOctokit>>,
-    protected config: Awaited<ReturnType<typeof loadConfig>>,
+    protected platformKit: PlatformKit,
   ) {}
 
   abstract run(): Promise<boolean>;

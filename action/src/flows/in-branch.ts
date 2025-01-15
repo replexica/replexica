@@ -20,7 +20,7 @@ export class InBranchFlow extends IntegrationFlow {
     if (hasChanges) {
       this.ora.start("Committing changes");
       execSync(`git add .`, { stdio: "inherit" });
-      execSync(`git commit -m "${this.config.commitMessage}"`, {
+      execSync(`git commit -m "${this.platformKit.config.commitMessage}"`, {
         stdio: "inherit",
       });
       this.ora.succeed("Changes committed");
@@ -43,7 +43,7 @@ export class InBranchFlow extends IntegrationFlow {
 
   private async runReplexica() {
     execSync(
-      `npx replexica@latest i18n --api-key ${this.config.replexicaApiKey}`,
+      `npx replexica@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`,
       { stdio: "inherit" },
     );
   }
@@ -52,5 +52,6 @@ export class InBranchFlow extends IntegrationFlow {
     execSync('git config --global user.name "Replexica"');
     execSync('git config --global user.email "support@replexica.com"');
     execSync(`git config --global safe.directory ${process.cwd()}`);
+    this.platformKit?.gitConfig();
   }
 }

@@ -4,6 +4,7 @@
     "build": "tsc"
   },
   "dependencies": {
+    "bitbucket": "^2.12.0",
     "octokit": "^4.0.2",
     "ora": "^8.1.0",
     "zod": "^3.23.8"
