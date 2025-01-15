@@ -1,6 +1,6 @@
 {
   project: "146425",
   model: "test_model",
-  fields: ["single_block", "multiple_blocks"],
+  fields: ["single_block"],
   records: ["SZq8PfPOS321fA9UzZEqnA"],
 }
