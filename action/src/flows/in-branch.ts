@@ -25,8 +25,6 @@ export class InBranchFlow extends IntegrationFlow {
       });
       this.ora.succeed("Changes committed");
 
-      this.platformKit.preCommit();
-
       this.ora.start("Pushing changes to remote");
       execSync(`git push origin HEAD --force`, { stdio: "inherit" });
       this.ora.succeed("Changes pushed to remote");
@@ -54,5 +52,6 @@ export class InBranchFlow extends IntegrationFlow {
     execSync('git config --global user.name "Replexica"');
     execSync('git config --global user.email "support@replexica.com"');
     execSync(`git config --global safe.directory ${process.cwd()}`);
+    this.platformKit?.gitConfig();
   }
 }

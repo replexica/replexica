@@ -12,25 +12,29 @@ export abstract class PlatformKit<
   abstract branchExists(props: { branch: string }): Promise<boolean>;
 
   abstract getOpenPullRequestNumber(props: {
-    head: string;
+    branch: string;
   }): Promise<number | undefined>;
 
-  abstract closePullRequest(props: { pull_number: number }): Promise<void>;
+  abstract closePullRequest(props: {
+    pullRequestNumber: number;
+  }): Promise<void>;
 
   abstract createPullRequest(props: {
     head: string;
     title: string;
     body?: string;
-  }): Promise<number | undefined>;
+  }): Promise<number>;
 
   abstract commentOnPullRequest(props: {
-    issue_number: number;
+    pullRequestNumber: number;
     body: string;
   }): Promise<void>;
 
-  abstract preCommit(): Promise<void>;
-
   abstract get platformConfig(): PlatformConfig;
+
+  abstract buildPullRequestUrl(pullRequestNumber: number): string;
+
+  gitConfig(): Promise<void> | void {}
 
   get config() {
     const env = Z.object({

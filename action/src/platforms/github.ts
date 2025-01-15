@@ -24,10 +24,10 @@ export class GitHubPlatformKit extends PlatformKit {
       .catch((r) => (r.status === 404 ? false : Promise.reject(r)));
   }
 
-  async getOpenPullRequestNumber({ head }: { head: string }) {
+  async getOpenPullRequestNumber({ branch }: { branch: string }) {
     return await this.octokit.rest.pulls
       .list({
-        head,
+        head: `${this.platformConfig.repositoryOwner}:${branch}`,
         owner: this.platformConfig.repositoryOwner,
         repo: this.platformConfig.repositoryName,
         base: this.platformConfig.baseBranchName,
@@ -37,9 +37,9 @@ export class GitHubPlatformKit extends PlatformKit {
       .then((pr) => pr?.number);
   }
 
-  async closePullRequest({ pull_number }: { pull_number: number }) {
+  async closePullRequest({ pullRequestNumber }: { pullRequestNumber: number }) {
     await this.octokit.rest.pulls.update({
-      pull_number,
+      pull_number: pullRequestNumber,
       owner: this.platformConfig.repositoryOwner,
       repo: this.platformConfig.repositoryName,
       state: "closed",
@@ -55,41 +55,38 @@ export class GitHubPlatformKit extends PlatformKit {
     title: string;
     body?: string;
   }) {
-    const pr = await this.octokit.rest.pulls.create({
-      head,
-      title,
-      body,
-      owner: this.platformConfig.repositoryOwner,
-      repo: this.platformConfig.repositoryName,
-      base: this.platformConfig.baseBranchName,
-    });
-    return pr.data.number;
+    return await this.octokit.rest.pulls
+      .create({
+        head,
+        title,
+        body,
+        owner: this.platformConfig.repositoryOwner,
+        repo: this.platformConfig.repositoryName,
+        base: this.platformConfig.baseBranchName,
+      })
+      .then(({ data }) => data.number);
   }
 
   async commentOnPullRequest({
-    issue_number,
+    pullRequestNumber,
     body,
   }: {
-    issue_number: number;
+    pullRequestNumber: number;
     body: string;
   }) {
     await this.octokit.rest.issues.createComment({
-      issue_number,
+      issue_number: pullRequestNumber,
       body,
       owner: this.platformConfig.repositoryOwner,
       repo: this.platformConfig.repositoryName,
     });
   }
-
-  async preCommit(): Promise<void> {}
 
   get platformConfig() {
     const env = Z.object({
       GITHUB_REPOSITORY: Z.string(),
       GITHUB_REPOSITORY_OWNER: Z.string(),
-      GITHUB_REF: Z.string(),
       GITHUB_REF_NAME: Z.string(),
-      GITHUB_HEAD_REF: Z.string(),
       GH_TOKEN: Z.string().optional(),
     }).parse(process.env);
 
@@ -97,8 +94,12 @@ export class GitHubPlatformKit extends PlatformKit {
       ghToken: env.GH_TOKEN,
       baseBranchName: env.GITHUB_REF_NAME,
       repositoryOwner: env.GITHUB_REPOSITORY_OWNER,
-      repositoryFullName: env.GITHUB_REPOSITORY,
       repositoryName: env.GITHUB_REPOSITORY.split("/")[1],
     };
+  }
+
+  buildPullRequestUrl(pullRequestNumber: number) {
+    const { repositoryOwner, repositoryName } = this.platformConfig;
+    return `https://github.com/${repositoryOwner}/${repositoryName}/pull/${pullRequestNumber}`;
   }
 }

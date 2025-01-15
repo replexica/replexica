@@ -45,7 +45,7 @@ export class PullRequestFlow extends InBranchFlow {
     const pullRequestNumber = await this.ensureFreshPr(this.i18nBranchName);
     // await this.createLabelIfNotExists(pullRequestNumber, 'replexica/i18n', false);
     this.ora.succeed(
-      `Pull request ready: https://github.com/${this.platformKit.platformConfig.repositoryOwner}/${this.platformKit.platformConfig.repositoryName}/pull/${pullRequestNumber}`,
+      `Pull request ready: ${this.platformKit.buildPullRequestUrl(pullRequestNumber)}`,
     );
   }
 
@@ -54,11 +54,9 @@ export class PullRequestFlow extends InBranchFlow {
   }
 
   private async checkBranchExistance(prBranchName: string) {
-    const result = await this.platformKit.branchExists({
+    return this.platformKit.branchExists({
       branch: prBranchName,
     });
-
-    return result;
   }
 
   private async ensureFreshPr(i18nBranchName: string) {
@@ -67,7 +65,7 @@ export class PullRequestFlow extends InBranchFlow {
       `Checking for existing PR with head ${i18nBranchName} and base ${this.platformKit.platformConfig.baseBranchName}`,
     );
     const existingPrNumber = await this.platformKit.getOpenPullRequestNumber({
-      head: `${this.platformKit.platformConfig.repositoryOwner}:${i18nBranchName}`,
+      branch: i18nBranchName,
     });
     this.ora.succeed(existingPrNumber ? "PR found" : "No PR found");
 
@@ -75,7 +73,7 @@ export class PullRequestFlow extends InBranchFlow {
       // Close existing PR first
       this.ora.start(`Closing existing PR ${existingPrNumber}`);
       await this.platformKit.closePullRequest({
-        pull_number: existingPrNumber,
+        pullRequestNumber: existingPrNumber,
       });
       this.ora.succeed(`Closed existing PR ${existingPrNumber}`);
     }
@@ -93,8 +91,8 @@ export class PullRequestFlow extends InBranchFlow {
       // Post comment about outdated PR
       this.ora.start(`Posting comment about outdated PR ${existingPrNumber}`);
       await this.platformKit.commentOnPullRequest({
-        issue_number: existingPrNumber,
-        body: `This PR is now outdated. A new version has been created at #${newPrNumber}`,
+        pullRequestNumber: existingPrNumber,
+        body: `This PR is now outdated. A new version has been created at ${this.platformKit.buildPullRequestUrl(newPrNumber)}`,
       });
       this.ora.succeed(`Posted comment about outdated PR ${existingPrNumber}`);
     }
@@ -104,15 +102,15 @@ export class PullRequestFlow extends InBranchFlow {
 
   private checkoutI18nBranch(i18nBranchName: string) {
     execSync(`git fetch origin ${i18nBranchName}`, { stdio: "inherit" });
-    execSync(`git checkout ${i18nBranchName}`, { stdio: "inherit" });
+    execSync(`git checkout -b ${i18nBranchName}`, {
+      stdio: "inherit",
+    });
   }
 
   private createI18nBranch(i18nBranchName: string) {
     execSync(
       `git fetch origin ${this.platformKit.platformConfig.baseBranchName}`,
-      {
-        stdio: "inherit",
-      },
+      { stdio: "inherit" },
     );
     execSync(
       `git checkout -b ${i18nBranchName} origin/${this.platformKit.platformConfig.baseBranchName}`,
@@ -130,9 +128,7 @@ export class PullRequestFlow extends InBranchFlow {
     );
     execSync(
       `git fetch origin ${this.platformKit.platformConfig.baseBranchName}`,
-      {
-        stdio: "inherit",
-      },
+      { stdio: "inherit" },
     );
     this.ora.succeed(
       `Fetched latest changes from ${this.platformKit.platformConfig.baseBranchName}`,
@@ -142,9 +138,7 @@ export class PullRequestFlow extends InBranchFlow {
       this.ora.start("Attempting to rebase branch");
       execSync(
         `git rebase origin/${this.platformKit.platformConfig.baseBranchName}`,
-        {
-          stdio: "inherit",
-        },
+        { stdio: "inherit" },
       );
       this.ora.succeed("Successfully rebased branch");
     } catch (error) {
@@ -159,9 +153,7 @@ export class PullRequestFlow extends InBranchFlow {
       );
       execSync(
         `git reset --hard origin/${this.platformKit.platformConfig.baseBranchName}`,
-        {
-          stdio: "inherit",
-        },
+        { stdio: "inherit" },
       );
       this.ora.succeed(
         `Reset to ${this.platformKit.platformConfig.baseBranchName}`,
