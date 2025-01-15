@@ -7,8 +7,11 @@ import { PlatformKit } from "./platforms/_base.js";
 
 export async function entrypoint(platformKit: PlatformKit) {
   const ora = createOra();
+  const { isPullRequestMode } = platformKit.config;
 
-  const flow: IIntegrationFlow = platformKit.config.isPullRequestMode
+  ora.info(`Pull request mode: ${isPullRequestMode ? "on" : "off"}`);
+
+  const flow: IIntegrationFlow = isPullRequestMode
     ? new PullRequestFlow(ora, platformKit)
     : new InBranchFlow(ora, platformKit);
 

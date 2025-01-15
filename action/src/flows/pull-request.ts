@@ -22,7 +22,9 @@ export class PullRequestFlow extends InBranchFlow {
       this.checkoutI18nBranch(this.i18nBranchName);
       this.ora.succeed(`Checked out branch ${this.i18nBranchName}`);
 
-      this.ora.start(`Syncing with ${this.config.baseBranchName}`);
+      this.ora.start(
+        `Syncing with ${this.platformKit.platformConfig.baseBranchName}`,
+      );
       this.syncI18nBranch();
       this.ora.succeed(`Checked out and synced branch ${this.i18nBranchName}`);
     } else {
@@ -43,18 +45,16 @@ export class PullRequestFlow extends InBranchFlow {
     const pullRequestNumber = await this.ensureFreshPr(this.i18nBranchName);
     // await this.createLabelIfNotExists(pullRequestNumber, 'replexica/i18n', false);
     this.ora.succeed(
-      `Pull request ready: https://github.com/${this.config.repositoryOwner}/${this.config.repositoryName}/pull/${pullRequestNumber}`,
+      `Pull request ready: https://github.com/${this.platformKit.platformConfig.repositoryOwner}/${this.platformKit.platformConfig.repositoryName}/pull/${pullRequestNumber}`,
     );
   }
 
   private calculatePrBranchName(): string {
-    return `replexica/${this.config.baseBranchName}`;
+    return `replexica/${this.platformKit.platformConfig.baseBranchName}`;
   }
 
   private async checkBranchExistance(prBranchName: string) {
-    const result = await this.octokit.branchExists({
-      owner: this.config.repositoryOwner,
-      repo: this.config.repositoryName,
+    const result = await this.platformKit.branchExists({
       branch: prBranchName,
     });
 
@@ -64,22 +64,17 @@ export class PullRequestFlow extends InBranchFlow {
   private async ensureFreshPr(i18nBranchName: string) {
     // Check if PR exists
     this.ora.start(
-      `Checking for existing PR with head ${i18nBranchName} and base ${this.config.baseBranchName}`,
+      `Checking for existing PR with head ${i18nBranchName} and base ${this.platformKit.platformConfig.baseBranchName}`,
     );
-    const existingPrNumber = await this.octokit.getOpenPullRequestNumber({
-      owner: this.config.repositoryOwner,
-      repo: this.config.repositoryName,
-      head: `${this.config.repositoryOwner}:${i18nBranchName}`,
-      base: this.config.baseBranchName,
+    const existingPrNumber = await this.platformKit.getOpenPullRequestNumber({
+      head: `${this.platformKit.platformConfig.repositoryOwner}:${i18nBranchName}`,
     });
     this.ora.succeed(existingPrNumber ? "PR found" : "No PR found");
 
     if (existingPrNumber) {
       // Close existing PR first
       this.ora.start(`Closing existing PR ${existingPrNumber}`);
-      await this.octokit.closePullRequest({
-        owner: this.config.repositoryOwner,
-        repo: this.config.repositoryName,
+      await this.platformKit.closePullRequest({
         pull_number: existingPrNumber,
       });
       this.ora.succeed(`Closed existing PR ${existingPrNumber}`);
@@ -87,12 +82,9 @@ export class PullRequestFlow extends InBranchFlow {
 
     // Create new PR
     this.ora.start(`Creating new PR`);
-    const newPrNumber = await this.octokit.createPullRequest({
-      owner: this.config.repositoryOwner,
-      repo: this.config.repositoryName,
+    const newPrNumber = await this.platformKit.createPullRequest({
       head: i18nBranchName,
-      base: this.config.baseBranchName,
-      title: this.config.pullRequestTitle,
+      title: this.platformKit.config.pullRequestTitle,
       body: this.getPrBodyContent(),
     });
     this.ora.succeed(`Created new PR ${newPrNumber}`);
@@ -100,9 +92,7 @@ export class PullRequestFlow extends InBranchFlow {
     if (existingPrNumber) {
       // Post comment about outdated PR
       this.ora.start(`Posting comment about outdated PR ${existingPrNumber}`);
-      await this.octokit.commentOnPullRequest({
-        owner: this.config.repositoryOwner,
-        repo: this.config.repositoryName,
+      await this.platformKit.commentOnPullRequest({
         issue_number: existingPrNumber,
         body: `This PR is now outdated. A new version has been created at #${newPrNumber}`,
       });
@@ -118,11 +108,14 @@ export class PullRequestFlow extends InBranchFlow {
   }
 
   private createI18nBranch(i18nBranchName: string) {
-    execSync(`git fetch origin ${this.config.baseBranchName}`, {
-      stdio: "inherit",
-    });
     execSync(
-      `git checkout -b ${i18nBranchName} origin/${this.config.baseBranchName}`,
+      `git fetch origin ${this.platformKit.platformConfig.baseBranchName}`,
+      {
+        stdio: "inherit",
+      },
+    );
+    execSync(
+      `git checkout -b ${i18nBranchName} origin/${this.platformKit.platformConfig.baseBranchName}`,
       { stdio: "inherit" },
     );
   }
@@ -133,20 +126,26 @@ export class PullRequestFlow extends InBranchFlow {
     }
 
     this.ora.start(
-      `Fetching latest changes from ${this.config.baseBranchName}`,
+      `Fetching latest changes from ${this.platformKit.platformConfig.baseBranchName}`,
     );
-    execSync(`git fetch origin ${this.config.baseBranchName}`, {
-      stdio: "inherit",
-    });
+    execSync(
+      `git fetch origin ${this.platformKit.platformConfig.baseBranchName}`,
+      {
+        stdio: "inherit",
+      },
+    );
     this.ora.succeed(
-      `Fetched latest changes from ${this.config.baseBranchName}`,
+      `Fetched latest changes from ${this.platformKit.platformConfig.baseBranchName}`,
     );
 
     try {
       this.ora.start("Attempting to rebase branch");
-      execSync(`git rebase origin/${this.config.baseBranchName}`, {
-        stdio: "inherit",
-      });
+      execSync(
+        `git rebase origin/${this.platformKit.platformConfig.baseBranchName}`,
+        {
+          stdio: "inherit",
+        },
+      );
       this.ora.succeed("Successfully rebased branch");
     } catch (error) {
       this.ora.warn("Rebase failed, falling back to alternative sync method");
@@ -155,16 +154,23 @@ export class PullRequestFlow extends InBranchFlow {
       execSync("git rebase --abort", { stdio: "inherit" });
       this.ora.succeed("Aborted failed rebase");
 
-      this.ora.start(`Resetting to ${this.config.baseBranchName}`);
-      execSync(`git reset --hard origin/${this.config.baseBranchName}`, {
-        stdio: "inherit",
-      });
-      this.ora.succeed(`Reset to ${this.config.baseBranchName}`);
+      this.ora.start(
+        `Resetting to ${this.platformKit.platformConfig.baseBranchName}`,
+      );
+      execSync(
+        `git reset --hard origin/${this.platformKit.platformConfig.baseBranchName}`,
+        {
+          stdio: "inherit",
+        },
+      );
+      this.ora.succeed(
+        `Reset to ${this.platformKit.platformConfig.baseBranchName}`,
+      );
 
       this.ora.start("Restoring target files");
       const targetFiles = ["i18n.lock"];
       const targetFileNames = execSync(
-        `npx replexica@latest show files --target ${this.config.baseBranchName}`,
+        `npx replexica@latest show files --target ${this.platformKit.platformConfig.baseBranchName}`,
         { encoding: "utf8" },
       )
         .split("\n")
@@ -189,7 +195,7 @@ export class PullRequestFlow extends InBranchFlow {
     if (hasChanges) {
       execSync("git add .", { stdio: "inherit" });
       execSync(
-        `git commit -m "chore: sync with ${this.config.baseBranchName}"`,
+        `git commit -m "chore: sync with ${this.platformKit.platformConfig.baseBranchName}"`,
         { stdio: "inherit" },
       );
       this.ora.succeed("Committed additional changes");

@@ -1,23 +1,36 @@
 import Z from "zod";
 
-export abstract class PlatformKit {
-  abstract branchExists(props: {
-    branch: string;
-  }): Promise<boolean>;
+interface BasePlatformConfig {
+  baseBranchName: string;
+  repositoryOwner: string;
+  repositoryName: string;
+}
+
+export abstract class PlatformKit<
+  PlatformConfig extends BasePlatformConfig = BasePlatformConfig,
+> {
+  abstract branchExists(props: { branch: string }): Promise<boolean>;
 
   abstract getOpenPullRequestNumber(props: {
     head: string;
   }): Promise<number | undefined>;
 
-  abstract closePullRequest(props: {
-    pull_number: number;
+  abstract closePullRequest(props: { pull_number: number }): Promise<void>;
+
+  abstract createPullRequest(props: {
+    head: string;
+    title: string;
+    body?: string;
+  }): Promise<number | undefined>;
+
+  abstract commentOnPullRequest(props: {
+    issue_number: number;
+    body: string;
   }): Promise<void>;
 
-  abstract createPullRequest(props: any): Promise<number | undefined>;
-
-  abstract commentOnPullRequest(props: any): Promise<void>;
-
   abstract preCommit(): Promise<void>;
+
+  abstract get platformConfig(): PlatformConfig;
 
   get config() {
     const env = Z.object({

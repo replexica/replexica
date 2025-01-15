@@ -12,10 +12,10 @@ export class GitHubPlatformKit extends PlatformKit {
     return this._octokit;
   }
 
-  async branchExists(props: { branch: string; }) {
+  async branchExists({ branch }: { branch: string }) {
     return await this.octokit.rest.repos
       .getBranch({
-        ...props,
+        branch,
         owner: this.platformConfig.repositoryOwner,
         repo: this.platformConfig.repositoryName,
       })
@@ -24,46 +24,58 @@ export class GitHubPlatformKit extends PlatformKit {
       .catch((r) => (r.status === 404 ? false : Promise.reject(r)));
   }
 
-  async getOpenPullRequestNumber(props: { head: string; }) {
-    const pr = await this.octokit.rest.pulls
+  async getOpenPullRequestNumber({ head }: { head: string }) {
+    return await this.octokit.rest.pulls
       .list({
-        ...props,
+        head,
         owner: this.platformConfig.repositoryOwner,
         repo: this.platformConfig.repositoryName,
         base: this.platformConfig.baseBranchName,
         state: "open",
       })
-      .then(({ data }) => data[0]);
-    return pr?.number;
+      .then(({ data }) => data[0])
+      .then((pr) => pr?.number);
   }
 
-  async closePullRequest(props: { pull_number: number; }) {
+  async closePullRequest({ pull_number }: { pull_number: number }) {
     await this.octokit.rest.pulls.update({
-      ...props,
+      pull_number,
       owner: this.platformConfig.repositoryOwner,
       repo: this.platformConfig.repositoryName,
       state: "closed",
     });
   }
 
-  async createPullRequest(props: {
-    owner: string;
-    repo: string;
+  async createPullRequest({
+    head,
+    title,
+    body,
+  }: {
     head: string;
-    base: string;
     title: string;
     body?: string;
-  }): Promise<number | undefined> {
-    const pr = await this.octokit.rest.pulls.create(props);
+  }) {
+    const pr = await this.octokit.rest.pulls.create({
+      head,
+      title,
+      body,
+      owner: this.platformConfig.repositoryOwner,
+      repo: this.platformConfig.repositoryName,
+      base: this.platformConfig.baseBranchName,
+    });
     return pr.data.number;
   }
 
-  async commentOnPullRequest(props: {
+  async commentOnPullRequest({
+    issue_number,
+    body,
+  }: {
     issue_number: number;
     body: string;
   }) {
     await this.octokit.rest.issues.createComment({
-      ...props,
+      issue_number,
+      body,
       owner: this.platformConfig.repositoryOwner,
       repo: this.platformConfig.repositoryName,
     });
