@@ -1,6 +1,6 @@
 import { Ora } from "ora";
-import loadOctokit from "../instances/octokit.js";
-import loadConfig from "../instances/config.js";
+import loadOctokit from "../platforms/github.js";
+import loadConfig from "../platforms/config.js";
 
 export interface IIntegrationFlow {
   preRun?(): Promise<void>;

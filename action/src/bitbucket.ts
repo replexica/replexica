@@ -6,7 +6,7 @@ import { IIntegrationFlow } from "./flows/_base.js";
 import { PullRequestFlow } from "./flows/pull-request.js";
 import { InBranchFlow } from "./flows/in-branch.js";
 import Z from "zod";
-import loadOctokit from "./instances/octokit.js";
+import loadOctokit from "./platforms/github.js";
 
 const { Bitbucket } = bbLib;
 
