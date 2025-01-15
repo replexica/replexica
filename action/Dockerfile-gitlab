@@ -1,0 +1,25 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && \
+    pnpm install --frozen-lockfile
+
+COPY tsconfig.json ./
+COPY src ./src
+
+RUN pnpm build
+
+ENV GITLAB_TOKEN=""
+ENV GITLAB_BASE_BRANCH=""
+ENV GITLAB_REPOSITORY_OWNER=""
+ENV GITLAB_REPOSITORY_NAME=""
+ENV GITLAB_PROJECT_ID=""
+
+ENV REPLEXICA_API_KEY=""
+ENV REPLEXICA_PULL_REQUEST=""
+ENV REPLEXICA_COMMIT_MESSAGE=""
+ENV REPLEXICA_PULL_REQUEST_TITLE=""
+
+CMD ["node", "build/gitlab.js"] 
