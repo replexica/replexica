@@ -153,7 +153,7 @@ checksums:
     date_format: c4137fde368529804b9c43edb293f521
     multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
   250a4a9b39c8b90557bd4f761e5f3cbb:
-    greeting: 5a06f8dbe2138bc2d66dd20061d3358a
+    greeting: fcfe23a1d5ab68ef07057a39827cbda2
     welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
     items_count/zero: 955c31a42e9ff663a49e69e944c8c537
     items_count/one: 154c8eed472b867c8d5af66d162abd2c

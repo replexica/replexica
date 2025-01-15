@@ -5,7 +5,7 @@ import {
 } from "@replexica/spec";
 import { ReplexicaEngine } from "@replexica/sdk";
 import { Command } from "commander";
-import Z, { any } from "zod";
+import Z from "zod";
 import _ from "lodash";
 import { getConfig } from "../utils/config";
 import { getSettings } from "../utils/settings";
@@ -127,24 +127,29 @@ export default new Command()
               `Processing path: ${pathPattern}`,
             );
 
+            const bucketLoader = createBucketLoader(
+              bucket.type,
+              pathPattern,
+            );
+            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+            let sourceData = await bucketLoader.pull(
+              i18nConfig!.locale.source,
+            );
+
             for (const targetLocale of targetLocales) {
               try {
-                const bucketLoader = createBucketLoader(
-                  bucket.type,
-                  pathPattern,
+                bucketOra.start(
+                  `[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`,
                 );
-                bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
-                const sourceData = await bucketLoader.pull(
+                sourceData = await bucketLoader.pull(
                   i18nConfig!.locale.source,
                 );
+
                 const updatedSourceData = flags.force
                   ? sourceData
                   : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
-                bucketOra.start(
-                  `[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`,
-                );
                 const targetData = await bucketLoader.pull(targetLocale);
                 const processableData = calculateDataDelta({
                   sourceData,
@@ -217,8 +222,6 @@ export default new Command()
                     `[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed (no changes).`,
                   );
                 }
-
-                lockfileHelper.registerSourceData(pathPattern, sourceData);
               } catch (_error: any) {
                 const error = new Error(
                   `[${i18nConfig!.locale.source} -> ${targetLocale}] Localization failed: ${_error.message}`,
@@ -231,6 +234,8 @@ export default new Command()
                 }
               }
             }
+
+            lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
         } catch (_error: any) {
           const error = new Error(

@@ -24,21 +24,6 @@ export function composeLoaders(
       }
       return result;
     },
-    // onStart: async () => {
-    //   for (let i = 0; i < loaders.length; i++) {
-    //     await loaders[i].onStart?.();
-    //   }
-    // },
-    // onProgress: async (current, total) => {
-    //   for (let i = 0; i < loaders.length; i++) {
-    //     await loaders[i].onProgress?.(current, total);
-    //   }
-    // },
-    // onEnd: async () => {
-    //   for (let i = loaders.length - 1; i >= 0; i--) {
-    //     await loaders[i].onEnd?.();
-    //   }
-    // },
   };
 }
 
@@ -80,14 +65,5 @@ export function createLoader<I, O>(
 
       return lDefinition.push(locale, data, state.originalInput);
     },
-    // async onStart() {
-    //   await lDefinition.onStart?.();
-    // },
-    // async onProgress(current, total) {
-    //   await lDefinition.onProgress?.(current, total);
-    // },
-    // async onEnd() {
-    //   await lDefinition.onEnd?.();
-    // },
   } as ILoader<I, O>;
 }
