@@ -26,6 +26,7 @@ export default new Command()
   .helpOption("-h, --help", "Show help")
   .option("--locale <locale>", "Locale to process")
   .option("--bucket <bucket>", "Bucket to process")
+  .option("--key <key>", "Key to process")
   .option(
     "--frozen",
     `Don't update the translations and fail if an update is needed`,
@@ -127,14 +128,9 @@ export default new Command()
               `Processing path: ${pathPattern}`,
             );
 
-            const bucketLoader = createBucketLoader(
-              bucket.type,
-              pathPattern,
-            );
+            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
             bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
-            let sourceData = await bucketLoader.pull(
-              i18nConfig!.locale.source,
-            );
+            let sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
 
             for (const targetLocale of targetLocales) {
               try {
@@ -142,9 +138,14 @@ export default new Command()
                   `[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`,
                 );
 
-                sourceData = await bucketLoader.pull(
-                  i18nConfig!.locale.source,
-                );
+                sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+
+                if (flags.key) {
+                  sourceData = _.pickBy(
+                    sourceData,
+                    (_, key) => key === flags.key,
+                  );
+                }
 
                 const updatedSourceData = flags.force
                   ? sourceData
@@ -357,6 +358,7 @@ function parseFlags(options: any) {
     frozen: Z.boolean().optional(),
     verbose: Z.boolean().optional(),
     strict: Z.boolean().optional(),
+    key: Z.string().optional(),
     interactive: Z.boolean().default(false),
   }).parse(options);
 }
