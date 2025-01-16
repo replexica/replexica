@@ -7,7 +7,6 @@ on:
       - action/**
     branches:
       - main
-      - feat/gitlab
 
 jobs:
   docker:
@@ -31,4 +30,4 @@ jobs:
           platforms: linux/amd64
           context: ./action
           file: ./action/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ci:v16
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ci-action:latest

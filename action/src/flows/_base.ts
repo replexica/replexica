@@ -8,6 +8,8 @@ export interface IIntegrationFlow {
 }
 
 export abstract class IntegrationFlow implements IIntegrationFlow {
+  protected i18nBranchName?: string;
+
   constructor(
     protected ora: Ora,
     protected platformKit: PlatformKit,

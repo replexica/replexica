@@ -2,8 +2,6 @@ import { execSync } from "child_process";
 import { InBranchFlow } from "./in-branch.js";
 
 export class PullRequestFlow extends InBranchFlow {
-  private i18nBranchName?: string;
-
   async preRun() {
     const canContinue = await super.preRun?.();
     if (!canContinue) {
