@@ -87,13 +87,17 @@ export class GitHubPlatformKit extends PlatformKit {
       GITHUB_REPOSITORY: Z.string(),
       GITHUB_REPOSITORY_OWNER: Z.string(),
       GITHUB_REF_NAME: Z.string(),
-      GITHUB_HEAD_REF: Z.string().optional(),
+      GITHUB_HEAD_REF: Z.string(),
       GH_TOKEN: Z.string().optional(),
     }).parse(process.env);
 
+    const baseBranchName = !env.GITHUB_REF_NAME.endsWith("/merge")
+      ? env.GITHUB_REF_NAME
+      : env.GITHUB_HEAD_REF;
+
     return {
       ghToken: env.GH_TOKEN,
-      baseBranchName: env.GITHUB_HEAD_REF ?? env.GITHUB_REF_NAME,
+      baseBranchName,
       repositoryOwner: env.GITHUB_REPOSITORY_OWNER,
       repositoryName: env.GITHUB_REPOSITORY.split("/")[1],
     };
