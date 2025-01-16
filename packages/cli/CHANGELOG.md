@@ -1,5 +1,11 @@
 # replexica
 
+## 0.63.0
+
+### Minor Changes
+
+- [`db2e800`](https://github.com/replexica/replexica/commit/db2e80013e44b478331b6a97008b3e67bae82a1f) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add --key flag for selective updates
+
 ## 0.62.0
 
 ### Minor Changes
