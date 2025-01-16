@@ -27,7 +27,8 @@ export class GitlabPlatformKit extends PlatformKit {
   get platformConfig() {
     const env = Z.object({
       GL_TOKEN: Z.string().optional(),
-      CI_COMMIT_BRANCH: Z.string(), // CI_DEFAULT_BRANCH ?
+      CI_COMMIT_BRANCH: Z.string(),
+      CI_MERGE_REQUEST_SOURCE_BRANCH_NAME: Z.string().optional(),
       CI_PROJECT_NAMESPACE: Z.string(),
       CI_PROJECT_NAME: Z.string(),
       CI_PROJECT_ID: Z.string(),
@@ -37,7 +38,8 @@ export class GitlabPlatformKit extends PlatformKit {
 
     const config = {
       glToken: env.GL_TOKEN,
-      baseBranchName: env.CI_COMMIT_BRANCH,
+      baseBranchName:
+        env.CI_MERGE_REQUEST_SOURCE_BRANCH_NAME ?? env.CI_COMMIT_BRANCH,
       repositoryOwner: env.CI_PROJECT_NAMESPACE,
       repositoryName: env.CI_PROJECT_NAME,
       gitlabProjectId: env.CI_PROJECT_ID,

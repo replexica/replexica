@@ -23,7 +23,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build BitBucket image and push
+      - name: Build Docker image and push
         uses: docker/build-push-action@v6
         with:
           push: true
