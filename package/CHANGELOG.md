@@ -1,5 +1,16 @@
 # replexica
 
+## 0.62.0
+
+### Minor Changes
+
+- [`302afdf`](https://github.com/replexica/replexica/commit/302afdfd3047b781bd9688921eab3dc84173aa20) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - handle C specifiers in localizable content
+
+### Patch Changes
+
+- Updated dependencies [[`302afdf`](https://github.com/replexica/replexica/commit/302afdfd3047b781bd9688921eab3dc84173aa20)]:
+  - @replexica/cli@0.62.0
+
 ## 0.61.0
 
 ### Minor Changes
