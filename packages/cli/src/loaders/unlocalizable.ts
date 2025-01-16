@@ -17,7 +17,7 @@ export default function createUnlocalizableLoader(): ILoader<
             (v: string) => isDate(v),
             (v: string) => isNumber(v),
             (v: string) => isBoolean(v),
-            (v: string) => _isCSpecifier(v),
+            (v: string) => _isCSpecifier(v.trim()),
           ].some((fn) => fn(value));
         })
         .map(([key, _]) => key);
