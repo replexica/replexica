@@ -29,5 +29,5 @@ jobs:
           push: true
           platforms: linux/amd64
           context: ./action
-          file: ./action/Dockerfile-bitbucket
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bitbucket:latest
+          file: ./action/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ci-action:latest

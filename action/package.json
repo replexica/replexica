@@ -4,6 +4,7 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@gitbeaker/rest": "^39.34.3",
     "bitbucket": "^2.12.0",
     "octokit": "^4.0.2",
     "ora": "^8.1.0",

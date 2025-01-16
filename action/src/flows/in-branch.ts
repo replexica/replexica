@@ -1,11 +1,13 @@
 import { execSync } from "child_process";
-import { IntegrationFlow } from "./_base.js";
+import { gitConfig, IntegrationFlow } from "./_base.js";
 
 export class InBranchFlow extends IntegrationFlow {
   async preRun() {
     this.ora.start("Configuring git");
-    this.configureGit();
+    const canContinue = this.configureGit();
     this.ora.succeed("Git configured");
+
+    return canContinue;
   }
 
   async run() {
@@ -26,7 +28,11 @@ export class InBranchFlow extends IntegrationFlow {
       this.ora.succeed("Changes committed");
 
       this.ora.start("Pushing changes to remote");
-      execSync(`git push origin HEAD --force`, { stdio: "inherit" });
+      const currentBranch =
+        this.i18nBranchName ?? this.platformKit.platformConfig.baseBranchName;
+      execSync(`git push origin ${currentBranch} --force`, {
+        stdio: "inherit",
+      });
       this.ora.succeed("Changes pushed to remote");
     }
 
@@ -49,9 +55,22 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   private configureGit() {
-    execSync('git config --global user.name "Replexica"');
-    execSync('git config --global user.email "support@replexica.com"');
     execSync(`git config --global safe.directory ${process.cwd()}`);
+
+    execSync(`git config user.name "${gitConfig.userName}"`);
+    execSync(`git config user.email "${gitConfig.userEmail}"`);
+
+    const currentAuthor = `${gitConfig.userName} <${gitConfig.userEmail}>`;
+    const authorOfLastCommit = execSync(
+      `git log -1 --pretty=format:'%an <%ae>'`,
+    ).toString();
+    if (authorOfLastCommit === currentAuthor) {
+      this.ora.fail(`The action will not run on commits by ${currentAuthor}`);
+      return false;
+    }
+
     this.platformKit?.gitConfig();
+
+    return true;
   }
 }
