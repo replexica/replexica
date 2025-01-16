@@ -34,8 +34,8 @@ export default function createUnlocalizableLoader(): ILoader<
 
 function _isCSpecifier(value: string) {
   const formatSpecifierPattern =
-    /%(?:\d+\$)?[-+0# ]*(?:\d+|\*)?(?:\.(?:\d+|\*))?(?:hh?|ll?|[jztL])?[@dDuUxXoOfFeEgGcCsSpaA]/;
-  const percentPattern = /%%/;
+    /^%(?:\d+\$)?[-+0# ]*(?:\d+|\*)?(?:\.(?:\d+|\*))?(?:hh?|ll?|[jztL])?[@dDuUxXoOfFeEgGcCsSpaA]$/;
+  const percentPattern = /^%%$/;
 
   return formatSpecifierPattern.test(value) || percentPattern.test(value);
 }
