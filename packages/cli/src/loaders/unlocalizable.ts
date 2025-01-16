@@ -17,6 +17,7 @@ export default function createUnlocalizableLoader(): ILoader<
             (v: string) => isDate(v),
             (v: string) => isNumber(v),
             (v: string) => isBoolean(v),
+            (v: string) => _isCSpecifier(v),
           ].some((fn) => fn(value));
         })
         .map(([key, _]) => key);
@@ -29,4 +30,12 @@ export default function createUnlocalizableLoader(): ILoader<
       return result;
     },
   });
+}
+
+function _isCSpecifier(value: string) {
+  const formatSpecifierPattern =
+    /%(?:\d+\$)?[-+0# ]*(?:\d+|\*)?(?:\.(?:\d+|\*))?(?:hh?|ll?|[jztL])?[@dDuUxXoOfFeEgGcCsSpaA]/;
+  const percentPattern = /%%/;
+
+  return formatSpecifierPattern.test(value) || percentPattern.test(value);
 }
