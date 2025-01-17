@@ -1,5 +1,14 @@
 # replexica
 
+## 0.63.1
+
+### Patch Changes
+
+- [#382](https://github.com/replexica/replexica/pull/382) [`3320c8c`](https://github.com/replexica/replexica/commit/3320c8c6f9df9671e1002b63a00bf877270a6064) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix lockfile resetting when --key flag is applied
+
+- Updated dependencies [[`3320c8c`](https://github.com/replexica/replexica/commit/3320c8c6f9df9671e1002b63a00bf877270a6064)]:
+  - @replexica/cli@0.63.1
+
 ## 0.63.0
 
 ### Minor Changes
