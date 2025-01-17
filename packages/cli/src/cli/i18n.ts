@@ -140,23 +140,22 @@ export default new Command()
 
                 sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
 
-                if (flags.key) {
-                  sourceData = _.pickBy(
-                    sourceData,
-                    (_, key) => key === flags.key,
-                  );
-                }
-
                 const updatedSourceData = flags.force
                   ? sourceData
                   : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
                 const targetData = await bucketLoader.pull(targetLocale);
-                const processableData = calculateDataDelta({
+                let processableData = calculateDataDelta({
                   sourceData,
                   updatedSourceData,
                   targetData,
                 });
+                if (flags.key) {
+                  processableData = _.pickBy(
+                    processableData,
+                    (_, key) => key === flags.key,
+                  );
+                }
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processableData, null, 2));
                 }
