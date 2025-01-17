@@ -55,10 +55,15 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   private configureGit() {
+    const { baseBranchName } = this.platformKit.platformConfig;
+
     execSync(`git config --global safe.directory ${process.cwd()}`);
 
     execSync(`git config user.name "${gitConfig.userName}"`);
     execSync(`git config user.email "${gitConfig.userEmail}"`);
+
+    execSync(`git fetch origin ${baseBranchName}`, { stdio: "inherit" });
+    execSync(`git checkout ${baseBranchName}`, { stdio: "inherit" });
 
     const currentAuthor = `${gitConfig.userName} <${gitConfig.userEmail}>`;
     const authorOfLastCommit = execSync(
