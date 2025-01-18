@@ -36,14 +36,17 @@ It produces authentic translations instantly, eliminating manual work and manage
 
 ## 💫 Quickstart
 
-1. **Request access**: [talk to us](https://replexica.com/go/call) to become a customer.
+1. Create an account on [the website](https://replexica.com)
 
-2. Once approved, initialize your project:
+2. Initialize your project:
+
    ```bash
    npx replexica@latest init
    ```
 
-3. Localize your content:
+3. Check out our docs: [docs.replexica.com](https://docs.replexica.com)
+
+4. Localize your app (takes seconds):
    ```bash
    npx replexica@latest i18n
    ```

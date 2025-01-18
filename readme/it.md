@@ -30,20 +30,23 @@
 
 <br />
 
-Replexica AI automatizza la localizzazione del software da capo a piedi.
+Replexica AI automatizza la localizzazione del software end-to-end.
 
-Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'overhead di gestione. Il motore di localizzazione di Replexica comprende il contesto del prodotto, creando traduzioni perfezionate che i madrelingua si aspettano in oltre 60 lingue. Di conseguenza, i team eseguono la localizzazione 100 volte più velocemente, con una qualità all'avanguardia, distribuendo funzionalità a più clienti paganti in tutto il mondo.
+Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'overhead di gestione. Il Replexica Localization Engine comprende il contesto del prodotto, creando traduzioni perfezionate che i madrelingua si aspettano in oltre 60 lingue. Di conseguenza, i team eseguono la localizzazione 100 volte più velocemente, con una qualità all'avanguardia, distribuendo funzionalità a più clienti paganti in tutto il mondo.
 
 ## 💫 Avvio rapido
 
-1. **Richiedi l'accesso**: [parlaci](https://replexica.com/go/call) per diventare un cliente.
+1. Crea un account sul [sito web](https://replexica.com)
 
-2. Una volta approvato, inizializza il tuo progetto:
+2. Inizializza il tuo progetto:
+
    ```bash
    npx replexica@latest init
    ```
 
-3. Localizza il tuo contenuto:
+3. Consulta la nostra documentazione: [docs.replexica.com](https://docs.replexica.com)
+
+4. Localizza la tua app (in pochi secondi):
    ```bash
    npx replexica@latest i18n
    ```
@@ -64,19 +67,19 @@ Per la modalità pull request e altre opzioni di configurazione, visita la nostr
 
 ## 🥇 Perché i team scelgono Replexica
 
-- 🔥 **Integrazione istantanea**: Configurazione in pochi minuti
+- 🔥 **Integrazione istantanea**: Setup in pochi minuti
 - 🔄 **Automazione CI/CD**: Integrazione perfetta nel pipeline di sviluppo
 - 🌍 **Oltre 60 lingue**: Espansione globale senza sforzo
-- 🧠 **Motore di localizzazione AI**: Traduzioni che si adattano veramente al tuo prodotto
-- 📊 **Flessibilità di formato**: Supporta JSON, YAML, CSV, Markdown e altro
+- 🧠 **Motore di localizzazione AI**: Traduzioni che si adattano perfettamente al tuo prodotto
+- 📊 **Flessibilità nei formati**: Supporto per JSON, YAML, CSV, Markdown e altro
 
 ## 🛠️ Funzionalità potenziate
 
-- ⚡️ **Velocità fulminea**: Localizzazione AI in pochi secondi
-- 🔄 **Aggiornamenti automatici**: Si sincronizza con i contenuti più recenti
+- ⚡️ **Ultra veloce**: Localizzazione AI in pochi secondi
+- 🔄 **Aggiornamenti automatici**: Sincronizzazione con i contenuti più recenti
 - 🌟 **Qualità nativa**: Traduzioni che suonano autentiche
-- 👨‍💻 **A misura di sviluppatore**: CLI che si integra nel tuo flusso di lavoro
-- 📈 **Scalabile**: Per startup in crescita e team aziendali
+- 👨‍💻 **Developer-friendly**: CLI che si integra nel tuo workflow
+- 📈 **Scalabile**: Per startup in crescita e team enterprise
 
 ## 📚 Documentazione
 
@@ -93,19 +96,19 @@ Dai un'occhiata alle [Good First Issues](https://github.com/replexica/replexica/
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-Domande o richieste? Invia un'email a veronica@replexica.com
+Domande o richieste? Scrivi a veronica@replexica.com
 
 ## 🌐 Readme in altre lingue
 
-- [Inglese](https://github.com/replexica/replexica)
-- [Spagnolo](/readme/es.md)
-- [Francese](/readme/fr.md)
-- [Russo](/readme/ru.md)
-- [Tedesco](/readme/de.md)
-- [Cinese](/readme/zh-Hans.md)
-- [Coreano](/readme/ko.md)
-- [Giapponese](/readme/ja.md)
-- [Italiano](/readme/it.md)
-- [Arabo](/readme/ar.md)
+- [English](https://github.com/replexica/replexica)
+- [Spanish](/readme/es.md)
+- [French](/readme/fr.md)
+- [Russian](/readme/ru.md)
+- [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
+- [Korean](/readme/ko.md)
+- [Japanese](/readme/ja.md)
+- [Italian](/readme/it.md)
+- [Arabic](/readme/ar.md)
 
 Non vedi la tua lingua? Aggiungi semplicemente un nuovo codice lingua al file [`i18n.json`](./i18n.json) e apri una PR.

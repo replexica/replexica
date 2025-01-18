@@ -1,26 +1,30 @@
-import createOra from 'ora';
+import createOra from "ora";
 
-import loadConfig from './instances/config.js';
-import loadOctokit from './instances/octokit.js';
-import { IIntegrationFlow } from './flows/_base.js';
-import { PullRequestFlow } from './flows/pull-request.js';
-import { InBranchFlow } from './flows/in-branch.js';
+import { IIntegrationFlow } from "./flows/_base.js";
+import { PullRequestFlow } from "./flows/pull-request.js";
+import { InBranchFlow } from "./flows/in-branch.js";
+import { getPlatformKit } from "./platforms/index.js";
 
 (async function main() {
   const ora = createOra();
-  const octokit = await loadOctokit();
-  const config = await loadConfig();
+  const platformKit = getPlatformKit();
+  const { isPullRequestMode } = platformKit.config;
 
-  ora.info(`Pull request mode: ${config.isPullRequestMode ? 'on' : 'off'}`);
+  ora.info(`Pull request mode: ${isPullRequestMode ? "on" : "off"}`);
 
-  const flow: IIntegrationFlow = config.isPullRequestMode
-    ? new PullRequestFlow(ora, octokit, config)
-    : new InBranchFlow(ora, octokit, config);
+  const flow: IIntegrationFlow = isPullRequestMode
+    ? new PullRequestFlow(ora, platformKit)
+    : new InBranchFlow(ora, platformKit);
 
-  await flow.preRun?.();
-  const hasChanges = await flow.run();
-  if (hasChanges) {
-    await flow.postRun?.();
+  const canRun = await flow.preRun?.();
+  if (canRun === false) {
+    return;
   }
 
+  const hasChanges = await flow.run();
+  if (!hasChanges) {
+    return;
+  }
+
+  await flow.postRun?.();
 })();

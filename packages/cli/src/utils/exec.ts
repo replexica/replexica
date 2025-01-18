@@ -1,15 +1,15 @@
-import Z from 'zod';
-import pLimit from 'p-limit';
+import Z from "zod";
+import pLimit from "p-limit";
 
 export type ExecAsyncOptions = Z.infer<typeof ExecAsyncSchema>;
 
 /**
  * Executes functions in parallel with a limit on concurrency and delay between each function call.
- * 
+ *
  * The next function is called only after the delay has passed OR the previous function resolved, whichever is earlier (via race).
- * 
+ *
  * During the execution, it calls `onProgress` function with the number of functions completed and total count.
- * 
+ *
  * When all functions are executed, it returns an array of results.
  * @param fns Array of async functions
  * @param options Options
@@ -19,7 +19,7 @@ export async function execAsync(
   options: ExecAsyncOptions = ExecAsyncSchema.parse({}),
 ) {
   const limit = pLimit(options.concurrency);
-  const limitedFns = fns.map(fn => () => limit(fn));
+  const limitedFns = fns.map((fn) => () => limit(fn));
 
   const resultPromises: Promise<any>[] = [];
 
@@ -35,10 +35,7 @@ export async function execAsync(
     });
     resultPromises.push(resultPromise);
 
-    await Promise.race([
-      resultPromise,
-      delay(options.delay),
-    ]);
+    await Promise.race([resultPromise, delay(options.delay)]);
   }
 
   const results = await Promise.all(resultPromises);
@@ -84,7 +81,6 @@ const ExecWithRetrySchema = Z.object({
   attempts: Z.number().positive().default(3),
 });
 
-
 function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

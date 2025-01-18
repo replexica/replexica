@@ -1,0 +1,17 @@
+version: "3"
+services:
+  directus:
+    image: directus/directus:11
+    ports:
+      - 8055:8055
+    volumes:
+      - ./.directus/database:/directus/database
+      - ./.directus/uploads:/directus/uploads
+      - ./:/directus/extensions/replexica-directus-extension
+    environment:
+      SECRET: "replace-with-secure-random-value"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "d1r3ctu5"
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/directus/database/data.db"
+      WEBSOCKETS_ENABLED: "true"

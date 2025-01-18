@@ -7,13 +7,31 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hello!"
+            "value": "Hello, world! How is it going?"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "¡Hola!"
+            "value": "¡Hola, mundo! ¿Qué tal?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bonjour tout le monde ! Comment ça va ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ciao mondo! Come va?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hallo Welt! Wie geht's?"
           }
         }
       },
@@ -30,7 +48,25 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "¡Bienvenido, %@!"
+            "value": "¡Bienvenido/a, %@!"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bienvenue, %@ !"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benvenuto/a, %@!"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Willkommen, %@!"
           }
         }
       },
@@ -86,7 +122,7 @@
               "zero": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "No hay elementos"
+                  "value": "Sin elementos"
                 }
               },
               "one": {
@@ -117,6 +153,132 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld elementos"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Aucun article"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un article"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Deux articles"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld articles"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld articles"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld articles"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nessun elemento"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un elemento"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Due elementi"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld elementi"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld elementi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld elementi"
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Keine Artikel"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ein Artikel"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zwei Artikel"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Artikel"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Artikel"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Artikel"
                 }
               }
             }
@@ -210,6 +372,132 @@
               }
             }
           }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'événement est aujourd'hui !"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'événement est demain !"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'événement est dans deux jours"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'événement est dans %lld jours"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'événement est dans %lld jours"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'événement est dans %lld jours"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'evento è oggi!"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'evento è domani!"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'evento è tra due giorni"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'evento è tra %lld giorni"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'evento è tra %lld giorni"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "L'evento è tra %lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Die Veranstaltung ist heute!"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Die Veranstaltung ist morgen!"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Die Veranstaltung ist in zwei Tagen"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Die Veranstaltung ist in %lld Tagen"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Die Veranstaltung ist in %lld Tagen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Die Veranstaltung ist in %lld Tagen"
+                }
+              }
+            }
+          }
         }
       },
       "extractionState": "manual"
@@ -225,7 +513,25 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "El usuario %1$@ tiene %2$lld puntos y un saldo de $%3$.2f"
+            "value": "El usuario %1$@ tiene %2$lld puntos y $%3$.2f de saldo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'utilisateur %1$@ a %2$lld points et un solde de %3$.2f €"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'utente %1$@ ha %2$lld punti e un saldo di €%3$.2f"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benutzer %1$@ hat %2$lld Punkte und $%3$.2f Guthaben"
           }
         }
       },
@@ -244,6 +550,24 @@
             "state": "translated",
             "value": "Hoy es %@"
           }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aujourd'hui c'est le %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi è %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute ist %@"
+          }
         }
       },
       "extractionState": "manual"
@@ -259,7 +583,25 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Esto es una cadena <b>multilínea</b> con:\n• Etiquetas HTML\n• Caracteres especiales: ©®™\n• Un <a href=\"https://example.com\">enlace</a>"
+            "value": "Este es un texto <b>multilínea</b> con:\n• Etiquetas HTML\n• Caracteres especiales: ©®™\n• Un <a href=\"https://example.com\">enlace</a>"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voici un texte <b>multiligne</b> avec :\n• Des balises HTML\n• Des caractères spéciaux : ©®™\n• Un <a href=\"https://example.com\">lien</a>"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa è una stringa <b>multilinea</b> con:\n• Tag HTML\n• Caratteri speciali: ©®™\n• Un <a href=\"https://example.com\">link</a>"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dies ist ein <b>mehrzeiliger</b> Text mit:\n• HTML-Tags\n• Sonderzeichen: ©®™\n• Einem <a href=\"https://example.com\">Link</a>"
           }
         }
       },

@@ -8,16 +8,21 @@ export type I18nBaseProxyDollarProp = {
   attributes: Record<string, any>;
 };
 
-export type I18nBaseProxyProps<P extends {}, D extends I18nBaseProxyDollarProp> = P & {
+export type I18nBaseProxyProps<
+  P extends {},
+  D extends I18nBaseProxyDollarProp,
+> = P & {
   $: D;
 };
 
-export function I18nBaseProxy<P extends {}, D extends I18nBaseProxyDollarProp>(props: I18nBaseProxyProps<P, D>) {
+export function I18nBaseProxy<P extends {}, D extends I18nBaseProxyDollarProp>(
+  props: I18nBaseProxyProps<P, D>,
+) {
   const { $, ...originalProps } = props;
   let propsPatch: Partial<P> = {};
 
   for (const [key, value] of Object.entries($.attributes || {})) {
-    const selector = value as Omit<I18nBaseFragmentProps, 'data'>;
+    const selector = value as Omit<I18nBaseFragmentProps, "data">;
     const result = resolveI18nValue($.i18n.data, selector);
 
     propsPatch = {
@@ -31,8 +36,5 @@ export function I18nBaseProxy<P extends {}, D extends I18nBaseProxyDollarProp>(p
     ...propsPatch,
   } as any;
 
-  return createElement(
-    $.Component,
-    modifiedProps,
-  );
+  return createElement($.Component, modifiedProps);
 }

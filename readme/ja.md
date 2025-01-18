@@ -5,14 +5,14 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ CI/CDから直接、ウェブ＆モバイル向けの最先端AIローカライゼーション。</strong>
+  <strong>⚡️ CI/CDから直接利用できる最先端のAIローカライゼーション for Web & モバイル</strong>
 </p>
 
 <br />
 
 <p align="center">
   <a href="https://replexica.com">ウェブサイト</a> •
-  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">貢献する</a> •
+  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">コントリビュート</a> •
   <a href="#-github-action">GitHub Action</a>
 </p>
 
@@ -32,18 +32,21 @@
 
 Replexica AIはソフトウェアのローカライゼーションを完全に自動化します。
 
-瞬時に本格的な翻訳を生成し、手作業と管理のオーバーヘッドを排除します。Replexica ローカライゼーションエンジンは製品のコンテキストを理解し、60以上の言語で、ネイティブスピーカーが期待する完璧な翻訳を作成します。その結果、チームは最先端の品質で100倍速くローカライゼーションを行い、世界中のより多くの有料顧客に機能を提供できます。
+瞬時に自然な翻訳を生成し、手作業や管理の手間を排除します。Replexicaのローカライゼーションエンジンは製品のコンテキストを理解し、60以上の言語でネイティブスピーカーが期待する完璧な翻訳を作成します。その結果、チームは最先端の品質を保ちながら、ローカライゼーションを100倍速く実行し、世界中のより多くの有料顧客に向けて機能をリリースすることができます。
 
 ## 💫 クイックスタート
 
-1. **アクセスをリクエスト**: [お問い合わせ](https://replexica.com/go/call)して顧客になります。
+1. [ウェブサイト](https://replexica.com)でアカウントを作成
 
-2. 承認されたら、プロジェクトを初期化します：
+2. プロジェクトの初期化:
+
    ```bash
    npx replexica@latest init
    ```
 
-3. コンテンツをローカライズします：
+3. ドキュメントを確認: [docs.replexica.com](https://docs.replexica.com)
+
+4. アプリのローカライズ（数秒で完了）:
    ```bash
    npx replexica@latest i18n
    ```
@@ -64,48 +67,48 @@ Replexicaは、CI/CDパイプラインでローカライゼーションを自動
 
 ## 🥇 チームがReplexicaを選ぶ理由
 
-- 🔥 **即時統合**: 数分でセットアップ完了
-- 🔄 **CI/CD自動化**: 開発パイプラインにシームレスに統合
-- 🌍 **60以上の言語**: 簡単にグローバル展開
-- 🧠 **AIローカライゼーションエンジン**: 製品に真にフィットする翻訳
-- 📊 **柔軟なフォーマット**: JSON、YAML、CSV、Markdown他多数対応
+- 🔥 **即時導入**: 数分でセットアップ完了
+- 🔄 **CI/CD自動化**: シームレスな開発パイプライン統合
+- 🌍 **60以上の言語**: グローバル展開を簡単に
+- 🧠 **AIローカライゼーションエンジン**: 製品に最適化された翻訳
+- 📊 **柔軟なフォーマット**: JSON、YAML、CSV、Markdown他に対応
 
-## 🛠️ パワーアップ機能
+## 🛠️ パワフルな機能
 
 - ⚡️ **超高速**: 数秒でAIローカライゼーション
 - 🔄 **自動更新**: 最新コンテンツと同期
 - 🌟 **ネイティブ品質**: 自然な翻訳
-- 👨‍💻 **開発者フレンドリー**: ワークフローに統合可能なCLI
-- 📈 **スケーラブル**: 成長中のスタートアップから大企業チームまで対応
+- 👨‍💻 **開発者フレンドリー**: ワークフローに統合できるCLI
+- 📈 **スケーラブル**: 成長中のスタートアップから大企業まで対応
 
-## 📚 ドキュメンテーション
+## 📚 ドキュメント
 
-詳細なガイドとAPIリファレンスは、[ドキュメント](https://replexica.com/go/docs)をご覧ください。
+詳細なガイドとAPIリファレンスは[ドキュメント](https://replexica.com/go/docs)をご覧ください。
 
-## 🤝 貢献
+## 🤝 コントリビュート
 
-顧客でなくても貢献に興味がありますか？
+顧客でなくてもコントリビュートに興味がありますか？
 
-[初心者向け課題](https://github.com/replexica/replexica/labels/good%20first%20issue)をチェックし、[貢献ガイド](./CONTRIBUTING.md)をお読みください。
+[Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue)をチェックして、[コントリビューションガイド](./CONTRIBUTING.md)をお読みください。
 
 ## 🧠 チーム
 
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-質問や問い合わせは veronica@replexica.com までメールでお願いします。
+質問やお問い合わせは veronica@replexica.com まで
 
 ## 🌐 他言語のREADME
 
-- [英語](https://github.com/replexica/replexica)
-- [スペイン語](/readme/es.md)
-- [フランス語](/readme/fr.md)
-- [ロシア語](/readme/ru.md)
-- [ドイツ語](/readme/de.md)
-- [中国語](/readme/zh-Hans.md)
-- [韓国語](/readme/ko.md)
-- [日本語](/readme/ja.md)
-- [イタリア語](/readme/it.md)
-- [アラビア語](/readme/ar.md)
+- [English](https://github.com/replexica/replexica)
+- [Spanish](/readme/es.md)
+- [French](/readme/fr.md)
+- [Russian](/readme/ru.md)
+- [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
+- [Korean](/readme/ko.md)
+- [Japanese](/readme/ja.md)
+- [Italian](/readme/it.md)
+- [Arabic](/readme/ar.md)
 
-お使いの言語が見つかりませんか？[`i18n.json`](./i18n.json)ファイルに新しい言語コードを追加し、PRを開いてください。
+お使いの言語が見つかりませんか？[`i18n.json`](./i18n.json)ファイルに新しい言語コードを追加してPRを開いてください。

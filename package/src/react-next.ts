@@ -1,1 +1,1 @@
-export * from '@replexica/react/next';
+export * from "@replexica/react/next";

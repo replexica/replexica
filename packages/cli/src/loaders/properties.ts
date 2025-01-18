@@ -1,11 +1,14 @@
 import { ILoader } from "./_types";
-import { createLoader } from './_utils';
+import { createLoader } from "./_utils";
 
-export default function createPropertiesLoader(): ILoader<string, Record<string, any>> {
+export default function createPropertiesLoader(): ILoader<
+  string,
+  Record<string, any>
+> {
   return createLoader({
     async pull(locale, text) {
       const result: Record<string, string> = {};
-      const lines = text.split('\n');
+      const lines = text.split("\n");
 
       for (const line of lines) {
         const trimmed = line.trim();
@@ -27,21 +30,21 @@ export default function createPropertiesLoader(): ILoader<string, Record<string,
       const result = Object.entries(payload)
         .filter(([_, value]) => value != null)
         .map(([key, value]) => `${key}=${value}`)
-        .join('\n');
+        .join("\n");
 
       return result;
-    }
+    },
   });
 }
 
 function isSkippableLine(line: string): boolean {
-  return !line || line.startsWith('#');
+  return !line || line.startsWith("#");
 }
 
 function parsePropertyLine(line: string): { key: string; value: string } {
-  const [key, ...valueParts] = line.split('=');
+  const [key, ...valueParts] = line.split("=");
   return {
-    key: key?.trim() || '',
-    value: valueParts.join('=').trim()
+    key: key?.trim() || "",
+    value: valueParts.join("=").trim(),
   };
 }

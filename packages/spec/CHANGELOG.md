@@ -1,5 +1,33 @@
 # @replexica/spec
 
+## 0.22.1
+
+### Patch Changes
+
+- [#371](https://github.com/replexica/replexica/pull/371) [`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca) Thanks [@mathio](https://github.com/mathio)! - support underscore in locale code
+
+## 0.22.0
+
+### Minor Changes
+
+- [#356](https://github.com/replexica/replexica/pull/356) [`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add dato support
+
+## 0.21.1
+
+### Patch Changes
+
+- [`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98) Thanks [@vrcprl](https://github.com/vrcprl)! - Added Telugu (India) locale
+
+## 0.21.0
+
+### Minor Changes
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - added support for xliff loader
+
+### Patch Changes
+
+- [`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007) Thanks [@vrcprl](https://github.com/vrcprl)! - Add Tagalog
+
 ## 0.20.0
 
 ### Minor Changes

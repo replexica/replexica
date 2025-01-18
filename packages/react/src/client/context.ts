@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 import { createContext, useContext } from "react";
 import { I18nInstance } from "../shared";
 
 export const I18nContext = createContext<I18nInstance>({
-  currentLocale: 'en',
-  defaultLocale: 'en',
-  supportedLocales: ['en'],
+  currentLocale: "en",
+  defaultLocale: "en",
+  supportedLocales: ["en"],
   data: {} as any,
 });
 

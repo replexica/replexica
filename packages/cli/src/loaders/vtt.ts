@@ -11,7 +11,7 @@ export default function createVttLoader(): ILoader<string, Record<string, any>> 
         return {};
       } else {
         return vtt.reduce((result:any, cue:any, index:number) => {
-          const key = `${index}#${cue.start}-${cue.end}#${cue.identifier}#${cue.styles}`
+          const key = `${index}#${cue.start}-${cue.end}#${cue.identifier}`
           result[key] = cue.text;
           return result;
         }, {});
@@ -20,18 +20,20 @@ export default function createVttLoader(): ILoader<string, Record<string, any>> 
     async push(locale, payload) {
       const output = Object.entries(payload).map(([key, text]) => {
         
-        const [id, timeRange, identifier, styles] = key.split('#');
+        const [id, timeRange, identifier] = key.split('#');
         const [startTime, endTime] = timeRange.split('-');
         
         return {
           end: Number(endTime),
           identifier: identifier,
           start: Number(startTime),
-          styles: styles,
+          styles: "",
           text: text,
         };
       });
 
+      console.log(payload, output);
+      
       const input = {
         valid: true,
         strict: true,

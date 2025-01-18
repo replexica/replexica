@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import _ from "lodash";
-import Z from 'zod';
-import Ora from 'ora';
+import Z from "zod";
+import Ora from "ora";
 import { localeCodes } from "@replexica/spec";
 import { ReplexicaCLIError } from "../../utils/errors";
 
@@ -10,19 +10,20 @@ export default new Command()
   .description("Print out the list of locales")
   .helpOption("-h, --help", "Show help")
   // argument can be equal either "sources" or "targets"
-  .argument('<type>', 'Type of locales to show, either "sources" or "targets"')
+  .argument("<type>", 'Type of locales to show, either "sources" or "targets"')
   .action(async (type) => {
     const ora = Ora();
     try {
       switch (type) {
-        default: throw new ReplexicaCLIError({
-          message: `Invalid type: ${type}`,
-          docUrl: 'invalidType'
-        });
-        case 'sources':
+        default:
+          throw new ReplexicaCLIError({
+            message: `Invalid type: ${type}`,
+            docUrl: "invalidType",
+          });
+        case "sources":
           localeCodes.forEach((locale) => console.log(locale));
           break;
-        case 'targets':
+        case "targets":
           localeCodes.forEach((locale) => console.log(locale));
           break;
       }

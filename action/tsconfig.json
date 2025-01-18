@@ -11,14 +11,8 @@
     "module": "NodeNext",
     "target": "ESNext",
     "rootDir": "src",
-    "outDir": "build",
+    "outDir": "build"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }

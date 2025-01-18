@@ -36,11 +36,11 @@ npm install @replexica/sdk
   For the sake of this example,
   we're assuming that REPLEXICA_API_KEY is stored in a .env file.
 */
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 // Import the Replexica SDK
-import { ReplexicaEngine } from '@replexica/sdk';
+import { ReplexicaEngine } from "@replexica/sdk";
 
 // Initialize the Replexica Engine SDK
 const replexica = new ReplexicaEngine({
@@ -49,9 +49,9 @@ const replexica = new ReplexicaEngine({
 
 // Localize a JSON payload
 const localizedContent = await replexica.localizeObject(
-  { myKey: 'Hello, world!' },
-  { sourceLocale: 'en', targetLocale: 'es' },
-  (progress) => console.log(`Localization progress: ${progress}%`) // Optional progress callback
+  { myKey: "Hello, world!" },
+  { sourceLocale: "en", targetLocale: "es" },
+  (progress) => console.log(`Localization progress: ${progress}%`), // Optional progress callback
 );
 
 // Output the localized content

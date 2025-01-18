@@ -1,5 +1,79 @@
 # replexica
 
+## 0.63.1
+
+### Patch Changes
+
+- [#382](https://github.com/replexica/replexica/pull/382) [`3320c8c`](https://github.com/replexica/replexica/commit/3320c8c6f9df9671e1002b63a00bf877270a6064) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix lockfile resetting when --key flag is applied
+
+## 0.63.0
+
+### Minor Changes
+
+- [`db2e800`](https://github.com/replexica/replexica/commit/db2e80013e44b478331b6a97008b3e67bae82a1f) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add --key flag for selective updates
+
+## 0.62.0
+
+### Minor Changes
+
+- [`302afdf`](https://github.com/replexica/replexica/commit/302afdfd3047b781bd9688921eab3dc84173aa20) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - handle C specifiers in localizable content
+
+## 0.61.0
+
+### Minor Changes
+
+- [`9d38df2`](https://github.com/replexica/replexica/commit/9d38df2fdbe23fdcbb1b7e2e207de650e714e433) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fixed same-file locale rewrites
+
+## 0.60.1
+
+### Patch Changes
+
+- [#372](https://github.com/replexica/replexica/pull/372) [`b9a8350`](https://github.com/replexica/replexica/commit/b9a83502803f4a62fc9a62b4348f853f2baff20d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix single-file results overwriting
+
+- [#371](https://github.com/replexica/replexica/pull/371) [`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca) Thanks [@mathio](https://github.com/mathio)! - support underscore in locale code
+
+- Updated dependencies [[`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca)]:
+  - @replexica/spec@0.22.1
+  - @replexica/sdk@0.7.8
+
+## 0.60.0
+
+### Minor Changes
+
+- [#356](https://github.com/replexica/replexica/pull/356) [`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add dato support
+
+### Patch Changes
+
+- Updated dependencies [[`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048)]:
+  - @replexica/spec@0.22.0
+  - @replexica/sdk@0.7.7
+
+## 0.59.1
+
+### Patch Changes
+
+- Updated dependencies [[`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98)]:
+  - @replexica/spec@0.21.1
+  - @replexica/sdk@0.7.6
+
+## 0.59.0
+
+### Minor Changes
+
+- [`63daf00`](https://github.com/replexica/replexica/commit/63daf00e80004775f12c9e1d426cdd2bbf10f5a4) Thanks [@vrcprl](https://github.com/vrcprl)! - noop
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - added support for xliff loader
+
+- [#327](https://github.com/replexica/replexica/pull/327) [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b) Thanks [@partik03](https://github.com/partik03)! - feat(cli): implemented xliff
+
+### Patch Changes
+
+- [`6eb5282`](https://github.com/replexica/replexica/commit/6eb5282063515db93fc76ff3137422862720fa0d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - noop
+
+- Updated dependencies [[`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b)]:
+  - @replexica/spec@0.21.0
+  - @replexica/sdk@0.7.5
+
 ## 0.58.2
 
 ### Patch Changes

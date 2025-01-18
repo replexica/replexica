@@ -1,5 +1,33 @@
 # @replexica/react
 
+## 0.3.17
+
+### Patch Changes
+
+- Updated dependencies [[`e6521b8`](https://github.com/replexica/replexica/commit/e6521b86637c254c011aba89a3558802c04ab3ca)]:
+  - @replexica/spec@0.22.1
+
+## 0.3.16
+
+### Patch Changes
+
+- Updated dependencies [[`cff3c4e`](https://github.com/replexica/replexica/commit/cff3c4eb1a40f82a9c4c095e49cfd9fce053b048)]:
+  - @replexica/spec@0.22.0
+
+## 0.3.15
+
+### Patch Changes
+
+- Updated dependencies [[`58d7b35`](https://github.com/replexica/replexica/commit/58d7b3567e51cc3ef0fad0288c13451381b95a98)]:
+  - @replexica/spec@0.21.1
+
+## 0.3.14
+
+### Patch Changes
+
+- Updated dependencies [[`9cf5299`](https://github.com/replexica/replexica/commit/9cf5299f7efbef70fd83f95177eac49b4d8f8007), [`3ab5de6`](https://github.com/replexica/replexica/commit/3ab5de66d8a913297b46095c2e73823124cc8c5b)]:
+  - @replexica/spec@0.21.0
+
 ## 0.3.13
 
 ### Patch Changes

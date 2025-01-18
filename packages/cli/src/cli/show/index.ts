@@ -1,8 +1,8 @@
 import { Command } from "commander";
 import _ from "lodash";
-import configCmd from './config';
-import localeCmd from './locale';
-import filesCmd from './files';
+import configCmd from "./config";
+import localeCmd from "./locale";
+import filesCmd from "./files";
 
 export default new Command()
   .command("show")
@@ -10,5 +10,4 @@ export default new Command()
   .helpOption("-h, --help", "Show help")
   .addCommand(configCmd)
   .addCommand(localeCmd)
-  .addCommand(filesCmd)
-;
+  .addCommand(filesCmd);

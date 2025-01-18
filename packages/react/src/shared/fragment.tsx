@@ -20,9 +20,12 @@ export type I18nIdParams = {
   chunkId: string;
 };
 
-export function resolveI18nValue(data: I18nInstance['data'], selector: I18nIdParams) {
+export function resolveI18nValue(
+  data: I18nInstance["data"],
+  selector: I18nIdParams,
+) {
   const { fileId, scopeId, chunkId } = selector;
-  const key = [fileId, scopeId, chunkId].join('#');
+  const key = [fileId, scopeId, chunkId].join("#");
 
   const text = data?.[key];
   const fallback = key;

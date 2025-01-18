@@ -1,13 +1,13 @@
 import { ILoader } from "./_types";
-import { createLoader } from './_utils';
+import { createLoader } from "./_utils";
 
 export default function createPoLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     async pull(locale, text) {
       const result: Record<string, string> = {};
-      const lines = text.split('\n');
-      let currentKey = '';
-      let currentValue = '';
+      const lines = text.split("\n");
+      let currentKey = "";
+      let currentValue = "";
 
       for (const line of lines) {
         const trimmed = line.trim();
@@ -17,14 +17,14 @@ export default function createPoLoader(): ILoader<string, Record<string, any>> {
           continue;
         }
 
-        if (trimmed.startsWith('msgid')) {
+        if (trimmed.startsWith("msgid")) {
           // If we have a current key, save it before moving to the next
           if (currentKey) {
             result[currentKey] = currentValue;
           }
           currentKey = parseMsgId(trimmed);
-          currentValue = ''; // Reset current value
-        } else if (trimmed.startsWith('msgstr')) {
+          currentValue = ""; // Reset current value
+        } else if (trimmed.startsWith("msgstr")) {
           currentValue = parseMsgStr(trimmed);
         }
       }
@@ -41,23 +41,23 @@ export default function createPoLoader(): ILoader<string, Record<string, any>> {
         .map(([key, value]) => {
           return `msgid "${key}"\nmsgstr "${value}"`;
         })
-        .join('\n\n');
+        .join("\n\n");
 
       return result;
-    }
+    },
   });
 }
 
 function isSkippableLine(line: string): boolean {
-  return !line || line.startsWith('#');
+  return !line || line.startsWith("#");
 }
 
 function parseMsgId(line: string): string {
   const match = line.match(/msgid "(.*)"/);
-  return match ? match[1] : '';
+  return match ? match[1] : "";
 }
 
 function parseMsgStr(line: string): string {
   const match = line.match(/msgstr "(.*)"/);
-  return match ? match[1] : '';
+  return match ? match[1] : "";
 }

@@ -1,15 +1,15 @@
 // TODO: Extract into a separate package
 export class LocalizedURL extends URL {
   constructor(
-    url: string | URL, 
-    base?: string | URL, 
+    url: string | URL,
+    base?: string | URL,
     private supportedLocales?: string[],
-) {
+  ) {
     super(url, base);
   }
 
   get locale(): string | null {
-    const pathnameChunks = this.pathname.split('/');
+    const pathnameChunks = this.pathname.split("/");
     const potentialLocale = pathnameChunks[1];
 
     const isValidLocale = this._validateLocale(potentialLocale);
@@ -18,10 +18,12 @@ export class LocalizedURL extends URL {
   }
 
   set locale(newLocale: string | null) {
-    const pathnameChunks = this.pathname.split('/');
+    const pathnameChunks = this.pathname.split("/");
     const isNewLocaleValid = !newLocale || this._validateLocale(newLocale);
     if (!isNewLocaleValid) {
-      throw new Error(`Cannot change locale on ${this.pathname} to ${newLocale} because it is not a valid locale.`);
+      throw new Error(
+        `Cannot change locale on ${this.pathname} to ${newLocale} because it is not a valid locale.`,
+      );
     }
 
     if (this.locale) {
@@ -38,7 +40,7 @@ export class LocalizedURL extends URL {
       }
     }
 
-    this.pathname = pathnameChunks.filter(Boolean).join('/');
+    this.pathname = pathnameChunks.filter(Boolean).join("/");
   }
 
   private _validateLocale(locale: string) {

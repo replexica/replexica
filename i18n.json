@@ -2,23 +2,11 @@
   "version": 1.2,
   "locale": {
     "source": "en",
-    "targets": [
-      "ru",
-      "fr",
-      "es",
-      "de",
-      "zh-Hans",
-      "ko",
-      "ja",
-      "it",
-      "ar"
-    ]
+    "targets": ["ru", "fr", "es", "de", "zh-Hans", "ko", "ja", "it", "ar"]
   },
   "buckets": {
     "markdown": {
-      "include": [
-        "readme/[locale].md"
-      ]
+      "include": ["readme/[locale].md"]
     }
   }
 }

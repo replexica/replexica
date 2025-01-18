@@ -1,10 +1,13 @@
-import { parse } from 'csv-parse/sync';
-import { stringify } from 'csv-stringify/sync';
-import _ from 'lodash';
+import { parse } from "csv-parse/sync";
+import { stringify } from "csv-stringify/sync";
+import _ from "lodash";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export default function createCsvLoader(): ILoader<string, Record<string, string>> {
+export default function createCsvLoader(): ILoader<
+  string,
+  Record<string, string>
+> {
   return createLoader({
     async pull(locale, _input) {
       const input = parse(_input, {
@@ -24,27 +27,32 @@ export default function createCsvLoader(): ILoader<string, Record<string, string
       return result;
     },
     async push(locale, data, originalInput) {
-      const input = parse(originalInput || '', { columns: true }) as Record<string, any>[];
-      const columns = Object.keys(input[0] || { id: '' });
-      
+      const input = parse(originalInput || "", { columns: true }) as Record<
+        string,
+        any
+      >[];
+      const columns = Object.keys(input[0] || { id: "" });
+
       // Update existing rows and collect new keys
-      const updatedRows = input.map(row => ({
+      const updatedRows = input.map((row) => ({
         ...row,
-        [locale]: data[row.id] || row[locale] || ''
+        [locale]: data[row.id] || row[locale] || "",
       }));
-      const existingKeys = new Set(input.map(row => row.id));
+      const existingKeys = new Set(input.map((row) => row.id));
 
       // Add new keys
       Object.entries(data).forEach(([key, value]) => {
         if (!existingKeys.has(key)) {
           updatedRows.push({
             id: key,
-            ...Object.fromEntries(columns.map(column => [column, column === locale ? value : '']))
+            ...Object.fromEntries(
+              columns.map((column) => [column, column === locale ? value : ""]),
+            ),
           });
         }
       });
 
       return stringify(updatedRows, { header: true });
-    }
+    },
   });
 }

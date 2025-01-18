@@ -1,6 +1,6 @@
 {
   "name": "@replexica/sdk",
-  "version": "0.7.4",
+  "version": "0.7.8",
   "description": "Replexica JS SDK",
   "private": false,
   "type": "module",
@@ -23,9 +23,9 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "@replexica/spec": "workspace:*",
     "jsdom": "^25.0.1",
-    "typescript": "^5.6.3",
-    "vitest": "^2.1.4",
-    "zod": "^3.23.8"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7",

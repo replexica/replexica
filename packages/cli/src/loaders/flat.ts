@@ -2,11 +2,14 @@ import { flatten, unflatten } from "flat";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export default function createFlatLoader(): ILoader<Record<string, any>, Record<string, string>> {
+export default function createFlatLoader(): ILoader<
+  Record<string, any>,
+  Record<string, string>
+> {
   return createLoader({
     pull: async (locale, input) => {
       return flatten(input || {}, {
-        delimiter: '/',
+        delimiter: "/",
         transformKey(key) {
           return encodeURIComponent(String(key));
         },
@@ -14,7 +17,7 @@ export default function createFlatLoader(): ILoader<Record<string, any>, Record<
     },
     push: async (locale, data) => {
       return unflatten(data || {}, {
-        delimiter: '/',
+        delimiter: "/",
         transformKey(key) {
           return decodeURIComponent(String(key));
         },

@@ -20,28 +20,31 @@ export function createAuthenticator(params: AuthenticatorParams) {
             ContentType: "application/json",
           },
         });
-      
+
         if (res.ok) {
           const payload = await res.json();
-          if (!payload?.email) { return null; }
+          if (!payload?.email) {
+            return null;
+          }
 
           return {
             email: payload.email,
           };
         }
-      
+
         return null;
       } catch (error) {
-        const isNetworkError = error instanceof TypeError && error.message === "fetch failed";
+        const isNetworkError =
+          error instanceof TypeError && error.message === "fetch failed";
         if (isNetworkError) {
           throw new ReplexicaCLIError({
             message: `Failed to connect to the API at ${params.apiUrl}. Please check your connection and try again.`,
-            docUrl: "connectionFailed"
+            docUrl: "connectionFailed",
           });
         } else {
           throw error;
         }
       }
-    }
+    },
   };
 }
