@@ -150,6 +150,7 @@ export default function createBucketLoader(
     case "dato":
       return composeLoaders(
         createDatoLoader(bucketPathPattern),
+        createFlatLoader(),
         createUnlocalizableLoader(),
       );
   }
