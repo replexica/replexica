@@ -1,5 +1,11 @@
 # replexica
 
+## 0.64.0
+
+### Minor Changes
+
+- [#387](https://github.com/lingodotdev/lingo.dev/pull/387) [`8db4527`](https://github.com/lingodotdev/lingo.dev/commit/8db4527d9c3501d97f8bb7b414dd61e8a3ee80f6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add support for blocks / array of blocks / nested blocks
+
 ## 0.63.1
 
 ### Patch Changes
