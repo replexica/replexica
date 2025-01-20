@@ -1,5 +1,16 @@
 # replexica
 
+## 0.65.0
+
+### Minor Changes
+
+- [`bd577f2`](https://github.com/lingodotdev/lingo.dev/commit/bd577f22da52e7e889bb4b419cb5dab9865512f1) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - remove unlocalizable from dato
+
+### Patch Changes
+
+- Updated dependencies [[`bd577f2`](https://github.com/lingodotdev/lingo.dev/commit/bd577f22da52e7e889bb4b419cb5dab9865512f1)]:
+  - @replexica/cli@0.65.0
+
 ## 0.64.0
 
 ### Minor Changes
