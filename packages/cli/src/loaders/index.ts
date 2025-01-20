@@ -68,11 +68,7 @@ export default function createBucketLoader(
         createUnlocalizableLoader(),
       );
     case "po":
-      return composeLoaders(
-        createTextFileLoader(bucketPathPattern),
-        createPoLoader(),
-        createUnlocalizableLoader(),
-      );
+      return composeLoaders(createTextFileLoader(bucketPathPattern), createPoLoader(), createUnlocalizableLoader());
     case "properties":
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),
@@ -142,16 +138,8 @@ export default function createBucketLoader(
         createUnlocalizableLoader(),
       );
     case "srt":
-      return composeLoaders(
-        createTextFileLoader(bucketPathPattern),
-        createSrtLoader(),
-        createUnlocalizableLoader(),
-      );
+      return composeLoaders(createTextFileLoader(bucketPathPattern), createSrtLoader(), createUnlocalizableLoader());
     case "dato":
-      return composeLoaders(
-        createDatoLoader(bucketPathPattern),
-        createFlatLoader(),
-        createUnlocalizableLoader(),
-      );
+      return composeLoaders(createDatoLoader(bucketPathPattern), createFlatLoader());
   }
 }

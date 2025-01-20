@@ -5,10 +5,7 @@ import { createLoader } from "./_utils";
 
 const { isDate, isNumber, isBoolean } = _;
 
-export default function createUnlocalizableLoader(): ILoader<
-  Record<string, any>,
-  Record<string, any>
-> {
+export default function createUnlocalizableLoader(): ILoader<Record<string, any>, Record<string, any>> {
   return createLoader({
     async pull(locale, input) {
       const passthroughKeys = Object.entries(input)
@@ -17,7 +14,7 @@ export default function createUnlocalizableLoader(): ILoader<
             (v: string) => isDate(v),
             (v: string) => isNumber(v),
             (v: string) => isBoolean(v),
-            (v: string) => _isCSpecifier(v.trim()),
+            (v: string) => _isCSpecifier(v?.trim()),
           ].some((fn) => fn(value));
         })
         .map(([key, _]) => key);
