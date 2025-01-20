@@ -3,7 +3,15 @@ import fs from "fs";
 import JSON5 from "json5";
 import createOra from "ora";
 import { composeLoaders } from "../_utils";
-import { DastDocumentNode, DatoBlock, datoConfigSchema, DatoRecordPayload, DatoSimpleValue, DatoValue } from "./_base";
+import {
+  DastDocument,
+  DastDocumentNode,
+  DatoBlock,
+  datoConfigSchema,
+  DatoRecordPayload,
+  DatoSimpleValue,
+  DatoValue,
+} from "./_base";
 import { buildClient } from "@datocms/cma-client-node";
 import { ILoader } from "../_types";
 import { createLoader } from "../_utils";
@@ -123,6 +131,48 @@ export function createDatoCleanupLoader(
     async push(locale, data, originalInput = {}) {
       const result: Record<string, DatoRecordPayload> = _.cloneDeep(originalInput) || {};
 
+      for (const [recordId, record] of Object.entries(result)) {
+        for (const [fieldName, fieldValue] of Object.entries(record)) {
+          if (!params.fields.includes(fieldName)) {
+            continue;
+          }
+
+          const originalFieldValue = _.get(originalInput, [recordId, fieldName, locale]);
+          const updatedFieldValue = data[recordId][fieldName];
+
+          console.log({
+            originalFieldValue,
+            updatedFieldValue,
+          });
+
+          _.set(result, [recordId, fieldName, locale], updatedFieldValue);
+
+          const _isValidBlock = (value?: DatoValue) =>
+            _.isObject(value) && "type" in value && value.type === "item" && !!_.get(value, "id");
+
+          if (_.isArray(updatedFieldValue)) {
+            const originalValidBlocks = !_.isArray(originalFieldValue) ? [] : originalFieldValue.filter(_isValidBlock);
+            const updatedValidBlocks = updatedFieldValue as DatoBlock[];
+            const newBlocks = updatedValidBlocks.filter((block) => !originalValidBlocks.find((b) => b.id === block.id));
+            for (let i = 0; i < newBlocks.length; i++) {
+              traverseDatoBlock(newBlocks[i], {
+                onBlock: (path, block) => {
+                  block.id = _.get(originalFieldValue, [...path, i, "id"]);
+                },
+              });
+            }
+          } else if (_.isObject(updatedFieldValue)) {
+            traverseDatoBlock(updatedFieldValue as DatoBlock, {
+              onBlock: (path, block) => {
+                block.id = _.get(originalFieldValue, [...path, "id"]);
+              },
+            });
+          }
+        }
+      }
+
+      console.log("result", JSON.stringify(result, null, 2));
+
       return result;
     },
   });
@@ -138,9 +188,11 @@ export function createDatoStructureLoader(
       const result: Record<string, DatoSimpleValue> = {};
 
       for (const [recordId, record] of Object.entries(input)) {
-        traverseDatoPayload(record, (fieldPath, value) => {
-          const valueId = `${recordId}/${fieldPath.join(".")}`;
-          result[valueId] = value;
+        traverseDatoPayload(record, {
+          onValue: (fieldPath, value) => {
+            const valueId = `${recordId}/${fieldPath.join(".")}`;
+            result[valueId] = value;
+          },
         });
       }
 
@@ -150,28 +202,14 @@ export function createDatoStructureLoader(
       const result = _.cloneDeep(originalInput) || {};
 
       for (const [recordId, record] of Object.entries(result)) {
-        traverseDatoPayload(record, (fieldPath, value, setValue) => {
-          const valueId = `${recordId}/${fieldPath.join(".")}`;
-          if (data[valueId]) {
-            setValue(data[valueId]);
-          }
-        });
-      }
-
-      console.log(
-        JSON.stringify(
-          {
-            originalInput,
-            data,
-            result,
+        traverseDatoPayload(record, {
+          onValue: (fieldPath, value, setValue) => {
+            const valueId = `${recordId}/${fieldPath.join(".")}`;
+            if (data[valueId]) {
+              setValue(data[valueId]);
+            }
           },
-          null,
-          2,
-        ),
-      );
-
-      if (1) {
-        process.exit(0);
+        });
       }
 
       return result;
@@ -179,55 +217,65 @@ export function createDatoStructureLoader(
   });
 }
 
+type TraverseDatoCallbackMap = {
+  onValue?: (path: string[], value: DatoSimpleValue, setValue: (value: DatoSimpleValue) => void) => void;
+  onBlock?: (path: string[], value: DatoBlock) => void;
+};
+
 function traverseDatoPayload(
   payload: Record<string, DatoValue>,
-  callback: (path: string[], value: DatoSimpleValue, setValue: (value: DatoSimpleValue) => void) => void,
+  callbackMap: TraverseDatoCallbackMap,
   path: string[] = [],
 ) {
   for (const fieldName of Object.keys(payload)) {
     const fieldValue = payload[fieldName];
-    traverseDatoValue(payload, fieldValue, callback, [...path, fieldName]);
+    traverseDatoValue(payload, fieldValue, callbackMap, [...path, fieldName]);
   }
 }
 
 function traverseDatoValue(
   parent: Record<string, DatoValue>,
   value: DatoValue,
-  callback: (fieldPath: string[], value: DatoSimpleValue, setValue: (value: DatoSimpleValue) => void) => void,
+  callbackMap: TraverseDatoCallbackMap,
   path: string[] = [],
 ) {
   if (_.isArray(value)) {
     for (let i = 0; i < value.length; i++) {
-      traverseDatoValue(parent, value[i], callback, [...path, i.toString()]);
+      traverseDatoValue(parent, value[i], callbackMap, [...path, i.toString()]);
     }
   } else if (_.isObject(value)) {
     if ("schema" in value && value.schema === "dast") {
-      traverseDastNode(value.document, callback, [...path, "document"]);
+      traverseDastDocument(value, callbackMap, [...path]);
     } else if ("type" in value && value.type === "item") {
-      traverseDatoPayload(value.attributes, callback, [...path, "attributes"]);
+      traverseDatoBlock(value, callbackMap, [...path]);
     } else {
       throw new Error(["Unsupported dato object value type:", JSON.stringify(value, null, 2)].join("\n\n"));
     }
   } else {
-    callback(path, value, (value) => {
+    callbackMap.onValue?.(path, value, (value) => {
       _.set(parent, path[path.length - 1], value);
     });
   }
 }
 
-function traverseDastNode(
-  node: DastDocumentNode,
-  callback: (fieldPath: string[], value: DatoSimpleValue, setValue: (value: DatoSimpleValue) => void) => void,
-  path: string[] = [],
-) {
+function traverseDastDocument(dast: DastDocument, callbackMap: TraverseDatoCallbackMap, path: string[] = []) {
+  traverseDastNode(dast.document, callbackMap, [...path, "document"]);
+}
+
+function traverseDatoBlock(block: DatoBlock, callbackMap: TraverseDatoCallbackMap, path: string[] = []) {
+  callbackMap.onBlock?.(path, block);
+  traverseDatoPayload(block.attributes, callbackMap, [...path, "attributes"]);
+}
+
+function traverseDastNode(node: DastDocumentNode, callbackMap: TraverseDatoCallbackMap, path: string[] = []) {
   if (node.value) {
-    callback(path, node.value, (value) => {
+    callbackMap.onValue?.(path, node.value, (value) => {
       _.set(node, "value", value);
     });
   }
   if (node.children?.length) {
     for (let i = 0; i < node.children.length; i++) {
-      traverseDastNode(node.children[i], callback, [...path, i.toString()]);
+      traverseDastNode(node.children[i], callbackMap, [...path, i.toString()]);
     }
   }
 }
