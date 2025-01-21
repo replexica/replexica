@@ -1,5 +1,15 @@
 # replexica
 
+## 0.65.1
+
+### Patch Changes
+
+- [#390](https://github.com/lingodotdev/lingo.dev/pull/390) [`a2ada16`](https://github.com/lingodotdev/lingo.dev/commit/a2ada16ecf4cd559d3486f0e4756d58808194f7e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add ieee variables support
+
+- Updated dependencies [[`a2ada16`](https://github.com/lingodotdev/lingo.dev/commit/a2ada16ecf4cd559d3486f0e4756d58808194f7e)]:
+  - @replexica/cli@0.65.1
+  - @replexica/react@0.3.18
+
 ## 0.65.0
 
 ### Minor Changes
