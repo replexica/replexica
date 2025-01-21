@@ -96,7 +96,7 @@ export default function createBucketLoader(
         createJsonLoader(),
         createXcodeXcstringsLoader(),
         createFlatLoader(),
-        createVariableLoader(),
+        createVariableLoader({ type: "ieee" }),
         createUnlocalizableLoader(),
       );
     case "yaml":

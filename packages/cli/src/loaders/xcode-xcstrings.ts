@@ -33,11 +33,6 @@ export default function createXcodeXcstringsLoader(): ILoader<Record<string, any
       const langDataToMerge: any = {};
       langDataToMerge.strings = {};
 
-      console.log("xcode-xcstrings.push", {
-        payload,
-        originalInput,
-      });
-
       for (const [key, value] of Object.entries(payload)) {
         if (typeof value === "string") {
           langDataToMerge.strings[key] = {
@@ -76,11 +71,7 @@ export default function createXcodeXcstringsLoader(): ILoader<Record<string, any
         }
       }
 
-      console.log("xcode-xcstrings.push.langDataToMerge", JSON.stringify(langDataToMerge, null, 2));
-
       const result = _.merge({}, originalInput, langDataToMerge);
-
-      console.log("xcode-xcstrings.push.result", JSON.stringify(result, null, 2));
       return result;
     },
   });

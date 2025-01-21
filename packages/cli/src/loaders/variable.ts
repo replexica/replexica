@@ -2,8 +2,14 @@ import _ from "lodash";
 import { ILoader } from "./_types";
 import { composeLoaders, createLoader } from "./_utils";
 
-export default function createVariableLoader(): ILoader<Record<string, any>, Record<string, string>> {
-  return composeLoaders(variableExtractLoader(), variableContentLoader());
+type VariableLoaderParams = {
+  type: "ieee";
+};
+
+export default function createVariableLoader(
+  params: VariableLoaderParams,
+): ILoader<Record<string, any>, Record<string, string>> {
+  return composeLoaders(variableExtractLoader(params), variableContentLoader());
 }
 
 type VariableExtractionPayload = {
@@ -11,8 +17,10 @@ type VariableExtractionPayload = {
   value: string;
 };
 
-function variableExtractLoader(): ILoader<Record<string, string>, Record<string, VariableExtractionPayload>> {
-  const specifierPattern = /%(?:\d+\$)?[+-]?(?:[ 0]|'.)?-?\d*(?:\.\d+)?(?:[hljztL]|ll|hh)?[@diuoxXfFeEgGaAcspn%]/g;
+function variableExtractLoader(
+  params: VariableLoaderParams,
+): ILoader<Record<string, string>, Record<string, VariableExtractionPayload>> {
+  const specifierPattern = getFormatSpecifierPattern(params.type);
   return createLoader({
     pull: async (locale, input) => {
       const result: Record<string, VariableExtractionPayload> = {};
@@ -44,7 +52,6 @@ function variableExtractLoader(): ILoader<Record<string, string>, Record<string,
           result[key] = newValue;
         }
       }
-      console.log("variableExtractLoader.push", result);
       return result;
     },
   });
@@ -67,4 +74,13 @@ function variableContentLoader(): ILoader<Record<string, VariableExtractionPaylo
       return result;
     },
   });
+}
+
+function getFormatSpecifierPattern(type: VariableLoaderParams["type"]): RegExp {
+  switch (type) {
+    case "ieee":
+      return /%(?:\d+\$)?[+-]?(?:[ 0]|'.)?-?\d*(?:\.\d+)?(?:[hljztL]|ll|hh)?[@diuoxXfFeEgGaAcspn%]/g;
+    default:
+      throw new Error(`Unsupported variable format type: ${type}`);
+  }
 }
