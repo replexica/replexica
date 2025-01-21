@@ -2,13 +2,11 @@
   "version": 1.2,
   "locale": {
     "source": "en",
-    "targets": ["es", "fr", "it", "de"]
+    "targets": ["es", "fr", "it", "de", "ar"]
   },
   "buckets": {
     "dato": {
-      "include": [
-        "demo/dato/page.json5"
-      ]
+      "include": ["demo/dato/page.json5"]
     },
     "android": {
       "include": ["demo/android/[locale].xml"]
@@ -39,9 +37,7 @@
       "include": ["demo/xcode-strings/[locale].lproj/Localizable.strings"]
     },
     "xcode-stringsdict": {
-      "include": [
-        "demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"
-      ]
+      "include": ["demo/xcode-stringsdict/[locale].lproj/Localizable.stringsdict"]
     },
     "xcode-xcstrings": {
       "include": ["demo/xcode-xcstrings/Localizable.xcstrings"]
