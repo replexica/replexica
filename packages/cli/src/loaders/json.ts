@@ -16,7 +16,6 @@ export default function createJsonLoader(): ILoader<string, Record<string, any>>
     },
     push: async (locale, data) => {
       const serializedData = JSON.stringify(data, null, 2);
-      console.log("json.push", serializedData);
       return serializedData;
     },
   });

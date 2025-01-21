@@ -13,9 +13,6 @@ export default function createFlatLoader(): ILoader<Record<string, any>, Record<
       });
     },
     push: async (locale, data) => {
-      console.log("flat.push", {
-        data,
-      });
       return unflatten(data || {}, {
         delimiter: "/",
         transformKey(key) {

@@ -31,8 +31,6 @@ export default function createPrettierLoader(options: PrettierLoaderOptions): IL
           : {}),
       });
 
-      console.log("prettier.push", result);
-
       return result;
     },
   });
