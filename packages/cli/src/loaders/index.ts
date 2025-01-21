@@ -23,6 +23,7 @@ import createXliffLoader from "./xliff";
 import createXmlLoader from "./xml";
 import createSrtLoader from "./srt";
 import createDatoLoader from "./dato";
+import createVariableLoader from "./variable";
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -95,6 +96,7 @@ export default function createBucketLoader(
         createJsonLoader(),
         createXcodeXcstringsLoader(),
         createFlatLoader(),
+        createVariableLoader({ type: "ieee" }),
         createUnlocalizableLoader(),
       );
     case "yaml":

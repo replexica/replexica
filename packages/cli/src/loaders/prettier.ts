@@ -7,9 +7,7 @@ export type PrettierLoaderOptions = {
   alwaysFormat?: boolean;
 };
 
-export default function createPrettierLoader(
-  options: PrettierLoaderOptions,
-): ILoader<string, string> {
+export default function createPrettierLoader(options: PrettierLoaderOptions): ILoader<string, string> {
   return createLoader({
     async pull(locale, data) {
       return data;

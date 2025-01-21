@@ -29,6 +29,27 @@ describe("bucket loaders", () => {
       expect(data).toEqual(expectedOutput);
     });
 
+    it("should skip non-translatable strings", async () => {
+      setupFileMocks();
+
+      const input = `
+        <resources>
+          <string name="app_name" translatable="false">MyApp</string>
+          <string name="button.title">Submit</string>
+          <string name="version" translatable="false">1.0.0</string>
+        </resources>
+      `.trim();
+      const expectedOutput = { "button.title": "Submit" };
+
+      mockFileOperations(input);
+
+      const androidLoader = createBucketLoader("android", "values-[locale]/strings.xml");
+      androidLoader.setDefaultLocale("en");
+      const data = await androidLoader.pull("en");
+
+      expect(data).toEqual(expectedOutput);
+    });
+
     it("should save android data", async () => {
       setupFileMocks();
 
@@ -1076,26 +1097,10 @@ Mundo!\n`;
     </xliff>
         `.trim();
       const payload = {
-        resources: {
-          namespace1: {
-            group: {
-              groupUnits: {
-                groupUnit: {
-                  source: "Grupo",
-                },
-              },
-            },
-            "key.nested": {
-              source: "Administrador de Datos XLIFF",
-            },
-            key1: {
-              source: "Hola",
-            },
-            key2: {
-              source: "Una aplicación para manipular y procesar documentos XLIFF",
-            },
-          },
-        },
+        "resources/namespace1/group/groupUnits/groupUnit/source": "Grupo",
+        "resources/namespace1/key.nested/source": "Administrador de Datos XLIFF",
+        "resources/namespace1/key1/source": "Hola",
+        "resources/namespace1/key2/source": "Una aplicación para manipular y procesar documentos XLIFF",
         sourceLanguage: "es-ES",
       };
 

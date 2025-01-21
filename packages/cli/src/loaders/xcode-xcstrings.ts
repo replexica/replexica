@@ -2,20 +2,14 @@ import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 import _ from "lodash";
 
-export default function createXcodeXcstringsLoader(): ILoader<
-  Record<string, any>,
-  Record<string, any>
-> {
+export default function createXcodeXcstringsLoader(): ILoader<Record<string, any>, Record<string, any>> {
   return createLoader({
     async pull(locale, input) {
       const resultData: Record<string, any> = {};
 
-      for (const [translationKey, _translationEntity] of Object.entries(
-        input.strings,
-      )) {
+      for (const [translationKey, _translationEntity] of Object.entries(input.strings)) {
         const rootTranslationEntity = _translationEntity as any;
-        const langTranslationEntity =
-          rootTranslationEntity?.localizations?.[locale];
+        const langTranslationEntity = rootTranslationEntity?.localizations?.[locale];
         if (langTranslationEntity) {
           if ("stringUnit" in langTranslationEntity) {
             resultData[translationKey] = langTranslationEntity.stringUnit.value;
@@ -25,8 +19,7 @@ export default function createXcodeXcstringsLoader(): ILoader<
               const pluralForms = langTranslationEntity.variations.plural;
               for (const form in pluralForms) {
                 if (pluralForms[form]?.stringUnit?.value) {
-                  resultData[translationKey][form] =
-                    pluralForms[form].stringUnit.value;
+                  resultData[translationKey][form] = pluralForms[form].stringUnit.value;
                 }
               }
             }
