@@ -9,9 +9,15 @@
             "state": "translated",
             "value": "User %1$@ has %2$lld points and $%3$.2f balance"
           }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المستخدم %1$@ لديه %2$lld نقطة ورصيد $%3$.2f"
+          }
         }
       },
       "extractionState": "manual"
-    },
+    }
   }
 }

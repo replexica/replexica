@@ -153,21 +153,7 @@ checksums:
     date_format: c4137fde368529804b9c43edb293f521
     multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
   250a4a9b39c8b90557bd4f761e5f3cbb:
-    welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
-    complex_format: 9442e21617626db280d376872a8bae6f
-    date_format: c4137fde368529804b9c43edb293f521
-    multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
-    advanced_date_interval: 6b3a0d450c8cd240a343429e6c8bc1e1
-    scientific_measurement: 8575a496377a5fd35f2421510daa0af1
-    complex_list_format/zero: f2f177c925b15015c6e7e190ac686f82
-    complex_list_format/one: 157978762010bc44c6b01beec066641b
-    complex_list_format/other: 3312d08e02f564564b2166b4fefe3bcf
-    network_status: 876353de0cecd622c6cb3b940d8826f3
-    geo_coordinates: 516e03181332f68baafd3eefe9dc4d4d
-    financial_summary: d5dd4689aee8c5b23d99a403053cb378
-    system_diagnostics: 68cbf8d5518d1c03788a2843e1956a76
-    time_zone_format: 0d4cdf6c016239c5036b1ee259805826
-    data_analysis: 99543bab5ce0fdb54a4b8c92d60cde66
+    complex_format: 3dd10711bade5a656b9b47586ab27b9b
   b05b783b3d24ee943d83ccd8e274814d:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb

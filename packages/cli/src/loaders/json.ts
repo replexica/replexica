@@ -2,10 +2,7 @@ import { jsonrepair } from "jsonrepair";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export default function createJsonLoader(): ILoader<
-  string,
-  Record<string, any>
-> {
+export default function createJsonLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     pull: async (locale, input) => {
       const jsonString = input || "{}";
@@ -19,6 +16,7 @@ export default function createJsonLoader(): ILoader<
     },
     push: async (locale, data) => {
       const serializedData = JSON.stringify(data, null, 2);
+      console.log("json.push", serializedData);
       return serializedData;
     },
   });
