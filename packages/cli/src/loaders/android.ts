@@ -66,15 +66,20 @@ export default function createAndroidLoader(): ILoader<string, Record<string, an
       const builder = new Builder({ headless: true });
       const xmlObj: AndroidResources = { resources: {} };
 
+      // Helper function to escape single quotes, avoiding double escaping
+      const escapeSingleQuotes = (str: string) => {
+        return str.replace(/(?<!\\)'/g, "\\'");
+      };
+
       for (const [key, value] of Object.entries(payload)) {
         if (typeof value === "string") {
           if (!xmlObj.resources.string) xmlObj.resources.string = [];
-          xmlObj.resources.string.push({ $: { name: key }, _: value });
+          xmlObj.resources.string.push({ $: { name: key }, _: escapeSingleQuotes(value) });
         } else if (Array.isArray(value)) {
           if (!xmlObj.resources["string-array"]) xmlObj.resources["string-array"] = [];
           xmlObj.resources["string-array"].push({
             $: { name: key },
-            item: value.map((item) => ({ _: item })),
+            item: value.map((item) => ({ _: escapeSingleQuotes(item) })),
           });
         } else if (typeof value === "object") {
           if (!xmlObj.resources.plurals) xmlObj.resources.plurals = [];
@@ -82,7 +87,7 @@ export default function createAndroidLoader(): ILoader<string, Record<string, an
             $: { name: key },
             item: Object.entries(value).map(([quantity, text]) => ({
               $: { quantity },
-              _: text as string,
+              _: escapeSingleQuotes(text as string),
             })),
           });
         } else if (typeof value === "boolean") {
@@ -97,7 +102,8 @@ export default function createAndroidLoader(): ILoader<string, Record<string, an
         }
       }
 
-      return builder.buildObject(xmlObj);
+      const result = builder.buildObject(xmlObj);
+      return result;
     },
   });
 }
