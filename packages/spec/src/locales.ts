@@ -89,6 +89,9 @@ const localeMap = {
     "zh-Hant", // Traditional Chinese
     "zh-Hant-HK", // Traditional Chinese (Hong Kong)
     "zh-Hant-TW", // Traditional Chinese (Taiwan)
+    "zh-Hant-CN", // Traditional Chinese (China)
+    "zh-Hans-HK", // Simplified Chinese (Hong Kong)
+    "zh-Hans-TW", // Simplified Chinese (China)
     "zh-Hans-CN", // Simplified Chinese (China)
   ],
   // Korean (South Korea)
@@ -185,22 +188,23 @@ export type LocaleCodeFull = (typeof localeMap)[LocaleCodeShort][number];
 export type LocaleCode = LocaleCodeShort | LocaleCodeFull;
 
 export const localeCodesShort = Object.keys(localeMap) as LocaleCodeShort[];
-export const localeCodesFull = Object.values(
-  localeMap,
-).flat() as LocaleCodeFull[];
-export const localeCodesFullUnderscore = localeCodesFull.map((value) =>
-  value.replace("-", "_"),
-);
+export const localeCodesFull = Object.values(localeMap).flat() as LocaleCodeFull[];
+export const localeCodesFullUnderscore = localeCodesFull.map((value) => value.replace("-", "_"));
+export const localeCodesFullExplicitRegion = localeCodesFull.map((value) => {
+  const chunks = value.split("-");
+  const result = [chunks[0], "-r", chunks.slice(1).join("-")].join("");
+  return result;
+});
 export const localeCodes = [
   ...localeCodesShort,
   ...localeCodesFull,
   ...localeCodesFullUnderscore,
+  ...localeCodesFullExplicitRegion,
 ] as LocaleCode[];
 
-export const localeCodeSchema = Z.string().refine(
-  (value) => localeCodes.includes(value as any),
-  { message: "Invalid locale code" },
-);
+export const localeCodeSchema = Z.string().refine((value) => localeCodes.includes(value as any), {
+  message: "Invalid locale code",
+});
 
 export const resolveLocaleCode = (value: LocaleCode): LocaleCodeFull => {
   const existingFullLocaleCode = Object.values(localeMap)
