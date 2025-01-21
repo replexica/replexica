@@ -3,10 +3,7 @@ import { ILoader } from "./_types";
 import { ReplexicaCLIError } from "../utils/errors";
 import { createLoader } from "./_utils";
 
-export default function createAndroidLoader(): ILoader<
-  string,
-  Record<string, any>
-> {
+export default function createAndroidLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     async pull(locale, input) {
       try {
@@ -21,13 +18,12 @@ export default function createAndroidLoader(): ILoader<
         }
 
         const processResource = (resourceType: string) => {
-          const resources =
-            parsed.resources[
-              resourceType as keyof AndroidResources["resources"]
-            ];
+          const resources = parsed.resources[resourceType as keyof AndroidResources["resources"]];
           if (!resources) return;
 
           resources.forEach((item: AndroidResource) => {
+            if (item.$ && item.$.translatable === "false") return;
+
             if (resourceType === "string") {
               result[item.$.name] = item._ || "";
             } else if (resourceType === "string-array") {
@@ -55,9 +51,7 @@ export default function createAndroidLoader(): ILoader<
           });
         };
 
-        ["string", "string-array", "plurals", "bool", "integer"].forEach(
-          processResource,
-        );
+        ["string", "string-array", "plurals", "bool", "integer"].forEach(processResource);
 
         return result;
       } catch (error) {
@@ -77,8 +71,7 @@ export default function createAndroidLoader(): ILoader<
           if (!xmlObj.resources.string) xmlObj.resources.string = [];
           xmlObj.resources.string.push({ $: { name: key }, _: value });
         } else if (Array.isArray(value)) {
-          if (!xmlObj.resources["string-array"])
-            xmlObj.resources["string-array"] = [];
+          if (!xmlObj.resources["string-array"]) xmlObj.resources["string-array"] = [];
           xmlObj.resources["string-array"].push({
             $: { name: key },
             item: value.map((item) => ({ _: item })),
