@@ -1,5 +1,16 @@
 # replexica
 
+## 0.66.0
+
+### Minor Changes
+
+- [`e885fcf`](https://github.com/lingodotdev/lingo.dev/commit/e885fcf8731d9f2a250cf44a534c5556a057ca51) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - single quotes escaping
+
+### Patch Changes
+
+- Updated dependencies [[`e885fcf`](https://github.com/lingodotdev/lingo.dev/commit/e885fcf8731d9f2a250cf44a534c5556a057ca51)]:
+  - @replexica/cli@0.66.0
+
 ## 0.65.1
 
 ### Patch Changes
