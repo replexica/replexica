@@ -28,8 +28,7 @@ export class InBranchFlow extends IntegrationFlow {
       this.ora.succeed("Changes committed");
 
       this.ora.start("Pushing changes to remote");
-      const currentBranch =
-        this.i18nBranchName ?? this.platformKit.platformConfig.baseBranchName;
+      const currentBranch = this.i18nBranchName ?? this.platformKit.platformConfig.baseBranchName;
       execSync(`git push origin ${currentBranch} --force`, {
         stdio: "inherit",
       });
@@ -48,10 +47,7 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   private async runReplexica() {
-    execSync(
-      `npx replexica@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`,
-      { stdio: "inherit" },
-    );
+    execSync(`npx replexica@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`, { stdio: "inherit" });
   }
 
   private configureGit() {
@@ -66,9 +62,7 @@ export class InBranchFlow extends IntegrationFlow {
     execSync(`git checkout ${baseBranchName}`, { stdio: "inherit" });
 
     const currentAuthor = `${gitConfig.userName} <${gitConfig.userEmail}>`;
-    const authorOfLastCommit = execSync(
-      `git log -1 --pretty=format:'%an <%ae>'`,
-    ).toString();
+    const authorOfLastCommit = execSync(`git log -1 --pretty=format:'%an <%ae>'`).toString();
     if (authorOfLastCommit === currentAuthor) {
       this.ora.fail(`The action will not run on commits by ${currentAuthor}`);
       return false;
