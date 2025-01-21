@@ -1,5 +1,12 @@
 # @replexica/sdk
 
+## 0.7.9
+
+### Patch Changes
+
+- Updated dependencies [[`a2ada16`](https://github.com/lingodotdev/lingo.dev/commit/a2ada16ecf4cd559d3486f0e4756d58808194f7e)]:
+  - @replexica/spec@0.23.0
+
 ## 0.7.8
 
 ### Patch Changes
