@@ -455,23 +455,33 @@ msgstr ""
     it("should save po data with variable patterns and comments", async () => {
       setupFileMocks();
 
-      const input = `
+      const input = `msgid ""
+msgstr "Content-Type: text/plain\\n"
+
 # This is a comment
 msgid "greeting"
 msgstr "Hello, {name}!"
-      `.trim();
+
+# This is another comment
+msgid "farewell"
+msgstr "Bye, {name}!"
+    `.trim();
       const payload = {
         greeting: "¡Hola, {name}!",
         farewell: "¡Adiós, {name}!",
       };
       const expectedOutput =
-        `
+        `msgid ""
+msgstr "Content-Type: text/plain\\n"
+
+# This is a comment
 msgid "greeting"
 msgstr "¡Hola, {name}!"
 
+# This is another comment
 msgid "farewell"
 msgstr "¡Adiós, {name}!"
-      `.trim() + "\n";
+`.trim() + "\n";
 
       mockFileOperations(input);
 
