@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import path from "path";
 import { gitConfig, IntegrationFlow } from "./_base.js";
 
 export class InBranchFlow extends IntegrationFlow {
@@ -28,8 +29,7 @@ export class InBranchFlow extends IntegrationFlow {
       this.ora.succeed("Changes committed");
 
       this.ora.start("Pushing changes to remote");
-      const currentBranch =
-        this.i18nBranchName ?? this.platformKit.platformConfig.baseBranchName;
+      const currentBranch = this.i18nBranchName ?? this.platformKit.platformConfig.baseBranchName;
       execSync(`git push origin ${currentBranch} --force`, {
         stdio: "inherit",
       });
@@ -48,14 +48,15 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   private async runReplexica() {
-    execSync(
-      `npx replexica@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`,
-      { stdio: "inherit" },
-    );
+    execSync(`npx replexica@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`, { stdio: "inherit" });
   }
 
   private configureGit() {
     const { baseBranchName } = this.platformKit.platformConfig;
+
+    this.ora.info(`Current working directory:`);
+    execSync(`pwd`, { stdio: "inherit" });
+    execSync(`ls -la`, { stdio: "inherit" });
 
     execSync(`git config --global safe.directory ${process.cwd()}`);
 
@@ -63,18 +64,22 @@ export class InBranchFlow extends IntegrationFlow {
     execSync(`git config user.email "${gitConfig.userEmail}"`);
 
     execSync(`git fetch origin ${baseBranchName}`, { stdio: "inherit" });
-    execSync(`git checkout ${baseBranchName}`, { stdio: "inherit" });
+    execSync(`git checkout ${baseBranchName} --`, { stdio: "inherit" });
 
     const currentAuthor = `${gitConfig.userName} <${gitConfig.userEmail}>`;
-    const authorOfLastCommit = execSync(
-      `git log -1 --pretty=format:'%an <%ae>'`,
-    ).toString();
+    const authorOfLastCommit = execSync(`git log -1 --pretty=format:'%an <%ae>'`).toString();
     if (authorOfLastCommit === currentAuthor) {
       this.ora.fail(`The action will not run on commits by ${currentAuthor}`);
       return false;
     }
 
     this.platformKit?.gitConfig();
+
+    const workingDir = path.resolve(process.cwd(), this.platformKit.config.workingDir);
+    if (workingDir !== process.cwd()) {
+      this.ora.info(`Changing to working directory: ${this.platformKit.config.workingDir}`);
+      process.chdir(workingDir);
+    }
 
     return true;
   }
