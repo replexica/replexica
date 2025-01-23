@@ -1,8 +1,4 @@
-import {
-  bucketTypeSchema,
-  I18nConfig,
-  localeCodeSchema,
-} from "@replexica/spec";
+import { bucketTypeSchema, I18nConfig, localeCodeSchema } from "@replexica/spec";
 import { ReplexicaEngine } from "@replexica/sdk";
 import { Command } from "commander";
 import Z from "zod";
@@ -27,10 +23,7 @@ export default new Command()
   .option("--locale <locale>", "Locale to process")
   .option("--bucket <bucket>", "Bucket to process")
   .option("--key <key>", "Key to process")
-  .option(
-    "--frozen",
-    `Don't update the translations and fail if an update is needed`,
-  )
+  .option("--frozen", `Don't update the translations and fail if an update is needed`)
   .option("--force", "Ignore lockfile and process all keys")
   .option("--verbose", "Show verbose output")
   .option("--interactive", "Interactive mode")
@@ -73,9 +66,7 @@ export default new Command()
             const bucketLoader = createBucketLoader(bucket.type, pathPattern);
             bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
-            const sourceData = await bucketLoader.pull(
-              i18nConfig!.locale.source,
-            );
+            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
             lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
         }
@@ -92,13 +83,8 @@ export default new Command()
             const bucketLoader = createBucketLoader(bucket.type, pathPattern);
             bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
 
-            const sourceData = await bucketLoader.pull(
-              i18nConfig!.locale.source,
-            );
-            const updatedSourceData = lockfileHelper.extractUpdatedData(
-              pathPattern,
-              sourceData,
-            );
+            const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+            const updatedSourceData = lockfileHelper.extractUpdatedData(pathPattern, sourceData);
 
             if (Object.keys(updatedSourceData).length > 0) {
               requiresUpdate = true;
@@ -109,9 +95,7 @@ export default new Command()
         }
 
         if (requiresUpdate) {
-          ora.fail(
-            "Localization data has changed; please update i18n.lock or run without --frozen.",
-          );
+          ora.fail("Localization data has changed; please update i18n.lock or run without --frozen.");
           process.exit(1);
         } else {
           ora.succeed("No lockfile updates required.");
@@ -124,9 +108,7 @@ export default new Command()
           console.log();
           ora.info(`Processing bucket: ${bucket.type}`);
           for (const pathPattern of bucket.pathPatterns) {
-            const bucketOra = Ora({ indent: 2 }).info(
-              `Processing path: ${pathPattern}`,
-            );
+            const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${pathPattern}`);
 
             const bucketLoader = createBucketLoader(bucket.type, pathPattern);
             bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
@@ -134,9 +116,7 @@ export default new Command()
 
             for (const targetLocale of targetLocales) {
               try {
-                bucketOra.start(
-                  `[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`,
-                );
+                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`);
 
                 sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
 
@@ -151,10 +131,7 @@ export default new Command()
                   targetData,
                 });
                 if (flags.key) {
-                  processableData = _.pickBy(
-                    processableData,
-                    (_, key) => key === flags.key,
-                  );
+                  processableData = _.pickBy(processableData, (_, key) => key === flags.key);
                 }
                 if (flags.verbose) {
                   bucketOra.info(JSON.stringify(processableData, null, 2));
@@ -184,12 +161,7 @@ export default new Command()
                   bucketOra.info(JSON.stringify(processedTargetData, null, 2));
                 }
 
-                let finalTargetData = _.merge(
-                  {},
-                  sourceData,
-                  targetData,
-                  processedTargetData,
-                );
+                let finalTargetData = _.merge({}, sourceData, targetData, processedTargetData);
 
                 if (flags.interactive) {
                   bucketOra.stop();
@@ -203,20 +175,16 @@ export default new Command()
                   });
 
                   finalTargetData = reviewedData;
-                  bucketOra.start(
-                    `Applying changes to ${pathPattern} (${targetLocale})`,
-                  );
+                  bucketOra.start(`Applying changes to ${pathPattern} (${targetLocale})`);
                 }
 
                 const finalDiffSize = _.chain(finalTargetData)
                   .omitBy((value, key) => value === targetData[key])
                   .size()
                   .value();
-                if (finalDiffSize > 0) {
+                if (finalDiffSize > 0 || flags.force) {
                   await bucketLoader.push(targetLocale, finalTargetData);
-                  bucketOra.succeed(
-                    `[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed`,
-                  );
+                  bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed`);
                 } else {
                   bucketOra.succeed(
                     `[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed (no changes).`,
@@ -238,9 +206,7 @@ export default new Command()
             lockfileHelper.registerSourceData(pathPattern, sourceData);
           }
         } catch (_error: any) {
-          const error = new Error(
-            `Failed to process bucket ${bucket.type}: ${_error.message}`,
-          );
+          const error = new Error(`Failed to process bucket ${bucket.type}: ${_error.message}`);
           if (flags.strict) {
             throw error;
           } else {
@@ -267,10 +233,7 @@ function calculateDataDelta(args: {
   targetData: Record<string, any>;
 }) {
   // Calculate missing keys
-  const newKeys = _.difference(
-    Object.keys(args.sourceData),
-    Object.keys(args.targetData),
-  );
+  const newKeys = _.difference(Object.keys(args.sourceData), Object.keys(args.targetData));
   // Calculate updated keys
   const updatedKeys = Object.keys(args.updatedSourceData);
 
@@ -300,11 +263,7 @@ async function retryWithExponentialBackoff<T>(
   throw new Error("Unreachable code");
 }
 
-function createLocalizationEngineConnection(params: {
-  apiKey: string;
-  apiUrl: string;
-  maxRetries?: number;
-}) {
+function createLocalizationEngineConnection(params: { apiKey: string; apiUrl: string; maxRetries?: number }) {
   const replexicaEngine = new ReplexicaEngine({
     apiKey: params.apiKey,
     apiUrl: params.apiUrl,
@@ -337,10 +296,7 @@ function createLocalizationEngineConnection(params: {
   };
 }
 
-function getTargetLocales(
-  i18nConfig: I18nConfig,
-  flags: ReturnType<typeof parseFlags>,
-) {
+function getTargetLocales(i18nConfig: I18nConfig, flags: ReturnType<typeof parseFlags>) {
   let result = i18nConfig.locale.targets;
   if (flags.locale) {
     result = result.filter((locale) => locale === flags.locale);
@@ -365,8 +321,7 @@ function parseFlags(options: any) {
 async function validateAuth(settings: ReturnType<typeof getSettings>) {
   if (!settings.auth.apiKey) {
     throw new ReplexicaCLIError({
-      message:
-        "Not authenticated. Please run `replexica auth --login` to authenticate.",
+      message: "Not authenticated. Please run `replexica auth --login` to authenticate.",
       docUrl: "authError",
     });
   }
@@ -378,8 +333,7 @@ async function validateAuth(settings: ReturnType<typeof getSettings>) {
   const user = await authenticator.whoami();
   if (!user) {
     throw new ReplexicaCLIError({
-      message:
-        "Invalid API key. Please run `replexica auth --login` to authenticate.",
+      message: "Invalid API key. Please run `replexica auth --login` to authenticate.",
       docUrl: "authError",
     });
   }
@@ -387,34 +341,23 @@ async function validateAuth(settings: ReturnType<typeof getSettings>) {
   return user;
 }
 
-function validateParams(
-  i18nConfig: I18nConfig | null,
-  flags: ReturnType<typeof parseFlags>,
-) {
+function validateParams(i18nConfig: I18nConfig | null, flags: ReturnType<typeof parseFlags>) {
   if (!i18nConfig) {
     throw new ReplexicaCLIError({
-      message:
-        "i18n.json not found. Please run `replexica init` to initialize the project.",
+      message: "i18n.json not found. Please run `replexica init` to initialize the project.",
       docUrl: "i18nNotFound",
     });
   } else if (!i18nConfig.buckets || !Object.keys(i18nConfig.buckets).length) {
     throw new ReplexicaCLIError({
-      message:
-        "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
+      message: "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
       docUrl: "bucketNotFound",
     });
-  } else if (
-    flags.locale &&
-    !i18nConfig.locale.targets.includes(flags.locale)
-  ) {
+  } else if (flags.locale && !i18nConfig.locale.targets.includes(flags.locale)) {
     throw new ReplexicaCLIError({
       message: `Source locale ${i18nConfig.locale.source} does not exist in i18n.json locale.targets. Please add it to the list and try again.`,
       docUrl: "localeTargetNotFound",
     });
-  } else if (
-    flags.bucket &&
-    !i18nConfig.buckets[flags.bucket as keyof typeof i18nConfig.buckets]
-  ) {
+  } else if (flags.bucket && !i18nConfig.buckets[flags.bucket as keyof typeof i18nConfig.buckets]) {
     throw new ReplexicaCLIError({
       message: `Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`,
       docUrl: "bucketNotFound",
@@ -462,9 +405,7 @@ async function reviewChanges(args: {
     })
     .join("\n");
 
-  console.log(
-    `\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}):`,
-  );
+  console.log(`\nReviewing changes for ${chalk.blue(args.pathPattern)} (${chalk.yellow(args.targetLocale)}):`);
   console.log(coloredDiff);
 
   const { action } = await inquirer.prompt([
@@ -505,19 +446,9 @@ async function reviewChanges(args: {
   for (const key of changes) {
     console.log(`\nEditing value for: ${chalk.cyan(key)}`);
     console.log(chalk.gray("Source text:"), chalk.blue(args.sourceData[key]));
-    console.log(
-      chalk.gray("Current value:"),
-      chalk.red(args.currentData[key] || "(empty)"),
-    );
-    console.log(
-      chalk.gray("Suggested value:"),
-      chalk.green(args.proposedData[key]),
-    );
-    console.log(
-      chalk.gray(
-        "\nYour editor will open. Edit the text and save to continue.",
-      ),
-    );
+    console.log(chalk.gray("Current value:"), chalk.red(args.currentData[key] || "(empty)"));
+    console.log(chalk.gray("Suggested value:"), chalk.green(args.proposedData[key]));
+    console.log(chalk.gray("\nYour editor will open. Edit the text and save to continue."));
     console.log(chalk.gray("------------"));
 
     try {
@@ -548,15 +479,11 @@ async function reviewChanges(args: {
       if (customValue) {
         customData[key] = customValue;
       } else {
-        console.log(
-          chalk.yellow("Empty value provided, keeping the current value."),
-        );
+        console.log(chalk.yellow("Empty value provided, keeping the current value."));
         customData[key] = args.currentData[key] || args.proposedData[key];
       }
     } catch (error) {
-      console.log(
-        chalk.red("Error while editing, keeping the suggested value."),
-      );
+      console.log(chalk.red("Error while editing, keeping the suggested value."));
       customData[key] = args.proposedData[key];
     }
   }

@@ -1,5 +1,66 @@
 # replexica
 
+## 0.66.2
+
+### Patch Changes
+
+- [#399](https://github.com/lingodotdev/lingo.dev/pull/399) [`01ca7bb`](https://github.com/lingodotdev/lingo.dev/commit/01ca7bb9d28d0de903caf44ec6ede2e2bbbb3ba2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat(cli): enhance .po loader to support plural translations and improve loader composition
+
+- Updated dependencies [[`01ca7bb`](https://github.com/lingodotdev/lingo.dev/commit/01ca7bb9d28d0de903caf44ec6ede2e2bbbb3ba2)]:
+  - @replexica/cli@0.66.2
+
+## 0.66.1
+
+### Patch Changes
+
+- [`aef36b5`](https://github.com/lingodotdev/lingo.dev/commit/aef36b53163efa523f7632786e0f293890f05b23) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - improve .po handling
+
+- Updated dependencies [[`aef36b5`](https://github.com/lingodotdev/lingo.dev/commit/aef36b53163efa523f7632786e0f293890f05b23)]:
+  - @replexica/cli@0.66.1
+
+## 0.66.0
+
+### Minor Changes
+
+- [`e885fcf`](https://github.com/lingodotdev/lingo.dev/commit/e885fcf8731d9f2a250cf44a534c5556a057ca51) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - single quotes escaping
+
+### Patch Changes
+
+- Updated dependencies [[`e885fcf`](https://github.com/lingodotdev/lingo.dev/commit/e885fcf8731d9f2a250cf44a534c5556a057ca51)]:
+  - @replexica/cli@0.66.0
+
+## 0.65.1
+
+### Patch Changes
+
+- [#390](https://github.com/lingodotdev/lingo.dev/pull/390) [`a2ada16`](https://github.com/lingodotdev/lingo.dev/commit/a2ada16ecf4cd559d3486f0e4756d58808194f7e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add ieee variables support
+
+- Updated dependencies [[`a2ada16`](https://github.com/lingodotdev/lingo.dev/commit/a2ada16ecf4cd559d3486f0e4756d58808194f7e)]:
+  - @replexica/cli@0.65.1
+  - @replexica/react@0.3.18
+
+## 0.65.0
+
+### Minor Changes
+
+- [`bd577f2`](https://github.com/lingodotdev/lingo.dev/commit/bd577f22da52e7e889bb4b419cb5dab9865512f1) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - remove unlocalizable from dato
+
+### Patch Changes
+
+- Updated dependencies [[`bd577f2`](https://github.com/lingodotdev/lingo.dev/commit/bd577f22da52e7e889bb4b419cb5dab9865512f1)]:
+  - @replexica/cli@0.65.0
+
+## 0.64.0
+
+### Minor Changes
+
+- [#387](https://github.com/lingodotdev/lingo.dev/pull/387) [`8db4527`](https://github.com/lingodotdev/lingo.dev/commit/8db4527d9c3501d97f8bb7b414dd61e8a3ee80f6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add support for blocks / array of blocks / nested blocks
+
+### Patch Changes
+
+- Updated dependencies [[`8db4527`](https://github.com/lingodotdev/lingo.dev/commit/8db4527d9c3501d97f8bb7b414dd61e8a3ee80f6)]:
+  - @replexica/cli@0.64.0
+
 ## 0.63.1
 
 ### Patch Changes

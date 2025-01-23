@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.23.0
+
+### Minor Changes
+
+- [#390](https://github.com/lingodotdev/lingo.dev/pull/390) [`a2ada16`](https://github.com/lingodotdev/lingo.dev/commit/a2ada16ecf4cd559d3486f0e4756d58808194f7e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add explicit regional flag support
+
 ## 0.22.1
 
 ### Patch Changes

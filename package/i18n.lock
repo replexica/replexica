@@ -1,31 +1,7 @@
 version: 1
 checksums:
   2bc3a8ed319665fae7eff9afc672f20e:
-    app_name: c215a8d46c95f00089c5ea0d17eef742
-    don_t_forget: d8fccac92bf4abc0ed2986294de23f83
-    can_t_won_t_shouldn_t: 32a724977b1df3f505f4048be7f13358
-    quote: c03cdd6e533842fc8d567fe86e9423b3
-    mixed_quotes: 792986981ea317fb460b4c6067e7d4de
-    special_chars: b790f7f172596aa36012890bd7086b22
-    html_text: 2e47895b6c240483675fb3f3d2efcff8
-    multiline: af742e306fb0c689582cae5fea3e72a3
-    cdata_text: 2b801f941cf161367d0de14699aed32f
-    welcome_messages: 3de663b9b1da14950e0dc9458288a103
-    unicode_string: a92b4ad5d62c70b0e60fb246114d976b
-    escaped_string: 86c751fa88be9fc0fc466c5117e53872
-    app_description: 6d8ca3bdd574b2d0c42c0b85785e5c73
-    complex_format: 6d53bb54c300cc22849404edf22798d8
-    formatted_text: 2542708c0f2a1a1fc2622f036ee5e8e3
-    planets_array/0: 32b9529177f7ebae9142a2873fdc5725
-    planets_array/1: 8f344969ac006decef583f02ec48e2cb
-    planets_array/2: bd04302423f3e10e0b3cec57513fbe3f
-    planets_array/3: a2e163ad865587d0f0576ff2900752cc
-    numberOfSongsAvailable/zero: 31ec89ed9b5ae26480684390a61be633
-    numberOfSongsAvailable/one: f8be3b2314ed17611826ed95c1029195
-    numberOfSongsAvailable/two: 2c9289cadaf3013950c9001ddd0b3e49
-    numberOfSongsAvailable/few: ed1879c58d83f67060915c0821b7e019
-    numberOfSongsAvailable/many: ed1879c58d83f67060915c0821b7e019
-    numberOfSongsAvailable/other: ed1879c58d83f67060915c0821b7e019
+    terms_of_use: 9ac262b2eda552beeecd904c0b9f8fa2
   25add62e9340a686ce2995b840d8a439:
     dashboard.title: c9380ea68c8c76ea451bd9613329a07c
     greeting.message: 981df558575dc8a5f088978cc57a4018
@@ -153,23 +129,7 @@ checksums:
     date_format: c4137fde368529804b9c43edb293f521
     multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
   250a4a9b39c8b90557bd4f761e5f3cbb:
-    greeting: fcfe23a1d5ab68ef07057a39827cbda2
-    welcome_user: 5e708a6af9b86f8aa4d9bd9ea571adad
-    items_count/zero: 955c31a42e9ff663a49e69e944c8c537
-    items_count/one: 154c8eed472b867c8d5af66d162abd2c
-    items_count/two: 8d5f050e1b4c80b1cb2dfd5960330dd6
-    items_count/few: 74e296c76396ac5c4b6e8f3bf3a6d02d
-    items_count/many: 74e296c76396ac5c4b6e8f3bf3a6d02d
-    items_count/other: 74e296c76396ac5c4b6e8f3bf3a6d02d
-    days_until_event/zero: c36f40b15661634b9d11a6704489bb2c
-    days_until_event/one: b42325bee976924c2ec6a2e318b1edfd
-    days_until_event/two: 7f8cb60480d1a0e81b8e0ae0a1d93616
-    days_until_event/few: 2e421cd13245d454ae47fb1ef5833c6e
-    days_until_event/many: 2e421cd13245d454ae47fb1ef5833c6e
-    days_until_event/other: 2e421cd13245d454ae47fb1ef5833c6e
-    complex_format: 9442e21617626db280d376872a8bae6f
-    date_format: c4137fde368529804b9c43edb293f521
-    multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
+    complex_format: 3dd10711bade5a656b9b47586ab27b9b
   b05b783b3d24ee943d83ccd8e274814d:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
@@ -275,3 +235,13 @@ checksums:
     186338895/content/7/1/1: d44969deb853ed758c5868d1e957224a
     186338895/content/7/2: 4e67d06d718d3bfb1179dac0deb792c3
     186338895/content/7/2/1: b27440c5c1ef32eadf63418a50a24218
+  9b5855b0785ae0caf7272453a2610cd7:
+    SZq8PfPOS321fA9UzZEqnA%2Fsingle_block: bbb93ef26e3c101ff11cdd21cab08a94
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.0.attributes.single_line_field_inside_a_block: 8012981250a02c160579fa0135796f62
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.0.attributes.multi_paragraph_text: 55792405be0992f626c7e9febc0d5e31
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.0.attributes.inner_test_block.attributes.single_line_field_inside_a_block: e31214cfaf156077ddd8956ef5792559
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.0.attributes.inner_test_block.attributes.multi_paragraph_text: 23248a411669aa2cd6584d96aa142fa7
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.0.attributes.inner_test_block.attributes.inner_test_block: bbb93ef26e3c101ff11cdd21cab08a94
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.1.attributes.single_line_field_inside_a_block: 1fc83cae5276cc0e29b933b79e1ecf2a
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.1.attributes.multi_paragraph_text: c3cf03a94e52c4cab5e358cd53373143
+    SZq8PfPOS321fA9UzZEqnA%2Fmultiple_blocks.1.attributes.inner_test_block: bbb93ef26e3c101ff11cdd21cab08a94

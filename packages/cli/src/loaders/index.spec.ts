@@ -22,10 +22,28 @@ describe("bucket loaders", () => {
 
       mockFileOperations(input);
 
-      const androidLoader = createBucketLoader(
-        "android",
-        "values-[locale]/strings.xml",
-      );
+      const androidLoader = createBucketLoader("android", "values-[locale]/strings.xml");
+      androidLoader.setDefaultLocale("en");
+      const data = await androidLoader.pull("en");
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it("should skip non-translatable strings", async () => {
+      setupFileMocks();
+
+      const input = `
+        <resources>
+          <string name="app_name" translatable="false">MyApp</string>
+          <string name="button.title">Submit</string>
+          <string name="version" translatable="false">1.0.0</string>
+        </resources>
+      `.trim();
+      const expectedOutput = { "button.title": "Submit" };
+
+      mockFileOperations(input);
+
+      const androidLoader = createBucketLoader("android", "values-[locale]/strings.xml");
       androidLoader.setDefaultLocale("en");
       const data = await androidLoader.pull("en");
 
@@ -45,20 +63,16 @@ describe("bucket loaders", () => {
 
       mockFileOperations(input);
 
-      const androidLoader = createBucketLoader(
-        "android",
-        "values-[locale]/strings.xml",
-      );
+      const androidLoader = createBucketLoader("android", "values-[locale]/strings.xml");
       androidLoader.setDefaultLocale("en");
       await androidLoader.pull("en");
 
       await androidLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "values-es/strings.xml",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("values-es/strings.xml", expectedOutput, {
+        encoding: "utf-8",
+        flag: "w",
+      });
     });
   });
 
@@ -121,10 +135,7 @@ describe("bucket loaders", () => {
 
       mockFileOperations(input);
 
-      const flutterLoader = createBucketLoader(
-        "flutter",
-        "lib/l10n/app_[locale].arb",
-      );
+      const flutterLoader = createBucketLoader("flutter", "lib/l10n/app_[locale].arb");
       flutterLoader.setDefaultLocale("en");
       const data = await flutterLoader.pull("en");
 
@@ -169,20 +180,16 @@ describe("bucket loaders", () => {
 
       mockFileOperations(input);
 
-      const flutterLoader = createBucketLoader(
-        "flutter",
-        "lib/l10n/app_[locale].arb",
-      );
+      const flutterLoader = createBucketLoader("flutter", "lib/l10n/app_[locale].arb");
       flutterLoader.setDefaultLocale("en");
       await flutterLoader.pull("en");
 
       await flutterLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "lib/l10n/app_es.arb",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("lib/l10n/app_es.arb", expectedOutput, {
+        encoding: "utf-8",
+        flag: "w",
+      });
     });
   });
 
@@ -291,11 +298,7 @@ describe("bucket loaders", () => {
 
       await htmlLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "i18n/es.html",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.html", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
@@ -328,11 +331,7 @@ describe("bucket loaders", () => {
 
       await jsonLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "i18n/es.json",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.json", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
@@ -391,7 +390,7 @@ Another paragraph with **bold** and *italic* text.`;
         "md-section-0": "# Encabezado 1",
         "md-section-1": "Esto es un párrafo.",
         "md-section-2": "## Encabezado 2",
-        "md-section-3": "Otro párrafo con texto en **negrita** y en *cursiva*.",
+        "md-section-3": "Otro párrafo con texto en **negrita** y en _cursiva_.",
       };
       const expectedOutput = `---
 title: Prueba Markdown
@@ -404,7 +403,7 @@ Esto es un párrafo.
 
 ## Encabezado 2
 
-Otro párrafo con texto en **negrita** y en *cursiva*.
+Otro párrafo con texto en **negrita** y en _cursiva_.
 `;
 
       mockFileOperations(input);
@@ -437,11 +436,19 @@ msgstr "Goodbye, {name}!"
 # Another comment
 msgid "empty"
 msgstr ""
+
+#plurals  
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s member"
+msgstr[1] "%(counter)s members"
       `.trim();
       const expectedOutput = {
         greeting: "Hello, {name}!",
         farewell: "Goodbye, {name}!",
         empty: "",
+        "%25(counter)s%20member/pluralValue": "%(counter)s members",
+        "%25(counter)s%20member/singularValue": "%(counter)s member",
       };
 
       mockFileOperations(input);
@@ -456,23 +463,47 @@ msgstr ""
     it("should save po data with variable patterns and comments", async () => {
       setupFileMocks();
 
-      const input = `
+      const input = `msgid ""
+msgstr "Content-Type: text/plain\\n"
+
 # This is a comment
 msgid "greeting"
 msgstr "Hello, {name}!"
-      `.trim();
+
+# This is another comment
+msgid "farewell"
+msgstr "Bye, {name}!"
+
+# plurals  
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s member"
+msgstr[1] "%(counter)s members"
+    `.trim();
       const payload = {
         greeting: "¡Hola, {name}!",
         farewell: "¡Adiós, {name}!",
+        "%25(counter)s%20member/pluralValue": "%(counter)s miembros",
+        "%25(counter)s%20member/singularValue": "%(counter)s miembro",
       };
       const expectedOutput =
-        `
+        `msgid ""
+msgstr "Content-Type: text/plain\\n"
+
+# This is a comment
 msgid "greeting"
 msgstr "¡Hola, {name}!"
 
+# This is another comment
 msgid "farewell"
 msgstr "¡Adiós, {name}!"
-      `.trim() + "\n";
+
+# plurals  
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s miembro"
+msgstr[1] "%(counter)s miembros"
+`.trim() + "\n";
 
       mockFileOperations(input);
 
@@ -513,10 +544,7 @@ user.password=Password
 
       mockFileOperations(input);
 
-      const propertiesLoader = createBucketLoader(
-        "properties",
-        "i18n/[locale].properties",
-      );
+      const propertiesLoader = createBucketLoader("properties", "i18n/[locale].properties");
       propertiesLoader.setDefaultLocale("en");
       const data = await propertiesLoader.pull("en");
 
@@ -538,10 +566,8 @@ user.password=Password
       `.trim();
       const payload = {
         "welcome.message": "Bienvenido a nuestra aplicación!",
-        "error.message":
-          "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
-        "user.login":
-          "Por favor, introduzca su nombre de usuario y contraseña.",
+        "error.message": "Se ha producido un error. Por favor, inténtelo de nuevo más tarde.",
+        "user.login": "Por favor, introduzca su nombre de usuario y contraseña.",
         "user.username": "Nombre de usuario",
         "user.password": "Contraseña",
       };
@@ -556,20 +582,13 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const propertiesLoader = createBucketLoader(
-        "properties",
-        "i18n/[locale].properties",
-      );
+      const propertiesLoader = createBucketLoader("properties", "i18n/[locale].properties");
       propertiesLoader.setDefaultLocale("en");
       await propertiesLoader.pull("en");
 
       await propertiesLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "i18n/es.properties",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.properties", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
@@ -590,10 +609,7 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const xcodeStringsLoader = createBucketLoader(
-        "xcode-strings",
-        "i18n/[locale].strings",
-      );
+      const xcodeStringsLoader = createBucketLoader("xcode-strings", "i18n/[locale].strings");
       xcodeStringsLoader.setDefaultLocale("en");
       const data = await xcodeStringsLoader.pull("en");
 
@@ -611,20 +627,13 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const xcodeStringsLoader = createBucketLoader(
-        "xcode-strings",
-        "i18n/[locale].strings",
-      );
+      const xcodeStringsLoader = createBucketLoader("xcode-strings", "i18n/[locale].strings");
       xcodeStringsLoader.setDefaultLocale("en");
       await xcodeStringsLoader.pull("en");
 
       await xcodeStringsLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "i18n/es.strings",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.strings", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
@@ -669,10 +678,7 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const xcodeStringsdictLoader = createBucketLoader(
-        "xcode-stringsdict",
-        "i18n/[locale].stringsdict",
-      );
+      const xcodeStringsdictLoader = createBucketLoader("xcode-stringsdict", "i18n/[locale].stringsdict");
       xcodeStringsdictLoader.setDefaultLocale("en");
       const data = await xcodeStringsdictLoader.pull("en");
 
@@ -706,20 +712,16 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const xcodeStringsdictLoader = createBucketLoader(
-        "xcode-stringsdict",
-        "[locale].lproj/Localizable.stringsdict",
-      );
+      const xcodeStringsdictLoader = createBucketLoader("xcode-stringsdict", "[locale].lproj/Localizable.stringsdict");
       xcodeStringsdictLoader.setDefaultLocale("en");
       await xcodeStringsdictLoader.pull("en");
 
       await xcodeStringsdictLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "es.lproj/Localizable.stringsdict",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("es.lproj/Localizable.stringsdict", expectedOutput, {
+        encoding: "utf-8",
+        flag: "w",
+      });
     });
   });
 
@@ -748,10 +750,7 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const xcodeXcstringsLoader = createBucketLoader(
-        "xcode-xcstrings",
-        "Localizable.xcstrings",
-      );
+      const xcodeXcstringsLoader = createBucketLoader("xcode-xcstrings", "Localizable.xcstrings");
       xcodeXcstringsLoader.setDefaultLocale("en");
       const data = await xcodeXcstringsLoader.pull("en");
 
@@ -804,20 +803,16 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const xcodeXcstringsLoader = createBucketLoader(
-        "xcode-xcstrings",
-        "Localizable.xcstrings",
-      );
+      const xcodeXcstringsLoader = createBucketLoader("xcode-xcstrings", "Localizable.xcstrings");
       xcodeXcstringsLoader.setDefaultLocale("en");
       await xcodeXcstringsLoader.pull("en");
 
       await xcodeXcstringsLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "Localizable.xcstrings",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("Localizable.xcstrings", expectedOutput, {
+        encoding: "utf-8",
+        flag: "w",
+      });
     });
   });
 
@@ -856,11 +851,7 @@ user.password=Contraseña
 
       await yamlLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "i18n/es.yaml",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.yaml", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
@@ -876,10 +867,7 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const yamlRootKeyLoader = createBucketLoader(
-        "yaml-root-key",
-        "i18n/[locale].yaml",
-      );
+      const yamlRootKeyLoader = createBucketLoader("yaml-root-key", "i18n/[locale].yaml");
       yamlRootKeyLoader.setDefaultLocale("en");
       const data = await yamlRootKeyLoader.pull("en");
 
@@ -898,20 +886,13 @@ user.password=Contraseña
 
       mockFileOperations(input);
 
-      const yamlRootKeyLoader = createBucketLoader(
-        "yaml-root-key",
-        "i18n/[locale].yaml",
-      );
+      const yamlRootKeyLoader = createBucketLoader("yaml-root-key", "i18n/[locale].yaml");
       yamlRootKeyLoader.setDefaultLocale("en");
       await yamlRootKeyLoader.pull("en");
 
       await yamlRootKeyLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith(
-        "i18n/es.yaml",
-        expectedOutput,
-        { encoding: "utf-8", flag: "w" },
-      );
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.yaml", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
@@ -1198,8 +1179,7 @@ Mundo!\n`;
         "resources/namespace1/group/groupUnits/groupUnit/source": "Group",
         "resources/namespace1/key.nested/source": "XLIFF Data Manager",
         "resources/namespace1/key1/source": "Hello",
-        "resources/namespace1/key2/source":
-          "An application to manipulate and process XLIFF documents",
+        "resources/namespace1/key2/source": "An application to manipulate and process XLIFF documents",
         sourceLanguage: "en-US",
       };
 
@@ -1244,27 +1224,10 @@ Mundo!\n`;
     </xliff>
         `.trim();
       const payload = {
-        resources: {
-          namespace1: {
-            group: {
-              groupUnits: {
-                groupUnit: {
-                  source: "Grupo",
-                },
-              },
-            },
-            "key.nested": {
-              source: "Administrador de Datos XLIFF",
-            },
-            key1: {
-              source: "Hola",
-            },
-            key2: {
-              source:
-                "Una aplicación para manipular y procesar documentos XLIFF",
-            },
-          },
-        },
+        "resources/namespace1/group/groupUnits/groupUnit/source": "Grupo",
+        "resources/namespace1/key.nested/source": "Administrador de Datos XLIFF",
+        "resources/namespace1/key1/source": "Hola",
+        "resources/namespace1/key2/source": "Una aplicación para manipular y procesar documentos XLIFF",
         sourceLanguage: "es-ES",
       };
 

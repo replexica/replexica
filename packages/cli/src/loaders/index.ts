@@ -24,6 +24,7 @@ import createXmlLoader from "./xml";
 import createSrtLoader from "./srt";
 import createDatoLoader from "./dato";
 import createVttLoader from "./vtt";
+import createVariableLoader from "./variable";
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -72,6 +73,7 @@ export default function createBucketLoader(
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),
         createPoLoader(),
+        createFlatLoader(),
         createUnlocalizableLoader(),
       );
     case "properties":
@@ -100,6 +102,7 @@ export default function createBucketLoader(
         createJsonLoader(),
         createXcodeXcstringsLoader(),
         createFlatLoader(),
+        createVariableLoader({ type: "ieee" }),
         createUnlocalizableLoader(),
       );
     case "yaml":
@@ -143,11 +146,7 @@ export default function createBucketLoader(
         createUnlocalizableLoader(),
       );
     case "srt":
-      return composeLoaders(
-        createTextFileLoader(bucketPathPattern),
-        createSrtLoader(),
-        createUnlocalizableLoader(),
-      );
+      return composeLoaders(createTextFileLoader(bucketPathPattern), createSrtLoader(), createUnlocalizableLoader());
     case "dato":
       return composeLoaders(
         createDatoLoader(bucketPathPattern),

@@ -19,37 +19,36 @@ export const datoSettingsSchema = Z.object({
 
 export type DatoSettings = Z.infer<typeof datoSettingsSchema>;
 
-export type DastNode = {
-  type: string;
-  value?: string;
-  marks?: Array<{ type: string }>;
-  children?: DastNode[];
-  [key: string]: any;
-};
+export const DEFAULT_LOCALE = "en";
 
-export type DastContent = {
-  schema: "dast";
-  document?: {
-    type: "root";
-    children: DastNode[];
+//
+
+export type DatoRecordPayload = {
+  [field: string]: {
+    [locale: string]: DatoValue;
   };
 };
 
-export type DatoRecord = {
-  id: string;
-  type: string;
-  [field: string]: any | DastContent;
+export type DatoValue = DatoSimpleValue | DatoComplexValue;
+export type DatoSimpleValue = DatoPrimitive | DastDocument;
+export type DatoComplexValue = DatoBlock | DatoBlock[];
+
+export type DatoPrimitive = null | string | boolean | number;
+
+export type DastDocument = {
+  schema: "dast";
+  document: DastDocumentNode;
 };
 
-export type DatoField<K, V> = {
-  type: K;
-  key: string;
-  value: { [locale: string]: V };
-  localizationEnabled: boolean;
+export type DastDocumentNode = {
+  type: "root" | "span" | "paragraph";
+  value?: DatoPrimitive;
+  children?: DastDocumentNode[];
 };
 
-export type DatoFieldString = DatoField<"string", string>;
-export type DatoFieldDast = DatoField<"dast", DastContent>;
-export type DatoFieldAny = DatoFieldString | DatoFieldDast;
-
-export const DEFAULT_LOCALE = "en";
+export type DatoBlock = {
+  id?: string;
+  type: "item";
+  attributes: Record<string, DatoSimpleValue>;
+  relationships: any;
+};
