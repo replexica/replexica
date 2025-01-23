@@ -436,11 +436,19 @@ msgstr "Goodbye, {name}!"
 # Another comment
 msgid "empty"
 msgstr ""
+
+#plurals  
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s member"
+msgstr[1] "%(counter)s members"
       `.trim();
       const expectedOutput = {
         greeting: "Hello, {name}!",
         farewell: "Goodbye, {name}!",
         empty: "",
+        "%25(counter)s%20member/pluralValue": "%(counter)s members",
+        "%25(counter)s%20member/singularValue": "%(counter)s member",
       };
 
       mockFileOperations(input);
@@ -465,10 +473,18 @@ msgstr "Hello, {name}!"
 # This is another comment
 msgid "farewell"
 msgstr "Bye, {name}!"
+
+# plurals  
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s member"
+msgstr[1] "%(counter)s members"
     `.trim();
       const payload = {
         greeting: "¡Hola, {name}!",
         farewell: "¡Adiós, {name}!",
+        "%25(counter)s%20member/pluralValue": "%(counter)s miembros",
+        "%25(counter)s%20member/singularValue": "%(counter)s miembro",
       };
       const expectedOutput =
         `msgid ""
@@ -481,6 +497,12 @@ msgstr "¡Hola, {name}!"
 # This is another comment
 msgid "farewell"
 msgstr "¡Adiós, {name}!"
+
+# plurals  
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "%(counter)s miembro"
+msgstr[1] "%(counter)s miembros"
 `.trim() + "\n";
 
       mockFileOperations(input);
