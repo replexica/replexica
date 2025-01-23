@@ -69,7 +69,12 @@ export default function createBucketLoader(
         createUnlocalizableLoader(),
       );
     case "po":
-      return composeLoaders(createTextFileLoader(bucketPathPattern), createPoLoader(), createUnlocalizableLoader());
+      return composeLoaders(
+        createTextFileLoader(bucketPathPattern),
+        createPoLoader(),
+        createFlatLoader(),
+        createUnlocalizableLoader(),
+      );
     case "properties":
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),

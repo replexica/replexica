@@ -16,8 +16,8 @@ export default function createPoLoader(): ILoader<string, Record<string, Transla
           // Handle plural forms
           if (value.msgid_plural) {
             return {
-              singular: _.get(value, "msgstr[0]", ""),
-              plural: _.get(value, "msgstr[1]", ""),
+              singularValue: _.get(value, "msgstr[0]", ""),
+              pluralValue: _.get(value, "msgstr[1]", ""),
             };
           }
 
@@ -25,7 +25,7 @@ export default function createPoLoader(): ILoader<string, Record<string, Transla
           if (value.msgctxt) {
             return {
               context: value.msgctxt,
-              translation: _.get(value, "msgstr[0]", ""),
+              value: _.get(value, "msgstr[0]", ""),
             };
           }
 
@@ -49,7 +49,7 @@ export default function createPoLoader(): ILoader<string, Record<string, Transla
           translations[""][key] = {
             ...existingTranslation,
             msgid: key,
-            msgid_plural: existingTranslation.msgid_plural,
+            msgid_plural: existingTranslation.msgid_plural || key, // Preserve or set plural msgid
             msgstr: [value.singularValue, value.pluralValue],
           };
         } else if (_.isObject(value) && "context" in value) {
@@ -63,7 +63,7 @@ export default function createPoLoader(): ILoader<string, Record<string, Transla
           translations[""][key] = {
             ...existingTranslation,
             msgid: key,
-            msgstr: [value],
+            msgstr: [value as string],
           };
         }
       });
