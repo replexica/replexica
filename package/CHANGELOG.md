@@ -1,5 +1,14 @@
 # replexica
 
+## 0.66.1
+
+### Patch Changes
+
+- [`aef36b5`](https://github.com/lingodotdev/lingo.dev/commit/aef36b53163efa523f7632786e0f293890f05b23) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - improve .po handling
+
+- Updated dependencies [[`aef36b5`](https://github.com/lingodotdev/lingo.dev/commit/aef36b53163efa523f7632786e0f293890f05b23)]:
+  - @replexica/cli@0.66.1
+
 ## 0.66.0
 
 ### Minor Changes
