@@ -1,9 +1,9 @@
 import _ from "lodash";
-import { ILoader } from "./_types";
-import { composeLoaders, createLoader } from "./_utils";
+import { ILoader } from "../_types";
+import { composeLoaders, createLoader } from "../_utils";
 
-type VariableLoaderParams = {
-  type: "ieee";
+export type VariableLoaderParams = {
+  type: "ieee" | "python";
 };
 
 export default function createVariableLoader(
@@ -80,6 +80,8 @@ function getFormatSpecifierPattern(type: VariableLoaderParams["type"]): RegExp {
   switch (type) {
     case "ieee":
       return /%(?:\d+\$)?[+-]?(?:[ 0]|'.)?-?\d*(?:\.\d+)?(?:[hljztL]|ll|hh)?[@diuoxXfFeEgGaAcspn%]/g;
+    case "python":
+      return /%\([^)]+\)[diouxXeEfFgGcrs%]/g;
     default:
       throw new Error(`Unsupported variable format type: ${type}`);
   }

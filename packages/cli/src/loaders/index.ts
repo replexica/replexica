@@ -74,6 +74,7 @@ export default function createBucketLoader(
         createPoLoader(),
         createFlatLoader(),
         createUnlocalizableLoader(),
+        createVariableLoader({ type: "python" }),
       );
     case "properties":
       return composeLoaders(
@@ -101,8 +102,8 @@ export default function createBucketLoader(
         createJsonLoader(),
         createXcodeXcstringsLoader(),
         createFlatLoader(),
-        createVariableLoader({ type: "ieee" }),
         createUnlocalizableLoader(),
+        createVariableLoader({ type: "ieee" }),
       );
     case "yaml":
       return composeLoaders(

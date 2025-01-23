@@ -74,6 +74,7 @@
     "@types/lodash": "^4.17.13",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.10.2",
+    "@types/node-gettext": "^3.0.6",
     "@types/object-hash": "^3.0.6",
     "@types/plist": "^3.0.5",
     "@types/properties-parser": "^0.3.3",
