@@ -14,6 +14,7 @@ runs:
     REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
     REPLEXICA_COMMIT_MESSAGE: ${{ inputs.commit-message }}
     REPLEXICA_PULL_REQUEST_TITLE: ${{ inputs.pull-request-title }}
+    REPLEXICA_WORKING_DIRECTORY: ${{ inputs.working-directory }}
 
 inputs:
   api-key:
@@ -30,4 +31,8 @@ inputs:
   pull-request-title:
     description: "Pull request title"
     default: "feat: update translations via @replexica"
+    required: false
+  working-directory:
+    description: "Working directory"
+    default: "."
     required: false
