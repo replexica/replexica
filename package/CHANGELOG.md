@@ -1,5 +1,14 @@
 # replexica
 
+## 0.66.2
+
+### Patch Changes
+
+- [#399](https://github.com/lingodotdev/lingo.dev/pull/399) [`01ca7bb`](https://github.com/lingodotdev/lingo.dev/commit/01ca7bb9d28d0de903caf44ec6ede2e2bbbb3ba2) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - feat(cli): enhance .po loader to support plural translations and improve loader composition
+
+- Updated dependencies [[`01ca7bb`](https://github.com/lingodotdev/lingo.dev/commit/01ca7bb9d28d0de903caf44ec6ede2e2bbbb3ba2)]:
+  - @replexica/cli@0.66.2
+
 ## 0.66.1
 
 ### Patch Changes
