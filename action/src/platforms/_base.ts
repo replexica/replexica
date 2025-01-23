@@ -6,29 +6,16 @@ interface BasePlatformConfig {
   repositoryName: string;
 }
 
-export abstract class PlatformKit<
-  PlatformConfig extends BasePlatformConfig = BasePlatformConfig,
-> {
+export abstract class PlatformKit<PlatformConfig extends BasePlatformConfig = BasePlatformConfig> {
   abstract branchExists(props: { branch: string }): Promise<boolean>;
 
-  abstract getOpenPullRequestNumber(props: {
-    branch: string;
-  }): Promise<number | undefined>;
+  abstract getOpenPullRequestNumber(props: { branch: string }): Promise<number | undefined>;
 
-  abstract closePullRequest(props: {
-    pullRequestNumber: number;
-  }): Promise<void>;
+  abstract closePullRequest(props: { pullRequestNumber: number }): Promise<void>;
 
-  abstract createPullRequest(props: {
-    head: string;
-    title: string;
-    body?: string;
-  }): Promise<number>;
+  abstract createPullRequest(props: { head: string; title: string; body?: string }): Promise<number>;
 
-  abstract commentOnPullRequest(props: {
-    pullRequestNumber: number;
-    body: string;
-  }): Promise<void>;
+  abstract commentOnPullRequest(props: { pullRequestNumber: number; body: string }): Promise<void>;
 
   abstract get platformConfig(): PlatformConfig;
 
@@ -39,12 +26,10 @@ export abstract class PlatformKit<
   get config() {
     const env = Z.object({
       REPLEXICA_API_KEY: Z.string(),
-      REPLEXICA_PULL_REQUEST: Z.preprocess(
-        (val) => val === "true" || val === true,
-        Z.boolean(),
-      ),
+      REPLEXICA_PULL_REQUEST: Z.preprocess((val) => val === "true" || val === true, Z.boolean()),
       REPLEXICA_COMMIT_MESSAGE: Z.string(),
       REPLEXICA_PULL_REQUEST_TITLE: Z.string(),
+      REPLEXICA_WORKING_DIRECTORY: Z.string().optional().default("."),
     }).parse(process.env);
 
     return {
@@ -52,6 +37,7 @@ export abstract class PlatformKit<
       isPullRequestMode: env.REPLEXICA_PULL_REQUEST,
       commitMessage: env.REPLEXICA_COMMIT_MESSAGE,
       pullRequestTitle: env.REPLEXICA_PULL_REQUEST_TITLE,
+      workingDir: env.REPLEXICA_WORKING_DIRECTORY,
     };
   }
 }
