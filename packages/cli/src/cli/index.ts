@@ -10,7 +10,6 @@ import configCmd from "./show";
 import i18nCmd from "./i18n";
 import lockfileCmd from "./lockfile";
 import cleanupCmd from "./cleanup";
-import rmCmd from "./rm";
 
 import packageJson from "../../package.json";
 
@@ -38,5 +37,4 @@ Website: https://replexica.com
   .addCommand(configCmd)
   .addCommand(lockfileCmd)
   .addCommand(cleanupCmd)
-  .addCommand(rmCmd)
   .parse(process.argv);

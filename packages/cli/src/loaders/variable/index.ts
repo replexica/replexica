@@ -33,7 +33,7 @@ function variableExtractLoader(
         for (let i = 0; i < matches.length; i++) {
           const match = matches[i];
           const currentValue = result[key].value;
-          const newValue = currentValue.replace(match, `{variable:${i}}`);
+          const newValue = currentValue?.replace(match, `{variable:${i}}`);
 
           result[key].value = newValue;
           result[key].variables[i] = match;
@@ -48,7 +48,7 @@ function variableExtractLoader(
         for (let i = 0; i < valueObj.variables.length; i++) {
           const variable = valueObj.variables[i];
           const currentValue = result[key];
-          const newValue = currentValue.replace(`{variable:${i}}`, variable);
+          const newValue = currentValue?.replace(`{variable:${i}}`, variable);
           result[key] = newValue;
         }
       }

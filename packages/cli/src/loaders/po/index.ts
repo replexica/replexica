@@ -83,7 +83,6 @@ export function createPoContentLoader(): ILoader<PoTranslationEntry, Record<stri
         ])
         .fromPairs()
         .value();
-
       return result;
     },
     async push(locale, data, originalInput) {

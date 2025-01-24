@@ -1,6 +1,3 @@
-msgid ""
-msgstr "Content-Type: text/plain\n"
-
 #: dashboard/users/templates/organizations/members.html:39
 #, python-format
 msgid "%(counter)s member"
