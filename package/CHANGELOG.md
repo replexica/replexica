@@ -1,5 +1,18 @@
 # replexica
 
+## 0.67.0
+
+### Minor Changes
+
+- [#405](https://github.com/lingodotdev/lingo.dev/pull/405) [`446cf9c`](https://github.com/lingodotdev/lingo.dev/commit/446cf9c5c933f71a43fd5d80487b1608023cba8e) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - improved .po loader
+
+- [#404](https://github.com/lingodotdev/lingo.dev/pull/404) [`3edef26`](https://github.com/lingodotdev/lingo.dev/commit/3edef26ef3a4e2d27394c5eeb2bc94b164e037ac) Thanks [@mathio](https://github.com/mathio)! - interactive init comman
+
+### Patch Changes
+
+- Updated dependencies [[`446cf9c`](https://github.com/lingodotdev/lingo.dev/commit/446cf9c5c933f71a43fd5d80487b1608023cba8e), [`3edef26`](https://github.com/lingodotdev/lingo.dev/commit/3edef26ef3a4e2d27394c5eeb2bc94b164e037ac)]:
+  - @replexica/cli@0.67.0
+
 ## 0.66.2
 
 ### Patch Changes
