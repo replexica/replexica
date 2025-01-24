@@ -223,3 +223,15 @@ export const resolveLocaleCode = (value: LocaleCode): LocaleCodeFull => {
 
   throw new Error(`Invalid locale code: ${value}`);
 };
+
+export const getAlternativeLocaleCodes = (locale: string): string[] => {
+  if (locale.includes("-")) {
+    // Convert all dashes to underscores
+    return [locale.replace(/-/g, "_")];
+  } else if (locale.includes("_")) {
+    // Convert all underscores to dashes
+    return [locale.replace(/_/g, "-")];
+  } else {
+    return [];
+  }
+};
