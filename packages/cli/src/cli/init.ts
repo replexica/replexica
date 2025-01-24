@@ -28,9 +28,9 @@ export default new InteractiveCommand()
   .command("init")
   .description("Initialize Replexica project")
   .helpOption("-h, --help", "Show help")
-  .addOption(new InteractiveOption("-f --force", "overwrite existing config").prompt(undefined).default(false))
+  .addOption(new InteractiveOption("-f --force", "Overwrite existing config").prompt(undefined).default(false))
   .addOption(
-    new InteractiveOption("-s --source <locale>", "source locale")
+    new InteractiveOption("-s --source <locale>", "Source locale")
       .argParser((value) => {
         try {
           resolveLocaleCode(value as LocaleCode);
@@ -42,7 +42,7 @@ export default new InteractiveCommand()
       .default("en"),
   )
   .addOption(
-    new InteractiveOption("-t --targets <locale...>", "list of target locales")
+    new InteractiveOption("-t --targets <locale...>", "List of target locales")
       .argParser((value) => {
         const values = (value.includes(",") ? value.split(",") : value.split(" ")) as LocaleCode[];
         values.forEach((value) => {
@@ -57,7 +57,7 @@ export default new InteractiveCommand()
       .default("es"),
   )
   .addOption(
-    new InteractiveOption("-b, --bucket <type>", "type of bucket")
+    new InteractiveOption("-b, --bucket <type>", "Type of bucket")
       .argParser((value) => {
         if (!bucketTypes.includes(value as (typeof bucketTypes)[number])) {
           throwHelpError("bucket format", value);
@@ -67,7 +67,7 @@ export default new InteractiveCommand()
       .default("json"),
   )
   .addOption(
-    new InteractiveOption("-p, --paths <path...>", "list of paths for the bucket")
+    new InteractiveOption("-p, --paths <path...>", "List of paths for the bucket")
       .argParser((value) => {
         const values = value.includes(",") ? value.split(",") : value.split(" ");
 
@@ -86,7 +86,6 @@ export default new InteractiveCommand()
       })
       .default("."),
   )
-  .interactive("-i, --interactive", "interactive mode")
   .action(async (options) => {
     const settings = getSettings(undefined);
 
