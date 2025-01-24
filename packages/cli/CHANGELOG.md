@@ -1,5 +1,11 @@
 # replexica
 
+## 0.68.0
+
+### Minor Changes
+
+- [#408](https://github.com/lingodotdev/lingo.dev/pull/408) [`36fd4af`](https://github.com/lingodotdev/lingo.dev/commit/36fd4af376caf1540dc0a594fd65742c81706aa0) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - disable .po folding
+
 ## 0.67.0
 
 ### Minor Changes
