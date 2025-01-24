@@ -145,7 +145,7 @@ export default new InteractiveCommand()
           }
         }
       } else {
-        Ora().fail("You are not logged in. Run `npx replexica@latest auth --login` to login.");
+        Ora().warn("You are not logged in. Run `npx replexica@latest auth --login` to login.");
       }
     } else {
       Ora().succeed(`Authenticated as ${auth.email}`);
