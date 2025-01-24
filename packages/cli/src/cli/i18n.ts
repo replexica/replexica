@@ -1,6 +1,6 @@
 import { bucketTypeSchema, I18nConfig, localeCodeSchema } from "@replexica/spec";
 import { ReplexicaEngine } from "@replexica/sdk";
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import Z from "zod";
 import _ from "lodash";
 import { getConfig } from "../utils/config";
