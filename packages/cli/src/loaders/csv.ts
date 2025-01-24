@@ -4,10 +4,7 @@ import _ from "lodash";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export default function createCsvLoader(): ILoader<
-  string,
-  Record<string, string>
-> {
+export default function createCsvLoader(): ILoader<string, Record<string, string>> {
   return createLoader({
     async pull(locale, _input) {
       const input = parse(_input, {
@@ -27,10 +24,7 @@ export default function createCsvLoader(): ILoader<
       return result;
     },
     async push(locale, data, originalInput) {
-      const input = parse(originalInput || "", { columns: true }) as Record<
-        string,
-        any
-      >[];
+      const input = parse(originalInput || "", { columns: true }) as Record<string, any>[];
       const columns = Object.keys(input[0] || { id: "" });
 
       // Update existing rows and collect new keys
@@ -45,9 +39,7 @@ export default function createCsvLoader(): ILoader<
         if (!existingKeys.has(key)) {
           updatedRows.push({
             id: key,
-            ...Object.fromEntries(
-              columns.map((column) => [column, column === locale ? value : ""]),
-            ),
+            ...Object.fromEntries(columns.map((column) => [column, column === locale ? value : ""])),
           });
         }
       });

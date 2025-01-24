@@ -115,138 +115,110 @@ export default defineOperationApi<Options>({
 
       // Process translations
       const results: TranslationResult[] = await Promise.all(
-        targetLanguages.map(
-          async (language: { code: string; name: string }) => {
-            try {
-              let translatedData: Record<string, any> = {};
-              let objectToTranslate: Record<string, any> = {};
-              let textFields: Array<{ fieldName: string; fieldValue: string }> =
-                [];
+        targetLanguages.map(async (language: { code: string; name: string }) => {
+          try {
+            let translatedData: Record<string, any> = {};
+            let objectToTranslate: Record<string, any> = {};
+            let textFields: Array<{ fieldName: string; fieldValue: string }> = [];
 
-              // Separate fields into text and non-text
-              for (const [fieldName, fieldValue] of Object.entries(
-                translationTemplate,
-              )) {
-                // Skip if field is null or undefined
-                if (fieldValue == null) {
-                  translatedData[fieldName] = fieldValue;
-                  continue;
-                }
-
-                // Skip system fields and non-translatable fields
-                const fieldSchema = collectionFields[fieldName];
-                if (!fieldSchema || fieldSchema.system) {
-                  translatedData[fieldName] = fieldValue;
-                  continue;
-                }
-
-                if (fieldSchema.type === "text") {
-                  textFields.push({
-                    fieldName,
-                    fieldValue: fieldValue as string,
-                  });
-                } else {
-                  objectToTranslate[fieldName] = fieldValue;
-                }
+            // Separate fields into text and non-text
+            for (const [fieldName, fieldValue] of Object.entries(translationTemplate)) {
+              // Skip if field is null or undefined
+              if (fieldValue == null) {
+                translatedData[fieldName] = fieldValue;
+                continue;
               }
 
-              // Translate non-text fields in one batch
-              if (Object.keys(objectToTranslate).length > 0) {
-                const translatedObject = await replexica.localizeObject(
-                  objectToTranslate,
-                  {
+              // Skip system fields and non-translatable fields
+              const fieldSchema = collectionFields[fieldName];
+              if (!fieldSchema || fieldSchema.system) {
+                translatedData[fieldName] = fieldValue;
+                continue;
+              }
+
+              if (fieldSchema.type === "text") {
+                textFields.push({
+                  fieldName,
+                  fieldValue: fieldValue as string,
+                });
+              } else {
+                objectToTranslate[fieldName] = fieldValue;
+              }
+            }
+
+            // Translate non-text fields in one batch
+            if (Object.keys(objectToTranslate).length > 0) {
+              const translatedObject = await replexica.localizeObject(objectToTranslate, {
+                sourceLocale: source_language,
+                targetLocale: language.code,
+              });
+              translatedData = { ...translatedData, ...translatedObject };
+            }
+
+            // Translate text fields individually
+            for (const { fieldName, fieldValue } of textFields) {
+              try {
+                if (isHtml(fieldValue)) {
+                  translatedData[fieldName] = await replexica.localizeHtml(fieldValue, {
                     sourceLocale: source_language,
                     targetLocale: language.code,
-                  },
-                );
-                translatedData = { ...translatedData, ...translatedObject };
-              }
-
-              // Translate text fields individually
-              for (const { fieldName, fieldValue } of textFields) {
-                try {
-                  if (isHtml(fieldValue)) {
-                    translatedData[fieldName] = await replexica.localizeHtml(
-                      fieldValue,
-                      {
-                        sourceLocale: source_language,
-                        targetLocale: language.code,
-                      },
-                    );
-                  } else {
-                    translatedData[fieldName] = await replexica.localizeText(
-                      fieldValue,
-                      {
-                        sourceLocale: source_language,
-                        targetLocale: language.code,
-                      },
-                    );
-                  }
-                } catch (fieldError) {
-                  console.error(
-                    `Error translating field ${fieldName}:`,
-                    fieldError,
-                  );
-                  translatedData[fieldName] = fieldValue; // Keep original value on error
+                  });
+                } else {
+                  translatedData[fieldName] = await replexica.localizeText(fieldValue, {
+                    sourceLocale: source_language,
+                    targetLocale: language.code,
+                  });
                 }
+              } catch (fieldError) {
+                console.error(`Error translating field ${fieldName}:`, fieldError);
+                translatedData[fieldName] = fieldValue; // Keep original value on error
               }
-
-              // Find existing translation for this language
-              const existingTranslation = existingTranslations.find(
-                (t: { languages_code: string }) =>
-                  t.languages_code === language.code,
-              );
-
-              let result;
-              if (existingTranslation) {
-                result = await translationsService.updateOne(
-                  existingTranslation.id,
-                  {
-                    ...translatedData,
-                    languages_code: language.code,
-                  },
-                );
-              } else {
-                result = await translationsService.createOne({
-                  ...translatedData,
-                  languages_code: language.code,
-                  [`${collection}_${collection_pk}`]: item_id,
-                });
-              }
-
-              return {
-                success: true,
-                language: language.code,
-                operation: existingTranslation ? "updated" : "created",
-                data: result,
-              };
-            } catch (error) {
-              return {
-                success: false,
-                language: language.code,
-                error: error instanceof Error ? error.message : "Unknown error",
-              };
             }
-          },
-        ),
+
+            // Find existing translation for this language
+            const existingTranslation = existingTranslations.find(
+              (t: { languages_code: string }) => t.languages_code === language.code,
+            );
+
+            let result;
+            if (existingTranslation) {
+              result = await translationsService.updateOne(existingTranslation.id, {
+                ...translatedData,
+                languages_code: language.code,
+              });
+            } else {
+              result = await translationsService.createOne({
+                ...translatedData,
+                languages_code: language.code,
+                [`${collection}_${collection_pk}`]: item_id,
+              });
+            }
+
+            return {
+              success: true,
+              language: language.code,
+              operation: existingTranslation ? "updated" : "created",
+              data: result,
+            };
+          } catch (error) {
+            return {
+              success: false,
+              language: language.code,
+              error: error instanceof Error ? error.message : "Unknown error",
+            };
+          }
+        }),
       );
 
       const requestedLanguages = new Set(target_languages || []);
       const missingLanguages =
-        target_languages?.filter(
-          (code) =>
-            !targetLanguages.find(
-              (lang: { code: string }) => lang.code === code,
-            ),
-        ) || [];
+        target_languages?.filter((code) => !targetLanguages.find((lang: { code: string }) => lang.code === code)) || [];
 
-      const missingResults: TranslationResult[] = missingLanguages.map(
-        (code) => ({
-          success: false,
-          language: code,
-          error: `Language ${code} not found in language table`,
-        }),
-      );
+      const missingResults: TranslationResult[] = missingLanguages.map((code) => ({
+        success: false,
+        language: code,
+        error: `Language ${code} not found in language table`,
+      }));
 
       const allResults = [...results, ...missingResults];
 
@@ -260,9 +232,7 @@ export default defineOperationApi<Options>({
 
       return summary;
     } catch (error) {
-      throw new Error(
-        `Translation process failed: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
+      throw new Error(`Translation process failed: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
   },
 });

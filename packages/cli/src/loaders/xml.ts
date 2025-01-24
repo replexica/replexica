@@ -3,17 +3,10 @@ import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
 function normalizeXMLString(xmlString: string): string {
-  return xmlString
-    .replace(/\s+/g, " ")
-    .replace(/>\s+</g, "><")
-    .replace("\n", "")
-    .trim();
+  return xmlString.replace(/\s+/g, " ").replace(/>\s+</g, "><").replace("\n", "").trim();
 }
 
-export default function createXmlLoader(): ILoader<
-  string,
-  Record<string, any>
-> {
+export default function createXmlLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     async pull(locale, input) {
       let result: Record<string, any> = {};

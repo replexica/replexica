@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  I18nBaseProxyProps,
-  I18nBaseProxy,
-  I18nBaseProxyDollarProp,
-} from "../shared";
+import { I18nBaseProxyProps, I18nBaseProxy, I18nBaseProxyDollarProp } from "../shared";
 import { useI18n } from "./context";
 
 export type I18nProxyDollarProp = Omit<I18nBaseProxyDollarProp, "i18n">;
 
-export type I18nProxyProps<P extends {}> = Omit<
-  I18nBaseProxyProps<P, I18nBaseProxyDollarProp>,
-  "$"
-> & {
+export type I18nProxyProps<P extends {}> = Omit<I18nBaseProxyProps<P, I18nBaseProxyDollarProp>, "$"> & {
   $: I18nProxyDollarProp;
 };
 

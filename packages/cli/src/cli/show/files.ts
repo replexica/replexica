@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import _ from "lodash";
 import Ora from "ora";
 import { getConfig } from "../../utils/config";
@@ -19,8 +19,7 @@ export default new Command()
 
         if (!i18nConfig) {
           throw new ReplexicaCLIError({
-            message:
-              "i18n.json not found. Please run `replexica init` to initialize the project.",
+            message: "i18n.json not found. Please run `replexica init` to initialize the project.",
             docUrl: "i18nNotFound",
           });
         }
@@ -28,10 +27,7 @@ export default new Command()
         const buckets = getBuckets(i18nConfig);
         for (const bucket of buckets) {
           for (const pathPattern of bucket.pathPatterns) {
-            const sourcePath = pathPattern.replace(
-              /\[locale\]/g,
-              i18nConfig.locale.source,
-            );
+            const sourcePath = pathPattern.replace(/\[locale\]/g, i18nConfig.locale.source);
             const targetPaths = i18nConfig.locale.targets.map((targetLocale) =>
               pathPattern.replace(/\[locale\]/g, targetLocale),
             );

@@ -49,8 +49,7 @@ export class BitbucketPlatformKit extends PlatformKit<BitbucketConfig> {
         // https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-get
         return values?.find(
           ({ source, destination }) =>
-            source?.branch?.name === branch &&
-            destination?.branch?.name === this.platformConfig.baseBranchName,
+            source?.branch?.name === branch && destination?.branch?.name === this.platformConfig.baseBranchName,
         );
       })
       .then((pr) => pr?.id);
@@ -64,15 +63,7 @@ export class BitbucketPlatformKit extends PlatformKit<BitbucketConfig> {
     });
   }
 
-  async createPullRequest({
-    title,
-    body,
-    head,
-  }: {
-    title: string;
-    body?: string;
-    head: string;
-  }) {
+  async createPullRequest({ title, body, head }: { title: string; body?: string; head: string }) {
     return await this.bb.repositories
       .createPullRequest({
         workspace: this.platformConfig.repositoryOwner,
@@ -87,13 +78,7 @@ export class BitbucketPlatformKit extends PlatformKit<BitbucketConfig> {
       .then(({ data }) => data.id ?? 0);
   }
 
-  async commentOnPullRequest({
-    pullRequestNumber,
-    body,
-  }: {
-    pullRequestNumber: number;
-    body: string;
-  }) {
+  async commentOnPullRequest({ pullRequestNumber, body }: { pullRequestNumber: number; body: string }) {
     await this.bb.repositories.createPullRequestComment({
       workspace: this.platformConfig.repositoryOwner,
       repo_slug: this.platformConfig.repositoryName,
@@ -107,9 +92,7 @@ export class BitbucketPlatformKit extends PlatformKit<BitbucketConfig> {
   }
 
   async gitConfig() {
-    execSync(
-      "git config http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy http://host.docker.internal:29418/",
-    );
+    execSync("git config http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy http://host.docker.internal:29418/");
   }
 
   get platformConfig() {
@@ -119,8 +102,7 @@ export class BitbucketPlatformKit extends PlatformKit<BitbucketConfig> {
       BB_TOKEN: Z.string().optional(),
     }).parse(process.env);
 
-    const [repositoryOwner, repositoryName] =
-      env.BITBUCKET_REPO_FULL_NAME.split("/");
+    const [repositoryOwner, repositoryName] = env.BITBUCKET_REPO_FULL_NAME.split("/");
 
     return {
       baseBranchName: env.BITBUCKET_BRANCH,

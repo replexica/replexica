@@ -8,16 +8,11 @@ export type I18nBaseProxyDollarProp = {
   attributes: Record<string, any>;
 };
 
-export type I18nBaseProxyProps<
-  P extends {},
-  D extends I18nBaseProxyDollarProp,
-> = P & {
+export type I18nBaseProxyProps<P extends {}, D extends I18nBaseProxyDollarProp> = P & {
   $: D;
 };
 
-export function I18nBaseProxy<P extends {}, D extends I18nBaseProxyDollarProp>(
-  props: I18nBaseProxyProps<P, D>,
-) {
+export function I18nBaseProxy<P extends {}, D extends I18nBaseProxyDollarProp>(props: I18nBaseProxyProps<P, D>) {
   const { $, ...originalProps } = props;
   let propsPatch: Partial<P> = {};
 

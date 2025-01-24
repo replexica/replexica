@@ -21,9 +21,7 @@ export class LocalizedURL extends URL {
     const pathnameChunks = this.pathname.split("/");
     const isNewLocaleValid = !newLocale || this._validateLocale(newLocale);
     if (!isNewLocaleValid) {
-      throw new Error(
-        `Cannot change locale on ${this.pathname} to ${newLocale} because it is not a valid locale.`,
-      );
+      throw new Error(`Cannot change locale on ${this.pathname} to ${newLocale} because it is not a valid locale.`);
     }
 
     if (this.locale) {
