@@ -89,9 +89,7 @@ describe("I18n Config Parser", () => {
 
   it("should throw an error for invalid configurations", () => {
     const invalidConfig = { version: "invalid" };
-    expect(() => parseI18nConfig(invalidConfig)).toThrow(
-      "Failed to parse config",
-    );
+    expect(() => parseI18nConfig(invalidConfig)).toThrow("Failed to parse config");
   });
 
   it("should handle empty config and use defaults", () => {

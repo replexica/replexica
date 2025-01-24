@@ -76,9 +76,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
     },
   };
 
-  async function _load<C>(
-    locale: string | undefined | null,
-  ): Promise<I18nInstance> {
+  async function _load<C>(locale: string | undefined | null): Promise<I18nInstance> {
     const supportedLocales = Object.keys(locales);
     // if (supportedLocales.length === 0) {
     //   throw new Error('No locale dictionaries provided.');
@@ -87,8 +85,7 @@ function createI18n(locales: Record<string, () => Promise<any>> = {}) {
     const fallbackLocale = "en";
     const defaultLocale = supportedLocales[0] || fallbackLocale;
     const currentLocale = locale || defaultLocale;
-    const localeLoader =
-      locales[currentLocale] || (() => Promise.resolve({ default: {} }));
+    const localeLoader = locales[currentLocale] || (() => Promise.resolve({ default: {} }));
     const data = (await localeLoader().then((mod) => mod.default)) || {};
 
     return {

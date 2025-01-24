@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import Z from "zod";
 import Ora from "ora";
 import { createLockfileHelper } from "../utils/lockfile";
@@ -18,9 +18,7 @@ export default new Command()
 
     const lockfileHelper = createLockfileHelper();
     if (lockfileHelper.isLockfileExists() && !flags.force) {
-      ora.warn(
-        `Lockfile won't be created because it already exists. Use --force to overwrite.`,
-      );
+      ora.warn(`Lockfile won't be created because it already exists. Use --force to overwrite.`);
     } else {
       const i18nConfig = getConfig();
       const buckets = getBuckets(i18nConfig!);

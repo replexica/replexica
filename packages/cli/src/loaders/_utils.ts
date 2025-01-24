@@ -1,8 +1,6 @@
 import { ILoader, ILoaderDefinition } from "./_types";
 
-export function composeLoaders(
-  ...loaders: ILoader<any, any>[]
-): ILoader<any, any> {
+export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, any> {
   return {
     setDefaultLocale(locale: string) {
       for (const loader of loaders) {
@@ -27,9 +25,7 @@ export function composeLoaders(
   };
 }
 
-export function createLoader<I, O>(
-  lDefinition: ILoaderDefinition<I, O>,
-): ILoader<I, O> {
+export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
   const state = {
     defaultLocale: undefined as string | undefined,
     originalInput: undefined as I | undefined | null,

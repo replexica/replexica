@@ -14,10 +14,7 @@ export type ExecAsyncOptions = Z.infer<typeof ExecAsyncSchema>;
  * @param fns Array of async functions
  * @param options Options
  */
-export async function execAsync(
-  fns: (() => Promise<any>)[],
-  options: ExecAsyncOptions = ExecAsyncSchema.parse({}),
-) {
+export async function execAsync(fns: (() => Promise<any>)[], options: ExecAsyncOptions = ExecAsyncSchema.parse({})) {
   const limit = pLimit(options.concurrency);
   const limitedFns = fns.map((fn) => () => limit(fn));
 

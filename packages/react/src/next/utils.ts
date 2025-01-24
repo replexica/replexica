@@ -3,10 +3,7 @@ import Negotiator from "negotiator";
 
 const LOCALE_COOKIE = "locale";
 
-export function createLocaleExtractor(
-  req: Request,
-  supportedLocales: string[],
-) {
+export function createLocaleExtractor(req: Request, supportedLocales: string[]) {
   return {
     fromCookie: () => {
       const cookieHeader = req.headers.get("Cookie") || "";
@@ -30,10 +27,7 @@ export function createLocaleExtractor(
   };
 }
 
-export function createLocalePicker(
-  supportedLocales: string[],
-  defaultLocale: string,
-) {
+export function createLocalePicker(supportedLocales: string[], defaultLocale: string) {
   return {
     pick: function (...localeOptions: (null | string | string[])[]) {
       for (const localeOption of localeOptions) {
@@ -41,12 +35,8 @@ export function createLocalePicker(
           continue;
         }
 
-        const localeOptionArray = Array.isArray(localeOption)
-          ? localeOption
-          : [localeOption];
-        const firstSupportedLocale = localeOptionArray.find((locale) =>
-          supportedLocales.includes(locale),
-        );
+        const localeOptionArray = Array.isArray(localeOption) ? localeOption : [localeOption];
+        const firstSupportedLocale = localeOptionArray.find((locale) => supportedLocales.includes(locale));
         if (firstSupportedLocale) {
           return firstSupportedLocale;
         }

@@ -11,10 +11,7 @@ export function createLockfileHelper() {
       const lockfilePath = _getLockfilePath();
       return fs.existsSync(lockfilePath);
     },
-    registerSourceData: (
-      pathPattern: string,
-      sourceData: Record<string, any>,
-    ) => {
+    registerSourceData: (pathPattern: string, sourceData: Record<string, any>) => {
       const lockfile = _loadLockfile();
 
       const sectionKey = MD5(pathPattern);
@@ -24,20 +21,14 @@ export function createLockfileHelper() {
 
       _saveLockfile(lockfile);
     },
-    extractUpdatedData: (
-      pathPattern: string,
-      sourceData: Record<string, any>,
-    ) => {
+    extractUpdatedData: (pathPattern: string, sourceData: Record<string, any>) => {
       const lockfile = _loadLockfile();
 
       const sectionKey = MD5(pathPattern);
       const currentChecksums = _.mapValues(sourceData, (value) => MD5(value));
 
       const savedChecksums = lockfile.checksums[sectionKey] || {};
-      const updatedData = _.pickBy(
-        sourceData,
-        (value, key) => savedChecksums[key] !== currentChecksums[key],
-      );
+      const updatedData = _.pickBy(sourceData, (value, key) => savedChecksums[key] !== currentChecksums[key]);
 
       return updatedData;
     },
