@@ -14,38 +14,25 @@ type ConfigDefinition<T extends Z.ZodRawShape, P extends Z.ZodRawShape> = {
   defaultValue: Z.infer<Z.ZodObject<T>>;
   parse: (rawConfig: unknown) => Z.infer<Z.ZodObject<T>>;
 };
-const createConfigDefinition = <
-  T extends Z.ZodRawShape,
-  P extends Z.ZodRawShape,
->(
-  definition: ConfigDefinition<T, P>,
-) => definition;
+const createConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape>(definition: ConfigDefinition<T, P>) =>
+  definition;
 
-type ConfigDefinitionExtensionParams<
-  T extends Z.ZodRawShape,
-  P extends Z.ZodRawShape,
-> = {
+type ConfigDefinitionExtensionParams<T extends Z.ZodRawShape, P extends Z.ZodRawShape> = {
   createSchema: (baseSchema: Z.ZodObject<P>) => Z.ZodObject<T>;
-  createDefaultValue: (
-    baseDefaultValue: Z.infer<Z.ZodObject<P>>,
-  ) => Z.infer<Z.ZodObject<T>>;
+  createDefaultValue: (baseDefaultValue: Z.infer<Z.ZodObject<P>>) => Z.infer<Z.ZodObject<T>>;
   createUpgrader: (
     config: Z.infer<Z.ZodObject<P>>,
     schema: Z.ZodObject<T>,
     defaultValue: Z.infer<Z.ZodObject<T>>,
   ) => Z.infer<Z.ZodObject<T>>;
 };
-const extendConfigDefinition = <
-  T extends Z.ZodRawShape,
-  P extends Z.ZodRawShape,
->(
+const extendConfigDefinition = <T extends Z.ZodRawShape, P extends Z.ZodRawShape>(
   definition: ConfigDefinition<P, any>,
   params: ConfigDefinitionExtensionParams<T, P>,
 ) => {
   const schema = params.createSchema(definition.schema);
   const defaultValue = params.createDefaultValue(definition.defaultValue);
-  const upgrader = (config: Z.infer<Z.ZodObject<P>>) =>
-    params.createUpgrader(config, schema, defaultValue);
+  const upgrader = (config: Z.infer<Z.ZodObject<P>>) => params.createUpgrader(config, schema, defaultValue);
 
   return createConfigDefinition({
     schema,
@@ -150,9 +137,7 @@ export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
 
     // Transform buckets from v1 to v1.1 format
     if (oldConfig.buckets) {
-      for (const [bucketPath, bucketType] of Object.entries(
-        oldConfig.buckets,
-      )) {
+      for (const [bucketPath, bucketType] of Object.entries(oldConfig.buckets)) {
         if (!upgradedConfig.buckets[bucketType]) {
           upgradedConfig.buckets[bucketType] = {
             include: [],
@@ -168,25 +153,22 @@ export const configV1_1Definition = extendConfigDefinition(configV1Definition, {
 
 // v1.1 -> v1.2
 // Changes: Add "extraSource" optional field to the locale node of the config
-export const configV1_2Definition = extendConfigDefinition(
-  configV1_1Definition,
-  {
-    createSchema: (baseSchema) =>
-      baseSchema.extend({
-        locale: localeSchema.extend({
-          extraSource: localeCodeSchema.optional(),
-        }),
+export const configV1_2Definition = extendConfigDefinition(configV1_1Definition, {
+  createSchema: (baseSchema) =>
+    baseSchema.extend({
+      locale: localeSchema.extend({
+        extraSource: localeCodeSchema.optional(),
       }),
-    createDefaultValue: (baseDefaultValue) => ({
-      ...baseDefaultValue,
-      version: 1.2,
     }),
-    createUpgrader: (oldConfig) => ({
-      ...oldConfig,
-      version: 1.2,
-    }),
-  },
-);
+  createDefaultValue: (baseDefaultValue) => ({
+    ...baseDefaultValue,
+    version: 1.2,
+  }),
+  createUpgrader: (oldConfig) => ({
+    ...oldConfig,
+    version: 1.2,
+  }),
+});
 
 // exports
 const LATEST_CONFIG_DEFINITION = configV1_2Definition;

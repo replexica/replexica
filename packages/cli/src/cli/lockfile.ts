@@ -18,9 +18,7 @@ export default new Command()
 
     const lockfileHelper = createLockfileHelper();
     if (lockfileHelper.isLockfileExists() && !flags.force) {
-      ora.warn(
-        `Lockfile won't be created because it already exists. Use --force to overwrite.`,
-      );
+      ora.warn(`Lockfile won't be created because it already exists. Use --force to overwrite.`);
     } else {
       const i18nConfig = getConfig();
       const buckets = getBuckets(i18nConfig!);

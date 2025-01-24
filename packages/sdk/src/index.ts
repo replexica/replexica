@@ -59,9 +59,7 @@ export class ReplexicaEngine {
     const workflowId = createId();
     for (let i = 0; i < chunkedPayload.length; i++) {
       const chunk = chunkedPayload[i];
-      const percentageCompleted = Math.round(
-        ((i + 1) / chunkedPayload.length) * 100,
-      );
+      const percentageCompleted = Math.round(((i + 1) / chunkedPayload.length) * 100);
 
       if (progressCallback) {
         progressCallback(percentageCompleted);
@@ -133,9 +131,7 @@ export class ReplexicaEngine {
    * @param payload - The payload to be chunked
    * @returns An array of payload chunks
    */
-  private extractPayloadChunks(
-    payload: Record<string, string>,
-  ): Record<string, string>[] {
+  private extractPayloadChunks(payload: Record<string, string>): Record<string, string>[] {
     const result: Record<string, string>[] = [];
     let currentChunk: Record<string, string> = {};
     let currentChunkItemCount = 0;
@@ -166,19 +162,11 @@ export class ReplexicaEngine {
    * @param payload - The payload to count words in
    * @returns The total number of words
    */
-  private countWordsInRecord(
-    payload: any | Record<string, any> | Array<any>,
-  ): number {
+  private countWordsInRecord(payload: any | Record<string, any> | Array<any>): number {
     if (Array.isArray(payload)) {
-      return payload.reduce(
-        (acc, item) => acc + this.countWordsInRecord(item),
-        0,
-      );
+      return payload.reduce((acc, item) => acc + this.countWordsInRecord(item), 0);
     } else if (typeof payload === "object" && payload !== null) {
-      return Object.values(payload).reduce(
-        (acc: number, item) => acc + this.countWordsInRecord(item),
-        0,
-      );
+      return Object.values(payload).reduce((acc: number, item) => acc + this.countWordsInRecord(item), 0);
     } else if (typeof payload === "string") {
       return payload.trim().split(/\s+/).filter(Boolean).length;
     } else {
@@ -219,12 +207,7 @@ export class ReplexicaEngine {
     params: Z.infer<typeof localizationParamsSchema>,
     progressCallback?: (progress: number) => void,
   ): Promise<string> {
-    const response = await this._localizeRaw(
-      { text },
-      params,
-      undefined,
-      progressCallback,
-    );
+    const response = await this._localizeRaw({ text }, params, undefined, progressCallback);
     return response.text || "";
   }
 
@@ -273,12 +256,7 @@ export class ReplexicaEngine {
     params: Z.infer<typeof localizationParamsSchema>,
     progressCallback?: (progress: number) => void,
   ): Promise<Array<{ name: string; text: string }>> {
-    const localized = await this._localizeRaw(
-      { chat },
-      params,
-      undefined,
-      progressCallback,
-    );
+    const localized = await this._localizeRaw({ chat }, params, undefined, progressCallback);
 
     return Object.entries(localized).map(([key, value]) => ({
       name: chat[parseInt(key.split("_")[1])].name,
@@ -332,8 +310,7 @@ export class ReplexicaEngine {
         }
 
         const siblings = Array.from(parent.childNodes).filter(
-          (n) =>
-            n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
+          (n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
         );
         const index = siblings.indexOf(current);
         if (index !== -1) {
@@ -342,9 +319,7 @@ export class ReplexicaEngine {
         current = parent;
       }
 
-      const basePath = rootParent
-        ? `${rootParent}/${indices.join("/")}`
-        : indices.join("/");
+      const basePath = rootParent ? `${rootParent}/${indices.join("/")}` : indices.join("/");
       return attribute ? `${basePath}#${attribute}` : basePath;
     };
 
@@ -375,31 +350,19 @@ export class ReplexicaEngine {
         });
 
         Array.from(element.childNodes)
-          .filter(
-            (n) =>
-              n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
-          )
+          .filter((n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
           .forEach(processNode);
       }
     };
 
     Array.from(document.head.childNodes)
-      .filter(
-        (n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
-      )
+      .filter((n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
       .forEach(processNode);
     Array.from(document.body.childNodes)
-      .filter(
-        (n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
-      )
+      .filter((n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()))
       .forEach(processNode);
 
-    const localizedContent = await this._localizeRaw(
-      extractedContent,
-      params,
-      undefined,
-      progressCallback,
-    );
+    const localizedContent = await this._localizeRaw(extractedContent, params, undefined, progressCallback);
 
     // Update the DOM with localized content
     document.documentElement.setAttribute("lang", params.targetLocale);
@@ -413,8 +376,7 @@ export class ReplexicaEngine {
 
       for (const index of indices) {
         const siblings = Array.from(parent.childNodes).filter(
-          (n) =>
-            n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
+          (n) => n.nodeType === 1 || (n.nodeType === 3 && n.textContent?.trim()),
         );
         current = siblings[parseInt(index)] || null;
         if (current?.nodeType === 1) {

@@ -40,9 +40,7 @@ describe("ReplexicaEngine", () => {
       const mockLocalizeRaw = vi.spyOn(engine as any, "_localizeRaw");
       mockLocalizeRaw.mockImplementation(async (content: any) => {
         // Simulate translation by adding 'ES:' prefix to all strings
-        return Object.fromEntries(
-          Object.entries(content).map(([key, value]) => [key, `ES:${value}`]),
-        );
+        return Object.fromEntries(Object.entries(content).map(([key, value]) => [key, `ES:${value}`]));
       });
 
       // Execute the localization
@@ -86,9 +84,7 @@ describe("ReplexicaEngine", () => {
       expect(result).toContain('title="ES:Link title"');
       expect(result).toContain('alt="ES:Test image"');
       expect(result).toContain('placeholder="ES:Enter text"');
-      expect(result).toContain(
-        'const doNotTranslate = "this text should be ignored"',
-      );
+      expect(result).toContain('const doNotTranslate = "this text should be ignored"');
     });
   });
 });

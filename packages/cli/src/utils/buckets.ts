@@ -7,40 +7,23 @@ import { bucketTypeSchema } from "@replexica/spec";
 import Z from "zod";
 
 export function getBuckets(i18nConfig: I18nConfig) {
-  let result = Object.entries(i18nConfig.buckets).map(
-    ([bucketType, bucketEntry]) => ({
-      type: bucketType as Z.infer<typeof bucketTypeSchema>,
-      pathPatterns: extractPathPatterns(
-        i18nConfig.locale.source,
-        bucketEntry.include,
-        bucketEntry?.exclude,
-      ),
-    }),
-  );
+  let result = Object.entries(i18nConfig.buckets).map(([bucketType, bucketEntry]) => ({
+    type: bucketType as Z.infer<typeof bucketTypeSchema>,
+    pathPatterns: extractPathPatterns(i18nConfig.locale.source, bucketEntry.include, bucketEntry?.exclude),
+  }));
 
   return result;
 }
 
-function extractPathPatterns(
-  sourceLocale: string,
-  include: string[],
-  exclude?: string[],
-) {
-  const includedPatterns = include.flatMap((pattern) =>
-    expandPlaceholderedGlob(pattern, sourceLocale),
-  );
-  const excludedPatterns = exclude?.flatMap((pattern) =>
-    expandPlaceholderedGlob(pattern, sourceLocale),
-  );
+function extractPathPatterns(sourceLocale: string, include: string[], exclude?: string[]) {
+  const includedPatterns = include.flatMap((pattern) => expandPlaceholderedGlob(pattern, sourceLocale));
+  const excludedPatterns = exclude?.flatMap((pattern) => expandPlaceholderedGlob(pattern, sourceLocale));
   const result = _.difference(includedPatterns, excludedPatterns ?? []);
   return result;
 }
 
 // Path expansion
-function expandPlaceholderedGlob(
-  _pathPattern: string,
-  sourceLocale: string,
-): string[] {
+function expandPlaceholderedGlob(_pathPattern: string, sourceLocale: string): string[] {
   // Throw if pathPattern is an absolute path
   const absolutePathPattern = path.resolve(_pathPattern);
   const pathPattern = path.relative(process.cwd(), absolutePathPattern);
@@ -68,12 +51,9 @@ function expandPlaceholderedGlob(
   // Break down path pattern into parts
   const pathPatternChunks = pathPattern.split(path.sep);
   // Find the index of the segment containing "[locale]"
-  const localeSegmentIndex = pathPatternChunks.findIndex((segment) =>
-    segment.includes("[locale]"),
-  );
+  const localeSegmentIndex = pathPatternChunks.findIndex((segment) => segment.includes("[locale]"));
   // Find the position of the "[locale]" placeholder within the segment
-  const localePlaceholderIndex =
-    pathPatternChunks[localeSegmentIndex]?.indexOf("[locale]") ?? -1;
+  const localePlaceholderIndex = pathPatternChunks[localeSegmentIndex]?.indexOf("[locale]") ?? -1;
   // substitute [locale] in pathPattern with sourceLocale
   const sourcePathPattern = pathPattern.replace(/\[locale\]/g, sourceLocale);
   // get all files that match the sourcePathPattern
@@ -90,9 +70,7 @@ function expandPlaceholderedGlob(
       const placeholderedSegment =
         placeholderedPathChunk.substring(0, localePlaceholderIndex) +
         "[locale]" +
-        placeholderedPathChunk.substring(
-          localePlaceholderIndex + sourceLocale.length,
-        );
+        placeholderedPathChunk.substring(localePlaceholderIndex + sourceLocale.length);
       sourcePathChunks[localeSegmentIndex] = placeholderedSegment;
     }
     const placeholderedPath = sourcePathChunks.join(path.sep);

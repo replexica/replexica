@@ -3,9 +3,7 @@ import path from "path";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export default function createTextFileLoader(
-  pathPattern: string,
-): ILoader<void, string> {
+export default function createTextFileLoader(pathPattern: string): ILoader<void, string> {
   return createLoader({
     async pull(locale) {
       const draftPath = pathPattern.replace("[locale]", locale);
