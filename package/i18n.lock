@@ -139,8 +139,8 @@ checksums:
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
     home/i-am-a-developer: d8feacce28faea3fd4228a1ebcb11473
   cd761e96e923fc52320b39dc7a0089c8:
-    greeting: a4028aa70eaa7049318f039837199173
-    farewell: 0361aa0c2874ff3ffca6c7ae87e1c73b
+    "%25(counter)s%20member/singularValue": 6ddea033a6b71c033a4cbcce2df7a34e
+    "%25(counter)s%20member/pluralValue": 4e32f4fe95a6e83510ebd5cc9dbd8fd3
   872cabd84a947f251d554a3e26771c83:
     186338895/content/0/0: ecfcf8b69c5dd19d202b6fa40e55df3b
     186338895/content/1/0/0/0: e9a89438091715022d32ee848f9a7c47

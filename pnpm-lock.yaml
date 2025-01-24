@@ -225,6 +225,9 @@ importers:
       '@types/node':
         specifier: ^22.10.2
         version: 22.10.2
+      '@types/node-gettext':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
@@ -1652,6 +1655,9 @@ packages:
 
   '@types/negotiator@0.6.3':
     resolution: {integrity: sha512-JkXTOdKs5MF086b/pt8C3+yVp3iDUwG635L7oCH6HvJvvr6lSUU5oe/gLXnPEfYRROHjJIPgCV6cuAg8gGkntQ==}
+
+  '@types/node-gettext@3.0.6':
+    resolution: {integrity: sha512-A0W1IyyW3Ya+Wj6fDDWWwnXWNgrDNvKkq6xKj5Korc7YIo9023LP8qVTzgwQ5SUIANg2Pm2ggA7bfTcwoPPDUQ==}
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
@@ -5875,6 +5881,8 @@ snapshots:
   '@types/minimatch@5.1.2': {}
 
   '@types/negotiator@0.6.3': {}
+
+  '@types/node-gettext@3.0.6': {}
 
   '@types/node@12.20.55': {}
 

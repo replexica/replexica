@@ -2,5 +2,5 @@
 #, python-format
 msgid "%(counter)s member"
 msgid_plural "%(counter)s members"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s membre"
+msgstr[1] "%(counter)s membres"
