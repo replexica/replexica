@@ -1,10 +1,7 @@
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export default function createXcodeStringsLoader(): ILoader<
-  string,
-  Record<string, any>
-> {
+export default function createXcodeStringsLoader(): ILoader<string, Record<string, any>> {
   return createLoader({
     async pull(locale, input) {
       const lines = input.split("\n");

@@ -49,11 +49,7 @@ describe("execAsync", () => {
     const delay = 100;
     const fns = [
       vi.fn().mockResolvedValue(1),
-      vi
-        .fn()
-        .mockImplementation(
-          () => new Promise((resolve) => setTimeout(() => resolve(2), 50)),
-        ),
+      vi.fn().mockImplementation(() => new Promise((resolve) => setTimeout(() => resolve(2), 50))),
       vi.fn().mockResolvedValue(3),
     ];
     const options: ExecAsyncOptions = { concurrency: 1, delay };

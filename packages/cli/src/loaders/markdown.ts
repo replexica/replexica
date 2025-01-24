@@ -3,8 +3,7 @@ import YAML from "yaml";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-const SECTION_REGEX =
-  /^(#{1,6}\s.*$|[-=*]{3,}$|!\[.*\]\(.*\)$|\[.*\]\(.*\)$)/gm;
+const SECTION_REGEX = /^(#{1,6}\s.*$|[-=*]{3,}$|!\[.*\]\(.*\)$|\[.*\]\(.*\)$)/gm;
 const MD_SECTION_PREFIX = "md-section-";
 const FM_ATTR_PREFIX = "fm-attr-";
 
@@ -13,10 +12,7 @@ const yamlEngine = {
   stringify: (obj: any) => YAML.stringify(obj, { defaultStringType: "PLAIN" }),
 };
 
-export default function createMarkdownLoader(): ILoader<
-  string,
-  Record<string, string>
-> {
+export default function createMarkdownLoader(): ILoader<string, Record<string, string>> {
   return createLoader({
     async pull(locale, input) {
       const { data: frontmatter, content } = matter(input, {
@@ -33,18 +29,10 @@ export default function createMarkdownLoader(): ILoader<
       return {
         ...Object.fromEntries(
           sections
-            .map((section, index) => [
-              `${MD_SECTION_PREFIX}${index}`,
-              section.trim(),
-            ])
+            .map((section, index) => [`${MD_SECTION_PREFIX}${index}`, section.trim()])
             .filter(([, section]) => Boolean(section)),
         ),
-        ...Object.fromEntries(
-          Object.entries(frontmatter).map(([key, value]) => [
-            `${FM_ATTR_PREFIX}${key}`,
-            value,
-          ]),
-        ),
+        ...Object.fromEntries(Object.entries(frontmatter).map(([key, value]) => [`${FM_ATTR_PREFIX}${key}`, value])),
       };
     },
     async push(locale, data: Record<string, string>) {
@@ -56,9 +44,7 @@ export default function createMarkdownLoader(): ILoader<
 
       let content = Object.entries(data)
         .filter(([key]) => key.startsWith(MD_SECTION_PREFIX))
-        .sort(
-          ([a], [b]) => Number(a.split("-").pop()) - Number(b.split("-").pop()),
-        )
+        .sort(([a], [b]) => Number(a.split("-").pop()) - Number(b.split("-").pop()))
         .map(([, value]) => value.trim())
         .filter(Boolean)
         .join("\n\n");

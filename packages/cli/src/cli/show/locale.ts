@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import _ from "lodash";
 import Z from "zod";
 import Ora from "ora";
