@@ -5,10 +5,19 @@ import { defaultConfig, LocaleCode, resolveLocaleCode, bucketTypes } from "@repl
 import fs from "fs";
 import { spawn } from "child_process";
 import _ from "lodash";
+import { confirm } from "@inquirer/prompts";
+import { login } from "./auth";
+import { getSettings, saveSettings } from "../utils/settings";
+import { createAuthenticator } from "../utils/auth";
+
+const openUrl = (path: string) => {
+  const settings = getSettings(undefined);
+  spawn("open", [`${settings.auth.webUrl}${path}`]);
+};
 
 const throwHelpError = (option: string, value: string) => {
   if (value === "help") {
-    spawn("open", ["https://replexica.com/go/call"]);
+    openUrl("/go/call");
   }
   throw new Error(
     `Invalid ${option}: ${value}\n\nDo you need support for ${value} ${option}? Type "help" and we will.`,
@@ -79,6 +88,8 @@ export default new InteractiveCommand()
   )
   .interactive("-i, --interactive", "interactive mode")
   .action(async (options) => {
+    const settings = getSettings(undefined);
+
     const spinner = Ora().start("Initializing Replexica project");
 
     let existingConfig = await getConfig(false);
@@ -98,4 +109,50 @@ export default new InteractiveCommand()
     await saveConfig(newConfig);
 
     spinner.succeed("Replexica project initialized");
+
+    const isInteractive = !process.argv.includes("-y") && !process.argv.includes("--no-interactive");
+
+    if (isInteractive) {
+      const openDocs = await confirm({ message: "Would you like to see our docs?" });
+      if (openDocs) {
+        openUrl("/go/docs");
+      }
+    }
+
+    const authenticator = createAuthenticator({
+      apiKey: settings.auth.apiKey,
+      apiUrl: settings.auth.apiUrl,
+    });
+    const auth = await authenticator.whoami();
+    if (!auth) {
+      if (isInteractive) {
+        const doAuth = await confirm({
+          message: "It looks like you are not logged into the CLI. Login now?",
+        });
+        if (doAuth) {
+          const apiKey = await login(settings.auth.webUrl);
+          settings.auth.apiKey = apiKey;
+          await saveSettings(settings);
+
+          const newAuthenticator = createAuthenticator({
+            apiKey: settings.auth.apiKey,
+            apiUrl: settings.auth.apiUrl,
+          });
+          const auth = await newAuthenticator.whoami();
+          if (auth) {
+            Ora().succeed(`Authenticated as ${auth?.email}`);
+          } else {
+            Ora().fail("Authentication failed.");
+          }
+        }
+      } else {
+        Ora().fail("You are not logged in. Run `npx replexica@latest auth --login` to login.");
+      }
+    } else {
+      Ora().succeed(`Authenticated as ${auth.email}`);
+    }
+
+    if (!isInteractive) {
+      Ora().info("Please see https://docs.replexica.com/");
+    }
   });

@@ -19,6 +19,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@datocms/cma-client-node": "^3.4.0",
+    "@inquirer/prompts": "^7.2.3",
     "@paralleldrive/cuid2": "^2.2.2",
     "@replexica/sdk": "workspace:*",
     "@replexica/spec": "workspace:*",

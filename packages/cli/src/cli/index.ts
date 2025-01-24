@@ -32,7 +32,7 @@ Website: https://replexica.com
   )
   .version(`v${packageJson.version}`, "-v, --version", "Show version")
   .addCommand(initCmd)
-  .interactive("-I, --no-interactive", "disable interactive mode") // all interactive commands above
+  .interactive("-y, --no-interactive", "Disable interactive mode") // all interactive commands above
   .addCommand(i18nCmd)
   .addCommand(authCmd)
   .addCommand(configCmd)
