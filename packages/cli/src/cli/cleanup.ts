@@ -1,5 +1,5 @@
 import { I18nConfig } from "@replexica/spec";
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import _ from "lodash";
 import { getConfig } from "../utils/config";
 import { ReplexicaCLIError } from "../utils/errors";

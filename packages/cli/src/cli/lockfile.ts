@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import Z from "zod";
 import Ora from "ora";
 import { createLockfileHelper } from "../utils/lockfile";

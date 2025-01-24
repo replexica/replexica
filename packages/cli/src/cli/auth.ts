@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command } from "interactive-commander";
 import Ora from "ora";
 import express from "express";
 import cors from "cors";
