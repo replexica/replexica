@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseI18nConfig, I18nConfig, defaultConfig } from "./config"; // Adjust the import path as needed
+import { parseI18nConfig, defaultConfig } from "./config"; // Adjust the import path as needed
 
 // Helper function to create a v0 config
 const createV0Config = () => ({
@@ -59,7 +59,7 @@ describe("I18n Config Parser", () => {
     const v0Config = createV0Config();
     const result = parseI18nConfig(v0Config);
 
-    expect(result.version).toBe(1.2);
+    expect(result.version).toBe(1.3);
     expect(result.locale).toEqual(defaultConfig.locale);
     expect(result.buckets).toEqual({});
   });
@@ -68,7 +68,7 @@ describe("I18n Config Parser", () => {
     const v1Config = createV1Config();
     const result = parseI18nConfig(v1Config);
 
-    expect(result.version).toBe(1.2);
+    expect(result.version).toBe(1.3);
     expect(result.locale).toEqual(v1Config.locale);
     expect(result.buckets).toEqual({
       json: {
