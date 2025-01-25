@@ -1,5 +1,5 @@
 export interface ILoaderDefinition<I, O> {
-  pull(locale: string, input: I): Promise<O>;
+  pull(locale: string, input: I, originalInput?: I | null): Promise<O>;
   push(locale: string, data: O, originalInput?: I | null): Promise<I>;
 
   // onStart?(): Promise<void>;

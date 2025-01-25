@@ -49,7 +49,7 @@ export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoade
         state.originalInput = input || null;
       }
 
-      return lDefinition.pull(locale, input);
+      return lDefinition.pull(locale, input, state.originalInput);
     },
     async push(locale, data) {
       if (!state.defaultLocale) {
