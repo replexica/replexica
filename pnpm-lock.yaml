@@ -131,9 +131,6 @@ importers:
       jsonrepair:
         specifier: ^3.11.2
         version: 3.11.2
-      node-webvtt:
-        specifier: ^1.9.4
-        version: 1.9.4
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
