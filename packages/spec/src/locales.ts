@@ -235,3 +235,26 @@ export const getAlternativeLocaleCodes = (locale: string): string[] => {
     return [];
   }
 };
+
+export const getLocaleCodeDelimiter = (locale: string): string | null => {
+  if (locale.includes("_")) {
+    return "_";
+  } else if (locale.includes("-")) {
+    return "-";
+  } else {
+    return null;
+  }
+};
+
+export const resolveOverridenLocale = (locale: string, delimiter?: "-" | "_" | null): string => {
+  if (!delimiter) {
+    return locale;
+  }
+
+  const currentDelimiter = getLocaleCodeDelimiter(locale);
+  if (!currentDelimiter) {
+    return locale;
+  }
+
+  return locale.replace(currentDelimiter, delimiter);
+};
