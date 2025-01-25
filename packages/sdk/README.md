@@ -1,14 +1,14 @@
-# Replexica SDK
+# Lingo.dev SDK
 
-This package is part of the [Replexica](https://github.com/replexica/replexica) project, an i18n toolkit designed to help you ship multi-language applications quickly and efficiently.
+This package is part of the [Lingo.dev](https://github.com/lingodotdev/lingo.dev) project, an i18n toolkit designed to help you ship multi-language applications quickly and efficiently.
 
 ## Overview
 
-The Replexica SDK provides a streamlined interface to interact with the Replexica AI Localization Real-Time API. It simplifies the process of integrating advanced localization capabilities into your applications, enabling you to build sophisticated multilingual experiences with ease.
+The Lingo.dev SDK provides a streamlined interface to interact with the Lingo.dev AI Localization Real-Time API. It simplifies the process of integrating advanced localization capabilities into your applications, enabling you to build sophisticated multilingual experiences with ease.
 
 ## Features
 
-- **Easy API Access**: Provides a simple and intuitive way to interact with the Replexica AI Localization Real-Time API.
+- **Easy API Access**: Provides a simple and intuitive way to interact with the Lingo.dev AI Localization Real-Time API.
 - **Efficient Chunking**: Automatically handles payload chunking for optimal API usage.
 - **Progress Tracking**: Offers built-in progress reporting for long-running localization tasks.
 - **Error Handling**: Robust error handling for API interactions.
@@ -16,7 +16,7 @@ The Replexica SDK provides a streamlined interface to interact with the Replexic
 
 ## Use Cases
 
-The Replexica SDK is versatile and can be used in various scenarios, including:
+The Lingo.dev SDK is versatile and can be used in various scenarios, including:
 
 - Building multilingual chat applications
 - Developing next-generation email clients with real-time translation
@@ -39,12 +39,12 @@ npm install @replexica/sdk
 import dotenv from "dotenv";
 dotenv.config();
 
-// Import the Replexica SDK
-import { ReplexicaEngine } from "@replexica/sdk";
+// Import the Lingo.dev SDK
+import { Lingo.devEngine } from "@replexica/sdk";
 
-// Initialize the Replexica Engine SDK
-const replexica = new ReplexicaEngine({
-  apiKey: process.env.REPLEXICA_API_KEY, // Your Replexica API key, obtained from the Replexica.com dashboard
+// Initialize the Lingo.dev Engine SDK
+const replexica = new Lingo.devEngine({
+  apiKey: process.env.REPLEXICA_API_KEY, // Your Lingo.dev API key, obtained from the Lingo.dev.com dashboard
 });
 
 // Localize a JSON payload
@@ -58,14 +58,14 @@ const localizedContent = await replexica.localizeObject(
 console.log(localizedContent);
 ```
 
-For more detailed usage instructions and API documentation, please refer to the [Replexica documentation](https://docs.replexica.com).
+For more detailed usage instructions and API documentation, please refer to the [Lingo.dev documentation](https://docs.lingo.dev).
 
 ## Contributing
 
-Contributions to the Replexica SDK are welcome. If you would like to contribute, please review our [contributing guidelines](https://github.com/replexica/replexica/blob/main/CONTRIBUTING.md) for detailed instructions.
+Contributions to the Lingo.dev SDK are welcome. If you would like to contribute, please review our [contributing guidelines](https://github.com/lingodotdev/lingo.dev/blob/main/CONTRIBUTING.md) for detailed instructions.
 
 ## License
 
-The Replexica SDK inherits its license from the root of the Replexica repository. For the most up-to-date licensing information, please refer to the [LICENSE](https://github.com/replexica/replexica/blob/main/LICENSE) file in the root of the Replexica repository.
+The Lingo.dev SDK inherits its license from the root of the Lingo.dev repository. For the most up-to-date licensing information, please refer to the [LICENSE](https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE) file in the root of the Lingo.dev repository.
 
-For more information about Replexica and its ecosystem, please visit the main [Replexica repository](https://github.com/replexica/replexica).
+For more information about Lingo.dev and its ecosystem, please visit the main [Lingo.dev repository](https://github.com/lingodotdev/lingo.dev).

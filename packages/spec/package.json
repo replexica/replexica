@@ -1,7 +1,7 @@
 {
   "name": "@replexica/spec",
   "version": "0.24.0",
-  "description": "Replexica open specification",
+  "description": "Lingo.dev open specification",
   "private": false,
   "type": "module",
   "sideEffects": false,

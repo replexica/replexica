@@ -1,6 +1,6 @@
 # CONTRIBUTING.md
 
-Thank you for contributing to Replexica! We're an exciting open source project and we'd love to have you contribute!
+Thank you for contributing to Lingo.dev! We're an exciting open source project and we'd love to have you contribute!
 
 Here's some resources and guidance to help you get started:
 
@@ -14,8 +14,8 @@ Here's some resources and guidance to help you get started:
 Here's how to get the project running locally:
 
 ```bash
-git clone https://github.com/replexica/replexica
-cd replexica
+git clone https://github.com/lingodotdev/lingo.dev
+cd lingo.dev
 pnpm i
 pnpm turbo build
 
@@ -28,16 +28,16 @@ cd package
 pnpm replexica --help # this command will use the current cli code + demo config from ./package/i18n.json
 ```
 
-Feel free to ask questions on our [Discord server](https://replexica.com/go/discord)!
+Feel free to ask questions on our [Discord server](https://lingo.dev/go/discord)!
 
 ## Issues
 
 If you find a bug, please create an Issue and we'll triage it.
 
-- Please search [existing Issues](https://github.com/replexica/replexica/issues) before creating a new one
+- Please search [existing Issues](https://github.com/lingodotdev/lingo.dev/issues) before creating a new one
 - Please include a clear description of the problem along with steps to reproduce it. Exact steps with screenshots and urls really help here
 - Before starting work on an issue, please comment on it and wait for it to be assigned to you. This prevents multiple people from working on the same issue simultaneously
-- Let's discuss implementation details in the issue comments or Discord before starting work, to ensure alignment between contributors and the Replexica team
+- Let's discuss implementation details in the issue comments or Discord before starting work, to ensure alignment between contributors and the Lingo.dev team
 
 ## Pull Requests
 

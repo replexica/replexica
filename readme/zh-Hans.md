@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://replexica.com">
-    <img src="/content/banner.dark.png" width="100%" alt="Replexica" />
+  <a href="https://lingo.dev">
+    <img src="/content/banner.dark.png" width="100%" alt="Lingo.dev" />
   </a>
 </p>
 
@@ -11,32 +11,32 @@
 <br />
 
 <p align="center">
-  <a href="https://replexica.com">官网</a> •
-  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">参与贡献</a> •
+  <a href="https://lingo.dev">官网</a> •
+  <a href="https://github.com/lingodotdev/lingo.dev/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">参与贡献</a> •
   <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
-    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="发布" />
+  <a href="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml">
+    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="发布" />
   </a>
-  <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="许可证" />
+  <a href="https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="许可证" />
   </a>
-  <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="最新提交" />
+  <a href="https://github.com/lingodotdev/lingo.dev/commits/main">
+    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="最新提交" />
   </a>
 </p>
 
 <br />
 
-Replexica AI实现软件本地化的端到端自动化。
+Lingo.dev AI实现软件本地化的端到端自动化。
 
-它能即时生成地道的翻译，消除人工工作和管理开销。Replexica本地化引擎深入理解产品上下文，为60多种语言创建完美的本地化内容，确保符合母语者的期望。因此，团队可以以最先进的质量实现100倍速的本地化，将功能快速推向全球更多付费用户。
+它能即时生成地道的翻译，消除人工工作和管理开销。Lingo.dev本地化引擎深入理解产品上下文，为60多种语言创建完美的本地化内容，确保符合母语者的期望。因此，团队可以以最先进的质量实现100倍速的本地化，将功能快速推向全球更多付费用户。
 
 ## 💫 快速开始
 
-1. 在[官网](https://replexica.com)创建账户
+1. 在[官网](https://lingo.dev)创建账户
 
 2. 初始化你的项目：
 
@@ -44,7 +44,7 @@ Replexica AI实现软件本地化的端到端自动化。
    npx replexica@latest init
    ```
 
-3. 查看我们的文档：[docs.replexica.com](https://docs.replexica.com)
+3. 查看我们的文档：[docs.lingo.dev](https://docs.lingo.dev)
 
 4. 本地化你的应用（仅需几秒）：
    ```bash
@@ -53,19 +53,19 @@ Replexica AI实现软件本地化的端到端自动化。
 
 ## 🤖 GitHub Action
 
-Replexica提供GitHub Action以在您的CI/CD流程中自动化本地化。以下是基本设置：
+Lingo.dev提供GitHub Action以在您的CI/CD流程中自动化本地化。以下是基本设置：
 
 ```yaml
-- uses: replexica/replexica@main
+- uses: lingodotdev/lingo.dev@main
   with:
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
 此action在每次推送时运行`replexica i18n`，自动保持您的翻译最新。
 
-关于拉取请求模式和其他配置选项，请访问我们的[GitHub Action文档](https://docs.replexica.com/setup/gha)。
+关于拉取请求模式和其他配置选项，请访问我们的[GitHub Action文档](https://docs.lingo.dev/setup/gha)。
 
-## 🥇 团队选择 Replexica 的原因
+## 🥇 团队选择 Lingo.dev 的原因
 
 - 🔥 **即时集成**：几分钟内完成设置
 - 🔄 **CI/CD 自动化**：无缝开发流程集成
@@ -83,24 +83,24 @@ Replexica提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
 
 ## 📚 文档
 
-详细指南和 API 参考，请访问[文档](https://replexica.com/go/docs)。
+详细指南和 API 参考，请访问[文档](https://lingo.dev/go/docs)。
 
 ## 🤝 参与贡献
 
 想要参与贡献，即使你不是客户？
 
-查看[适合新手的议题](https://github.com/replexica/replexica/labels/good%20first%20issue)并阅读[贡献指南](./CONTRIBUTING.md)。
+查看[适合新手的议题](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue)并阅读[贡献指南](./CONTRIBUTING.md)。
 
 ## 🧠 团队
 
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-有问题或咨询？发邮件至 veronica@replexica.com
+有问题或咨询？发邮件至 veronica@lingo.dev
 
 ## 🌐 其他语言版本的说明文档
 
-- [English](https://github.com/replexica/replexica)
+- [English](https://github.com/lingodotdev/lingo.dev)
 - [Spanish](/readme/es.md)
 - [French](/readme/fr.md)
 - [Russian](/readme/ru.md)

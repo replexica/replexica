@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://replexica.com">
-    <img src="/content/banner.dark.png" width="100%" alt="Replexica" />
+  <a href="https://lingo.dev">
+    <img src="/content/banner.dark.png" width="100%" alt="Lingo.dev" />
   </a>
 </p>
 
@@ -11,32 +11,32 @@
 <br />
 
 <p align="center">
-  <a href="https://replexica.com">Site web</a> •
-  <a href="https://github.com/replexica/replexica/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribuer</a> •
+  <a href="https://lingo.dev">Site web</a> •
+  <a href="https://github.com/lingodotdev/lingo.dev/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Contribuer</a> •
   <a href="#-github-action">GitHub Action</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/replexica/replexica/actions/workflows/release.yml">
-    <img src="https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg" alt="Release" />
+  <a href="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml">
+    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="Release" />
   </a>
-  <a href="https://github.com/replexica/replexica/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/replexica/replexica" alt="License" />
+  <a href="https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="License" />
   </a>
-  <a href="https://github.com/replexica/replexica/commits/main">
-    <img src="https://img.shields.io/github/last-commit/replexica/replexica" alt="Last Commit" />
+  <a href="https://github.com/lingodotdev/lingo.dev/commits/main">
+    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="Last Commit" />
   </a>
 </p>
 
 <br />
 
-Replexica AI automatise la localisation des logiciels de bout en bout.
+Lingo.dev AI automatise la localisation des logiciels de bout en bout.
 
-Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Replexica comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. Résultat : les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant ainsi leurs fonctionnalités à davantage de clients payants dans le monde entier.
+Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Lingo.dev comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. Résultat : les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant ainsi leurs fonctionnalités à davantage de clients payants dans le monde entier.
 
 ## 💫 Démarrage rapide
 
-1. Créez un compte sur [le site web](https://replexica.com)
+1. Créez un compte sur [le site web](https://lingo.dev)
 
 2. Initialisez votre projet :
 
@@ -44,7 +44,7 @@ Elle produit instantanément des traductions authentiques, éliminant le travail
    npx replexica@latest init
    ```
 
-3. Consultez notre documentation : [docs.replexica.com](https://docs.replexica.com)
+3. Consultez notre documentation : [docs.lingo.dev](https://docs.lingo.dev)
 
 4. Localisez votre application (en quelques secondes) :
    ```bash
@@ -53,19 +53,19 @@ Elle produit instantanément des traductions authentiques, éliminant le travail
 
 ## 🤖 GitHub Action
 
-Replexica propose une GitHub Action pour automatiser la localisation dans votre pipeline CI/CD. Voici une configuration de base :
+Lingo.dev propose une GitHub Action pour automatiser la localisation dans votre pipeline CI/CD. Voici une configuration de base :
 
 ```yaml
-- uses: replexica/replexica@main
+- uses: lingodotdev/lingo.dev@main
   with:
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
 Cette action exécute `replexica i18n` à chaque push, maintenant automatiquement vos traductions à jour.
 
-Pour le mode pull request et d'autres options de configuration, consultez notre [documentation GitHub Action](https://docs.replexica.com/setup/gha).
+Pour le mode pull request et d'autres options de configuration, consultez notre [documentation GitHub Action](https://docs.lingo.dev/setup/gha).
 
-## 🥇 Pourquoi les équipes choisissent Replexica
+## 🥇 Pourquoi les équipes choisissent Lingo.dev
 
 - 🔥 **Intégration instantanée** : Configuration en quelques minutes
 - 🔄 **Automatisation CI/CD** : Intégration transparente dans le pipeline de développement
@@ -83,24 +83,24 @@ Pour le mode pull request et d'autres options de configuration, consultez notre 
 
 ## 📚 Documentation
 
-Pour des guides détaillés et des références API, visitez la [documentation](https://replexica.com/go/docs).
+Pour des guides détaillés et des références API, visitez la [documentation](https://lingo.dev/go/docs).
 
 ## 🤝 Contribuer
 
 Intéressé à contribuer, même si vous n'êtes pas client ?
 
-Consultez les [Good First Issues](https://github.com/replexica/replexica/labels/good%20first%20issue) et lisez le [Guide de contribution](./CONTRIBUTING.md).
+Consultez les [Good First Issues](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue) et lisez le [Guide de contribution](./CONTRIBUTING.md).
 
 ## 🧠 Équipe
 
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-Des questions ou des demandes ? Écrivez à veronica@replexica.com
+Des questions ou des demandes ? Écrivez à veronica@lingo.dev
 
 ## 🌐 Readme dans d'autres langues
 
-- [English](https://github.com/replexica/replexica)
+- [English](https://github.com/lingodotdev/lingo.dev)
 - [Spanish](/readme/es.md)
 - [French](/readme/fr.md)
 - [Russian](/readme/ru.md)
