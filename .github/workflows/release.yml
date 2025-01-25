@@ -55,7 +55,7 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      - name: Replexica
+      - name: Lingo.dev
         uses: ./
         with:
           api-key: ${{ secrets.REPLEXICA_API_KEY }}

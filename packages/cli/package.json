@@ -1,7 +1,7 @@
 {
   "name": "@replexica/cli",
   "version": "0.70.0",
-  "description": "Replexica CLI",
+  "description": "Lingo.dev CLI",
   "private": false,
   "type": "module",
   "main": "build/index.js",

@@ -1,7 +1,7 @@
 {
   "name": "@replexica/react",
   "version": "0.3.19",
-  "description": "Replexica React components",
+  "description": "Lingo.dev React components",
   "private": false,
   "type": "module",
   "sideEffects": false,

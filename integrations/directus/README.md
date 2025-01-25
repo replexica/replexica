@@ -1,18 +1,18 @@
-# Replexica Integration for Directus
+# Lingo.dev Integration for Directus
 
-This is the official Replexica integration for [Directus](https://directus.io), a headless CMS, enabling automated AI-powered localization within your Directus workflow.
+This is the official Lingo.dev integration for [Directus](https://directus.io), a headless CMS, enabling automated AI-powered localization within your Directus workflow.
 
 ## Overview
 
-This integration adds a Replexica operation to Directus CMS that allows you to automatically translate content across 80+ languages using Replexica's AI localization engine.
+This integration adds a Lingo.dev operation to Directus CMS that allows you to automatically translate content across 80+ languages using Lingo.dev's AI localization engine.
 
 ## Configuration
 
-1. Install Replexica Extension in your Directus project
-2. Create a new Flow in Directus with Replexica Extension
+1. Install Lingo.dev Extension in your Directus project
+2. Create a new Flow in Directus with Lingo.dev Extension
 3. Run the Flow to localize content
 
-## 1. Set up Replexica Extension
+## 1. Set up Lingo.dev Extension
 
 This section is based on the [Directus documentation for installing extensions via the npm registry](https://docs.directus.io/extensions/installing-extensions.html#installing-via-the-npm-registry).
 
@@ -82,7 +82,7 @@ On startup, Directus will automatically load any extension installed in the prev
 
 ![Add Confirmation Dialog](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/confirmation-dialog.png)
 
-5. Click '+' to add a new operation and select Replexica Integration for Directus.
+5. Click '+' to add a new operation and select Lingo.dev Integration for Directus.
 
 ![Add Operation](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/replexica-operation.png)
 
@@ -104,7 +104,7 @@ The Flow will automatically translate the content in the selected collection.
 
 ![Flow Results](https://nlugbbdqxnqwhydszieg.supabase.co/storage/v1/object/public/replexica-integration-directus/flow-results.png)
 
-## Replexica Extension Inputs
+## Lingo.dev Extension Inputs
 
 The integration provides a Directus operation that accepts the following parameters:
 
@@ -112,7 +112,7 @@ The integration provides a Directus operation that accepts the following paramet
 - `collection`: The collection containing the content
 - `translation_table`: The table storing translations
 - `language_table`: The table containing supported languages
-- `replexica_api_key`: Your Replexica API key
+- `replexica_api_key`: Your Lingo.dev API key
 - `source_language`: Source language code (defaults to 'en-US')
 - `target_languages`: Array of target language codes (example: ['fr-FR', 'de-DE'])
 
@@ -122,7 +122,7 @@ To run the integration locally:
 
 ```bash
 # Clone the repo
-git clone https://github.com/replexica/replexica
+git clone https://github.com/lingodotdev/lingo.dev
 
 # Install dependencies
 cd integrations/directus
@@ -152,13 +152,13 @@ This will start Directus at [http://localhost:8055](http://localhost:8055).
 
 ## More Information
 
-- [Replexica Documentation](https://docs.replexica.com)
+- [Lingo.dev Documentation](https://docs.lingo.dev)
 - [Directus Extensions Guide](https://docs.directus.io/extensions/operations)
-- [GitHub Repository](https://github.com/replexica/replexica)
+- [GitHub Repository](https://github.com/lingodotdev/lingo.dev)
 
 ## Support
 
 For questions and support:
 
-- [Replexica Discord](https://replexica.com/go/discord)
-- Email: <veronica@replexica.com>
+- [Lingo.dev Discord](https://lingo.dev/go/discord)
+- Email: <veronica@lingo.dev>
