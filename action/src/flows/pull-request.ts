@@ -33,6 +33,10 @@ export class PullRequestFlow extends InBranchFlow {
     return true;
   }
 
+  override async run() {
+    return super.run(true);
+  }
+
   async postRun() {
     if (!this.i18nBranchName) {
       throw new Error("i18nBranchName is not set. Did you forget to call preRun?");
