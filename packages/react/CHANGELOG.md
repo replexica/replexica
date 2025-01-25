@@ -1,5 +1,12 @@
 # @replexica/react
 
+## 0.3.19
+
+### Patch Changes
+
+- Updated dependencies [[`003344f`](https://github.com/lingodotdev/lingo.dev/commit/003344ffcca98a391a298707f18476971c4d4c2b)]:
+  - @replexica/spec@0.24.0
+
 ## 0.3.18
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @replexica/spec
 
+## 0.24.0
+
+### Minor Changes
+
+- [`003344f`](https://github.com/lingodotdev/lingo.dev/commit/003344ffcca98a391a298707f18476971c4d4c2b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add locale delimiter override
+
 ## 0.23.0
 
 ### Minor Changes

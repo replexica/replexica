@@ -1,5 +1,12 @@
 # @replexica/sdk
 
+## 0.7.10
+
+### Patch Changes
+
+- Updated dependencies [[`003344f`](https://github.com/lingodotdev/lingo.dev/commit/003344ffcca98a391a298707f18476971c4d4c2b)]:
+  - @replexica/spec@0.24.0
+
 ## 0.7.9
 
 ### Patch Changes
