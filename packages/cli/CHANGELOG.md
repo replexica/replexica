@@ -1,5 +1,11 @@
 # replexica
 
+## 0.69.0
+
+### Minor Changes
+
+- [#411](https://github.com/lingodotdev/lingo.dev/pull/411) [`1b0647d`](https://github.com/lingodotdev/lingo.dev/commit/1b0647d91080f4947ba6227c397fb6232d0d1907) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add structure sync loader to cli
+
 ## 0.68.0
 
 ### Minor Changes
