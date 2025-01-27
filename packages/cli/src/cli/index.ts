@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { InteractiveCommand } from "interactive-commander";
+import figlet from "figlet";
+import { vice } from "gradient-string";
 
 import authCmd from "./cli/auth";
 import initCmd from "./cli/init";
@@ -19,7 +21,14 @@ export default new InteractiveCommand()
   .addHelpText(
     "beforeAll",
     `
-Lingo.dev CLI
+${vice(
+  figlet.textSync("LINGO.DEV", {
+    font: "ANSI Shadow",
+    horizontalLayout: "default",
+    verticalLayout: "default",
+  }),
+)}
+
 Website: https://lingo.dev
 `,
   )
@@ -30,4 +39,11 @@ Website: https://lingo.dev
   .addCommand(authCmd)
   .addCommand(configCmd)
   .addCommand(lockfileCmd)
-  .addCommand(cleanupCmd);
+  .addCommand(cleanupCmd)
+  .exitOverride((err) => {
+    // Exit with code 0 when help or version is displayed
+    if (err.code === "commander.helpDisplayed" || err.code === "commander.version" || err.code === "commander.help") {
+      process.exit(0);
+    }
+    throw err;
+  });
