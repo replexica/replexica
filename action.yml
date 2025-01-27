@@ -10,11 +10,11 @@ runs:
   using: "docker"
   image: "action/Dockerfile"
   env:
-    REPLEXICA_API_KEY: ${{ inputs.api-key }}
-    REPLEXICA_PULL_REQUEST: ${{ inputs.pull-request }}
-    REPLEXICA_COMMIT_MESSAGE: ${{ inputs.commit-message }}
-    REPLEXICA_PULL_REQUEST_TITLE: ${{ inputs.pull-request-title }}
-    REPLEXICA_WORKING_DIRECTORY: ${{ inputs.working-directory }}
+    LINGODOTDEV_API_KEY: ${{ inputs.api-key }}
+    LINGODOTDEV_PULL_REQUEST: ${{ inputs.pull-request }}
+    LINGODOTDEV_COMMIT_MESSAGE: ${{ inputs.commit-message }}
+    LINGODOTDEV_PULL_REQUEST_TITLE: ${{ inputs.pull-request-title }}
+    LINGODOTDEV_WORKING_DIRECTORY: ${{ inputs.working-directory }}
 
 inputs:
   api-key:

@@ -25,19 +25,19 @@ export abstract class PlatformKit<PlatformConfig extends BasePlatformConfig = Ba
 
   get config() {
     const env = Z.object({
-      REPLEXICA_API_KEY: Z.string(),
-      REPLEXICA_PULL_REQUEST: Z.preprocess((val) => val === "true" || val === true, Z.boolean()),
-      REPLEXICA_COMMIT_MESSAGE: Z.string(),
-      REPLEXICA_PULL_REQUEST_TITLE: Z.string(),
-      REPLEXICA_WORKING_DIRECTORY: Z.string().optional().default("."),
+      LINGODOTDEV_API_KEY: Z.string(),
+      LINGODOTDEV_PULL_REQUEST: Z.preprocess((val) => val === "true" || val === true, Z.boolean()),
+      LINGODOTDEV_COMMIT_MESSAGE: Z.string(),
+      LINGODOTDEV_PULL_REQUEST_TITLE: Z.string(),
+      LINGODOTDEV_WORKING_DIRECTORY: Z.string().optional().default("."),
     }).parse(process.env);
 
     return {
-      replexicaApiKey: env.REPLEXICA_API_KEY,
-      isPullRequestMode: env.REPLEXICA_PULL_REQUEST,
-      commitMessage: env.REPLEXICA_COMMIT_MESSAGE,
-      pullRequestTitle: env.REPLEXICA_PULL_REQUEST_TITLE,
-      workingDir: env.REPLEXICA_WORKING_DIRECTORY,
+      replexicaApiKey: env.LINGODOTDEV_API_KEY,
+      isPullRequestMode: env.LINGODOTDEV_PULL_REQUEST,
+      commitMessage: env.LINGODOTDEV_COMMIT_MESSAGE,
+      pullRequestTitle: env.LINGODOTDEV_PULL_REQUEST_TITLE,
+      workingDir: env.LINGODOTDEV_WORKING_DIRECTORY,
     };
   }
 }
