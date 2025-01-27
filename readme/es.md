@@ -110,5 +110,6 @@ Revisa los [Issues para Principiantes](https://github.com/lingodotdev/lingo.dev/
 - [Japonés](/readme/ja.md)
 - [Italiano](/readme/it.md)
 - [Árabe](/readme/ar.md)
+- [Hindi](/readme/hi.md)
 
 ¿No ves tu idioma? Simplemente agrega un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.

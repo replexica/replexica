@@ -100,15 +100,16 @@ Lingo.dev 提供 GitHub Action 来在你的 CI/CD 流程中自动化本地化。
 
 ## 🌐 其他语言版本的说明文档
 
-- [英文](https://github.com/lingodotdev/lingo.dev)
-- [西班牙语](/readme/es.md)
-- [法语](/readme/fr.md)
-- [俄语](/readme/ru.md)
-- [德语](/readme/de.md)
-- [中文](/readme/zh-Hans.md)
-- [韩语](/readme/ko.md)
-- [日语](/readme/ja.md)
-- [意大利语](/readme/it.md)
-- [阿拉伯语](/readme/ar.md)
+- [English](https://github.com/lingodotdev/lingo.dev)
+- [Spanish](/readme/es.md)
+- [French](/readme/fr.md)
+- [Russian](/readme/ru.md)
+- [German](/readme/de.md)
+- [Chinese](/readme/zh-Hans.md)
+- [Korean](/readme/ko.md)
+- [Japanese](/readme/ja.md)
+- [Italian](/readme/it.md)
+- [Arabic](/readme/ar.md)
+- [Hindi](/readme/hi.md)
 
-没有看到您的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码并提交 PR。
+没有看到您的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码并提交 PR 即可。
