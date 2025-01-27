@@ -12,11 +12,13 @@ export function getSettings(explicitApiKey: string | undefined): CliSettings {
   const systemFile = _loadSystemFile();
   const defaults = _loadDefaults();
 
+  _legacyEnvVarWarning();
+
   return {
     auth: {
-      apiKey: explicitApiKey || env.REPLEXICA_API_KEY || systemFile.auth?.apiKey || defaults.auth.apiKey,
-      apiUrl: env.REPLEXICA_API_URL || systemFile.auth?.apiUrl || defaults.auth.apiUrl,
-      webUrl: env.REPLEXICA_WEB_URL || systemFile.auth?.webUrl || defaults.auth.webUrl,
+      apiKey: explicitApiKey || env.LINGODOTDEV_API_KEY || systemFile.auth?.apiKey || defaults.auth.apiKey,
+      apiUrl: env.LINGODOTDEV_API_URL || systemFile.auth?.apiUrl || defaults.auth.apiUrl,
+      webUrl: env.LINGODOTDEV_WEB_URL || systemFile.auth?.webUrl || defaults.auth.webUrl,
     },
   };
 }
@@ -47,9 +49,9 @@ function _loadDefaults(): CliSettings {
 
 function _loadEnv() {
   return Z.object({
-    REPLEXICA_API_KEY: Z.string().optional(),
-    REPLEXICA_API_URL: Z.string().optional(),
-    REPLEXICA_WEB_URL: Z.string().optional(),
+    LINGODOTDEV_API_KEY: Z.string().optional(),
+    LINGODOTDEV_API_URL: Z.string().optional(),
+    LINGODOTDEV_WEB_URL: Z.string().optional(),
   })
     .passthrough()
     .parse(process.env);
@@ -82,4 +84,21 @@ function _getSettingsFilePath(): string {
   const homedir = os.homedir();
   const settingsFilePath = path.join(homedir, settingsFile);
   return settingsFilePath;
+}
+
+function _legacyEnvVarWarning() {
+  const env = _loadEnv();
+
+  if (env.REPLEXICA_API_KEY && !env.LINGODOTDEV_API_KEY) {
+    console.warn(
+      "\x1b[33m%s\x1b[0m",
+      `
+⚠️  WARNING: REPLEXICA_API_KEY env var is deprecated ⚠️
+===========================================================
+
+Please use LINGODOTDEV_API_KEY instead.
+===========================================================
+`,
+    );
+  }
 }
