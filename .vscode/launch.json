@@ -14,12 +14,15 @@
       "type": "node",
       "sourceMaps": true,
       "outFiles": [
-        "${workspaceFolder}/packages/cli/build/**/*.js"
+        "${workspaceFolder}/packages/cli/build/**/*.mjs"
       ],
       "resolveSourceMapLocations": [
-        "${workspaceFolder}/packages/cli/build/**/*.js",
+        "${workspaceFolder}/packages/cli/build/**/*.mjs",
         "!**/node_modules/**"
-      ]
+      ],
+      "remoteRoot": "${workspaceFolder}/packages/cli",
+      "localRoot": "${workspaceFolder}/packages/cli",
+      "port": 9229
     }
   ]
 }
