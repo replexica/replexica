@@ -1,1 +1,1 @@
-import "@lingo.dev/cli";
+export { default } from "@lingo.dev/cli";

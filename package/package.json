@@ -23,14 +23,15 @@
     }
   },
   "bin": {
-    "lingo.dev": "./bin/cli.cjs"
+    "lingo.dev": "./bin/cli.mjs"
   },
   "files": [
     "bin",
     "build"
   ],
   "scripts": {
-    "lingo.dev": "node --inspect ./bin/cli.cjs",
+    "lingo.dev": "node --inspect ./bin/cli.mjs",
+    "clean": "rm -rf build",
     "build": "tsup"
   },
   "keywords": [],
