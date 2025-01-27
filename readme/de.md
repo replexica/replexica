@@ -30,40 +30,40 @@
 
 <br />
 
-Lingo.dev KI automatisiert die Software-Lokalisierung von Anfang bis Ende.
+Lingo.dev automatisiert die Software-Lokalisierung End-to-End mit modernsten LLM-Modellen.
 
-Sie erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Lingo.dev Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch 100-mal schneller lokalisieren, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
+Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Lingo.dev Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch 100-mal schneller lokalisieren, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
 
 ## 💫 Schnellstart
 
-1. Erstellen Sie ein Konto auf der [Website](https://lingo.dev)
+1. Erstelle einen Account auf [der Website](https://lingo.dev)
 
-2. Initialisieren Sie Ihr Projekt:
+2. Initialisiere dein Projekt:
 
    ```bash
    npx lingo.dev@latest init
    ```
 
-3. Lesen Sie unsere Dokumentation: [docs.lingo.dev](https://docs.lingo.dev)
+3. Schau dir unsere Docs an: [docs.lingo.dev](https://docs.lingo.dev)
 
-4. Lokalisieren Sie Ihre App (dauert nur Sekunden):
+4. Lokalisiere deine App (dauert nur Sekunden):
    ```bash
    npx lingo.dev@latest i18n
    ```
 
 ## 🤖 GitHub Action
 
-Lingo.dev bietet eine GitHub Action zur Automatisierung der Lokalisierung in Ihrer CI/CD-Pipeline. Hier ist eine grundlegende Einrichtung:
+Lingo.dev bietet eine GitHub Action zur Automatisierung der Lokalisierung in deiner CI/CD-Pipeline. Hier ist ein grundlegendes Setup:
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
   with:
-    api-key: ${{ secrets.REPLEXICA_API_KEY }}
+    api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
 ```
 
-Diese Action führt bei jedem Push `lingo.dev i18n` aus und hält Ihre Übersetzungen automatisch aktuell.
+Diese Action führt `lingo.dev i18n` bei jedem Push aus und hält deine Übersetzungen automatisch aktuell.
 
-Für den Pull-Request-Modus und weitere Konfigurationsoptionen besuchen Sie unsere [GitHub Action Dokumentation](https://docs.lingo.dev/setup/gha).
+Für den Pull-Request-Modus und weitere Konfigurationsoptionen besuche unsere [GitHub Action Dokumentation](https://docs.lingo.dev/setup/gha).
 
 ## 🥇 Warum Teams sich für Lingo.dev entscheiden
 

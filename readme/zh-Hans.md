@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ 直接从 CI/CD 实现最先进的网页和移动端 AI 本地化。</strong>
+  <strong>⚡️ 通过 CI/CD 实现网页和移动端的最先进 AI 本地化。</strong>
 </p>
 
 <br />
@@ -30,9 +30,9 @@
 
 <br />
 
-Lingo.dev 实现软件本地化的端到端自动化。
+Lingo.dev 使用最新的 LLM 模型实现软件本地化的端到端自动化。
 
-它能即时生成地道的翻译，消除人工工作和管理开销。Lingo.dev 本地化引擎理解产品上下文，为 60 多种语言创建完美的翻译，确保符合母语者的预期。因此，团队可以以最先进的质量实现本地化速度提升 100 倍，为全球更多付费客户发布功能。
+它能即时生成地道的翻译，消除人工工作和管理开销。Lingo.dev 本地化引擎理解产品上下文，为 60 多种语言创建完美的翻译，确保符合母语者的期望。因此，团队可以以最先进的质量完成本地化工作，速度提升 100 倍，将功能更快地推向全球付费用户。
 
 ## 💫 快速开始
 
@@ -46,24 +46,24 @@ Lingo.dev 实现软件本地化的端到端自动化。
 
 3. 查看我们的文档：[docs.lingo.dev](https://docs.lingo.dev)
 
-4. 本地化您的应用（仅需几秒）：
+4. 本地化你的应用（仅需几秒）：
    ```bash
    npx lingo.dev@latest i18n
    ```
 
 ## 🤖 GitHub Action
 
-Lingo.dev 提供 GitHub Action 来在您的 CI/CD 流程中自动化本地化。以下是基本设置：
+Lingo.dev 提供 GitHub Action 来在你的 CI/CD 流程中自动化本地化。以下是基本设置：
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
   with:
-    api-key: ${{ secrets.REPLEXICA_API_KEY }}
+    api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
 ```
 
-此 action 会在每次推送时运行 `lingo.dev i18n`，自动保持翻译更新。
+这个 action 会在每次推送时运行 `lingo.dev i18n`，自动保持翻译内容的更新。
 
-关于拉取请求模式和其他配置选项，请访问我们的 [GitHub Action 文档](https://docs.lingo.dev/setup/gha)。
+关于 pull request 模式和其他配置选项，请访问我们的 [GitHub Action 文档](https://docs.lingo.dev/setup/gha)。
 
 ## 🥇 团队选择 Lingo.dev 的原因
 
