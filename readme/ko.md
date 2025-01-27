@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ CI/CD에서 바로 사용 가능한 최첨단 AI 웹 & 모바일 현지화 솔루션</strong>
+  <strong>⚡️ CI/CD에서 바로 사용 가능한 최첨단 AI 로컬라이제이션 솔루션</strong>
 </p>
 
 <br />
@@ -30,9 +30,9 @@
 
 <br />
 
-Lingo.dev AI는 소프트웨어 현지화를 처음부터 끝까지 자동화합니다.
+Lingo.dev AI는 소프트웨어 로컬라이제이션을 처음부터 끝까지 자동화합니다.
 
-수작업과 관리 부담을 없애고 즉시 자연스러운 번역을 제공합니다. Lingo.dev 현지화 엔진은 제품의 맥락을 이해하여 60개 이상의 언어에서 원어민이 기대하는 수준의 완벽한 번역을 만들어냅니다. 결과적으로 팀은 최첨단 품질을 유지하면서 100배 더 빠른 현지화를 수행하여 전 세계의 더 많은 고객에게 새로운 기능을 제공할 수 있습니다.
+수동 작업과 관리 부담을 제거하고 즉시 자연스러운 번역을 제공합니다. Lingo.dev 로컬라이제이션 엔진은 제품 컨텍스트를 이해하여 60개 이상의 언어에서 원어민이 기대하는 완벽한 번역을 만들어냅니다. 결과적으로 팀은 최첨단 품질로 100배 더 빠르게 로컬라이제이션을 수행하여 전 세계의 더 많은 유료 고객에게 기능을 제공할 수 있습니다.
 
 ## 💫 빠른 시작
 
@@ -46,7 +46,7 @@ Lingo.dev AI는 소프트웨어 현지화를 처음부터 끝까지 자동화합
 
 3. 문서 확인하기: [docs.lingo.dev](https://docs.lingo.dev)
 
-4. 앱 현지화하기 (몇 초면 완료):
+4. 앱 로컬라이제이션 (몇 초면 완료):
    ```bash
    npx replexica@latest i18n
    ```
@@ -63,7 +63,7 @@ Lingo.dev는 CI/CD 파이프라인에서 로컬라이제이션을 자동화하�
 
 이 액션은 모든 푸시에서 `replexica i18n`을 실행하여 번역을 자동으로 최신 상태로 유지합니다.
 
-풀 리퀘스트 모드 및 기타 구성 옵션에 대해서는 [GitHub Action 문서](https://docs.lingo.dev/setup/gha)를 참조하세요.
+풀 리퀘스트 모드와 기타 설정 옵션에 대해서는 [GitHub Action 문서](https://docs.lingo.dev/setup/gha)를 참조하세요.
 
 ## 🥇 팀들이 Lingo.dev를 선택하는 이유
 
@@ -96,7 +96,7 @@ Lingo.dev는 CI/CD 파이프라인에서 로컬라이제이션을 자동화하�
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-문의사항이 있으신가요? veronica@lingo.dev으로 이메일을 보내주세요
+문의사항이 있으신가요? veronica@lingo.dev로 이메일을 보내주세요
 
 ## 🌐 다른 언어로 된 Readme
 

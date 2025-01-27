@@ -30,13 +30,13 @@
 
 <br />
 
-Lingo.dev AI automatisiert die Software-Lokalisierung von Anfang bis Ende.
+Lingo.dev KI automatisiert die Software-Lokalisierung von Anfang bis Ende.
 
-Es erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Lingo.dev Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch 100-mal schneller lokalisieren, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
+Sie erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit und Verwaltungsaufwand. Die Lingo.dev Lokalisierungs-Engine versteht den Produktkontext und erstellt perfekte Übersetzungen, die Muttersprachler in über 60 Sprachen erwarten. Teams können dadurch 100-mal schneller lokalisieren, mit modernster Qualität, und Features an mehr zahlende Kunden weltweit ausliefern.
 
 ## 💫 Schnellstart
 
-1. Erstellen Sie ein Konto auf [der Website](https://lingo.dev)
+1. Erstellen Sie ein Konto auf der [Website](https://lingo.dev)
 
 2. Initialisieren Sie Ihr Projekt:
 
@@ -61,11 +61,11 @@ Lingo.dev bietet eine GitHub Action zur Automatisierung der Lokalisierung in Ihr
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-Diese Action führt bei jedem Push `replexica i18n` aus und hält Ihre Übersetzungen automatisch auf dem neuesten Stand.
+Diese Action führt bei jedem Push `replexica i18n` aus und hält Ihre Übersetzungen automatisch aktuell.
 
 Für den Pull-Request-Modus und weitere Konfigurationsoptionen besuchen Sie unsere [GitHub Action Dokumentation](https://docs.lingo.dev/setup/gha).
 
-## 🥇 Warum Teams Lingo.dev wählen
+## 🥇 Warum Teams sich für Lingo.dev entscheiden
 
 - 🔥 **Sofortige Integration**: Setup in Minuten
 - 🔄 **CI/CD Automation**: Nahtlose Integration in Dev-Pipelines
@@ -89,7 +89,7 @@ Detaillierte Anleitungen und API-Referenzen finden Sie in der [Dokumentation](ht
 
 Interesse am Mitwirken, auch wenn Sie kein Kunde sind?
 
-Sehen Sie sich die [Good First Issues](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue) an und lesen Sie den [Contributing Guide](./CONTRIBUTING.md).
+Schauen Sie sich die [Good First Issues](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue) an und lesen Sie den [Leitfaden zum Mitwirken](./CONTRIBUTING.md).
 
 ## 🧠 Team
 
@@ -100,15 +100,15 @@ Fragen oder Anfragen? E-Mail an veronica@lingo.dev
 
 ## 🌐 Readme in anderen Sprachen
 
-- [English](https://github.com/lingodotdev/lingo.dev)
-- [Spanish](/readme/es.md)
-- [French](/readme/fr.md)
-- [Russian](/readme/ru.md)
-- [German](/readme/de.md)
-- [Chinese](/readme/zh-Hans.md)
-- [Korean](/readme/ko.md)
-- [Japanese](/readme/ja.md)
-- [Italian](/readme/it.md)
-- [Arabic](/readme/ar.md)
+- [Englisch](https://github.com/lingodotdev/lingo.dev)
+- [Spanisch](/readme/es.md)
+- [Französisch](/readme/fr.md)
+- [Russisch](/readme/ru.md)
+- [Deutsch](/readme/de.md)
+- [Chinesisch](/readme/zh-Hans.md)
+- [Koreanisch](/readme/ko.md)
+- [Japanisch](/readme/ja.md)
+- [Italienisch](/readme/it.md)
+- [Arabisch](/readme/ar.md)
 
-Ihre Sprache nicht dabei? Fügen Sie einfach einen neuen Sprachcode zur [`i18n.json`](./i18n.json) Datei hinzu und öffnen Sie einen PR.
+Ihre Sprache nicht dabei? Fügen Sie einfach einen neuen Sprachcode zur [`i18n.json`](./i18n.json) Datei hinzu und erstellen Sie einen PR.
