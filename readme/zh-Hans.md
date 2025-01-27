@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ 直接从CI/CD实现最先进的网页和移动端AI本地化。</strong>
+  <strong>⚡️ 直接从 CI/CD 实现最先进的网页和移动端 AI 本地化。</strong>
 </p>
 
 <br />
@@ -18,27 +18,27 @@
 
 <p align="center">
   <a href="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml">
-    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="发布" />
+    <img src="https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg" alt="Release" />
   </a>
   <a href="https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="许可证" />
+    <img src="https://img.shields.io/github/license/lingodotdev/lingo.dev" alt="License" />
   </a>
   <a href="https://github.com/lingodotdev/lingo.dev/commits/main">
-    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="最新提交" />
+    <img src="https://img.shields.io/github/last-commit/lingodotdev/lingo.dev" alt="Last Commit" />
   </a>
 </p>
 
 <br />
 
-Lingo.dev AI实现软件本地化的端到端自动化。
+Lingo.dev AI 实现软件本地化的端到端自动化。
 
-它能即时生成地道的翻译，消除人工工作和管理开销。Lingo.dev本地化引擎深入理解产品上下文，为60多种语言创建完美的本地化内容，确保符合母语者的期望。因此，团队可以以最先进的质量实现100倍速的本地化，将功能快速推向全球更多付费用户。
+它能即时生成地道的翻译，消除人工工作和管理开销。Lingo.dev 本地化引擎理解产品上下文，为 60 多种语言创建完美的翻译，确保符合母语者的预期。因此，团队可以以最先进的质量实现本地化速度提升 100 倍，为全球更多付费客户发布功能。
 
 ## 💫 快速开始
 
-1. 在[官网](https://lingo.dev)创建账户
+1. 在[官网](https://lingo.dev)创建账号
 
-2. 初始化你的项目：
+2. 初始化项目：
 
    ```bash
    npx replexica@latest init
@@ -46,14 +46,14 @@ Lingo.dev AI实现软件本地化的端到端自动化。
 
 3. 查看我们的文档：[docs.lingo.dev](https://docs.lingo.dev)
 
-4. 本地化你的应用（仅需几秒）：
+4. 本地化您的应用（仅需几秒）：
    ```bash
    npx replexica@latest i18n
    ```
 
 ## 🤖 GitHub Action
 
-Lingo.dev提供GitHub Action以在您的CI/CD流程中自动化本地化。以下是基本设置：
+Lingo.dev 提供 GitHub Action 来在您的 CI/CD 流程中自动化本地化。以下是基本设置：
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
@@ -61,9 +61,9 @@ Lingo.dev提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-此action在每次推送时运行`replexica i18n`，自动保持您的翻译最新。
+此 action 会在每次推送时运行 `replexica i18n`，自动保持翻译更新。
 
-关于拉取请求模式和其他配置选项，请访问我们的[GitHub Action文档](https://docs.lingo.dev/setup/gha)。
+关于拉取请求模式和其他配置选项，请访问我们的 [GitHub Action 文档](https://docs.lingo.dev/setup/gha)。
 
 ## 🥇 团队选择 Lingo.dev 的原因
 
@@ -87,7 +87,7 @@ Lingo.dev提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
 
 ## 🤝 参与贡献
 
-想要参与贡献，即使你不是客户？
+有兴趣参与贡献，即使您不是客户？
 
 查看[适合新手的议题](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue)并阅读[贡献指南](./CONTRIBUTING.md)。
 
@@ -96,19 +96,19 @@ Lingo.dev提供GitHub Action以在您的CI/CD流程中自动化本地化。以�
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-有问题或咨询？发邮件至 veronica@lingo.dev
+有问题或咨询？发送邮件至 veronica@lingo.dev
 
 ## 🌐 其他语言版本的说明文档
 
-- [English](https://github.com/lingodotdev/lingo.dev)
-- [Spanish](/readme/es.md)
-- [French](/readme/fr.md)
-- [Russian](/readme/ru.md)
-- [German](/readme/de.md)
-- [Chinese](/readme/zh-Hans.md)
-- [Korean](/readme/ko.md)
-- [Japanese](/readme/ja.md)
-- [Italian](/readme/it.md)
-- [Arabic](/readme/ar.md)
+- [英文](https://github.com/lingodotdev/lingo.dev)
+- [西班牙语](/readme/es.md)
+- [法语](/readme/fr.md)
+- [俄语](/readme/ru.md)
+- [德语](/readme/de.md)
+- [中文](/readme/zh-Hans.md)
+- [韩语](/readme/ko.md)
+- [日语](/readme/ja.md)
+- [意大利语](/readme/it.md)
+- [阿拉伯语](/readme/ar.md)
 
-没有看到你的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码并提交 PR。
+没有看到您的语言？只需在 [`i18n.json`](./i18n.json) 文件中添加新的语言代码并提交 PR。

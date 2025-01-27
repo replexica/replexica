@@ -30,7 +30,7 @@
 
 <br />
 
-Lingo.dev IA automatiza la localización de software de principio a fin.
+La IA de Lingo.dev automatiza la localización de software de principio a fin.
 
 Produce traducciones auténticas al instante, eliminando el trabajo manual y la sobrecarga de gestión. El Motor de Localización de Lingo.dev comprende el contexto del producto, creando traducciones perfeccionadas que los hablantes nativos esperan en más de 60 idiomas. Como resultado, los equipos realizan la localización 100 veces más rápido, con calidad de última generación, llevando funcionalidades a más clientes de pago en todo el mundo.
 
@@ -53,7 +53,7 @@ Produce traducciones auténticas al instante, eliminando el trabajo manual y la 
 
 ## 🤖 GitHub Action
 
-Lingo.dev ofrece un GitHub Action para automatizar la localización en tu pipeline de CI/CD. Aquí tienes una configuración básica:
+Lingo.dev ofrece una GitHub Action para automatizar la localización en tu pipeline de CI/CD. Aquí tienes una configuración básica:
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
@@ -61,7 +61,7 @@ Lingo.dev ofrece un GitHub Action para automatizar la localización en tu pipeli
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-Esta acción ejecuta `replexica i18n` en cada push, manteniendo tus traducciones actualizadas automáticamente.
+Esta action ejecuta `replexica i18n` en cada push, manteniendo tus traducciones actualizadas automáticamente.
 
 Para el modo de pull request y otras opciones de configuración, visita nuestra [documentación de GitHub Action](https://docs.lingo.dev/setup/gha).
 
@@ -89,26 +89,26 @@ Para guías detalladas y referencias de la API, visita la [documentación](https
 
 ¿Interesado en contribuir, incluso si no eres cliente?
 
-Revisa los [Good First Issues](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue) y lee la [Guía de Contribución](./CONTRIBUTING.md).
+Revisa los [Issues para Principiantes](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue) y lee la [Guía de Contribución](./CONTRIBUTING.md).
 
 ## 🧠 Equipo
 
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-¿Preguntas o consultas? Escribe a veronica@lingo.dev
+¿Preguntas o consultas? Envía un correo a veronica@lingo.dev
 
 ## 🌐 Readme en otros idiomas
 
-- [English](https://github.com/lingodotdev/lingo.dev)
-- [Spanish](/readme/es.md)
-- [French](/readme/fr.md)
-- [Russian](/readme/ru.md)
-- [German](/readme/de.md)
-- [Chinese](/readme/zh-Hans.md)
-- [Korean](/readme/ko.md)
-- [Japanese](/readme/ja.md)
-- [Italian](/readme/it.md)
-- [Arabic](/readme/ar.md)
+- [Inglés](https://github.com/lingodotdev/lingo.dev)
+- [Español](/readme/es.md)
+- [Francés](/readme/fr.md)
+- [Ruso](/readme/ru.md)
+- [Alemán](/readme/de.md)
+- [Chino](/readme/zh-Hans.md)
+- [Coreano](/readme/ko.md)
+- [Japonés](/readme/ja.md)
+- [Italiano](/readme/it.md)
+- [Árabe](/readme/ar.md)
 
 ¿No ves tu idioma? Simplemente agrega un nuevo código de idioma al archivo [`i18n.json`](./i18n.json) y abre un PR.
