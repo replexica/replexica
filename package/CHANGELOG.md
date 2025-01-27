@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.70.2
+
+### Patch Changes
+
+- [`5dda52b`](https://github.com/lingodotdev/lingo.dev/commit/5dda52bec6788ffa171a976b1739209b193c5a4c) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - optimize lingo.dev (dev) dependencies
+
 ## 0.70.1
 
 ### Patch Changes
