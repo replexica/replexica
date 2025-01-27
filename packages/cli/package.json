@@ -2,7 +2,7 @@
   "name": "@lingo.dev/cli",
   "version": "0.70.0",
   "description": "Lingo.dev CLI",
-  "private": false,
+  "private": true,
   "type": "module",
   "types": "build/index.d.ts",
   "main": "build/index.js",
