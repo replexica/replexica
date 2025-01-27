@@ -44,18 +44,6 @@ importers:
         specifier: ^2.1.8
         version: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
 
-  legacy/package:
-    dependencies:
-      '@lingo.dev/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-
-  legacy/sdk:
-    dependencies:
-      '@lingo.dev/sdk':
-        specifier: workspace:*
-        version: link:../../packages/sdk
-
   package:
     dependencies:
       '@lingo.dev/cli':
