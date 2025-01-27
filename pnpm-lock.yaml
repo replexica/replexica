@@ -44,6 +44,18 @@ importers:
         specifier: ^2.1.8
         version: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
 
+  legacy/cli:
+    dependencies:
+      lingo.dev:
+        specifier: '*'
+        version: 0.70.3(@types/node@22.10.2)(terser@5.36.0)
+
+  legacy/sdk:
+    dependencies:
+      lingo.dev:
+        specifier: '*'
+        version: 0.70.3(@types/node@22.10.2)(terser@5.36.0)
+
   packages/cli:
     dependencies:
       '@datocms/cma-client-node':
@@ -2856,6 +2868,11 @@ packages:
 
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+
+  lingo.dev@0.70.3:
+    resolution: {integrity: sha512-D7sEiJu3gjGgdx1G53bA5xBXp8EyNS1lVcvMafQTxVwyTS6/nliqTplMZ0yCavEMhUy/G3qH/ZjOmQFB7G7JCQ==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   linkify-it@5.0.0:
     resolution: {integrity: sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==}
@@ -7086,6 +7103,72 @@ snapshots:
   lilconfig@3.1.2: {}
 
   lines-and-columns@1.2.4: {}
+
+  lingo.dev@0.70.3(@types/node@22.10.2)(terser@5.36.0):
+    dependencies:
+      '@datocms/cma-client-node': 3.4.0
+      '@inquirer/prompts': 7.2.3(@types/node@22.10.2)
+      '@paralleldrive/cuid2': 2.2.2
+      chalk: 5.4.1
+      cors: 2.8.5
+      csv-parse: 5.6.0
+      csv-stringify: 6.5.2
+      date-fns: 4.1.0
+      diff: 7.0.0
+      dotenv: 16.4.7
+      express: 4.21.2
+      external-editor: 3.1.0
+      flat: 6.0.1
+      gettext-parser: 8.0.0
+      glob: 10.4.5
+      gray-matter: 4.0.3
+      ini: 5.0.0
+      inquirer: 12.3.0(@types/node@22.10.2)
+      interactive-commander: 0.5.194(@types/node@22.10.2)
+      is-url: 1.2.4
+      jsdom: 25.0.1
+      json5: 2.2.3
+      jsonrepair: 3.11.2
+      lodash: 4.17.21
+      markdown-it: 14.1.0
+      markdown-it-front-matter: 0.2.4
+      marked: 15.0.4
+      node-webvtt: 1.9.4
+      object-hash: 3.0.0
+      open: 10.1.0
+      ora: 8.1.1
+      p-limit: 6.2.0
+      plist: 3.1.0
+      prettier: 3.4.2
+      properties-parser: 0.6.0
+      slugify: 1.6.6
+      srt-parser-2: 1.2.3
+      typescript: 5.7.2
+      vitest: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
+      xliff: 6.2.1
+      xml2js: 0.6.2
+      xmldom: 0.6.0
+      xpath: 0.0.34
+      yaml: 2.6.1
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - bufferutil
+      - canvas
+      - happy-dom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - utf-8-validate
 
   linkify-it@5.0.0:
     dependencies:

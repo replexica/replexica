@@ -1,4 +1,4 @@
 packages:
   - "./packages/*"
   - "./integrations/*"
-  # - "./legacy/*"
+  - "./legacy/*"

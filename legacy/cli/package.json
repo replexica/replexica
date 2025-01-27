@@ -15,11 +15,13 @@
     "bin",
     "build"
   ],
-  "scripts": {},
+  "scripts": {
+    "replexica": "./bin/cli.mjs"
+  },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@lingo.dev/cli": "*"
+    "lingo.dev": "*"
   }
 }

@@ -16,6 +16,6 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@lingo.dev/sdk": "*"
+    "lingo.dev": "*"
   }
 }
