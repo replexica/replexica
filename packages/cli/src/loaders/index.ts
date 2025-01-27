@@ -180,7 +180,6 @@ export default function createBucketLoader(
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),
         createVttLoader(),
-        createFlatLoader(),
         createSyncLoader(),
         createUnlocalizableLoader(),
       );
