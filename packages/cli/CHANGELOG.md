@@ -1,5 +1,11 @@
 # @lingo.dev/cli
 
+## 0.70.3
+
+### Patch Changes
+
+- [`9917328`](https://github.com/lingodotdev/lingo.dev/commit/9917328f1293cc44caadde74d7b3c0e3e39e8691) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix export issue
+
 ## 0.70.1
 
 ### Patch Changes
