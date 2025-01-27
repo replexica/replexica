@@ -23,6 +23,7 @@ import createXliffLoader from "./xliff";
 import createXmlLoader from "./xml";
 import createSrtLoader from "./srt";
 import createDatoLoader from "./dato";
+import createVttLoader from "./vtt";
 import createVariableLoader from "./variable";
 import createSyncLoader from "./sync";
 
@@ -173,6 +174,14 @@ export default function createBucketLoader(
         createDatoLoader(bucketPathPattern),
         createSyncLoader(),
         createFlatLoader(),
+        createUnlocalizableLoader(),
+      );
+    case "vtt":
+      return composeLoaders(
+        createTextFileLoader(bucketPathPattern),
+        createVttLoader(),
+        createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
   }

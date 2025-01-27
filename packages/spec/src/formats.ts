@@ -19,6 +19,7 @@ export const bucketTypes = [
   "srt",
   "dato",
   "compiler",
+  "vtt",
 ] as const;
 
 export const bucketTypeSchema = Z.enum(bucketTypes);

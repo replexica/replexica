@@ -795,6 +795,100 @@ user.password=Contraseña
       expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.yaml", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
+
+  describe("vtt bucket loader", () => {
+    it("should load complex vtt data", async () => {
+      setupFileMocks();
+
+      const input = `
+  WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+Hello world!
+
+00:00:30.000 --> 00:00:31.000 align:start line:0%
+This is a subtitle
+
+00:01:00.000 --> 00:01:01.000
+Foo
+
+00:01:50.000 --> 00:01:51.000
+Bar
+      `.trim();
+
+      const expectedOutput = {
+        "0#0-1#": "Hello world!",
+        "1#30-31#": "This is a subtitle",
+        "2#60-61#": "Foo",
+        "3#110-111#": "Bar",
+      };
+
+      mockFileOperations(input);
+
+      const vttLoader = createBucketLoader("vtt", "i18n/[locale].vtt");
+      vttLoader.setDefaultLocale("en");
+      const data = await vttLoader.pull("en");
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it("should save complex vtt data", async () => {
+      setupFileMocks();
+      const input = `
+  WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+Hello world!
+
+00:00:30.000 --> 00:00:31.000 align:start line:0%
+This is a subtitle
+
+00:01:00.000 --> 00:01:01.000
+Foo
+
+00:01:50.000 --> 00:01:51.000
+Bar
+      `.trim();
+
+      //       // Complex VTT payload to save
+      const payload = {
+        "0#0-1#": "¡Hola mundo!",
+        "1#30-31#": "Este es un subtítulo",
+        "2#60-61#": "Foo",
+        "3#110-111#": "Bar",
+      };
+
+      const expectedOutput =
+        `
+  WEBVTT
+
+00:00:00.000 --> 00:00:01.000
+¡Hola mundo!
+
+00:00:30.000 --> 00:00:31.000
+Este es un subtítulo
+
+00:01:00.000 --> 00:01:01.000
+Foo
+
+00:01:50.000 --> 00:01:51.000
+Bar`.trim() + "\n";
+
+      mockFileOperations(input);
+
+      const vttLoader = createBucketLoader("vtt", "i18n/[locale].vtt");
+      vttLoader.setDefaultLocale("en");
+      await vttLoader.pull("en");
+
+      await vttLoader.push("es", payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.vtt", expectedOutput, {
+        encoding: "utf-8",
+        flag: "w",
+      });
+    });
+  });
+
   describe("XML bucket loader", () => {
     it("should load XML data", async () => {
       setupFileMocks();
@@ -823,6 +917,7 @@ user.password=Contraseña
       const xmlLoader = createBucketLoader("xml", "i18n/[locale].xml");
       xmlLoader.setDefaultLocale("en");
       const data = await xmlLoader.pull("en");
+
       expect(data).toEqual(expectedOutput);
     });
 
