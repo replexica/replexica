@@ -2,15 +2,10 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   clean: true,
-  target: "node18",
-  entry: {
-    cli: "src/cli.ts",
-    sdk: "src/sdk.ts",
-    spec: "src/spec.ts",
-  },
+  target: "esnext",
+  entry: ["src/index.ts"],
   outDir: "build",
   format: ["cjs", "esm"],
-  external: [],
   dts: true,
   cjsInterop: true,
   splitting: true,

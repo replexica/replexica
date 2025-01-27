@@ -1,28 +1,28 @@
 {
-  "name": "@lingo.dev/spec",
-  "version": "0.24.0",
-  "description": "Lingo.dev open specification",
-  "private": true,
+  "name": "replexica",
+  "version": "0.70.0",
+  "description": "🚨 Moved to @lingo.dev/sdk - please update your dependencies!",
+  "private": false,
   "type": "module",
   "sideEffects": false,
   "types": "build/index.d.ts",
   "module": "build/index.mjs",
   "main": "build/index.cjs",
+  "bin": {
+    "replexica": "./bin/cli.mjs"
+  },
   "files": [
+    "bin",
     "build"
   ],
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsc --noEmit && tsup",
-    "test": "vitest run"
+    "build": "tsc --noEmit && tsup"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8",
-    "zod": "^3.24.1"
+    "@lingo.dev/cli": "*"
   },
   "devDependencies": {
     "tsup": "^8.3.5"

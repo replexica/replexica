@@ -2,9 +2,15 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   clean: true,
-  entry: ["./src/index.ts"],
+  target: "esnext",
+  entry: ["src/index.ts"],
   outDir: "build",
-  external: ["readline"],
-  format: ["esm"],
-  sourcemap: true,
+  format: ["cjs", "esm"],
+  dts: true,
+  cjsInterop: true,
+  splitting: true,
+  noExternal: ["parse-my-command", "camelcase"],
+  outExtension: (ctx) => ({
+    js: ctx.format === "cjs" ? ".cjs" : ".mjs",
+  }),
 });

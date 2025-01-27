@@ -1,8 +1,8 @@
 {
-  "name": "@replexica/sdk",
+  "name": "@lingo.dev/sdk",
   "version": "0.7.10",
   "description": "Lingo.dev JS SDK",
-  "private": false,
+  "private": true,
   "type": "module",
   "sideEffects": false,
   "types": "build/index.d.ts",
@@ -21,7 +21,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
-    "@replexica/spec": "workspace:*",
+    "@lingo.dev/spec": "workspace:*",
     "jsdom": "^25.0.1",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8",

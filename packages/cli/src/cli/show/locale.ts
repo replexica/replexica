@@ -2,7 +2,7 @@ import { Command } from "interactive-commander";
 import _ from "lodash";
 import Z from "zod";
 import Ora from "ora";
-import { localeCodes } from "@replexica/spec";
+import { localeCodes } from "@lingo.dev/spec";
 import { ReplexicaCLIError } from "../../utils/errors";
 
 export default new Command()
