@@ -110,5 +110,6 @@ Lingo.devは、CI/CDパイプラインでローカライゼーションを自動
 - [Japanese](/readme/ja.md)
 - [Italian](/readme/it.md)
 - [Arabic](/readme/ar.md)
+- [Hindi](/readme/hi.md)
 
-お使いの言語が見つかりませんか？[`i18n.json`](./i18n.json)ファイルに新しい言語コードを追加してPRを開いてください。
+お使いの言語が見つかりませんか？[`i18n.json`](./i18n.json)ファイルに新しい言語コードを追加してPRを作成してください。
