@@ -1,7 +1,7 @@
 import _ from "lodash";
 import path from "path";
 import * as glob from "glob";
-import { ReplexicaCLIError } from "./errors";
+import { CLIError } from "./errors";
 import { I18nConfig, resolveOverridenLocale, BucketItem } from "@lingo.dev/spec";
 import { bucketTypeSchema } from "@lingo.dev/spec";
 import Z from "zod";
@@ -47,21 +47,21 @@ function expandPlaceholderedGlob(_pathPattern: string, sourceLocale: string): st
   const pathPattern = path.relative(process.cwd(), absolutePathPattern);
   // Throw if pathPattern points outside the current working directory
   if (path.relative(process.cwd(), pathPattern).startsWith("..")) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: `Invalid path pattern: ${pathPattern}. Path pattern must be within the current working directory.`,
       docUrl: "invalidPathPattern",
     });
   }
   // Throw error if pathPattern contains "**" – we don't support recursive path patterns
   if (pathPattern.includes("**")) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: `Invalid path pattern: ${pathPattern}. Recursive path patterns are not supported.`,
       docUrl: "invalidPathPattern",
     });
   }
   // Throw error if pathPattern contains "[locale]" several times
   if (pathPattern.split("[locale]").length > 2) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: `Invalid path pattern: ${pathPattern}. Path pattern must contain at most one "[locale]" placeholder.`,
       docUrl: "invalidPathPattern",
     });

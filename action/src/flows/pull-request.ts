@@ -44,12 +44,12 @@ export class PullRequestFlow extends InBranchFlow {
 
     this.ora.start("Checking if PR already exists");
     const pullRequestNumber = await this.ensureFreshPr(this.i18nBranchName);
-    // await this.createLabelIfNotExists(pullRequestNumber, 'replexica/i18n', false);
+    // await this.createLabelIfNotExists(pullRequestNumber, 'lingo.dev/i18n', false);
     this.ora.succeed(`Pull request ready: ${this.platformKit.buildPullRequestUrl(pullRequestNumber)}`);
   }
 
   private calculatePrBranchName(): string {
-    return `replexica/${this.platformKit.platformConfig.baseBranchName}`;
+    return `lingo.dev/${this.platformKit.platformConfig.baseBranchName}`;
   }
 
   private async checkBranchExistance(prBranchName: string) {
@@ -140,7 +140,7 @@ export class PullRequestFlow extends InBranchFlow {
       this.ora.start("Restoring target files");
       const targetFiles = ["i18n.lock"];
       const targetFileNames = execSync(
-        `npx replexica@latest show files --target ${this.platformKit.platformConfig.baseBranchName}`,
+        `npx lingo.dev@latest show files --target ${this.platformKit.platformConfig.baseBranchName}`,
         { encoding: "utf8" },
       )
         .split("\n")
@@ -177,13 +177,13 @@ export class PullRequestFlow extends InBranchFlow {
     return `
 Hey team,
 
-[**Replexica AI**](https://replexica.com) here with fresh translations!
+[**Lingo.dev**](https://lingo.dev) here with fresh translations!
 
 ### In this update
 
 - Added missing translations
 - Performed brand voice, context and glossary checks
-- Enhanced translations using Replexica Localization Engine
+- Enhanced translations using Lingo.dev Localization Engine
 
 ### Next Steps
 

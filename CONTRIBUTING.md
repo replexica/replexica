@@ -25,7 +25,7 @@ pnpm run dev
 
 # in terminal window 2 - test the CLI
 cd package
-pnpm replexica --help # this command will use the current cli code + demo config from ./package/i18n.json
+pnpm lingo.dev --help # this command will use the current cli code + demo config from ./package/i18n.json
 ```
 
 Feel free to ask questions on our [Discord server](https://lingo.dev/go/discord)!

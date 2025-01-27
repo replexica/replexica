@@ -30,7 +30,7 @@
 
 <br />
 
-Lingo.dev AI automates software localization end-to-end.
+Lingo.dev automates software localization end-to-end using latest LLM models.
 
 It produces authentic translations instantly, eliminating manual work and management overhead. Lingo.dev Localization Engine understands product context, creating perfected translations that native speakers expect across 60+ languages. As a result, teams do localization 100x faster, with state-of-the-art quality, shipping features to more paying customers worldwide.
 
@@ -41,14 +41,14 @@ It produces authentic translations instantly, eliminating manual work and manage
 2. Initialize your project:
 
    ```bash
-   npx replexica@latest init
+   npx lingo.dev@latest init
    ```
 
 3. Check out our docs: [docs.lingo.dev](https://docs.lingo.dev)
 
 4. Localize your app (takes seconds):
    ```bash
-   npx replexica@latest i18n
+   npx lingo.dev@latest i18n
    ```
 
 ## 🤖 GitHub Action
@@ -58,10 +58,10 @@ Lingo.dev offers a GitHub Action to automate localization in your CI/CD pipeline
 ```yaml
 - uses: lingodotdev/lingo.dev@main
   with:
-    api-key: ${{ secrets.REPLEXICA_API_KEY }}
+    api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
 ```
 
-This action runs `replexica i18n` on every push, keeping your translations up-to-date automatically.
+This action runs `lingo.dev i18n` on every push, keeping your translations up-to-date automatically.
 
 For pull request mode and other configuration options, visit our [GitHub Action documentation](https://docs.lingo.dev/setup/gha).
 

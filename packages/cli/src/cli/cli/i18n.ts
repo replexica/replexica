@@ -5,7 +5,7 @@ import Z from "zod";
 import _ from "lodash";
 import { getConfig } from "../utils/config";
 import { getSettings } from "../utils/settings";
-import { ReplexicaCLIError } from "../utils/errors";
+import { CLIError } from "../utils/errors";
 import Ora from "ora";
 import createBucketLoader from "../loaders";
 import { createLockfileHelper } from "../utils/lockfile";
@@ -331,8 +331,8 @@ function parseFlags(options: any) {
 
 async function validateAuth(settings: ReturnType<typeof getSettings>) {
   if (!settings.auth.apiKey) {
-    throw new ReplexicaCLIError({
-      message: "Not authenticated. Please run `replexica auth --login` to authenticate.",
+    throw new CLIError({
+      message: "Not authenticated. Please run `lingo.dev auth --login` to authenticate.",
       docUrl: "authError",
     });
   }
@@ -343,8 +343,8 @@ async function validateAuth(settings: ReturnType<typeof getSettings>) {
   });
   const user = await authenticator.whoami();
   if (!user) {
-    throw new ReplexicaCLIError({
-      message: "Invalid API key. Please run `replexica auth --login` to authenticate.",
+    throw new CLIError({
+      message: "Invalid API key. Please run `lingo.dev auth --login` to authenticate.",
       docUrl: "authError",
     });
   }
@@ -354,22 +354,22 @@ async function validateAuth(settings: ReturnType<typeof getSettings>) {
 
 function validateParams(i18nConfig: I18nConfig | null, flags: ReturnType<typeof parseFlags>) {
   if (!i18nConfig) {
-    throw new ReplexicaCLIError({
-      message: "i18n.json not found. Please run `replexica init` to initialize the project.",
+    throw new CLIError({
+      message: "i18n.json not found. Please run `lingo.dev init` to initialize the project.",
       docUrl: "i18nNotFound",
     });
   } else if (!i18nConfig.buckets || !Object.keys(i18nConfig.buckets).length) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
       docUrl: "bucketNotFound",
     });
   } else if (flags.locale?.some((locale) => !i18nConfig.locale.targets.includes(locale))) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: `One or more specified locales do not exist in i18n.json locale.targets. Please add them to the list and try again.`,
       docUrl: "localeTargetNotFound",
     });
   } else if (flags.bucket?.some((bucket) => !i18nConfig.buckets[bucket as keyof typeof i18nConfig.buckets])) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: `One or more specified buckets do not exist in i18n.json. Please add them to the list and try again.`,
       docUrl: "bucketNotFound",
     });

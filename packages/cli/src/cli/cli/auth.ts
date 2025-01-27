@@ -9,10 +9,10 @@ import { createAuthenticator } from "../utils/auth";
 
 export default new Command()
   .command("auth")
-  .description("Authenticate with Replexica API")
+  .description("Authenticate with Lingo.dev API")
   .helpOption("-h, --help", "Show help")
   .option("--logout", "Delete existing authentication")
-  .option("--login", "Authenticate with Replexica API")
+  .option("--login", "Authenticate with Lingo.dev API")
   .action(async (options) => {
     try {
       let settings = await getSettings(undefined);

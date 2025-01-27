@@ -13,8 +13,8 @@ import cleanupCmd from "./cli/cleanup";
 import packageJson from "../../package.json";
 
 export default new InteractiveCommand()
-  .name("replexica")
-  .description("Replexica CLI")
+  .name("lingo.dev")
+  .description("Lingo.dev CLI")
   .helpOption("-h, --help", "Show help")
   .addHelpText(
     "beforeAll",

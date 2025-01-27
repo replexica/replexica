@@ -1,7 +1,7 @@
 import plist from "plist";
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
-import { ReplexicaCLIError } from "../utils/errors";
+import { CLIError } from "../utils/errors";
 
 const emptyData = [
   '<?xml version="1.0" encoding="UTF-8"?>',
@@ -17,14 +17,14 @@ export default function createXcodeStringsdictLoader(): ILoader<string, Record<s
       try {
         const parsed = plist.parse(input || emptyData);
         if (typeof parsed !== "object" || parsed === null) {
-          throw new ReplexicaCLIError({
+          throw new CLIError({
             message: "Invalid .stringsdict format",
             docUrl: "invalidStringDict",
           });
         }
         return parsed as Record<string, any>;
       } catch (error: any) {
-        throw new ReplexicaCLIError({
+        throw new CLIError({
           message: `Invalid .stringsdict format: ${error.message}`,
           docUrl: "invalidStringDict",
         });

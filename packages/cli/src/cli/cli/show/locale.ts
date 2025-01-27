@@ -3,7 +3,7 @@ import _ from "lodash";
 import Z from "zod";
 import Ora from "ora";
 import { localeCodes } from "@lingo.dev/spec";
-import { ReplexicaCLIError } from "../../utils/errors";
+import { CLIError } from "../../utils/errors";
 
 export default new Command()
   .command("locale")
@@ -16,7 +16,7 @@ export default new Command()
     try {
       switch (type) {
         default:
-          throw new ReplexicaCLIError({
+          throw new CLIError({
             message: `Invalid type: ${type}`,
             docUrl: "invalidType",
           });

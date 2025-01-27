@@ -2,13 +2,13 @@ import { Command } from "interactive-commander";
 import _ from "lodash";
 import Ora from "ora";
 import { getConfig } from "../../utils/config";
-import { ReplexicaCLIError } from "../../utils/errors";
+import { CLIError } from "../../utils/errors";
 import { getBuckets } from "../../utils/buckets";
 import { resolveOverridenLocale } from "@lingo.dev/spec";
 
 export default new Command()
   .command("files")
-  .description("Print out the list of files managed by Replexica")
+  .description("Print out the list of files managed by Lingo.dev")
   .option("--source", "Only show source files")
   .option("--target", "Only show target files")
   .helpOption("-h, --help", "Show help")
@@ -19,8 +19,8 @@ export default new Command()
         const i18nConfig = await getConfig();
 
         if (!i18nConfig) {
-          throw new ReplexicaCLIError({
-            message: "i18n.json not found. Please run `replexica init` to initialize the project.",
+          throw new CLIError({
+            message: "i18n.json not found. Please run `lingo.dev init` to initialize the project.",
             docUrl: "i18nNotFound",
           });
         }
@@ -50,7 +50,7 @@ export default new Command()
           }
         }
       } catch (error: any) {
-        throw new ReplexicaCLIError({
+        throw new CLIError({
           message: `Failed to expand placeholdered globs: ${error.message}`,
           docUrl: "placeHolderFailed",
         });

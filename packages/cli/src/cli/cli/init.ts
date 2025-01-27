@@ -26,7 +26,7 @@ const throwHelpError = (option: string, value: string) => {
 
 export default new InteractiveCommand()
   .command("init")
-  .description("Initialize Replexica project")
+  .description("Initialize Lingo.dev project")
   .helpOption("-h, --help", "Show help")
   .addOption(new InteractiveOption("-f --force", "Overwrite existing config").prompt(undefined).default(false))
   .addOption(
@@ -89,11 +89,11 @@ export default new InteractiveCommand()
   .action(async (options) => {
     const settings = getSettings(undefined);
 
-    const spinner = Ora().start("Initializing Replexica project");
+    const spinner = Ora().start("Initializing Lingo.dev project");
 
     let existingConfig = await getConfig(false);
     if (existingConfig && !options.force) {
-      spinner.fail("Replexica project already initialized");
+      spinner.fail("Lingo.dev project already initialized");
       return process.exit(1);
     }
 
@@ -107,7 +107,7 @@ export default new InteractiveCommand()
 
     await saveConfig(newConfig);
 
-    spinner.succeed("Replexica project initialized");
+    spinner.succeed("Lingo.dev project initialized");
 
     const isInteractive = !process.argv.includes("-y") && !process.argv.includes("--no-interactive");
 
@@ -145,13 +145,13 @@ export default new InteractiveCommand()
           }
         }
       } else {
-        Ora().warn("You are not logged in. Run `npx replexica@latest auth --login` to login.");
+        Ora().warn("You are not logged in. Run `npx lingo.dev@latest auth --login` to login.");
       }
     } else {
       Ora().succeed(`Authenticated as ${auth.email}`);
     }
 
     if (!isInteractive) {
-      Ora().info("Please see https://docs.replexica.com/");
+      Ora().info("Please see https://docs.lingo.dev/");
     }
   });

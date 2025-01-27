@@ -39,8 +39,8 @@ function _loadDefaults(): CliSettings {
   return {
     auth: {
       apiKey: "",
-      apiUrl: "https://engine.replexica.com",
-      webUrl: "https://replexica.com",
+      apiUrl: "https://engine.lingo.dev",
+      webUrl: "https://lingo.dev",
     },
   };
 }
@@ -78,7 +78,7 @@ function _saveSystemFile(settings: CliSettings) {
 }
 
 function _getSettingsFilePath(): string {
-  const settingsFile = ".replexicarc";
+  const settingsFile = ".lingodotdevrc";
   const homedir = os.homedir();
   const settingsFilePath = path.join(homedir, settingsFile);
   return settingsFilePath;

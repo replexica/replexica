@@ -30,7 +30,7 @@
 
 <br />
 
-Lingo.dev AI 实现软件本地化的端到端自动化。
+Lingo.dev 实现软件本地化的端到端自动化。
 
 它能即时生成地道的翻译，消除人工工作和管理开销。Lingo.dev 本地化引擎理解产品上下文，为 60 多种语言创建完美的翻译，确保符合母语者的预期。因此，团队可以以最先进的质量实现本地化速度提升 100 倍，为全球更多付费客户发布功能。
 
@@ -41,14 +41,14 @@ Lingo.dev AI 实现软件本地化的端到端自动化。
 2. 初始化项目：
 
    ```bash
-   npx replexica@latest init
+   npx lingo.dev@latest init
    ```
 
 3. 查看我们的文档：[docs.lingo.dev](https://docs.lingo.dev)
 
 4. 本地化您的应用（仅需几秒）：
    ```bash
-   npx replexica@latest i18n
+   npx lingo.dev@latest i18n
    ```
 
 ## 🤖 GitHub Action
@@ -61,7 +61,7 @@ Lingo.dev 提供 GitHub Action 来在您的 CI/CD 流程中自动化本地化。
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-此 action 会在每次推送时运行 `replexica i18n`，自动保持翻译更新。
+此 action 会在每次推送时运行 `lingo.dev i18n`，自动保持翻译更新。
 
 关于拉取请求模式和其他配置选项，请访问我们的 [GitHub Action 文档](https://docs.lingo.dev/setup/gha)。
 

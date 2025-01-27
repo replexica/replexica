@@ -30,7 +30,7 @@
 
 <br />
 
-Lingo.dev AI automatizza la localizzazione del software end-to-end.
+Lingo.dev automatizza la localizzazione del software end-to-end.
 
 Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'overhead di gestione. Il motore di localizzazione di Lingo.dev comprende il contesto del prodotto, creando traduzioni perfezionate che i madrelingua si aspettano in oltre 60 lingue. Di conseguenza, i team eseguono la localizzazione 100 volte più velocemente, con una qualità all'avanguardia, distribuendo funzionalità a più clienti paganti in tutto il mondo.
 
@@ -41,14 +41,14 @@ Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'
 2. Inizializza il tuo progetto:
 
    ```bash
-   npx replexica@latest init
+   npx lingo.dev@latest init
    ```
 
 3. Consulta la nostra documentazione: [docs.lingo.dev](https://docs.lingo.dev)
 
 4. Localizza la tua app (richiede pochi secondi):
    ```bash
-   npx replexica@latest i18n
+   npx lingo.dev@latest i18n
    ```
 
 ## 🤖 GitHub Action
@@ -61,7 +61,7 @@ Lingo.dev offre una GitHub Action per automatizzare la localizzazione nella tua 
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-Questa action esegue `replexica i18n` ad ogni push, mantenendo le tue traduzioni automaticamente aggiornate.
+Questa action esegue `lingo.dev i18n` ad ogni push, mantenendo le tue traduzioni automaticamente aggiornate.
 
 Per la modalità pull request e altre opzioni di configurazione, visita la nostra [documentazione GitHub Action](https://docs.lingo.dev/setup/gha).
 

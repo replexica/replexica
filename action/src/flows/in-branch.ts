@@ -12,9 +12,9 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   async run(forcePush = false) {
-    this.ora.start("Running Replexica");
-    await this.runReplexica();
-    this.ora.succeed("Done running Replexica");
+    this.ora.start("Running Lingo.dev");
+    await this.runLingoDotDev();
+    this.ora.succeed("Done running Lingo.dev");
 
     this.ora.start("Checking for changes");
     const hasChanges = this.checkCommitableChanges();
@@ -47,8 +47,8 @@ export class InBranchFlow extends IntegrationFlow {
     );
   }
 
-  private async runReplexica() {
-    execSync(`npx replexica@v0.70.0 i18n --api-key ${this.platformKit.config.replexicaApiKey}`, { stdio: "inherit" });
+  private async runLingoDotDev() {
+    execSync(`npx lingo.dev@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`, { stdio: "inherit" });
   }
 
   private configureGit() {

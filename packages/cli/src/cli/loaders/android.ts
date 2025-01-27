@@ -1,6 +1,6 @@
 import { parseStringPromise, Builder } from "xml2js";
 import { ILoader } from "./_types";
-import { ReplexicaCLIError } from "../utils/errors";
+import { CLIError } from "../utils/errors";
 import { createLoader } from "./_utils";
 
 export default function createAndroidLoader(): ILoader<string, Record<string, any>> {
@@ -56,7 +56,7 @@ export default function createAndroidLoader(): ILoader<string, Record<string, an
         return result;
       } catch (error) {
         console.error("Error parsing Android resource file:", error);
-        throw new ReplexicaCLIError({
+        throw new CLIError({
           message: "Failed to parse Android resource file",
           docUrl: "androidResouceError",
         });

@@ -2,7 +2,7 @@ import { I18nConfig, resolveOverridenLocale } from "@lingo.dev/spec";
 import { Command } from "interactive-commander";
 import _ from "lodash";
 import { getConfig } from "../utils/config";
-import { ReplexicaCLIError } from "../utils/errors";
+import { CLIError } from "../utils/errors";
 import Ora from "ora";
 import createBucketLoader from "../loaders";
 import { getBuckets } from "../utils/buckets";
@@ -94,13 +94,13 @@ export default new Command()
 
 function validateConfig(i18nConfig: I18nConfig | null) {
   if (!i18nConfig) {
-    throw new ReplexicaCLIError({
-      message: "i18n.json not found. Please run `replexica init` to initialize the project.",
+    throw new CLIError({
+      message: "i18n.json not found. Please run `lingo.dev init` to initialize the project.",
       docUrl: "i18nNotFound",
     });
   }
   if (!i18nConfig.buckets || !Object.keys(i18nConfig.buckets).length) {
-    throw new ReplexicaCLIError({
+    throw new CLIError({
       message: "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
       docUrl: "bucketNotFound",
     });

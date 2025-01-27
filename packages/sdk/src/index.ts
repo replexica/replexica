@@ -4,7 +4,7 @@ import { createId } from "@paralleldrive/cuid2";
 
 const engineParamsSchema = Z.object({
   apiKey: Z.string(),
-  apiUrl: Z.string().url().default("https://engine.replexica.com"),
+  apiUrl: Z.string().url().default("https://engine.lingo.dev"),
   batchSize: Z.number().int().gt(0).lte(250).default(25),
   idealBatchItemSize: Z.number().int().gt(0).lte(2500).default(250),
 }).passthrough();
@@ -20,7 +20,7 @@ const localizationParamsSchema = Z.object({
 const referenceSchema = Z.record(localeCodeSchema, payloadSchema);
 
 /**
- * ReplexicaEngine class for interacting with the Replexica API
+ * ReplexicaEngine class for interacting with the Lingo.dev API
  * A powerful localization engine that supports various content types including
  * plain text, objects, chat sequences, and HTML documents.
  */
@@ -36,7 +36,7 @@ export class ReplexicaEngine {
   }
 
   /**
-   * Localize content using the Replexica API
+   * Localize content using the Lingo.dev API
    * @param payload - The content to be localized
    * @param params - Localization parameters including source/target locales and fast mode option
    * @param reference - Optional reference translations to maintain consistency

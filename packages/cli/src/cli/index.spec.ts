@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-describe("@replexica/react", () => {
+describe("lingo.dev", () => {
   it("should work", () => {
     expect(true).toBe(true);
   });

@@ -41,14 +41,14 @@ Sie erstellt sofort authentische Übersetzungen und eliminiert manuelle Arbeit u
 2. Initialisieren Sie Ihr Projekt:
 
    ```bash
-   npx replexica@latest init
+   npx lingo.dev@latest init
    ```
 
 3. Lesen Sie unsere Dokumentation: [docs.lingo.dev](https://docs.lingo.dev)
 
 4. Lokalisieren Sie Ihre App (dauert nur Sekunden):
    ```bash
-   npx replexica@latest i18n
+   npx lingo.dev@latest i18n
    ```
 
 ## 🤖 GitHub Action
@@ -61,7 +61,7 @@ Lingo.dev bietet eine GitHub Action zur Automatisierung der Lokalisierung in Ihr
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-Diese Action führt bei jedem Push `replexica i18n` aus und hält Ihre Übersetzungen automatisch aktuell.
+Diese Action führt bei jedem Push `lingo.dev i18n` aus und hält Ihre Übersetzungen automatisch aktuell.
 
 Für den Pull-Request-Modus und weitere Konfigurationsoptionen besuchen Sie unsere [GitHub Action Dokumentation](https://docs.lingo.dev/setup/gha).
 

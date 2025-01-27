@@ -19,6 +19,6 @@ export abstract class IntegrationFlow implements IIntegrationFlow {
 }
 
 export const gitConfig = {
-  userName: "Replexica",
-  userEmail: "support@replexica.com",
+  userName: "Lingo.dev",
+  userEmail: "support@lingo.dev",
 };
