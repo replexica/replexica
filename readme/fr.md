@@ -110,5 +110,6 @@ Des questions ou des demandes ? Envoyez un email à veronica@lingo.dev
 - [Japonais](/readme/ja.md)
 - [Italien](/readme/it.md)
 - [Arabe](/readme/ar.md)
+- [Hindi](/readme/hi.md)
 
 Vous ne voyez pas votre langue ? Ajoutez simplement un nouveau code de langue au fichier [`i18n.json`](./i18n.json) et ouvrez une PR.

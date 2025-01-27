@@ -100,7 +100,7 @@ Fragen oder Anfragen? E-Mail an veronica@lingo.dev
 
 ## 🌐 Readme in anderen Sprachen
 
-- [Englisch](https://github.com/lingodotdev/lingo.dev)
+- [English](https://github.com/lingodotdev/lingo.dev)
 - [Spanisch](/readme/es.md)
 - [Französisch](/readme/fr.md)
 - [Russisch](/readme/ru.md)
@@ -110,5 +110,6 @@ Fragen oder Anfragen? E-Mail an veronica@lingo.dev
 - [Japanisch](/readme/ja.md)
 - [Italienisch](/readme/it.md)
 - [Arabisch](/readme/ar.md)
+- [Hindi](/readme/hi.md)
 
-Ihre Sprache nicht dabei? Fügen Sie einfach einen neuen Sprachcode zur [`i18n.json`](./i18n.json) Datei hinzu und erstellen Sie einen PR.
+Siehst du deine Sprache nicht? Füge einfach einen neuen Sprachcode zur [`i18n.json`](./i18n.json) Datei hinzu und erstelle einen PR.
