@@ -1,6 +1,6 @@
 {
   "name": "replexica",
-  "version": "0.70.0",
+  "version": "0.70.1",
   "description": "[DEPRECATED] Replexica CLI (now Lingo.dev) - Please use lingo.dev instead",
   "private": false,
   "type": "module",

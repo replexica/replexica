@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.70.4
+
+### Patch Changes
+
+- [`b4c7f1e`](https://github.com/lingodotdev/lingo.dev/commit/b4c7f1e86334d229bee62219c26f30d0b523926d) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - rename cli references
+
 ## 0.70.2
 
 ### Patch Changes
