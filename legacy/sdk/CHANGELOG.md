@@ -1,5 +1,18 @@
 # @replexica/sdk
 
+## 0.7.11
+
+### Patch Changes
+
+- [`5dee9ee`](https://github.com/lingodotdev/lingo.dev/commit/5dee9ee743fbef489fbe342597a768ebd59e5f67) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add proxies to legacy packages
+
+- [`63eb57b`](https://github.com/lingodotdev/lingo.dev/commit/63eb57b8f4cc37605be196085fafbbfdab71cce5) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add deprecation message to legacy package jsons
+
+- [`bbf7760`](https://github.com/lingodotdev/lingo.dev/commit/bbf7760580f1631805d68612053ebcd4601bb02b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add deprecation warning to the legacy package proxies
+
+- Updated dependencies [[`b4c7f1e`](https://github.com/lingodotdev/lingo.dev/commit/b4c7f1e86334d229bee62219c26f30d0b523926d)]:
+  - lingo.dev@0.70.4
+
 ## 0.7.10
 
 ### Patch Changes
