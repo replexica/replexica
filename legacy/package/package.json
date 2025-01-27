@@ -15,16 +15,11 @@
     "bin",
     "build"
   ],
-  "scripts": {
-    "build": "tsc --noEmit && tsup"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
     "@lingo.dev/cli": "*"
-  },
-  "devDependencies": {
-    "tsup": "^8.3.5"
   }
 }

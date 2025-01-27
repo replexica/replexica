@@ -48,7 +48,7 @@ export class InBranchFlow extends IntegrationFlow {
   }
 
   private async runReplexica() {
-    execSync(`npx replexica@latest i18n --api-key ${this.platformKit.config.replexicaApiKey}`, { stdio: "inherit" });
+    execSync(`npx replexica@v0.70.0 i18n --api-key ${this.platformKit.config.replexicaApiKey}`, { stdio: "inherit" });
   }
 
   private configureGit() {

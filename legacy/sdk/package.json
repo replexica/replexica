@@ -5,22 +5,17 @@
   "private": false,
   "type": "module",
   "sideEffects": false,
-  "types": "build/index.d.ts",
-  "module": "build/index.mjs",
-  "main": "build/index.cjs",
+  "types": "index.d.ts",
+  "module": "index.js",
+  "main": "index.js",
   "files": [
-    "build"
+    "index.js",
+    "index.d.ts"
   ],
-  "scripts": {
-    "build": "tsc --noEmit && tsup"
-  },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
     "@lingo.dev/sdk": "*"
-  },
-  "devDependencies": {
-    "tsup": "^8.3.5"
   }
 }
