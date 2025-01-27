@@ -14,6 +14,7 @@ export default defineConfig({
   cjsInterop: true,
   splitting: true,
   bundle: true,
+  sourcemap: true,
   external: ["readline/promises"],
   noExternal: ["@lingo.dev/sdk", "@lingo.dev/spec"],
   outExtension: (ctx) => ({

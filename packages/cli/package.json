@@ -30,7 +30,7 @@
     "build"
   ],
   "scripts": {
-    "lingo.dev": "node ./bin/cli.mjs",
+    "lingo.dev": "node --inspect=9229 ./bin/cli.mjs",
     "dev": "tsup --watch",
     "build": "tsc --noEmit && tsup",
     "test": "vitest run",
