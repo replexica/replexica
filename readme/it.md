@@ -30,7 +30,7 @@
 
 <br />
 
-Lingo.dev automatizza la localizzazione del software end-to-end.
+Lingo.dev automatizza la localizzazione del software end-to-end utilizzando i più recenti modelli LLM.
 
 Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'overhead di gestione. Il motore di localizzazione di Lingo.dev comprende il contesto del prodotto, creando traduzioni perfezionate che i madrelingua si aspettano in oltre 60 lingue. Di conseguenza, i team eseguono la localizzazione 100 volte più velocemente, con una qualità all'avanguardia, distribuendo funzionalità a più clienti paganti in tutto il mondo.
 
@@ -53,12 +53,12 @@ Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'
 
 ## 🤖 GitHub Action
 
-Lingo.dev offre una GitHub Action per automatizzare la localizzazione nella tua pipeline CI/CD. Ecco una configurazione di base:
+Lingo.dev offre una GitHub Action per automatizzare la localizzazione nella tua pipeline CI/CD. Ecco una configurazione base:
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
   with:
-    api-key: ${{ secrets.REPLEXICA_API_KEY }}
+    api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
 ```
 
 Questa action esegue `lingo.dev i18n` ad ogni push, mantenendo le tue traduzioni automaticamente aggiornate.

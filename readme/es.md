@@ -30,7 +30,7 @@
 
 <br />
 
-La IA de Lingo.dev automatiza la localización de software de principio a fin.
+Lingo.dev automatiza la localización de software de principio a fin utilizando los últimos modelos de LLM.
 
 Produce traducciones auténticas al instante, eliminando el trabajo manual y la sobrecarga de gestión. El Motor de Localización de Lingo.dev comprende el contexto del producto, creando traducciones perfeccionadas que los hablantes nativos esperan en más de 60 idiomas. Como resultado, los equipos realizan la localización 100 veces más rápido, con calidad de última generación, llevando funcionalidades a más clientes de pago en todo el mundo.
 
@@ -53,12 +53,12 @@ Produce traducciones auténticas al instante, eliminando el trabajo manual y la 
 
 ## 🤖 GitHub Action
 
-Lingo.dev ofrece una GitHub Action para automatizar la localización en tu pipeline de CI/CD. Aquí tienes una configuración básica:
+Lingo.dev ofrece un GitHub Action para automatizar la localización en tu pipeline de CI/CD. Aquí tienes una configuración básica:
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
   with:
-    api-key: ${{ secrets.REPLEXICA_API_KEY }}
+    api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
 ```
 
 Esta action ejecuta `lingo.dev i18n` en cada push, manteniendo tus traducciones actualizadas automáticamente.
