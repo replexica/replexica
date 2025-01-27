@@ -1,9 +1,7 @@
 import _ from "lodash";
-import fs from "fs";
 import { ILoader } from "../_types";
 import { createLoader } from "../_utils";
 import createDatoClient, { DatoClient } from "./_utils";
-import { DatoSetupLoaderOutput } from "./setup";
 import { SimpleSchemaTypes } from "@datocms/cma-client-node";
 import { DatoConfig } from "./_base";
 import inquirer from "inquirer";
@@ -24,32 +22,10 @@ export type DatoApiLoaderCtx = {
   };
 };
 
-export async function getModelChoices(dato: DatoClient, config: DatoConfig) {
-  const models = await dato.findModels();
-  return models.map((model) => ({
-    name: `${model.name} (${model.api_key})`,
-    value: model.id,
-    checked: config.models[model.id] !== undefined,
-    pageSize: process.stdout.rows - 4, // Subtract some rows for prompt text and margins
-  }));
-}
-
-export async function promptModelSelection(choices: any[]) {
-  const { selectedModels } = await inquirer.prompt([
-    {
-      type: "checkbox",
-      name: "selectedModels",
-      message: "Select models to include:",
-      choices,
-    },
-  ]);
-  return selectedModels;
-}
-
 export default function createDatoApiLoader(
   config: DatoConfig,
   onConfigUpdate: (config: DatoConfig) => void,
-): ILoader<DatoSetupLoaderOutput, DatoApiLoaderOutput, DatoApiLoaderCtx> {
+): ILoader<void, DatoApiLoaderOutput, DatoApiLoaderCtx> {
   const dato = createDatoClient({
     apiKey: process.env.DATO_API_TOKEN || "",
     projectId: config.project,
@@ -118,9 +94,10 @@ export default function createDatoApiLoader(
       const result: DatoApiLoaderOutput = {};
 
       for (const modelId of _.keys(initCtx?.models || {})) {
-        console.log(`Pulling data from DatoCMS for model ${modelId}...`);
-        const records = initCtx?.models[modelId].records || [];
-        console.log(`Found ${records.length} records for model ${modelId}`);
+        let records = initCtx?.models[modelId].records || [];
+        const recordIds = records.map((record) => record.id);
+        records = await dato.findRecords(recordIds);
+        console.log(`Fetched ${records.length} records for model ${modelId}`);
 
         if (records.length > 0) {
           result[modelId] = {
@@ -133,14 +110,12 @@ export default function createDatoApiLoader(
     },
     async push(locale, data, originalInput) {
       for (const modelId of _.keys(data)) {
-        for (const record of data[modelId].records) {
-          console.log(`Pushing data to DatoCMS for model ${modelId}, record ${record.id}...`);
+        for (let i = 0; i < data[modelId].records.length; i++) {
+          const record = data[modelId].records[i];
+          console.log(`Updating record ${i + 1}/${data[modelId].records.length} for model ${modelId}...`);
           await dato.updateRecord(record.id, record);
-          console.log(`Updated record ${record.id} for model ${modelId}`);
         }
       }
-
-      return {};
     },
   });
 }
@@ -172,6 +147,7 @@ export async function promptFieldSelection(modelName: string, choices: any[]) {
       name: "selectedFields",
       message: `Select fields to enable localization for model "${modelName}":`,
       choices,
+      pageSize: process.stdout.rows - 4, // Subtract some rows for prompt text and margins
     },
   ]);
   return selectedFields;
@@ -208,7 +184,31 @@ export async function promptRecordSelection(modelName: string, choices: any[]) {
       name: "selectedRecords",
       message: `Select records to include for model "${modelName}":`,
       choices,
+      pageSize: process.stdout.rows - 4, // Subtract some rows for prompt text and margins
     },
   ]);
   return selectedRecords;
+}
+
+export async function getModelChoices(dato: DatoClient, config: DatoConfig) {
+  const models = await dato.findModels();
+  return models.map((model) => ({
+    name: `${model.name} (${model.api_key})`,
+    value: model.id,
+    checked: config.models[model.id] !== undefined,
+    pageSize: process.stdout.rows - 4, // Subtract some rows for prompt text and margins
+  }));
+}
+
+export async function promptModelSelection(choices: any[]) {
+  const { selectedModels } = await inquirer.prompt([
+    {
+      type: "checkbox",
+      name: "selectedModels",
+      message: "Select models to include:",
+      choices,
+      pageSize: process.stdout.rows - 4, // Subtract some rows for prompt text and margins
+    },
+  ]);
+  return selectedModels;
 }

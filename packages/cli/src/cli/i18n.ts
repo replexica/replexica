@@ -20,8 +20,8 @@ export default new Command()
   .command("i18n")
   .description("Run Localization engine")
   .helpOption("-h, --help", "Show help")
-  .option("--locale <locale>", "Locale to process")
-  .option("--bucket <bucket>", "Bucket to process")
+  .option("--locale <locale>", "Locale to process", (val: string, prev: string[]) => (prev ? [...prev, val] : [val]))
+  .option("--bucket <bucket>", "Bucket to process", (val: string, prev: string[]) => (prev ? [...prev, val] : [val]))
   .option("--key <key>", "Key to process")
   .option("--frozen", `Don't update the translations and fail if an update is needed`)
   .option("--force", "Ignore lockfile and process all keys")
@@ -61,12 +61,12 @@ export default new Command()
       ora.succeed(`Authenticated as ${auth.email}`);
 
       let buckets = getBuckets(i18nConfig!);
-      if (flags.bucket) {
-        buckets = buckets.filter((bucket: any) => bucket.type === flags.bucket);
+      if (flags.bucket?.length) {
+        buckets = buckets.filter((bucket: any) => flags.bucket!.includes(bucket.type));
       }
       ora.succeed("Buckets retrieved");
 
-      const targetLocales = getTargetLocales(i18nConfig!, flags);
+      const targetLocales = flags.locale?.length ? flags.locale : i18nConfig!.locale.targets;
       const lockfileHelper = createLockfileHelper();
 
       // Ensure the lockfile exists
@@ -119,6 +119,8 @@ export default new Command()
           ora.succeed("No lockfile updates required.");
         }
       }
+
+      console.log(targetLocales);
 
       // Process each bucket
       for (const bucket of buckets) {
@@ -314,19 +316,11 @@ function createLocalizationEngineConnection(params: { apiKey: string; apiUrl: st
   };
 }
 
-function getTargetLocales(i18nConfig: I18nConfig, flags: ReturnType<typeof parseFlags>) {
-  let result = i18nConfig.locale.targets;
-  if (flags.locale) {
-    result = result.filter((locale) => locale === flags.locale);
-  }
-  return result;
-}
-
 function parseFlags(options: any) {
   return Z.object({
     apiKey: Z.string().optional(),
-    locale: localeCodeSchema.optional(),
-    bucket: bucketTypeSchema.optional(),
+    locale: Z.array(localeCodeSchema).optional(),
+    bucket: Z.array(bucketTypeSchema).optional(),
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),
     verbose: Z.boolean().optional(),
@@ -371,14 +365,14 @@ function validateParams(i18nConfig: I18nConfig | null, flags: ReturnType<typeof 
       message: "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
       docUrl: "bucketNotFound",
     });
-  } else if (flags.locale && !i18nConfig.locale.targets.includes(flags.locale)) {
+  } else if (flags.locale?.some((locale) => !i18nConfig.locale.targets.includes(locale))) {
     throw new ReplexicaCLIError({
-      message: `Source locale ${i18nConfig.locale.source} does not exist in i18n.json locale.targets. Please add it to the list and try again.`,
+      message: `One or more specified locales do not exist in i18n.json locale.targets. Please add them to the list and try again.`,
       docUrl: "localeTargetNotFound",
     });
-  } else if (flags.bucket && !i18nConfig.buckets[flags.bucket as keyof typeof i18nConfig.buckets]) {
+  } else if (flags.bucket?.some((bucket) => !i18nConfig.buckets[bucket as keyof typeof i18nConfig.buckets])) {
     throw new ReplexicaCLIError({
-      message: `Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`,
+      message: `One or more specified buckets do not exist in i18n.json. Please add them to the list and try again.`,
       docUrl: "bucketNotFound",
     });
   }

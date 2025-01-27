@@ -72,7 +72,8 @@ export function createLoader<I, O, C>(lDefinition: ILoaderDefinition<I, O, C>): 
         throw new Error("Cannot push data without pulling first");
       }
 
-      return lDefinition.push(locale, data, state.originalInput, state.defaultLocale);
+      const pushResult = await lDefinition.push(locale, data, state.originalInput, state.defaultLocale);
+      return pushResult;
     },
   };
 }

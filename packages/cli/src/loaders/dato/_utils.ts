@@ -85,6 +85,20 @@ export default function createDatoClient(params: DatoClientParams) {
         );
       }
     },
+    findRecords: async (records: string[], limit: number = 100): Promise<SimpleSchemaTypes.Item[]> => {
+      return dato.items
+        .list({
+          nested: true,
+          version: "current",
+          limit,
+          filter: {
+            projectId: params.projectId,
+            only_valid: "true",
+            ids: !records.length ? undefined : records.join(","),
+          },
+        })
+        .catch((error: any) => Promise.reject(error?.response?.body?.data?.[0] || error));
+    },
     findRecordsForModel: async (modelId: string, records?: string[]): Promise<SimpleSchemaTypes.Item[]> => {
       try {
         const result = await dato.items
