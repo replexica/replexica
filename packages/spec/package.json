@@ -1,6 +1,6 @@
 {
   "name": "@lingo.dev/spec",
-  "version": "0.24.0",
+  "version": "0.24.1",
   "description": "Lingo.dev open specification",
   "private": true,
   "type": "module",
