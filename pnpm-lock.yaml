@@ -45,7 +45,7 @@ importers:
         version: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
 
   package:
-    dependencies:
+    devDependencies:
       '@lingo.dev/cli':
         specifier: workspace:*
         version: link:../packages/cli
@@ -55,13 +55,12 @@ importers:
       '@lingo.dev/spec':
         specifier: workspace:*
         version: link:../packages/spec
-      typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
-    devDependencies:
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(jiti@2.4.2)(postcss@8.5.1)(typescript@5.7.2)(yaml@2.6.1)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.7.2
 
   packages/cli:
     dependencies:

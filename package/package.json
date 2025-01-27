@@ -37,13 +37,11 @@
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
-  "dependencies": {
+  "devDependencies": {
+    "tsup": "^8.3.5",
     "@lingo.dev/cli": "workspace:*",
     "@lingo.dev/sdk": "workspace:*",
     "@lingo.dev/spec": "workspace:*",
     "typescript": "^5.7.2"
-  },
-  "devDependencies": {
-    "tsup": "^8.3.5"
   }
 }
