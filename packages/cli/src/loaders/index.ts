@@ -25,6 +25,7 @@ import createSrtLoader from "./srt";
 import createDatoLoader from "./dato";
 import createVttLoader from "./vtt";
 import createVariableLoader from "./variable";
+import createSyncLoader from "./sync";
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -38,6 +39,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createAndroidLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "csv":
@@ -45,6 +47,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createCsvLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "html":
@@ -52,6 +55,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createPrettierLoader({ parser: "html", alwaysFormat: true }),
         createHtmlLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "json":
@@ -60,6 +64,7 @@ export default function createBucketLoader(
         createPrettierLoader({ parser: "json" }),
         createJsonLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "markdown":
@@ -67,6 +72,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createPrettierLoader({ parser: "markdown" }),
         createMarkdownLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "po":
@@ -74,6 +80,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createPoLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
         createVariableLoader({ type: "python" }),
       );
@@ -81,12 +88,14 @@ export default function createBucketLoader(
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),
         createPropertiesLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "xcode-strings":
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),
         createXcodeStringsLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "xcode-stringsdict":
@@ -94,6 +103,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createXcodeStringsdictLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "xcode-xcstrings":
@@ -103,6 +113,7 @@ export default function createBucketLoader(
         createJsonLoader(),
         createXcodeXcstringsLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
         createVariableLoader({ type: "ieee" }),
       );
@@ -112,6 +123,7 @@ export default function createBucketLoader(
         createPrettierLoader({ parser: "yaml" }),
         createYamlLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "yaml-root-key":
@@ -121,6 +133,7 @@ export default function createBucketLoader(
         createYamlLoader(),
         createRootKeyLoader(true),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "flutter":
@@ -130,6 +143,7 @@ export default function createBucketLoader(
         createJsonLoader(),
         createFlutterLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "xliff":
@@ -137,6 +151,7 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createXliffLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "xml":
@@ -144,19 +159,29 @@ export default function createBucketLoader(
         createTextFileLoader(bucketPathPattern),
         createXmlLoader(),
         createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
     case "srt":
-      return composeLoaders(createTextFileLoader(bucketPathPattern), createSrtLoader(), createUnlocalizableLoader());
+      return composeLoaders(
+        createTextFileLoader(bucketPathPattern),
+        createSrtLoader(),
+        createSyncLoader(),
+        createUnlocalizableLoader(),
+      );
     case "dato":
       return composeLoaders(
         createDatoLoader(bucketPathPattern),
+        createSyncLoader(),
+        createFlatLoader(),
         createUnlocalizableLoader(),
       );
     case "vtt":
       return composeLoaders(
         createTextFileLoader(bucketPathPattern),
         createVttLoader(),
+        createFlatLoader(),
+        createSyncLoader(),
         createUnlocalizableLoader(),
       );
   }

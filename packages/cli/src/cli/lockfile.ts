@@ -2,7 +2,7 @@ import { Command } from "interactive-commander";
 import Z from "zod";
 import Ora from "ora";
 import { createLockfileHelper } from "../utils/lockfile";
-import { bucketTypeSchema } from "@replexica/spec";
+import { bucketTypeSchema, resolveOverridenLocale } from "@replexica/spec";
 import { getConfig } from "../utils/config";
 import createBucketLoader from "../loaders";
 import { getBuckets } from "../utils/buckets";
@@ -24,12 +24,13 @@ export default new Command()
       const buckets = getBuckets(i18nConfig!);
 
       for (const bucket of buckets) {
-        for (const pathPattern of bucket.pathPatterns) {
-          const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-          bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+        for (const bucketConfig of bucket.config) {
+          const sourceLocale = resolveOverridenLocale(i18nConfig!.locale.source, bucketConfig.delimiter);
+          const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
+          bucketLoader.setDefaultLocale(sourceLocale);
 
-          const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-          lockfileHelper.registerSourceData(pathPattern, sourceData);
+          const sourceData = await bucketLoader.pull(sourceLocale);
+          lockfileHelper.registerSourceData(bucketConfig.pathPattern, sourceData);
         }
       }
       ora.succeed("Lockfile created");

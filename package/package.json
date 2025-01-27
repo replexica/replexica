@@ -1,7 +1,7 @@
 {
   "name": "replexica",
-  "version": "0.66.2",
-  "description": "Replexica",
+  "version": "0.70.0",
+  "description": "Lingo.dev",
   "private": false,
   "type": "module",
   "sideEffects": false,
@@ -28,7 +28,7 @@
     "build"
   ],
   "scripts": {
-    "replexica": "./bin/cli.mjs",
+    "replexica": "node --inspect ./bin/cli.mjs",
     "i18n": "node ./bin/cli.mjs i18n",
     "dev": "tsup --watch",
     "build": "tsc --noEmit && tsup"

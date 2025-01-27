@@ -89,6 +89,9 @@ importers:
       csv-stringify:
         specifier: ^6.5.2
         version: 6.5.2
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       diff:
         specifier: ^7.0.0
         version: 7.0.0
@@ -122,6 +125,9 @@ importers:
       interactive-commander:
         specifier: ^0.5.194
         version: 0.5.194(@types/node@22.10.2)
+      is-url:
+        specifier: ^1.2.4
+        version: 1.2.4
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
@@ -213,6 +219,9 @@ importers:
       '@types/ini':
         specifier: ^4.1.1
         version: 4.1.1
+      '@types/is-url':
+        specifier: ^1.2.32
+        version: 1.2.32
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
@@ -1629,6 +1638,9 @@ packages:
   '@types/ini@4.1.1':
     resolution: {integrity: sha512-MIyNUZipBTbyUNnhvuXJTY7B6qNI78meck9Jbv3wk0OgNwRyOOVEKDutAkOs1snB/tx0FafyR6/SN4Ps0hZPeg==}
 
+  '@types/is-url@1.2.32':
+    resolution: {integrity: sha512-46VLdbWI8Sc+hPexQ6NLNR2YpoDyDZIpASHkJQ2Yr+Kf9Giw6LdCTkwOdsnHKPQeh7xTjTmSnxbE8qpxYuCiHA==}
+
   '@types/jsdom@21.1.7':
     resolution: {integrity: sha512-yOriVnggzrnQ3a9OKOCxaVuSug3w3/SbOj5i7VwXWZEyUNl3bLF9V3MfxGbZKuwqJOQyRfqXyROBB1CoZLFWzA==}
 
@@ -2853,6 +2865,9 @@ packages:
   is-unicode-supported@2.1.0:
     resolution: {integrity: sha512-mE00Gnza5EEB3Ds0HfMyllZzbBrmLOX3vfWoj9A9PEnTfratQ/BcaJOuMhnkhjXvb2+FkY3VuHqtAGpTPmglFQ==}
     engines: {node: '>=18'}
+
+  is-url@1.2.4:
+    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
 
   is-windows@1.0.2:
     resolution: {integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==}
@@ -5855,6 +5870,8 @@ snapshots:
 
   '@types/ini@4.1.1': {}
 
+  '@types/is-url@1.2.32': {}
+
   '@types/jsdom@21.1.7':
     dependencies:
       '@types/node': 22.10.2
@@ -7196,6 +7213,8 @@ snapshots:
   is-unicode-supported@1.3.0: {}
 
   is-unicode-supported@2.1.0: {}
+
+  is-url@1.2.4: {}
 
   is-windows@1.0.2: {}
 

@@ -1,6 +1,6 @@
-name: Replexica
+name: Lingo.dev
 description: Automated AI localization for dev teams.
-author: Replexica
+author: Lingo.dev
 
 branding:
   icon: "aperture"
@@ -18,7 +18,7 @@ runs:
 
 inputs:
   api-key:
-    description: "Replexica Platform API Key"
+    description: "Lingo.dev Platform API Key"
     required: true
   pull-request:
     description: "Create a pull request with the changes"
@@ -26,11 +26,11 @@ inputs:
     required: false
   commit-message:
     description: "Commit message"
-    default: "feat: update translations via @replexica"
+    default: "feat: update translations via @lingodotdev"
     required: false
   pull-request-title:
     description: "Pull request title"
-    default: "feat: update translations via @replexica"
+    default: "feat: update translations via @lingodotdev"
     required: false
   working-directory:
     description: "Working directory"

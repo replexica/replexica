@@ -11,7 +11,7 @@ export class InBranchFlow extends IntegrationFlow {
     return canContinue;
   }
 
-  async run() {
+  async run(forcePush = false) {
     this.ora.start("Running Replexica");
     await this.runReplexica();
     this.ora.succeed("Done running Replexica");
@@ -30,7 +30,7 @@ export class InBranchFlow extends IntegrationFlow {
 
       this.ora.start("Pushing changes to remote");
       const currentBranch = this.i18nBranchName ?? this.platformKit.platformConfig.baseBranchName;
-      execSync(`git push origin ${currentBranch} --force`, {
+      execSync(`git push origin ${currentBranch} ${forcePush ? "--force" : ""}`, {
         stdio: "inherit",
       });
       this.ora.succeed("Changes pushed to remote");

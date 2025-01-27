@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import createPoLoader from "./index";
+import createPoLoader, { PoLoaderParams } from "./index";
 
 describe("createPoDataLoader", () => {
   it("pull the correct data", async () => {
@@ -155,8 +155,8 @@ msgstr ""
     expect(result).toEqual(updatedInput);
   });
 
-  it("split long lines when pushing - single-line id", async () => {
-    const loader = createLoader();
+  it("split long lines when told to do so", async () => {
+    const loader = createLoader({ multiline: true });
     const input = `
 #: hello.py:1
 msgid ""
@@ -168,6 +168,27 @@ msgstr ""
     await loader.pull("en", input);
     const result = await loader.push("en", {});
     expect(result).toEqual(input);
+  });
+
+  it("dont't split long lines by default", async () => {
+    const loader = createLoader();
+    const input = `
+#: hello.py:1
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua."
+msgstr ""
+      `.trim();
+
+    const updatedInput = `
+#: hello.py:1
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+msgstr ""
+      `.trim();
+
+    await loader.pull("en", input);
+    const result = await loader.push("en", {});
+    expect(result).toEqual(updatedInput);
   });
 
   it("pull entries with context", async () => {
@@ -215,6 +236,6 @@ msgstr "[upd] Role"
   });
 });
 
-function createLoader() {
-  return createPoLoader().setDefaultLocale("en");
+function createLoader(params: PoLoaderParams = { multiline: false }) {
+  return createPoLoader(params).setDefaultLocale("en");
 }

@@ -2,23 +2,41 @@ import _ from "lodash";
 import path from "path";
 import * as glob from "glob";
 import { ReplexicaCLIError } from "./errors";
-import { I18nConfig } from "@replexica/spec";
+import { I18nConfig, resolveOverridenLocale, BucketItem } from "@replexica/spec";
 import { bucketTypeSchema } from "@replexica/spec";
 import Z from "zod";
 
 export function getBuckets(i18nConfig: I18nConfig) {
-  let result = Object.entries(i18nConfig.buckets).map(([bucketType, bucketEntry]) => ({
-    type: bucketType as Z.infer<typeof bucketTypeSchema>,
-    pathPatterns: extractPathPatterns(i18nConfig.locale.source, bucketEntry.include, bucketEntry?.exclude),
-  }));
+  const result = Object.entries(i18nConfig.buckets).map(([bucketType, bucketEntry]) => {
+    const includeItems = bucketEntry.include.map((item) => resolveBucketItem(item));
+    const excludeItems = bucketEntry.exclude?.map((item) => resolveBucketItem(item));
+    return {
+      type: bucketType as Z.infer<typeof bucketTypeSchema>,
+      config: extractPathPatterns(i18nConfig.locale.source, includeItems, excludeItems),
+    };
+  });
 
   return result;
 }
 
-function extractPathPatterns(sourceLocale: string, include: string[], exclude?: string[]) {
-  const includedPatterns = include.flatMap((pattern) => expandPlaceholderedGlob(pattern, sourceLocale));
-  const excludedPatterns = exclude?.flatMap((pattern) => expandPlaceholderedGlob(pattern, sourceLocale));
-  const result = _.difference(includedPatterns, excludedPatterns ?? []);
+function extractPathPatterns(sourceLocale: string, include: BucketItem[], exclude?: BucketItem[]) {
+  const includedPatterns = include.flatMap((pattern) =>
+    expandPlaceholderedGlob(pattern.path, resolveOverridenLocale(sourceLocale, pattern.delimiter)).map(
+      (pathPattern) => ({
+        pathPattern,
+        delimiter: pattern.delimiter,
+      }),
+    ),
+  );
+  const excludedPatterns = exclude?.flatMap((pattern) =>
+    expandPlaceholderedGlob(pattern.path, resolveOverridenLocale(sourceLocale, pattern.delimiter)).map(
+      (pathPattern) => ({
+        pathPattern,
+        delimiter: pattern.delimiter,
+      }),
+    ),
+  );
+  const result = _.differenceBy(includedPatterns, excludedPatterns ?? [], (item) => item.pathPattern);
   return result;
 }
 
@@ -78,4 +96,11 @@ function expandPlaceholderedGlob(_pathPattern: string, sourceLocale: string): st
   });
   // return the placeholdered paths
   return placeholderedPaths;
+}
+
+function resolveBucketItem(bucketItem: string | BucketItem): BucketItem {
+  if (typeof bucketItem === "string") {
+    return { path: bucketItem, delimiter: null };
+  }
+  return bucketItem;
 }

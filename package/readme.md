@@ -3,23 +3,19 @@
 <img src="./content/banner.dark.png#gh-dark-mode-only">
 </p>
 
-# Replexica
+# Lingo.dev
 
-![GitHub last commit](https://img.shields.io/github/last-commit/replexica/replexica)
-[![Release](https://github.com/replexica/replexica/actions/workflows/release.yml/badge.svg)](https://github.com/replexica/replexica/actions/workflows/release.yml)
-[![GitHub License](https://img.shields.io/github/license/replexica/replexica)](https://github.com/replexica/replexica/blob/main/LICENSE.md)
+![GitHub last commit](https://img.shields.io/github/last-commit/lingodotdev/lingo.dev)
+[![Release](https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml/badge.svg)](https://github.com/lingodotdev/lingo.dev/actions/workflows/release.yml)
+[![GitHub License](https://img.shields.io/github/license/lingodotdev/lingo.dev)](https://github.com/lingodotdev/lingo.dev/blob/main/LICENSE.md)
 
-[Docs](https://replexica.com/docs) •
+[Docs](https://lingo.dev/docs) •
 [Discord](https://discord.gg/GeK6AuSqzw) •
-[Website](https://replexica.com) •
-[Twitter](https://twitter.com/replexica)
+[Website](https://lingo.dev) •
+[Twitter](https://twitter.com/lingodotdev)
 
-Replexica is a localization engine for React, to ship multi-lingual apps fast and reach more users.
-
-Replexica supports React apps, and several i18n formats, including JSON-free, experimental Replexica Compiler format, `.md` files for Markdown content, and classic JSON and YAML-based formats.
-
-Replexica comes with an open-source compiler plugin for React (experimental), and an i18n API in the cloud that performs translations using context-aware LLMs.
+Lingo.dev is a localization engine for React, to ship multi-lingual apps fast and reach more users.
 
 ## Getting Started
 
-Check out our [Docs](https://replexica.com/docs) for more detailed guides on how to use Replexica with your app!
+Check out our [Docs](https://lingo.dev/docs) for more detailed guides on how to use Lingo.dev with your app!

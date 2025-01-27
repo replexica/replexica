@@ -1,4 +1,4 @@
-import { I18nConfig } from "@replexica/spec";
+import { I18nConfig, resolveOverridenLocale } from "@replexica/spec";
 import { Command } from "interactive-commander";
 import _ from "lodash";
 import { getConfig } from "../utils/config";
@@ -37,16 +37,18 @@ export default new Command()
         console.log();
         ora.info(`Processing bucket: ${bucket.type}`);
 
-        for (const pathPattern of bucket.pathPatterns) {
-          const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${pathPattern}`);
-          const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-          bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+        for (const bucketConfig of bucket.config) {
+          const sourceLocale = resolveOverridenLocale(i18nConfig!.locale.source, bucketConfig.delimiter);
+          const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${bucketConfig.pathPattern}`);
+          const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
+          bucketLoader.setDefaultLocale(sourceLocale);
 
           // Load source data
-          const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+          const sourceData = await bucketLoader.pull(sourceLocale);
           const sourceKeys = Object.keys(sourceData);
 
-          for (const targetLocale of targetLocales) {
+          for (const _targetLocale of targetLocales) {
+            const targetLocale = resolveOverridenLocale(_targetLocale, bucketConfig.delimiter);
             try {
               const targetData = await bucketLoader.pull(targetLocale);
               const targetKeys = Object.keys(targetData);
@@ -71,7 +73,7 @@ export default new Command()
             } catch (error: any) {
               bucketOra.fail(`[${targetLocale}] Failed to cleanup: ${error.message}`);
               results.push({
-                step: `Cleanup ${bucket.type}/${pathPattern} for ${targetLocale}`,
+                step: `Cleanup ${bucket.type}/${bucketConfig} for ${targetLocale}`,
                 status: "Failed",
                 error: error.message,
               });

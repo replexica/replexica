@@ -170,8 +170,38 @@ export const configV1_2Definition = extendConfigDefinition(configV1_1Definition,
   }),
 });
 
+// v1.2 -> v1.3
+// Changes: Support both string paths and {path, delimiter} objects in bucket include/exclude arrays
+export const bucketItemSchema = Z.object({
+  path: Z.string(),
+  delimiter: Z.union([Z.literal("-"), Z.literal("_"), Z.literal(null)]).optional(),
+});
+export type BucketItem = Z.infer<typeof bucketItemSchema>;
+export const configV1_3Definition = extendConfigDefinition(configV1_2Definition, {
+  createSchema: (baseSchema) =>
+    baseSchema.extend({
+      buckets: Z.record(
+        bucketTypeSchema,
+        Z.object({
+          include: Z.array(Z.union([Z.string(), bucketItemSchema])).default([]),
+          exclude: Z.array(Z.union([Z.string(), bucketItemSchema]))
+            .default([])
+            .optional(),
+        }),
+      ).default({}),
+    }),
+  createDefaultValue: (baseDefaultValue) => ({
+    ...baseDefaultValue,
+    version: 1.3,
+  }),
+  createUpgrader: (oldConfig) => ({
+    ...oldConfig,
+    version: 1.3,
+  }),
+});
+
 // exports
-const LATEST_CONFIG_DEFINITION = configV1_2Definition;
+const LATEST_CONFIG_DEFINITION = configV1_3Definition;
 
 export type I18nConfig = Z.infer<(typeof LATEST_CONFIG_DEFINITION)["schema"]>;
 

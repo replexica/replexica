@@ -223,3 +223,38 @@ export const resolveLocaleCode = (value: LocaleCode): LocaleCodeFull => {
 
   throw new Error(`Invalid locale code: ${value}`);
 };
+
+export const getAlternativeLocaleCodes = (locale: string): string[] => {
+  if (locale.includes("-")) {
+    // Convert all dashes to underscores
+    return [locale.replace(/-/g, "_")];
+  } else if (locale.includes("_")) {
+    // Convert all underscores to dashes
+    return [locale.replace(/_/g, "-")];
+  } else {
+    return [];
+  }
+};
+
+export const getLocaleCodeDelimiter = (locale: string): string | null => {
+  if (locale.includes("_")) {
+    return "_";
+  } else if (locale.includes("-")) {
+    return "-";
+  } else {
+    return null;
+  }
+};
+
+export const resolveOverridenLocale = (locale: string, delimiter?: "-" | "_" | null): string => {
+  if (!delimiter) {
+    return locale;
+  }
+
+  const currentDelimiter = getLocaleCodeDelimiter(locale);
+  if (!currentDelimiter) {
+    return locale;
+  }
+
+  return locale.replace(currentDelimiter, delimiter);
+};

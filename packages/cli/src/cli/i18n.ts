@@ -1,4 +1,4 @@
-import { bucketTypeSchema, I18nConfig, localeCodeSchema } from "@replexica/spec";
+import { bucketTypeSchema, I18nConfig, localeCodeSchema, resolveOverridenLocale } from "@replexica/spec";
 import { ReplexicaEngine } from "@replexica/sdk";
 import { Command } from "interactive-commander";
 import Z from "zod";
@@ -20,18 +20,30 @@ export default new Command()
   .command("i18n")
   .description("Run Localization engine")
   .helpOption("-h, --help", "Show help")
-  .option("--locale <locale>", "Locale to process")
-  .option("--bucket <bucket>", "Bucket to process")
+  .option("--locale <locale>", "Locale to process", (val: string, prev: string[]) => (prev ? [...prev, val] : [val]))
+  .option("--bucket <bucket>", "Bucket to process", (val: string, prev: string[]) => (prev ? [...prev, val] : [val]))
   .option("--key <key>", "Key to process")
   .option("--frozen", `Don't update the translations and fail if an update is needed`)
   .option("--force", "Ignore lockfile and process all keys")
   .option("--verbose", "Show verbose output")
   .option("--interactive", "Interactive mode")
   .option("--api-key <api-key>", "Explicitly set the API key to use")
+  .option("--debug", "Debug mode")
   .option("--strict", "Stop on first error")
   .action(async function (options) {
     const ora = Ora();
     const flags = parseFlags(options);
+
+    if (flags.debug) {
+      // wait for user input, use inquirer
+      const { debug } = await inquirer.prompt([
+        {
+          type: "confirm",
+          name: "debug",
+          message: "Debug mode. Wait for user input before continuing.",
+        },
+      ]);
+    }
 
     let hasErrors = false;
     try {
@@ -49,12 +61,12 @@ export default new Command()
       ora.succeed(`Authenticated as ${auth.email}`);
 
       let buckets = getBuckets(i18nConfig!);
-      if (flags.bucket) {
-        buckets = buckets.filter((bucket: any) => bucket.type === flags.bucket);
+      if (flags.bucket?.length) {
+        buckets = buckets.filter((bucket: any) => flags.bucket!.includes(bucket.type));
       }
       ora.succeed("Buckets retrieved");
 
-      const targetLocales = getTargetLocales(i18nConfig!, flags);
+      const targetLocales = flags.locale?.length ? flags.locale : i18nConfig!.locale.targets;
       const lockfileHelper = createLockfileHelper();
 
       // Ensure the lockfile exists
@@ -62,12 +74,15 @@ export default new Command()
       if (!lockfileHelper.isLockfileExists()) {
         ora.start("Creating i18n.lock...");
         for (const bucket of buckets) {
-          for (const pathPattern of bucket.pathPatterns) {
-            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+          for (const bucketConfig of bucket.config) {
+            const sourceLocale = resolveOverridenLocale(i18nConfig!.locale.source, bucketConfig.delimiter);
+
+            const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
+            bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
 
             const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-            lockfileHelper.registerSourceData(pathPattern, sourceData);
+            lockfileHelper.registerSourceData(bucketConfig.pathPattern, sourceData);
           }
         }
         ora.succeed("i18n.lock created");
@@ -79,12 +94,15 @@ export default new Command()
         ora.start("Checking for lockfile updates...");
         let requiresUpdate = false;
         for (const bucket of buckets) {
-          for (const pathPattern of bucket.pathPatterns) {
-            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
+          for (const bucketConfig of bucket.config) {
+            const sourceLocale = resolveOverridenLocale(i18nConfig!.locale.source, bucketConfig.delimiter);
+
+            const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
+            bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
 
             const sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
-            const updatedSourceData = lockfileHelper.extractUpdatedData(pathPattern, sourceData);
+            const updatedSourceData = lockfileHelper.extractUpdatedData(bucketConfig.pathPattern, sourceData);
 
             if (Object.keys(updatedSourceData).length > 0) {
               requiresUpdate = true;
@@ -107,22 +125,26 @@ export default new Command()
         try {
           console.log();
           ora.info(`Processing bucket: ${bucket.type}`);
-          for (const pathPattern of bucket.pathPatterns) {
-            const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${pathPattern}`);
+          for (const bucketConfig of bucket.config) {
+            const bucketOra = Ora({ indent: 2 }).info(`Processing path: ${bucketConfig.pathPattern}`);
 
-            const bucketLoader = createBucketLoader(bucket.type, pathPattern);
-            bucketLoader.setDefaultLocale(i18nConfig!.locale.source);
-            let sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+            const sourceLocale = resolveOverridenLocale(i18nConfig!.locale.source, bucketConfig.delimiter);
 
-            for (const targetLocale of targetLocales) {
+            const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
+            bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
+            let sourceData = await bucketLoader.pull(sourceLocale);
+
+            for (const _targetLocale of targetLocales) {
+              const targetLocale = resolveOverridenLocale(_targetLocale, bucketConfig.delimiter);
               try {
-                bucketOra.start(`[${i18nConfig!.locale.source} -> ${targetLocale}] (0%) Localization in progress...`);
+                bucketOra.start(`[${sourceLocale} -> ${targetLocale}] (0%) Localization in progress...`);
 
-                sourceData = await bucketLoader.pull(i18nConfig!.locale.source);
+                sourceData = await bucketLoader.pull(sourceLocale);
 
                 const updatedSourceData = flags.force
                   ? sourceData
-                  : lockfileHelper.extractUpdatedData(pathPattern, sourceData);
+                  : lockfileHelper.extractUpdatedData(bucketConfig.pathPattern, sourceData);
 
                 const targetData = await bucketLoader.pull(targetLocale);
                 let processableData = calculateDataDelta({
@@ -138,7 +160,7 @@ export default new Command()
                 }
 
                 bucketOra.start(
-                  `[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (0%) AI localization in progress...`,
+                  `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (0%) AI localization in progress...`,
                 );
                 const localizationEngine = createLocalizationEngineConnection({
                   apiKey: settings.auth.apiKey,
@@ -146,14 +168,14 @@ export default new Command()
                 });
                 const processedTargetData = await localizationEngine.process(
                   {
-                    sourceLocale: i18nConfig!.locale.source,
+                    sourceLocale,
                     sourceData,
                     processableData,
                     targetLocale,
                     targetData,
                   },
                   (progress) => {
-                    bucketOra.text = `[${i18nConfig!.locale.source} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+                    bucketOra.text = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
                   },
                 );
 
@@ -166,7 +188,7 @@ export default new Command()
                 if (flags.interactive) {
                   bucketOra.stop();
                   const reviewedData = await reviewChanges({
-                    pathPattern,
+                    pathPattern: bucketConfig.pathPattern,
                     targetLocale,
                     currentData: targetData,
                     proposedData: finalTargetData,
@@ -175,7 +197,7 @@ export default new Command()
                   });
 
                   finalTargetData = reviewedData;
-                  bucketOra.start(`Applying changes to ${pathPattern} (${targetLocale})`);
+                  bucketOra.start(`Applying changes to ${bucketConfig} (${targetLocale})`);
                 }
 
                 const finalDiffSize = _.chain(finalTargetData)
@@ -184,16 +206,12 @@ export default new Command()
                   .value();
                 if (finalDiffSize > 0 || flags.force) {
                   await bucketLoader.push(targetLocale, finalTargetData);
-                  bucketOra.succeed(`[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed`);
+                  bucketOra.succeed(`[${sourceLocale} -> ${targetLocale}] Localization completed`);
                 } else {
-                  bucketOra.succeed(
-                    `[${i18nConfig!.locale.source} -> ${targetLocale}] Localization completed (no changes).`,
-                  );
+                  bucketOra.succeed(`[${sourceLocale} -> ${targetLocale}] Localization completed (no changes).`);
                 }
               } catch (_error: any) {
-                const error = new Error(
-                  `[${i18nConfig!.locale.source} -> ${targetLocale}] Localization failed: ${_error.message}`,
-                );
+                const error = new Error(`[${sourceLocale} -> ${targetLocale}] Localization failed: ${_error.message}`);
                 if (flags.strict) {
                   throw error;
                 } else {
@@ -203,7 +221,7 @@ export default new Command()
               }
             }
 
-            lockfileHelper.registerSourceData(pathPattern, sourceData);
+            lockfileHelper.registerSourceData(bucketConfig.pathPattern, sourceData);
           }
         } catch (_error: any) {
           const error = new Error(`Failed to process bucket ${bucket.type}: ${_error.message}`);
@@ -296,25 +314,18 @@ function createLocalizationEngineConnection(params: { apiKey: string; apiUrl: st
   };
 }
 
-function getTargetLocales(i18nConfig: I18nConfig, flags: ReturnType<typeof parseFlags>) {
-  let result = i18nConfig.locale.targets;
-  if (flags.locale) {
-    result = result.filter((locale) => locale === flags.locale);
-  }
-  return result;
-}
-
 function parseFlags(options: any) {
   return Z.object({
     apiKey: Z.string().optional(),
-    locale: localeCodeSchema.optional(),
-    bucket: bucketTypeSchema.optional(),
+    locale: Z.array(localeCodeSchema).optional(),
+    bucket: Z.array(bucketTypeSchema).optional(),
     force: Z.boolean().optional(),
     frozen: Z.boolean().optional(),
     verbose: Z.boolean().optional(),
     strict: Z.boolean().optional(),
     key: Z.string().optional(),
     interactive: Z.boolean().default(false),
+    debug: Z.boolean().default(false),
   }).parse(options);
 }
 
@@ -352,14 +363,14 @@ function validateParams(i18nConfig: I18nConfig | null, flags: ReturnType<typeof 
       message: "No buckets found in i18n.json. Please add at least one bucket containing i18n content.",
       docUrl: "bucketNotFound",
     });
-  } else if (flags.locale && !i18nConfig.locale.targets.includes(flags.locale)) {
+  } else if (flags.locale?.some((locale) => !i18nConfig.locale.targets.includes(locale))) {
     throw new ReplexicaCLIError({
-      message: `Source locale ${i18nConfig.locale.source} does not exist in i18n.json locale.targets. Please add it to the list and try again.`,
+      message: `One or more specified locales do not exist in i18n.json locale.targets. Please add them to the list and try again.`,
       docUrl: "localeTargetNotFound",
     });
-  } else if (flags.bucket && !i18nConfig.buckets[flags.bucket as keyof typeof i18nConfig.buckets]) {
+  } else if (flags.bucket?.some((bucket) => !i18nConfig.buckets[bucket as keyof typeof i18nConfig.buckets])) {
     throw new ReplexicaCLIError({
-      message: `Bucket ${flags.bucket} does not exist in i18n.json. Please add it to the list and try again.`,
+      message: `One or more specified buckets do not exist in i18n.json. Please add them to the list and try again.`,
       docUrl: "bucketNotFound",
     });
   }

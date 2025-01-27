@@ -7,11 +7,17 @@ import { composeLoaders, createLoader } from "../_utils";
 export type PoTranslationEntry = GetTextTranslations["translations"][""];
 export type PoTranslationValue = { singular: string; plural: string | null };
 
-export default function createPoLoader(): ILoader<string, Record<string, PoTranslationValue>> {
-  return composeLoaders(createPoDataLoader(), createPoContentLoader());
+export type PoLoaderParams = {
+  multiline: boolean;
+};
+
+export default function createPoLoader(
+  params: PoLoaderParams = { multiline: false },
+): ILoader<string, Record<string, PoTranslationValue>> {
+  return composeLoaders(createPoDataLoader(params), createPoContentLoader());
 }
 
-export function createPoDataLoader(): ILoader<string, PoTranslationEntry> {
+export function createPoDataLoader(params: PoLoaderParams): ILoader<string, PoTranslationEntry> {
   return createLoader({
     async pull(locale, input) {
       const parsedPo = gettextParser.po.parse(input);
@@ -55,7 +61,7 @@ export function createPoDataLoader(): ILoader<string, PoTranslationEntry> {
               },
             });
             return gettextParser.po
-              .compile(updatedPo)
+              .compile(updatedPo, { foldLength: params.multiline ? 76 : false })
               .toString()
               .replace([`msgid ""`, `msgstr "Content-Type: text/plain\\n"`].join("\n"), "")
               .trim();
