@@ -1,44 +1,46 @@
 {
-  "name": "replexica",
+  "name": "lingo.dev",
   "version": "0.70.0",
   "description": "Lingo.dev",
   "private": false,
   "type": "module",
   "sideEffects": false,
   "exports": {
-    "./react": {
-      "types": "./build/react.d.ts",
-      "import": "./build/react.mjs",
-      "require": "./build/react.cjs"
+    "./cli": {
+      "types": "./build/cli.d.ts",
+      "import": "./build/cli.mjs",
+      "require": "./build/cli.cjs"
     },
-    "./react-next": {
-      "types": "./build/react-next.d.ts",
-      "import": "./build/react-next.mjs",
-      "require": "./build/react-next.cjs"
+    "./sdk": {
+      "types": "./build/sdk.d.ts",
+      "import": "./build/sdk.mjs",
+      "require": "./build/sdk.cjs"
+    },
+    "./spec": {
+      "types": "./build/spec.d.ts",
+      "import": "./build/spec.mjs",
+      "require": "./build/spec.cjs"
     }
   },
-  "engines": {
-    "node": ">=18"
-  },
   "bin": {
-    "replexica": "./bin/cli.mjs"
+    "lingo.dev": "./bin/cli.mjs"
   },
   "files": [
     "bin",
     "build"
   ],
   "scripts": {
-    "replexica": "node --inspect ./bin/cli.mjs",
-    "i18n": "node ./bin/cli.mjs i18n",
-    "dev": "tsup --watch",
-    "build": "tsc --noEmit && tsup"
+    "lingo.dev": "node --inspect ./bin/cli.mjs",
+    "clean": "rm -rf build",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@replexica/cli": "workspace:*",
-    "@replexica/react": "workspace:*",
+    "@lingo.dev/cli": "workspace:*",
+    "@lingo.dev/sdk": "workspace:*",
+    "@lingo.dev/spec": "workspace:*",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

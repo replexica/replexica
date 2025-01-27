@@ -1,15 +1,16 @@
 {
-  "name": "@replexica/cli",
+  "name": "@lingo.dev/cli",
   "version": "0.70.0",
   "description": "Lingo.dev CLI",
   "private": false,
   "type": "module",
+  "types": "build/index.d.ts",
   "main": "build/index.js",
   "files": [
     "build"
   ],
   "scripts": {
-    "replexica": "./build/index.js",
+    "lingo.dev": "node ./build/index.mjs",
     "dev": "tsup --watch",
     "build": "tsc --noEmit && tsup",
     "test": "vitest run",
@@ -21,9 +22,9 @@
   "dependencies": {
     "@datocms/cma-client-node": "^3.4.0",
     "@inquirer/prompts": "^7.2.3",
+    "@lingo.dev/sdk": "workspace:*",
+    "@lingo.dev/spec": "workspace:*",
     "@paralleldrive/cuid2": "^2.2.2",
-    "@replexica/sdk": "workspace:*",
-    "@replexica/spec": "workspace:*",
     "chalk": "^5.4.1",
     "cors": "^2.8.5",
     "csv-parse": "^5.6.0",
@@ -47,8 +48,8 @@
     "lodash": "^4.17.21",
     "markdown-it": "^14.1.0",
     "markdown-it-front-matter": "^0.2.4",
-    "node-webvtt": "^1.9.4",
     "marked": "^15.0.4",
+    "node-webvtt": "^1.9.4",
     "object-hash": "^3.0.0",
     "open": "^10.1.0",
     "ora": "^8.1.1",

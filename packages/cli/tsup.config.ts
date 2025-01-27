@@ -6,5 +6,6 @@ export default defineConfig({
   outDir: "build",
   external: ["readline"],
   format: ["esm"],
+  dts: true,
   sourcemap: true,
 });

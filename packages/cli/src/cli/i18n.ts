@@ -1,5 +1,5 @@
-import { bucketTypeSchema, I18nConfig, localeCodeSchema, resolveOverridenLocale } from "@replexica/spec";
-import { ReplexicaEngine } from "@replexica/sdk";
+import { bucketTypeSchema, I18nConfig, localeCodeSchema, resolveOverridenLocale } from "@lingo.dev/spec";
+import { ReplexicaEngine } from "@lingo.dev/sdk";
 import { Command } from "interactive-commander";
 import Z from "zod";
 import _ from "lodash";

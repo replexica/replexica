@@ -1,8 +1,8 @@
 {
-  "name": "@replexica/spec",
+  "name": "@lingo.dev/spec",
   "version": "0.24.0",
   "description": "Lingo.dev open specification",
-  "private": false,
+  "private": true,
   "type": "module",
   "sideEffects": false,
   "types": "build/index.d.ts",

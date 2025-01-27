@@ -1,5 +1,5 @@
 {
-  "name": "@replexica",
+  "name": "@lingo.dev",
   "type": "module",
   "scripts": {
     "prepare": "husky",

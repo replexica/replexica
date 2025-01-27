@@ -1,0 +1,25 @@
+{
+  "name": "replexica",
+  "version": "0.70.0",
+  "description": "🚨 Moved to @lingo.dev/sdk - please update your dependencies!",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "types": "build/index.d.ts",
+  "module": "build/index.mjs",
+  "main": "build/index.cjs",
+  "bin": {
+    "replexica": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "build"
+  ],
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@lingo.dev/cli": "*"
+  }
+}

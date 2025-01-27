@@ -1,7 +1,7 @@
 import _ from "lodash";
 import fs from "fs";
 import path from "path";
-import { I18nConfig, parseI18nConfig } from "@replexica/spec";
+import { I18nConfig, parseI18nConfig } from "@lingo.dev/spec";
 
 export function getConfig(resave = true): I18nConfig | null {
   const configFilePath = _getConfigFilePath();
