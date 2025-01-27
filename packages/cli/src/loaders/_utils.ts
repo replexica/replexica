@@ -1,7 +1,12 @@
 import { ILoader, ILoaderDefinition } from "./_types";
 
-export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, any> {
+export function composeLoaders(...loaders: ILoader<any, any, any>[]): ILoader<any, any> {
   return {
+    init: async () => {
+      for (const loader of loaders) {
+        await loader.init?.();
+      }
+    },
     setDefaultLocale(locale: string) {
       for (const loader of loaders) {
         loader.setDefaultLocale?.(locale);
@@ -25,12 +30,20 @@ export function composeLoaders(...loaders: ILoader<any, any>[]): ILoader<any, an
   };
 }
 
-export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoader<I, O> {
+export function createLoader<I, O, C>(lDefinition: ILoaderDefinition<I, O, C>): ILoader<I, O, C> {
   const state = {
     defaultLocale: undefined as string | undefined,
     originalInput: undefined as I | undefined | null,
+    initCtx: undefined as C | undefined,
   };
   return {
+    async init() {
+      if (state.initCtx) {
+        return state.initCtx;
+      }
+      state.initCtx = await lDefinition.init?.();
+      return state.initCtx as C;
+    },
     setDefaultLocale(locale) {
       if (state.defaultLocale) {
         throw new Error("Default locale already set");
@@ -49,7 +62,7 @@ export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoade
         state.originalInput = input || null;
       }
 
-      return lDefinition.pull(locale, input, state.originalInput);
+      return lDefinition.pull(locale, input, state.initCtx);
     },
     async push(locale, data) {
       if (!state.defaultLocale) {
@@ -59,7 +72,8 @@ export function createLoader<I, O>(lDefinition: ILoaderDefinition<I, O>): ILoade
         throw new Error("Cannot push data without pulling first");
       }
 
-      return lDefinition.push(locale, data, state.originalInput);
+      const pushResult = await lDefinition.push(locale, data, state.originalInput, state.defaultLocale);
+      return pushResult;
     },
-  } as ILoader<I, O>;
+  };
 }

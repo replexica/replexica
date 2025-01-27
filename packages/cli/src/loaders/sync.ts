@@ -12,14 +12,14 @@ export default function createSyncLoader(): ILoader<Record<string, string>, Reco
 
       return _.chain(originalInput)
         .mapValues((value, key) => input[key])
-        .value();
+        .value() as Record<string, string>;
     },
     async push(locale, data, originalInput) {
       if (!originalInput) {
         return data;
       }
 
-      return _.chain(originalInput)
+      return _.chain(originalInput || {})
         .mapValues((value, key) => data[key])
         .value();
     },

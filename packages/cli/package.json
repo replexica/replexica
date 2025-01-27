@@ -12,7 +12,8 @@
     "replexica": "./build/index.js",
     "dev": "tsup --watch",
     "build": "tsc --noEmit && tsup",
-    "test": "vitest run"
+    "test": "vitest run",
+    "clean": "rm -rf build"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "cors": "^2.8.5",
     "csv-parse": "^5.6.0",
     "csv-stringify": "^6.5.2",
+    "date-fns": "^4.1.0",
     "diff": "^7.0.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -38,6 +40,7 @@
     "ini": "^5.0.0",
     "inquirer": "^12.3.0",
     "interactive-commander": "^0.5.194",
+    "is-url": "^1.2.4",
     "jsdom": "^25.0.1",
     "json5": "^2.2.3",
     "jsonrepair": "^3.11.2",
@@ -70,6 +73,7 @@
     "@types/gettext-parser": "^4.0.4",
     "@types/glob": "^8.1.0",
     "@types/ini": "^4.1.1",
+    "@types/is-url": "^1.2.32",
     "@types/jsdom": "^21.1.7",
     "@types/lodash": "^4.17.13",
     "@types/markdown-it": "^14.1.2",

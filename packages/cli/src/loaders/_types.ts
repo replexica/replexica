@@ -1,19 +1,12 @@
-export interface ILoaderDefinition<I, O> {
-  pull(locale: string, input: I, originalInput?: I | null): Promise<O>;
-  push(locale: string, data: O, originalInput?: I | null): Promise<I>;
-
-  // onStart?(): Promise<void>;
-  // onProgress?(current: number, total: number): Promise<void>;
-  // onEnd?(): Promise<void>;
+export interface ILoaderDefinition<I, O, C> {
+  init?(): Promise<C>;
+  pull(locale: string, input: I, initCtx?: C): Promise<O>;
+  push(locale: string, data: O, originalInput: I | null, originalLocale: string): Promise<I>;
 }
 
-export interface ILoader<I, O> extends ILoaderDefinition<I, O> {
+export interface ILoader<I, O, C = void> extends ILoaderDefinition<I, O, C> {
   setDefaultLocale(locale: string): this;
-
+  init(): Promise<C>;
   pull(locale: string, input: I): Promise<O>;
   push(locale: string, data: O): Promise<I>;
-
-  // onStart(): Promise<void>;
-  // onProgress(current: number, total: number): Promise<void>;
-  // onEnd(): Promise<void>;
 }

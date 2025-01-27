@@ -1,6 +1,22 @@
 {
-  project: "146425",
-  model: "test_model",
-  fields: ["multiple_blocks", "single_block"],
-  records: ["SZq8PfPOS321fA9UzZEqnA"],
+  project: '146425',
+  models: {
+    cg3SetXtQ9WygXv_F_cGDw: {
+      records: [
+        'EagEKQA4RwmdrSfH8B4uOw',
+      ],
+      fields: [
+        'pill_text',
+        'heading',
+        'subtitle',
+        'billing_monthly_label',
+        'billing_yearly_label',
+        'billing_yearly_discount_label',
+        'pricing_plans',
+        'customers',
+        'comparison_table',
+        'platform_pricing_plans',
+      ],
+    },
+  },
 }
