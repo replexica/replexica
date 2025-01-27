@@ -7,4 +7,4 @@
 "lingo.dev": patch
 ---
 
-migrate package names
+Replexica is now Lingo.dev.
