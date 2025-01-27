@@ -89,6 +89,9 @@ importers:
       csv-stringify:
         specifier: ^6.5.2
         version: 6.5.2
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       diff:
         specifier: ^7.0.0
         version: 7.0.0

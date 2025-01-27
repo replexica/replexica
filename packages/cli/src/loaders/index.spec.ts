@@ -353,7 +353,6 @@ This is a paragraph.
 Another paragraph with **bold** and *italic* text.`;
       const expectedOutput = {
         "fm-attr-title": "Test Markdown",
-        "fm-attr-date": "2023-05-25",
         "md-section-0": "# Heading 1",
         "md-section-1": "This is a paragraph.",
         "md-section-2": "## Heading 2",
@@ -815,7 +814,6 @@ user.password=Contraseña
 
       const expectedOutput = {
         "root/title": "Test XML",
-        "root/date": "2023-05-25",
         "root/content/section/0": "Introduction",
         "root/content/section/1/text": "Detailed text.",
       };
