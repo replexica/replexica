@@ -120,8 +120,6 @@ export default new Command()
         }
       }
 
-      console.log(targetLocales);
-
       // Process each bucket
       for (const bucket of buckets) {
         try {
