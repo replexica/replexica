@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>⚡️ Localisation IA de pointe pour web & mobile, directement depuis le CI/CD.</strong>
+  <strong>⚡️ Localisation IA de pointe pour le web et le mobile, directement depuis le CI/CD.</strong>
 </p>
 
 <br />
@@ -30,9 +30,9 @@
 
 <br />
 
-Lingo.dev AI automatise la localisation des logiciels de bout en bout.
+Lingo.dev IA automatise la localisation des logiciels de bout en bout.
 
-Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Lingo.dev comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. Résultat : les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant ainsi leurs fonctionnalités à davantage de clients payants dans le monde entier.
+Elle produit instantanément des traductions authentiques, éliminant le travail manuel et la charge de gestion. Le moteur de localisation Lingo.dev comprend le contexte du produit, créant des traductions perfectionnées que les locuteurs natifs attendent dans plus de 60 langues. En conséquence, les équipes réalisent la localisation 100 fois plus rapidement, avec une qualité de pointe, déployant des fonctionnalités à plus de clients payants dans le monde entier.
 
 ## 💫 Démarrage rapide
 
@@ -87,7 +87,7 @@ Pour des guides détaillés et des références API, visitez la [documentation](
 
 ## 🤝 Contribuer
 
-Intéressé à contribuer, même si vous n'êtes pas client ?
+Intéressé par une contribution, même si vous n'êtes pas client ?
 
 Consultez les [Good First Issues](https://github.com/lingodotdev/lingo.dev/labels/good%20first%20issue) et lisez le [Guide de contribution](./CONTRIBUTING.md).
 
@@ -96,19 +96,19 @@ Consultez les [Good First Issues](https://github.com/lingodotdev/lingo.dev/label
 - **[Veronica](https://github.com/vrcprl)**
 - **[Max](https://github.com/maxprilutskiy)**
 
-Des questions ou des demandes ? Écrivez à veronica@lingo.dev
+Des questions ou des demandes ? Envoyez un email à veronica@lingo.dev
 
 ## 🌐 Readme dans d'autres langues
 
-- [English](https://github.com/lingodotdev/lingo.dev)
-- [Spanish](/readme/es.md)
-- [French](/readme/fr.md)
-- [Russian](/readme/ru.md)
-- [German](/readme/de.md)
-- [Chinese](/readme/zh-Hans.md)
-- [Korean](/readme/ko.md)
-- [Japanese](/readme/ja.md)
-- [Italian](/readme/it.md)
-- [Arabic](/readme/ar.md)
+- [Anglais](https://github.com/lingodotdev/lingo.dev)
+- [Espagnol](/readme/es.md)
+- [Français](/readme/fr.md)
+- [Russe](/readme/ru.md)
+- [Allemand](/readme/de.md)
+- [Chinois](/readme/zh-Hans.md)
+- [Coréen](/readme/ko.md)
+- [Japonais](/readme/ja.md)
+- [Italien](/readme/it.md)
+- [Arabe](/readme/ar.md)
 
 Vous ne voyez pas votre langue ? Ajoutez simplement un nouveau code de langue au fichier [`i18n.json`](./i18n.json) et ouvrez une PR.

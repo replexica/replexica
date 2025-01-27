@@ -32,7 +32,7 @@
 
 Lingo.dev AI automatizza la localizzazione del software end-to-end.
 
-Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'overhead di gestione. Il Lingo.dev Localization Engine comprende il contesto del prodotto, creando traduzioni perfezionate che i madrelingua si aspettano in oltre 60 lingue. Di conseguenza, i team eseguono la localizzazione 100 volte più velocemente, con una qualità all'avanguardia, distribuendo funzionalità a più clienti paganti in tutto il mondo.
+Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'overhead di gestione. Il motore di localizzazione di Lingo.dev comprende il contesto del prodotto, creando traduzioni perfezionate che i madrelingua si aspettano in oltre 60 lingue. Di conseguenza, i team eseguono la localizzazione 100 volte più velocemente, con una qualità all'avanguardia, distribuendo funzionalità a più clienti paganti in tutto il mondo.
 
 ## 💫 Avvio rapido
 
@@ -46,14 +46,14 @@ Produce traduzioni autentiche istantaneamente, eliminando il lavoro manuale e l'
 
 3. Consulta la nostra documentazione: [docs.lingo.dev](https://docs.lingo.dev)
 
-4. Localizza la tua app (in pochi secondi):
+4. Localizza la tua app (richiede pochi secondi):
    ```bash
    npx replexica@latest i18n
    ```
 
 ## 🤖 GitHub Action
 
-Lingo.dev offre una GitHub Action per automatizzare la localizzazione nel tuo pipeline CI/CD. Ecco una configurazione di base:
+Lingo.dev offre una GitHub Action per automatizzare la localizzazione nella tua pipeline CI/CD. Ecco una configurazione di base:
 
 ```yaml
 - uses: lingodotdev/lingo.dev@main
@@ -61,7 +61,7 @@ Lingo.dev offre una GitHub Action per automatizzare la localizzazione nel tuo pi
     api-key: ${{ secrets.REPLEXICA_API_KEY }}
 ```
 
-Questa action esegue `replexica i18n` ad ogni push, mantenendo le tue traduzioni aggiornate automaticamente.
+Questa action esegue `replexica i18n` ad ogni push, mantenendo le tue traduzioni automaticamente aggiornate.
 
 Per la modalità pull request e altre opzioni di configurazione, visita la nostra [documentazione GitHub Action](https://docs.lingo.dev/setup/gha).
 
