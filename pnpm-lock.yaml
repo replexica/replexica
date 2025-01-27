@@ -149,6 +149,9 @@ importers:
       marked:
         specifier: ^15.0.4
         version: 15.0.4
+      node-webvtt:
+        specifier: ^1.9.4
+        version: 1.9.4
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
@@ -3246,6 +3249,11 @@ packages:
 
   node-releases@2.0.18:
     resolution: {integrity: sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==}
+
+  node-webvtt@1.9.4:
+    resolution: {integrity: sha512-EjrJdKdxSyd8j4LMLW6s2Ah4yNoeVXp18Ob04CQl1In18xcUmKzEE8pcsxxnFVqanTyjbGYph2VnvtwIXR4EjA==}
+    engines: {node: '>= 8.16.0'}
+    hasBin: true
 
   normalize-url@6.1.0:
     resolution: {integrity: sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==}
@@ -7528,6 +7536,10 @@ snapshots:
       encoding: 0.1.13
 
   node-releases@2.0.18: {}
+
+  node-webvtt@1.9.4:
+    dependencies:
+      commander: 7.2.0
 
   normalize-url@6.1.0: {}
 
