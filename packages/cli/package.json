@@ -93,7 +93,7 @@
     "@lingo.dev/sdk": "workspace:*",
     "@lingo.dev/spec": "workspace:*",
     "@types/cors": "^2.8.17",
-    "@types/diff": "^6.0.0",
+    "@types/diff": "^7.0.0",
     "@types/express": "^5.0.0",
     "@types/figlet": "^1.7.0",
     "@types/gettext-parser": "^4.0.4",
