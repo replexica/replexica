@@ -2,10 +2,21 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   clean: true,
-  entry: ["./src/index.ts"],
+  target: "esnext",
+  entry: {
+    cli: "src/cli/index.ts",
+    sdk: "src/sdk/index.ts",
+    spec: "src/spec/index.ts",
+  },
   outDir: "build",
-  external: ["readline"],
-  format: ["esm"],
+  format: ["cjs", "esm"],
   dts: true,
-  sourcemap: true,
+  cjsInterop: true,
+  splitting: true,
+  bundle: true,
+  external: ["readline/promises"],
+  noExternal: ["@lingo.dev/sdk", "@lingo.dev/spec"],
+  outExtension: (ctx) => ({
+    js: ctx.format === "cjs" ? ".cjs" : ".mjs",
+  }),
 });

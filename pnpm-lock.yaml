@@ -44,24 +44,6 @@ importers:
         specifier: ^2.1.8
         version: 2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0)
 
-  package:
-    devDependencies:
-      '@lingo.dev/cli':
-        specifier: workspace:*
-        version: link:../packages/cli
-      '@lingo.dev/sdk':
-        specifier: workspace:*
-        version: link:../packages/sdk
-      '@lingo.dev/spec':
-        specifier: workspace:*
-        version: link:../packages/spec
-      tsup:
-        specifier: ^8.3.5
-        version: 8.3.5(jiti@2.4.2)(postcss@8.5.1)(typescript@5.7.2)(yaml@2.6.1)
-      typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
-
   packages/cli:
     dependencies:
       '@datocms/cma-client-node':
@@ -70,12 +52,6 @@ importers:
       '@inquirer/prompts':
         specifier: ^7.2.3
         version: 7.2.3(@types/node@22.10.2)
-      '@lingo.dev/sdk':
-        specifier: workspace:*
-        version: link:../sdk
-      '@lingo.dev/spec':
-        specifier: workspace:*
-        version: link:../spec
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
@@ -206,6 +182,12 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@lingo.dev/sdk':
+        specifier: workspace:*
+        version: link:../sdk
+      '@lingo.dev/spec':
+        specifier: workspace:*
+        version: link:../spec
       '@types/cors':
         specifier: ^2.8.17
         version: 2.8.17

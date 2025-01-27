@@ -10,7 +10,7 @@ import i18nCmd from "./cli/i18n";
 import lockfileCmd from "./cli/lockfile";
 import cleanupCmd from "./cli/cleanup";
 
-import packageJson from "../package.json";
+import packageJson from "../../package.json";
 
 export default new InteractiveCommand()
   .name("replexica")
