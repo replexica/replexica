@@ -63,6 +63,9 @@ export class InBranchFlow extends IntegrationFlow {
     execSync(`git config user.name "${gitConfig.userName}"`);
     execSync(`git config user.email "${gitConfig.userEmail}"`);
 
+    // perform platform-specific configuration before fetching or pushing to the remote
+    this.platformKit?.gitConfig();
+
     execSync(`git fetch origin ${baseBranchName}`, { stdio: "inherit" });
     execSync(`git checkout ${baseBranchName} --`, { stdio: "inherit" });
 
@@ -72,8 +75,6 @@ export class InBranchFlow extends IntegrationFlow {
       this.ora.fail(`The action will not run on commits by ${currentAuthor}`);
       return false;
     }
-
-    this.platformKit?.gitConfig();
 
     const workingDir = path.resolve(process.cwd(), this.platformKit.config.workingDir);
     if (workingDir !== process.cwd()) {

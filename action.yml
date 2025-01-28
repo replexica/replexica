@@ -26,13 +26,10 @@ inputs:
     required: false
   commit-message:
     description: "Commit message"
-    default: "feat: update translations via @lingodotdev"
     required: false
   pull-request-title:
     description: "Pull request title"
-    default: "feat: update translations via @lingodotdev"
     required: false
   working-directory:
     description: "Working directory"
-    default: "."
     required: false

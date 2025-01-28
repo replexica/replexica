@@ -1,5 +1,7 @@
 import Z from "zod";
 
+const defaultMessage = "feat: update translations via @lingodotdev";
+
 interface BasePlatformConfig {
   baseBranchName: string;
   repositoryOwner: string;
@@ -27,17 +29,17 @@ export abstract class PlatformKit<PlatformConfig extends BasePlatformConfig = Ba
     const env = Z.object({
       LINGODOTDEV_API_KEY: Z.string(),
       LINGODOTDEV_PULL_REQUEST: Z.preprocess((val) => val === "true" || val === true, Z.boolean()),
-      LINGODOTDEV_COMMIT_MESSAGE: Z.string(),
-      LINGODOTDEV_PULL_REQUEST_TITLE: Z.string(),
-      LINGODOTDEV_WORKING_DIRECTORY: Z.string().optional().default("."),
+      LINGODOTDEV_COMMIT_MESSAGE: Z.string().optional(),
+      LINGODOTDEV_PULL_REQUEST_TITLE: Z.string().optional(),
+      LINGODOTDEV_WORKING_DIRECTORY: Z.string().optional(),
     }).parse(process.env);
 
     return {
       replexicaApiKey: env.LINGODOTDEV_API_KEY,
       isPullRequestMode: env.LINGODOTDEV_PULL_REQUEST,
-      commitMessage: env.LINGODOTDEV_COMMIT_MESSAGE,
-      pullRequestTitle: env.LINGODOTDEV_PULL_REQUEST_TITLE,
-      workingDir: env.LINGODOTDEV_WORKING_DIRECTORY,
+      commitMessage: env.LINGODOTDEV_COMMIT_MESSAGE || defaultMessage,
+      pullRequestTitle: env.LINGODOTDEV_PULL_REQUEST_TITLE || defaultMessage,
+      workingDir: env.LINGODOTDEV_WORKING_DIRECTORY || ".",
     };
   }
 }

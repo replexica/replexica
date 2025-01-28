@@ -92,7 +92,12 @@ export class BitbucketPlatformKit extends PlatformKit<BitbucketConfig> {
   }
 
   async gitConfig() {
-    execSync("git config http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy http://host.docker.internal:29418/");
+    execSync("git config --unset http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy", {
+      stdio: "inherit",
+    });
+    execSync("git config http.${BITBUCKET_GIT_HTTP_ORIGIN}.proxy http://host.docker.internal:29418/", {
+      stdio: "inherit",
+    });
   }
 
   get platformConfig() {
