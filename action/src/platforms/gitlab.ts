@@ -91,11 +91,8 @@ export class GitlabPlatformKit extends PlatformKit {
   }
 
   gitConfig(): Promise<void> | void {
-    const url = `https://gitlab-ci-token:${this.platformConfig.glToken}@gitlab.com/${this.platformConfig.repositoryOwner}/${this.platformConfig.repositoryName}.git`;
+    const url = `https://oauth2:${this.platformConfig.glToken}@gitlab.com/${this.platformConfig.repositoryOwner}/${this.platformConfig.repositoryName}.git`;
     execSync(`git remote set-url origin ${url}`, {
-      stdio: "inherit",
-    });
-    execSync(`git checkout -b ${this.platformConfig.baseBranchName}`, {
       stdio: "inherit",
     });
   }
