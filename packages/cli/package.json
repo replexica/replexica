@@ -1,6 +1,6 @@
 {
   "name": "lingo.dev",
-  "version": "0.70.4",
+  "version": "0.71.0",
   "description": "Lingo.dev CLI",
   "private": false,
   "type": "module",
