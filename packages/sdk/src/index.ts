@@ -48,7 +48,11 @@ export class ReplexicaEngine {
     payload: Z.infer<typeof payloadSchema>,
     params: Z.infer<typeof localizationParamsSchema>,
     reference?: Z.infer<typeof referenceSchema>,
-    progressCallback?: (progress: number, chunk: Record<string, string>) => void,
+    progressCallback?: (
+      progress: number,
+      sourceChunk: Record<string, string>,
+      processedChunk: Record<string, string>,
+    ) => void,
   ): Promise<Record<string, string>> {
     const finalPayload = payloadSchema.parse(payload);
     const finalParams = localizationParamsSchema.parse(params);
@@ -70,7 +74,7 @@ export class ReplexicaEngine {
       );
 
       if (progressCallback) {
-        progressCallback(percentageCompleted, processedPayloadChunk);
+        progressCallback(percentageCompleted, chunk, processedPayloadChunk);
       }
 
       processedPayloadChunks.push(processedPayloadChunk);
@@ -188,7 +192,11 @@ export class ReplexicaEngine {
   async localizeObject(
     obj: Record<string, any>,
     params: Z.infer<typeof localizationParamsSchema>,
-    progressCallback?: (progress: number, chunk: Record<string, string>) => void,
+    progressCallback?: (
+      progress: number,
+      sourceChunk: Record<string, string>,
+      processedChunk: Record<string, string>,
+    ) => void,
   ): Promise<Record<string, any>> {
     return this._localizeRaw(obj, params, undefined, progressCallback);
   }

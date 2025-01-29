@@ -166,7 +166,14 @@ export default new Command()
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
                 });
-                const chunkProcessor = createChunkProcessor({ bucketLoader, targetLocale, sourceData, targetData });
+                const chunkProcessor = createChunkProcessor({
+                  bucketLoader,
+                  targetLocale,
+                  sourceData,
+                  targetData,
+                  lockfileHelper,
+                  bucketConfigPathPattern: bucketConfig.pathPattern,
+                });
                 const processedTargetData = await localizationEngine.process(
                   {
                     sourceLocale,
@@ -175,7 +182,7 @@ export default new Command()
                     targetLocale,
                     targetData,
                   },
-                  (progress, chunk) => {
+                  (progress, sourceChunk, processedChunk) => {
                     const infoLog = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
 
                     if (flags.verbose) {
@@ -185,9 +192,9 @@ export default new Command()
                     }
 
                     if (!flags.interactive) {
-                      chunkProcessor.process(chunk);
+                      chunkProcessor.process(sourceChunk, processedChunk);
                       if (flags.verbose) {
-                        bucketOra.info(`Processing chunk: ${JSON.stringify(chunk, null, 2)}`);
+                        bucketOra.info(`Processing chunk: ${JSON.stringify(processedChunk, null, 2)}`);
                       }
                     }
                   },
@@ -310,7 +317,11 @@ function createLocalizationEngineConnection(params: { apiKey: string; apiUrl: st
         targetLocale: string;
         targetData: Record<string, any>;
       },
-      onProgress: (progress: number, chunk: Record<string, string>) => void,
+      onProgress: (
+        progress: number,
+        sourceChunk: Record<string, string>,
+        processedChunk: Record<string, string>,
+      ) => void,
     ) => {
       return retryWithExponentialBackoff(
         () =>
@@ -521,22 +532,27 @@ function createChunkProcessor({
   targetLocale,
   sourceData,
   targetData,
+  lockfileHelper,
+  bucketConfigPathPattern,
 }: {
   bucketLoader: ReturnType<typeof createBucketLoader>;
   targetLocale: string;
   sourceData: Record<string, string>;
   targetData: Record<string, string>;
+  lockfileHelper: ReturnType<typeof createLockfileHelper>;
+  bucketConfigPathPattern: string;
 }) {
   const processedChunks: Record<string, string>[] = [];
   let lastPushPromise = Promise.resolve();
 
   return {
-    process: async (chunk: Record<string, string>) => {
-      processedChunks.push(chunk);
+    process: async (sourceChunk: Record<string, string>, processedChunk: Record<string, string>) => {
+      processedChunks.push(processedChunk);
       const chunkTargetData = _.merge({}, sourceData, targetData, ...processedChunks);
 
       // wait for previous push to complete to ensure chunks are written in correct order
       lastPushPromise = lastPushPromise.then(() => {
+        lockfileHelper.registerPartialSourceData(bucketConfigPathPattern, sourceChunk);
         return bucketLoader.push(targetLocale, chunkTargetData);
       });
 
