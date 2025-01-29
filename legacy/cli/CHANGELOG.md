@@ -1,5 +1,16 @@
 # replexica
 
+## 0.71.0
+
+### Minor Changes
+
+- [#428](https://github.com/lingodotdev/lingo.dev/pull/428) [`5dd7b65`](https://github.com/lingodotdev/lingo.dev/commit/5dd7b6529ce174d8759e80644c3233927b1ecce4) Thanks [@mathio](https://github.com/mathio)! - map old env vars
+
+### Patch Changes
+
+- Updated dependencies [[`cd836e4`](https://github.com/lingodotdev/lingo.dev/commit/cd836e45cf810f495e2c6e1449824dc84794d571), [`5dd7b65`](https://github.com/lingodotdev/lingo.dev/commit/5dd7b6529ce174d8759e80644c3233927b1ecce4)]:
+  - lingo.dev@0.71.0
+
 ## 0.70.1
 
 ### Patch Changes
