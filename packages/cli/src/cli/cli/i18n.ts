@@ -528,12 +528,19 @@ function createChunkProcessor({
   targetData: Record<string, string>;
 }) {
   const processedChunks: Record<string, string>[] = [];
+  let lastPushPromise = Promise.resolve();
 
   return {
     process: async (chunk: Record<string, string>) => {
       processedChunks.push(chunk);
       const chunkTargetData = _.merge({}, sourceData, targetData, ...processedChunks);
-      await bucketLoader.push(targetLocale, chunkTargetData);
+
+      // wait for previous push to complete to ensure chunks are written in correct order
+      lastPushPromise = lastPushPromise.then(() => {
+        return bucketLoader.push(targetLocale, chunkTargetData);
+      });
+
+      await lastPushPromise;
     },
   };
 }
