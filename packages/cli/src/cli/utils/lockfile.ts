@@ -21,6 +21,16 @@ export function createLockfileHelper() {
 
       _saveLockfile(lockfile);
     },
+    registerPartialSourceData: (pathPattern: string, partialSourceData: Record<string, any>) => {
+      const lockfile = _loadLockfile();
+
+      const sectionKey = MD5(pathPattern);
+      const sectionChecksums = _.mapValues(partialSourceData, (value) => MD5(value));
+
+      lockfile.checksums[sectionKey] = _.merge({}, lockfile.checksums[sectionKey] ?? {}, sectionChecksums);
+
+      _saveLockfile(lockfile);
+    },
     extractUpdatedData: (pathPattern: string, sourceData: Record<string, any>) => {
       const lockfile = _loadLockfile();
 
