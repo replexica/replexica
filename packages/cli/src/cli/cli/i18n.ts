@@ -166,6 +166,7 @@ export default new Command()
                   apiKey: settings.auth.apiKey,
                   apiUrl: settings.auth.apiUrl,
                 });
+                const chunkProcessor = createChunkProcessor({ bucketLoader, targetLocale, sourceData, targetData });
                 const processedTargetData = await localizationEngine.process(
                   {
                     sourceLocale,
@@ -174,8 +175,21 @@ export default new Command()
                     targetLocale,
                     targetData,
                   },
-                  (progress) => {
-                    bucketOra.text = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+                  (progress, chunk) => {
+                    const infoLog = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+
+                    if (flags.verbose) {
+                      bucketOra.info(infoLog);
+                    } else {
+                      bucketOra.text = infoLog;
+                    }
+
+                    if (!flags.interactive) {
+                      chunkProcessor.process(chunk);
+                      if (flags.verbose) {
+                        bucketOra.info(`Processing chunk: ${JSON.stringify(chunk, null, 2)}`);
+                      }
+                    }
                   },
                 );
 
@@ -296,7 +310,7 @@ function createLocalizationEngineConnection(params: { apiKey: string; apiUrl: st
         targetLocale: string;
         targetData: Record<string, any>;
       },
-      onProgress: (progress: number) => void,
+      onProgress: (progress: number, chunk: Record<string, string>) => void,
     ) => {
       return retryWithExponentialBackoff(
         () =>
@@ -500,4 +514,26 @@ async function reviewChanges(args: {
   }
 
   return customData;
+}
+
+function createChunkProcessor({
+  bucketLoader,
+  targetLocale,
+  sourceData,
+  targetData,
+}: {
+  bucketLoader: ReturnType<typeof createBucketLoader>;
+  targetLocale: string;
+  sourceData: Record<string, string>;
+  targetData: Record<string, string>;
+}) {
+  const processedChunks: Record<string, string>[] = [];
+
+  return {
+    process: async (chunk: Record<string, string>) => {
+      processedChunks.push(chunk);
+      const chunkTargetData = _.merge({}, sourceData, targetData, ...processedChunks);
+      await bucketLoader.push(targetLocale, chunkTargetData);
+    },
+  };
 }
