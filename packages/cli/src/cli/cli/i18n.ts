@@ -15,6 +15,7 @@ import chalk from "chalk";
 import { createTwoFilesPatch } from "diff";
 import inquirer from "inquirer";
 import externalEditor from "external-editor";
+import { cacheChunk, deleteCache, getNormalizedCache } from "../utils/cache";
 
 export default new Command()
   .command("i18n")
@@ -88,6 +89,54 @@ export default new Command()
         ora.succeed("i18n.lock created");
       } else {
         ora.succeed("i18n.lock loaded");
+      }
+
+      // recover cache if exists
+      const cache = getNormalizedCache();
+      if (cache) {
+        console.log();
+        ora.succeed(`Cache loaded. Attempting recovery...`);
+        const cacheOra = Ora({ indent: 2 });
+
+        for (const bucket of buckets) {
+          cacheOra.info(`Processing bucket: ${bucket.type}`);
+          for (const bucketConfig of bucket.config) {
+            const bucketOra = ora.info(`Processing path: ${bucketConfig.pathPattern}`);
+
+            const sourceLocale = resolveOverridenLocale(i18nConfig!.locale.source, bucketConfig.delimiter);
+            const bucketLoader = createBucketLoader(bucket.type, bucketConfig.pathPattern);
+            bucketLoader.setDefaultLocale(sourceLocale);
+            await bucketLoader.init();
+            const sourceData = await bucketLoader.pull(sourceLocale);
+            const cachedSourceData: Record<string, string> = {};
+
+            for (const targetLocale in cache) {
+              const targetData = await bucketLoader.pull(targetLocale);
+
+              for (const key in cache[targetLocale]) {
+                const { source, result } = cache[targetLocale][key];
+
+                if (sourceData[key] === source && targetData[key] !== result) {
+                  targetData[key] = result;
+                  cachedSourceData[key] = source;
+                }
+              }
+
+              await bucketLoader.push(targetLocale, targetData);
+              lockfileHelper.registerPartialSourceData(bucketConfig.pathPattern, cachedSourceData);
+
+              bucketOra.succeed(
+                `[${sourceLocale} -> ${targetLocale}] Recovered ${Object.keys(cachedSourceData).length} entries from cache`,
+              );
+            }
+          }
+        }
+        deleteCache();
+        if (flags.verbose) {
+          cacheOra.info("Cache file deleted.");
+        }
+      } else if (flags.verbose) {
+        ora.info("Cache file not found. Skipping recovery.");
       }
 
       if (flags.frozen) {
@@ -174,8 +223,18 @@ export default new Command()
                     targetLocale,
                     targetData,
                   },
-                  (progress) => {
-                    bucketOra.text = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+                  (progress, sourceChunk, processedChunk) => {
+                    cacheChunk(targetLocale, sourceChunk, processedChunk);
+
+                    const progressLog = `[${sourceLocale} -> ${targetLocale}] [${Object.keys(processableData).length} entries] (${progress}%) AI localization in progress...`;
+                    if (flags.verbose) {
+                      ora.info(progressLog);
+                      ora.info(
+                        `Caching chunk ${JSON.stringify(sourceChunk, null, 2)} -> ${JSON.stringify(processedChunk, null, 2)}`,
+                      );
+                    } else {
+                      ora.text = progressLog;
+                    }
                   },
                 );
 
@@ -236,6 +295,10 @@ export default new Command()
       console.log();
       if (!hasErrors) {
         ora.succeed("Localization completed.");
+        deleteCache();
+        if (flags.verbose) {
+          ora.info("Cache file deleted.");
+        }
       } else {
         ora.warn("Localization completed with errors.");
       }
@@ -296,7 +359,11 @@ function createLocalizationEngineConnection(params: { apiKey: string; apiUrl: st
         targetLocale: string;
         targetData: Record<string, any>;
       },
-      onProgress: (progress: number) => void,
+      onProgress: (
+        progress: number,
+        sourceChunk: Record<string, string>,
+        processedChunk: Record<string, string>,
+      ) => void,
     ) => {
       return retryWithExponentialBackoff(
         () =>
