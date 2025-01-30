@@ -1,39 +1,24 @@
 import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
-export type NewLineLoaderOptions = "lf" | "crlf" | "cr" | "auto";
-
-export default function createNewLineLoader(options: NewLineLoaderOptions = "auto"): ILoader<string, string> {
-  const getLineEnding = (originalInput: string) => {
-    switch (options) {
-      case "lf":
-        return "\n";
-      case "crlf":
-        return "\r\n";
-      case "cr":
-        return "\r";
-      case "auto":
-        // Use platform-specific line endings
-        return process.platform === "win32" ? "\r\n" : "\n";
-      default:
-        // Detect original line endings, fallback to LF if can't detect
-        if (originalInput.includes("\r\n")) return "\r\n";
-        if (originalInput.includes("\r")) return "\r";
-        return "\n";
-    }
-  };
-
+export default function createNewLineLoader(): ILoader<string, string> {
   return createLoader({
     async pull(locale, input) {
-      // Normalize line endings to LF for internal processing
-      return input.replace(/\r\n|\r/g, "\n");
+      return input;
     },
     async push(locale, data, originalInput) {
       if (!data) return "";
 
-      // Convert line endings to the specified format or preserve original
-      const lineEnding = getLineEnding(originalInput || "");
-      return data.replace(/\n/g, lineEnding);
+      // Remove any existing final newline
+      const trimmed = data.replace(/[\r\n]+$/, "");
+
+      // If original had final newline, add it back with same ending type
+      if (originalInput?.match(/[\r\n]$/)) {
+        const ending = originalInput?.includes("\r\n") ? "\r\n" : originalInput?.includes("\r") ? "\r" : "\n";
+        return trimmed + ending;
+      }
+
+      return trimmed;
     },
   });
 }
