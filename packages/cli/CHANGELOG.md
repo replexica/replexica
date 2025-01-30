@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.72.0
+
+### Minor Changes
+
+- [#433](https://github.com/lingodotdev/lingo.dev/pull/433) [`e895746`](https://github.com/lingodotdev/lingo.dev/commit/e895746dff9c6a146e0fa61f681b9a5d60b7d124) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - preserve newlines, whitespaces while formatting
+
 ## 0.71.0
 
 ### Minor Changes
