@@ -1,23 +1,23 @@
 {
-  "version": "1.0",
-  "sourceLanguage": "en",
-  "strings": {
-    "complex_format": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "User %1$@ has %2$lld points and $%3$.2f balance"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "complex_format" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المستخدم %1$@ لديه %2$lld نقطة ورصيد $%3$.2f"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "المستخدم %1$@ لديه %2$lld نقطة ورصيد $%3$.2f"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User %1$@ has %2$lld points and $%3$.2f balance"
           }
         }
-      },
-      "extractionState": "manual"
+      }
     }
-  }
+  },
+  "version" : "1.0"
 }

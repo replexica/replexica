@@ -1,2 +1,3 @@
 pnpm-lock.yaml
 .changeset/
+packages/cli/demo/
