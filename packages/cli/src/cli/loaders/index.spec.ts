@@ -59,7 +59,7 @@ describe("bucket loaders", () => {
         </resources>
       `.trim();
       const payload = { "button.title": "Enviar" };
-      const expectedOutput = `<resources>\n  <string name="button.title">Enviar</string>\n</resources>\n`;
+      const expectedOutput = `<resources>\n  <string name="button.title">Enviar</string>\n</resources>`;
 
       mockFileOperations(input);
 
@@ -97,7 +97,7 @@ describe("bucket loaders", () => {
 
       const input = `id,en,es\nbutton.title,Submit,`;
       const payload = { "button.title": "Enviar" };
-      const expectedOutput = `id,en,es\nbutton.title,Submit,Enviar\n`;
+      const expectedOutput = `id,en,es\nbutton.title,Submit,Enviar`;
 
       mockFileOperations(input);
 
@@ -159,24 +159,23 @@ describe("bucket loaders", () => {
         }
       }`;
       const payload = { greeting: "¡Hola, {name}!" };
-      const expectedOutput =
-        JSON.stringify(
-          {
-            "@@locale": "es",
-            greeting: "¡Hola, {name}!",
-            "@greeting": {
-              description: "A greeting with a name placeholder",
-              placeholders: {
-                name: {
-                  type: "String",
-                  example: "John",
-                },
+      const expectedOutput = JSON.stringify(
+        {
+          "@@locale": "es",
+          greeting: "¡Hola, {name}!",
+          "@greeting": {
+            description: "A greeting with a name placeholder",
+            placeholders: {
+              name: {
+                type: "String",
+                example: "John",
               },
             },
           },
-          null,
-          2,
-        ) + "\n";
+        },
+        null,
+        2,
+      );
 
       mockFileOperations(input);
 
@@ -267,8 +266,7 @@ describe("bucket loaders", () => {
         "body/2/3/0": "texto en negrita y ",
         "body/2/3/1/0": "texto en cursiva",
       };
-      const expectedOutput =
-        `
+      const expectedOutput = `
 <html lang="es">
   <head>
     <title>Mi Página</title>
@@ -288,7 +286,7 @@ describe("bucket loaders", () => {
     </p>
   </body>
 </html>
-      `.trim() + "\n";
+      `.trim();
 
       mockFileOperations(input);
 
@@ -321,7 +319,7 @@ describe("bucket loaders", () => {
 
       const input = { "button.title": "Submit" };
       const payload = { "button.title": "Enviar" };
-      const expectedOutput = JSON.stringify(payload, null, 2) + "\n";
+      const expectedOutput = JSON.stringify(payload, null, 2);
 
       mockFileOperations(JSON.stringify(input));
 
@@ -403,7 +401,7 @@ Esto es un párrafo.
 ## Encabezado 2
 
 Otro párrafo con texto en **negrita** y en _cursiva_.
-`;
+`.trim();
 
       mockFileOperations(input);
 
@@ -471,14 +469,13 @@ user.password=Password
         "user.username": "Nombre de usuario",
         "user.password": "Contraseña",
       };
-      const expectedOutput =
-        `
+      const expectedOutput = `
 welcome.message=Bienvenido a nuestra aplicación!
 error.message=Se ha producido un error. Por favor, inténtelo de nuevo más tarde.
 user.login=Por favor, introduzca su nombre de usuario y contraseña.
 user.username=Nombre de usuario
 user.password=Contraseña
-      `.trim() + "\n";
+      `.trim();
 
       mockFileOperations(input);
 
@@ -523,7 +520,7 @@ user.password=Contraseña
 "hello" = "Hello!";
       `.trim();
       const payload = { hello: "¡Hola!" };
-      const expectedOutput = `"hello" = "¡Hola!";\n`;
+      const expectedOutput = `"hello" = "¡Hola!";`;
 
       mockFileOperations(input);
 
@@ -599,8 +596,7 @@ user.password=Contraseña
 </plist>
       `.trim();
       const payload = { greeting: "¡Hola!" };
-      const expectedOutput =
-        `<?xml version="1.0" encoding="UTF-8"?>
+      const expectedOutput = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
@@ -608,7 +604,7 @@ user.password=Contraseña
     <string>¡Hola!</string>
   </dict>
 </plist>
-      `.trim() + "\n";
+      `.trim();
 
       mockFileOperations(input);
 
@@ -629,23 +625,25 @@ user.password=Contraseña
     it("should load xcode-xcstrings", async () => {
       setupFileMocks();
 
-      const input = JSON.stringify({
-        version: "1.0",
-        sourceLanguage: "en",
-        strings: {
-          greeting: {
-            extractionState: "manual",
-            localizations: {
-              en: {
-                stringUnit: {
-                  state: "translated",
-                  value: "Hello!",
-                },
-              },
-            },
+      const input = `
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "greeting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello!",
           },
         },
-      });
+      },
+    },
+  },
+  "version" : "1.0"
+}
+      `.trim();
       const expectedOutput = { greeting: "Hello!" };
 
       mockFileOperations(input);
@@ -660,46 +658,51 @@ user.password=Contraseña
     it("should save xcode-xcstrings", async () => {
       setupFileMocks();
 
-      const input = JSON.stringify({
-        version: "1.0",
-        sourceLanguage: "en",
-        strings: {
-          greeting: {
-            extractionState: "manual",
-            localizations: {
-              en: {
-                stringUnit: {
-                  state: "translated",
-                  value: "Hello!",
-                },
-              },
-            },
+      const input = `
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "greeting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello!",
           },
         },
-      });
+      },
+    },
+  },
+  "version" : "1.0"
+}
+      `.trim();
       const payload = { greeting: "¡Hola!" };
-      const expectedOutput =
-        JSON.stringify(
-          {
-            version: "1.0",
-            sourceLanguage: "en",
-            strings: {
-              greeting: {
-                extractionState: "manual",
-                localizations: {
-                  en: {
-                    stringUnit: { state: "translated", value: "Hello!" },
-                  },
-                  es: {
-                    stringUnit: { state: "translated", value: "¡Hola!" },
-                  },
-                },
-              },
-            },
-          },
-          null,
-          2,
-        ) + "\n";
+      const expectedOutput = `
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "greeting" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Hola!"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
+      `.trim();
 
       mockFileOperations(input);
 
@@ -741,7 +744,7 @@ user.password=Contraseña
         greeting: Hello!
       `.trim();
       const payload = { greeting: "¡Hola!" };
-      const expectedOutput = `greeting: ¡Hola!\n`;
+      const expectedOutput = `greeting: ¡Hola!`;
 
       mockFileOperations(input);
 
@@ -782,7 +785,7 @@ user.password=Contraseña
         greeting: Hello!
     `.trim();
       const payload = { greeting: "¡Hola!" };
-      const expectedOutput = `es:\n  greeting: ¡Hola!\n`;
+      const expectedOutput = `es:\n  greeting: ¡Hola!`;
 
       mockFileOperations(input);
 
@@ -858,8 +861,7 @@ Bar
         "3#110-111#": "Bar",
       };
 
-      const expectedOutput =
-        `
+      const expectedOutput = `
   WEBVTT
 
 00:00:00.000 --> 00:00:01.000
@@ -872,7 +874,7 @@ Este es un subtítulo
 Foo
 
 00:01:50.000 --> 00:01:51.000
-Bar`.trim() + "\n";
+Bar`.trim();
 
       mockFileOperations(input);
 
@@ -959,7 +961,6 @@ Bar`.trim() + "\n";
         .replace(/>\s+</g, "><")
         .trim();
       mockFileOperations(input);
-      expectedOutput += "\n";
       const xmlLoader = createBucketLoader("xml", "i18n/[locale].xml");
       xmlLoader.setDefaultLocale("en");
       await xmlLoader.pull("en");
@@ -1024,7 +1025,7 @@ World!
 
 2
 00:00:01,000 --> 00:00:02,000
-Mundo!\n`;
+Mundo!`;
 
       mockFileOperations(input);
 
@@ -1130,8 +1131,7 @@ Mundo!\n`;
         sourceLanguage: "es-ES",
       };
 
-      const expectedOutput =
-        `
+      const expectedOutput = `
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="es-ES">
   <file id="namespace1">
     <unit id="key1">
@@ -1157,7 +1157,7 @@ Mundo!\n`;
       </unit>
     </group>
   </file>
-</xliff>`.trim() + "\n";
+</xliff>`.trim();
 
       mockFileOperations(input);
 

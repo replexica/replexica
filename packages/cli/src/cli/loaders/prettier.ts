@@ -19,7 +19,7 @@ export default function createPrettierLoader(options: PrettierLoaderOptions): IL
       }
 
       const result = prettier.format(data, {
-        ...(prettierConfig || { printWidth: 2500 }),
+        ...(prettierConfig || { printWidth: 2500, bracketSameLine: false }),
         parser: options.parser,
         // For HTML parser, preserve comments and quotes
         ...(options.parser === "html"

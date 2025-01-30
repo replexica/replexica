@@ -5,12 +5,12 @@ import { InteractiveCommand } from "interactive-commander";
 import figlet from "figlet";
 import { vice } from "gradient-string";
 
-import authCmd from "./cli/auth";
-import initCmd from "./cli/init";
-import configCmd from "./cli/show";
-import i18nCmd from "./cli/i18n";
-import lockfileCmd from "./cli/lockfile";
-import cleanupCmd from "./cli/cleanup";
+import authCmd from "./cmd/auth";
+import initCmd from "./cmd/init";
+import configCmd from "./cmd/show";
+import i18nCmd from "./cmd/i18n";
+import lockfileCmd from "./cmd/lockfile";
+import cleanupCmd from "./cmd/cleanup";
 
 import packageJson from "../../package.json";
 

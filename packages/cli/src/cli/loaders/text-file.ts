@@ -30,7 +30,7 @@ export default function createTextFileLoader(pathPattern: string): ILoader<void,
       await fs.mkdir(dirPath, { recursive: true });
 
       // Ensure consistent line endings
-      const finalPayload = data.trim() + "\n";
+      const finalPayload = data.trim();
       await fs.writeFile(finalPath, finalPayload, {
         encoding: "utf-8",
         flag: "w",
