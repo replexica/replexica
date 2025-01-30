@@ -655,54 +655,94 @@ user.password=Contraseña
       expect(data).toEqual(expectedOutput);
     });
 
-    it("should save xcode-xcstrings", async () => {
+    it("should save xcode-xcstrings with alphabetically sorted keys", async () => {
       setupFileMocks();
 
       const input = `
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "greeting" : {
+    "zebra" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hello!",
-          },
-        },
-      },
+            "value" : "Zebra"
+          }
+        }
+      }
     },
-  },
-  "version" : "1.0"
-}
-      `.trim();
-      const payload = { greeting: "¡Hola!" };
-      const expectedOutput = `
-{
-  "sourceLanguage" : "en",
-  "strings" : {
-    "greeting" : {
+    "apple" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hello!"
+            "value" : "Apple"
           }
         },
-        "es" : {
+        "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "¡Hola!"
+            "value" : "苹果"
           }
         }
       }
     }
   },
   "version" : "1.0"
-}
-      `.trim();
+}`.trim();
+      const payload = {
+        zebra: "Cebra",
+        apple: "Manzana",
+      };
+      const expectedOutput = `{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manzana"
+          }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "苹果"
+          }
+        }
+      }
+    },
+    "zebra" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zebra"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cebra"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}`.trim();
 
       mockFileOperations(input);
 
