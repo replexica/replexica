@@ -1,5 +1,13 @@
 # lingo.dev
 
+## 0.73.0
+
+### Minor Changes
+
+- [#435](https://github.com/lingodotdev/lingo.dev/pull/435) [`754de44`](https://github.com/lingodotdev/lingo.dev/commit/754de44bd94119c88e3fb27d0713b8e1b20c4264) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - preserve newlines, whitespaces while formatting
+
+- [#435](https://github.com/lingodotdev/lingo.dev/pull/435) [`754de44`](https://github.com/lingodotdev/lingo.dev/commit/754de44bd94119c88e3fb27d0713b8e1b20c4264) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add json sorting
+
 ## 0.72.0
 
 ### Minor Changes
