@@ -19,7 +19,7 @@ function sortObjectDeep(obj: any): any {
 
   if (obj !== null && typeof obj === "object") {
     return Object.keys(obj)
-      .sort()
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
       .reduce((result: any, key) => {
         result[key] = sortObjectDeep(obj[key]);
         return result;

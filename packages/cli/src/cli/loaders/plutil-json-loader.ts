@@ -10,8 +10,7 @@ export default function createPlutilJsonTextLoader(): ILoader<string, string> {
     async push(locale, data, originalInput) {
       const jsonData = JSON.parse(data);
       const result = formatPlutilStyle(jsonData, originalInput || "");
-      // printout last symbol
-      console.log(result[result.length - 1]);
+
       return result;
     },
   });

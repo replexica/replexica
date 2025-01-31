@@ -21,7 +21,18 @@ export function formatPlutilStyle(jsonData: any, existingJson?: string): string 
       return `{\n\n${currentIndent}}`; // Empty object with proper indentation
     }
 
-    const items = keys.map((key) => {
+    // Sort keys to ensure whitespace keys come first
+    const sortedKeys = keys.sort((a, b) => {
+      // If both keys are whitespace or both are non-whitespace, maintain stable order
+      const aIsWhitespace = /^\s*$/.test(a);
+      const bIsWhitespace = /^\s*$/.test(b);
+
+      if (aIsWhitespace && !bIsWhitespace) return -1;
+      if (!aIsWhitespace && bIsWhitespace) return 1;
+      return a.localeCompare(b, undefined, { numeric: false });
+    });
+
+    const items = sortedKeys.map((key) => {
       const value = data[key];
       return `${nextIndent}${JSON.stringify(key)} : ${format(value, level + 1)}`;
     });
@@ -29,7 +40,8 @@ export function formatPlutilStyle(jsonData: any, existingJson?: string): string 
     return `{\n${items.join(",\n")}\n${currentIndent}}`;
   }
 
-  return format(jsonData);
+  const result = format(jsonData);
+  return result;
 }
 
 function detectIndentation(jsonStr: string): string {
