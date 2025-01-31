@@ -60,7 +60,7 @@
     "gradient-string": "^3.0.0",
     "gray-matter": "^4.0.3",
     "ini": "^5.0.0",
-    "inquirer": "^12.3.0",
+    "inquirer": "^12.3.2",
     "interactive-commander": "^0.5.194",
     "is-url": "^1.2.4",
     "jsdom": "^25.0.1",
