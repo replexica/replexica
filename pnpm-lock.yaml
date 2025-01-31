@@ -146,8 +146,8 @@ importers:
         specifier: ^0.2.4
         version: 0.2.4
       marked:
-        specifier: ^15.0.4
-        version: 15.0.4
+        specifier: ^15.0.6
+        version: 15.0.6
       node-webvtt:
         specifier: ^1.9.4
         version: 1.9.4
@@ -2999,6 +2999,11 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
+  marked@15.0.6:
+    resolution: {integrity: sha512-Y07CUOE+HQXbVDCGl3LXggqJDbXDP2pArc2C1N1RRMN0ONiShoSsIInMd5Gsxupe7fKLpgimTV+HOJ9r7bA+pg==}
+    engines: {node: '>= 18'}
+    hasBin: true
+
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -5830,7 +5835,7 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.8(vite@5.4.10(@types/node@22.10.2)(terser@5.36.0))':
+  '@vitest/mocker@2.1.8(vite@5.4.10(@types/node@22.10.2))':
     dependencies:
       '@vitest/spy': 2.1.8
       estree-walker: 3.0.3
@@ -7327,6 +7332,8 @@ snapshots:
 
   marked@15.0.4: {}
 
+  marked@15.0.6: {}
+
   math-intrinsics@1.1.0: {}
 
   mdn-data@2.0.14: {}
@@ -8481,7 +8488,7 @@ snapshots:
   vitest@2.1.8(@types/node@22.10.2)(jsdom@25.0.1)(terser@5.36.0):
     dependencies:
       '@vitest/expect': 2.1.8
-      '@vitest/mocker': 2.1.8(vite@5.4.10(@types/node@22.10.2)(terser@5.36.0))
+      '@vitest/mocker': 2.1.8(vite@5.4.10(@types/node@22.10.2))
       '@vitest/pretty-format': 2.1.8
       '@vitest/runner': 2.1.8
       '@vitest/snapshot': 2.1.8
