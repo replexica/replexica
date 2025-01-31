@@ -28,7 +28,6 @@ import createVariableLoader from "./variable";
 import createSyncLoader from "./sync";
 import createPlutilJsonTextLoader from "./plutil-json-loader";
 import createNewLineLoader from "./new-line";
-import createJsonSortingLoader from "./json-sorting";
 
 export default function createBucketLoader(
   bucketType: Z.infer<typeof bucketTypeSchema>,
@@ -124,7 +123,6 @@ export default function createBucketLoader(
         createNewLineLoader(),
         createPlutilJsonTextLoader(),
         createJsonLoader(),
-        createJsonSortingLoader(),
         createXcodeXcstringsLoader(),
         createFlatLoader(),
         createSyncLoader(),

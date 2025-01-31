@@ -6,18 +6,25 @@ import { ILoader } from "./_types";
 import { createLoader } from "./_utils";
 
 export default function createUnlocalizableLoader(): ILoader<Record<string, any>, Record<string, any>> {
+  const rules = {
+    isEmpty: (v: any) => _.isEmpty(v),
+    isNumber: (v: string) => !_.isNaN(_.toNumber(v)),
+    isBoolean: (v: string) => _.isBoolean(v),
+    isIsoDate: (v: string) => _.isString(v) && _isIsoDate(v),
+    isSystemId: (v: string) => _.isString(v) && _isSystemId(v),
+    isUrl: (v: string) => _.isString(v) && _isUrl(v),
+  };
   return createLoader({
     async pull(locale, input) {
       const passthroughKeys = Object.entries(input)
         .filter(([key, value]) => {
-          return [
-            (v: any) => _.isEmpty(v),
-            (v: string) => _.isString(v) && _isIsoDate(v),
-            (v: string) => !_.isNaN(_.toNumber(v)),
-            (v: string) => _.isBoolean(v),
-            (v: string) => _.isString(v) && _isSystemId(v),
-            (v: string) => _.isString(v) && _isUrl(v),
-          ].some((fn) => fn(value));
+          // Check each rule individually for better debugging
+          for (const [ruleName, rule] of Object.entries(rules)) {
+            if (rule(value)) {
+              return true;
+            }
+          }
+          return false;
         })
         .map(([key, _]) => key);
 

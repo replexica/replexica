@@ -1,19 +1,77 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "complex_format" : {
+    "" : {
+
+    },
+    " " : {
+
+    },
+    " and " : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "المستخدم %1$@ لديه %2$lld نقطة ورصيد $%3$.2f"
+            "value" : " و "
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "User %1$@ has %2$lld points and $%3$.2f balance"
+            "value" : " and "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " y "
+          }
+        }
+      }
+    },
+    "25" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25"
+          }
+        }
+      }
+    },
+    "apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفاحة"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apple"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "manzana"
           }
         }
       }

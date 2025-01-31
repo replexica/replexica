@@ -129,7 +129,8 @@ checksums:
     date_format: c4137fde368529804b9c43edb293f521
     multiline_html: a2f5d47387c8011c0dccc58ceaa1cb8c
   250a4a9b39c8b90557bd4f761e5f3cbb:
-    complex_format: 3dd10711bade5a656b9b47586ab27b9b
+    "%20and%20": 05dc0a811ee5b04941c826293471367d
+    apple: 263c986f157e7e030f8a69693c158cb5
   b05b783b3d24ee943d83ccd8e274814d:
     home/title%2Fmain: ef1fb56b8dafd605fb267df2b0a8a91f
     home/description%2Fdev: b866f4d6b135451633de827fc20f4fdb
@@ -340,3 +341,8 @@ checksums:
     cg3SetXtQ9WygXv_F_cGDw/_EagEKQA4RwmdrSfH8B4uOw/platform_pricing_plans/3/description: 66aa3ced3589f3d16c7b4e2421ce08bd
     cg3SetXtQ9WygXv_F_cGDw/_EagEKQA4RwmdrSfH8B4uOw/platform_pricing_plans/3/pricing_features_intro: b02621d78eb9edb2c74878fb22fb5294
     cg3SetXtQ9WygXv_F_cGDw/_EagEKQA4RwmdrSfH8B4uOw/platform_pricing_plans/3/cta/0/content: 694a45bc5c96f6f3a27873c1cf5a7707
+  829cd6f9351a1ca290ee8532089bc1c8:
+    complex_format: 3dd10711bade5a656b9b47586ab27b9b
+  862ce219de509da76aa68a92433210a2:
+    "%20and%20": 05dc0a811ee5b04941c826293471367d
+    apple: 263c986f157e7e030f8a69693c158cb5

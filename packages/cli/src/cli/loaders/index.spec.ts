@@ -635,7 +635,7 @@ user.password=Contraseña
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hello!",
+            "value" : "Hello!"
           },
         },
       },
@@ -751,6 +751,141 @@ user.password=Contraseña
       await xcodeXcstringsLoader.pull("en");
 
       await xcodeXcstringsLoader.push("es", payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith("Localizable.xcstrings", expectedOutput, {
+        encoding: "utf-8",
+        flag: "w",
+      });
+    });
+
+    it("should maintain ASCII ordering with whitespace and special characters", async () => {
+      setupFileMocks();
+
+      const input = `{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    " " : {
+
+    },
+    " and " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " and "
+          }
+        },
+      }
+    },
+    "25" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25"
+          }
+        }
+      }
+    },
+    "apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apple"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}`.trim();
+
+      const payloadAr = {
+        "": "",
+        " ": "",
+        "%20and%20": " و ",
+        "25": "25",
+        apple: "تفاحة",
+      };
+
+      const expectedOutput = `{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    " " : {
+
+    },
+    " and " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " و "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " and "
+          }
+        }
+      }
+    },
+    "25" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25"
+          }
+        }
+      }
+    },
+    "apple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفاحة"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "apple"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}`.trim();
+
+      mockFileOperations(input);
+
+      const xcodeXcstringsLoader = createBucketLoader("xcode-xcstrings", "Localizable.xcstrings");
+      xcodeXcstringsLoader.setDefaultLocale("en");
+      await xcodeXcstringsLoader.pull("en");
+
+      await xcodeXcstringsLoader.push("ar", payloadAr);
 
       expect(fs.writeFile).toHaveBeenCalledWith("Localizable.xcstrings", expectedOutput, {
         encoding: "utf-8",
@@ -1007,10 +1142,7 @@ Bar`.trim();
 
       await xmlLoader.push("es", payload);
 
-      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.xml", expectedOutput, {
-        encoding: "utf-8",
-        flag: "w",
-      });
+      expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.xml", expectedOutput, { encoding: "utf-8", flag: "w" });
     });
   });
 
