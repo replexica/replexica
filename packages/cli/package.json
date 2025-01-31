@@ -86,7 +86,7 @@
     "xml2js": "^0.6.2",
     "xmldom": "^0.6.0",
     "xpath": "^0.0.34",
-    "yaml": "^2.6.1",
+    "yaml": "^2.7.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
