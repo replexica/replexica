@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.73.1
+
+### Patch Changes
+
+- [#437](https://github.com/lingodotdev/lingo.dev/pull/437) [`f643c28`](https://github.com/lingodotdev/lingo.dev/commit/f643c2810662e4ced0aa5e57f6e574d0294dab49) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - order xcstrings ascii-way
+
 ## 0.73.0
 
 ### Minor Changes
