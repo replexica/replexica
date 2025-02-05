@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.5
+
+### Patch Changes
+
+- [`e950be4`](https://github.com/lingodotdev/lingo.dev/commit/e950be4ff406ba4328a53a9c9ff8dd094787b105) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - remove newline loader from dato
+
 ## 0.74.4
 
 ### Patch Changes
