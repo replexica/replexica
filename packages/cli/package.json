@@ -43,6 +43,8 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@lingo.dev/_sdk": "workspace:*",
+    "@lingo.dev/_spec": "workspace:*",
     "@datocms/cma-client-node": "^3.4.0",
     "@inquirer/prompts": "^7.2.3",
     "@paralleldrive/cuid2": "^2.2.2",
@@ -93,8 +95,6 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@lingo.dev/_sdk": "workspace:*",
-    "@lingo.dev/_spec": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/diff": "^7.0.0",
     "@types/express": "^5.0.0",
