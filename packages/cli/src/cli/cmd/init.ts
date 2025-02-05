@@ -1,7 +1,7 @@
 import { InteractiveCommand, InteractiveOption } from "interactive-commander";
 import Ora from "ora";
 import { getConfig, saveConfig } from "../utils/config";
-import { defaultConfig, LocaleCode, resolveLocaleCode, bucketTypes } from "@lingo.dev/spec";
+import { defaultConfig, LocaleCode, resolveLocaleCode, bucketTypes } from "@lingo.dev/~spec";
 import fs from "fs";
 import { spawn } from "child_process";
 import _ from "lodash";

@@ -4,7 +4,7 @@ import Ora from "ora";
 import { getConfig } from "../../utils/config";
 import { CLIError } from "../../utils/errors";
 import { getBuckets } from "../../utils/buckets";
-import { resolveOverridenLocale } from "@lingo.dev/spec";
+import { resolveOverridenLocale } from "@lingo.dev/~spec";
 
 export default new Command()
   .command("files")

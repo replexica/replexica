@@ -1,8 +1,8 @@
 {
-  "name": "@lingo.dev/sdk",
+  "name": "@lingo.dev/~sdk",
   "version": "0.7.11",
   "description": "Lingo.dev JS SDK",
-  "private": true,
+  "private": false,
   "type": "module",
   "sideEffects": false,
   "types": "build/index.d.ts",
@@ -21,7 +21,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
-    "@lingo.dev/spec": "workspace:*",
+    "@lingo.dev/~spec": "workspace:*",
     "jsdom": "^25.0.1",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8",

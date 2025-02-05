@@ -16,7 +16,7 @@ export default defineConfig({
   bundle: true,
   sourcemap: true,
   external: ["readline/promises"],
-  noExternal: ["@lingo.dev/sdk", "@lingo.dev/spec"],
+  noExternal: ["@lingo.dev/~sdk", "@lingo.dev/~spec"],
   outExtension: (ctx) => ({
     js: ctx.format === "cjs" ? ".cjs" : ".mjs",
   }),
