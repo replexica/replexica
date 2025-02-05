@@ -46,7 +46,7 @@
     "@lingo.dev/_sdk": "workspace:*",
     "@lingo.dev/_spec": "workspace:*",
     "@datocms/cma-client-node": "^3.4.0",
-    "@inquirer/prompts": "^7.2.3",
+    "@inquirer/prompts": "^7.3.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "chalk": "^5.4.1",
     "cors": "^2.8.5",
