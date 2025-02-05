@@ -1,5 +1,14 @@
 # @lingo.dev/\_sdk
 
+## 0.7.13
+
+### Patch Changes
+
+- [`dc8bfc7`](https://github.com/lingodotdev/lingo.dev/commit/dc8bfc7ddc38ade768b8aa11c56669db7eb446e6) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - publish deps
+
+- Updated dependencies [[`dc8bfc7`](https://github.com/lingodotdev/lingo.dev/commit/dc8bfc7ddc38ade768b8aa11c56669db7eb446e6)]:
+  - @lingo.dev/_spec@0.24.3
+
 ## 0.7.12
 
 ### Patch Changes
