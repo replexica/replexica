@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.4
+
+### Patch Changes
+
+- [`74bd1c9`](https://github.com/lingodotdev/lingo.dev/commit/74bd1c9c19f364c65b70e91b2f4ff63949c40adf) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - package exports
+
 ## 0.74.3
 
 ### Patch Changes
