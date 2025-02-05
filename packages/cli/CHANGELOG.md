@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.3
+
+### Patch Changes
+
+- [`c0bc85d`](https://github.com/lingodotdev/lingo.dev/commit/c0bc85d5870f9150eeecf6e806cbb4a4494b7bf0) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - move \_ packages from devdeps to deps
+
 ## 0.74.2
 
 ### Patch Changes
