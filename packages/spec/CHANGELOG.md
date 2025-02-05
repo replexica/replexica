@@ -1,4 +1,4 @@
-# @replexica/spec
+# @lingo.dev/~spec
 
 ## 0.24.1
 

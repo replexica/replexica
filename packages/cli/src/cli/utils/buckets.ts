@@ -2,8 +2,8 @@ import _ from "lodash";
 import path from "path";
 import * as glob from "glob";
 import { CLIError } from "./errors";
-import { I18nConfig, resolveOverridenLocale, BucketItem } from "@lingo.dev/spec";
-import { bucketTypeSchema } from "@lingo.dev/spec";
+import { I18nConfig, resolveOverridenLocale, BucketItem } from "@lingo.dev/~spec";
+import { bucketTypeSchema } from "@lingo.dev/~spec";
 import Z from "zod";
 
 export function getBuckets(i18nConfig: I18nConfig) {

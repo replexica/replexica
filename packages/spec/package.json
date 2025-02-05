@@ -1,8 +1,8 @@
 {
-  "name": "@lingo.dev/spec",
+  "name": "@lingo.dev/~spec",
   "version": "0.24.1",
   "description": "Lingo.dev open specification",
-  "private": true,
+  "private": false,
   "type": "module",
   "sideEffects": false,
   "types": "build/index.d.ts",

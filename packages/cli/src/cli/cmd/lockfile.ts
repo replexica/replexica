@@ -2,7 +2,7 @@ import { Command } from "interactive-commander";
 import Z from "zod";
 import Ora from "ora";
 import { createLockfileHelper } from "../utils/lockfile";
-import { bucketTypeSchema, resolveOverridenLocale } from "@lingo.dev/spec";
+import { bucketTypeSchema, resolveOverridenLocale } from "@lingo.dev/~spec";
 import { getConfig } from "../utils/config";
 import createBucketLoader from "../loaders";
 import { getBuckets } from "../utils/buckets";

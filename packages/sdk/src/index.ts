@@ -1,5 +1,5 @@
 import Z from "zod";
-import { LocaleCode, localeCodeSchema } from "@lingo.dev/spec";
+import { LocaleCode, localeCodeSchema } from "@lingo.dev/~spec";
 import { createId } from "@paralleldrive/cuid2";
 
 const engineParamsSchema = Z.object({

@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.0
+
+### Minor Changes
+
+- [`ee9e666`](https://github.com/lingodotdev/lingo.dev/commit/ee9e666df2a3d11f2e89af37ea47a2d714a5173b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add belarusian
+
 ## 0.73.1
 
 ### Patch Changes
@@ -53,6 +59,6 @@
 - [#419](https://github.com/lingodotdev/lingo.dev/pull/419) [`a45feb1`](https://github.com/lingodotdev/lingo.dev/commit/a45feb1d747f8fa32c42c1726953a04c174e754a) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - Replexica is now Lingo.dev! 🎉
 
 - Updated dependencies [[`a45feb1`](https://github.com/lingodotdev/lingo.dev/commit/a45feb1d747f8fa32c42c1726953a04c174e754a)]:
-  - @lingo.dev/spec@0.24.1
+  - @lingo.dev/~spec@0.24.1
   - @lingo.dev/cli@0.70.1
-  - @lingo.dev/sdk@0.7.11
+  - @lingo.dev/~sdk@0.7.11
