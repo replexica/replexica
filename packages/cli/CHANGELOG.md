@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.0
+
+### Minor Changes
+
+- [`ee9e666`](https://github.com/lingodotdev/lingo.dev/commit/ee9e666df2a3d11f2e89af37ea47a2d714a5173b) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - add belarusian
+
 ## 0.73.1
 
 ### Patch Changes
