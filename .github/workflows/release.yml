@@ -58,7 +58,7 @@ jobs:
       - name: Lingo.dev
         uses: ./
         with:
-          api-key: ${{ secrets.REPLEXICA_API_KEY }}
+          api-key: ${{ secrets.LINGODOTDEV_API_KEY }}
           pull-request: true
         env:
           GH_TOKEN: ${{ github.token }}
