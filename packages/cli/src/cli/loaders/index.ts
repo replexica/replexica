@@ -1,5 +1,5 @@
 import Z from "zod";
-import { bucketTypeSchema } from "@lingo.dev/~spec";
+import { bucketTypeSchema } from "@lingo.dev/_spec";
 import { composeLoaders } from "./_utils";
 import createJsonLoader from "./json";
 import createFlatLoader from "./flat";

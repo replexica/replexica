@@ -2,7 +2,7 @@ import { Command } from "interactive-commander";
 import _ from "lodash";
 import Z from "zod";
 import Ora from "ora";
-import { localeCodes } from "@lingo.dev/~spec";
+import { localeCodes } from "@lingo.dev/_spec";
 import { CLIError } from "../../utils/errors";
 
 export default new Command()

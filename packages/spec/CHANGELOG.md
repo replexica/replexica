@@ -1,4 +1,4 @@
-# @lingo.dev/~spec
+# @lingo.dev/\_spec
 
 ## 0.24.2
 

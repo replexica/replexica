@@ -3,6 +3,9 @@
   "version": "0.74.1",
   "description": "Lingo.dev CLI",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -90,8 +93,8 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@lingo.dev/~sdk": "workspace:*",
-    "@lingo.dev/~spec": "workspace:*",
+    "@lingo.dev/_sdk": "workspace:*",
+    "@lingo.dev/_spec": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/diff": "^7.0.0",
     "@types/express": "^5.0.0",

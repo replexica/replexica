@@ -203,10 +203,10 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
-      '@lingo.dev/~sdk':
+      '@lingo.dev/_sdk':
         specifier: workspace:*
         version: link:../sdk
-      '@lingo.dev/~spec':
+      '@lingo.dev/_spec':
         specifier: workspace:*
         version: link:../spec
       '@types/cors':
@@ -269,7 +269,7 @@ importers:
 
   packages/sdk:
     dependencies:
-      '@lingo.dev/~spec':
+      '@lingo.dev/_spec':
         specifier: workspace:*
         version: link:../spec
       '@paralleldrive/cuid2':

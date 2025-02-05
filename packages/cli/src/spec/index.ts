@@ -1,1 +1,1 @@
-export * from "@lingo.dev/~spec";
+export * from "@lingo.dev/_spec";
