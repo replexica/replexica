@@ -78,6 +78,8 @@ const localeMap = {
   ],
   // Ukrainian (Ukraine)
   uk: ["uk-UA"],
+  // Belarusian (Belarus)
+  be: ["be-BY"],
   // Hindi (India)
   hi: ["hi-IN"],
   // Chinese
