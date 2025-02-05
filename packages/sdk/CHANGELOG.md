@@ -1,5 +1,14 @@
 # @lingo.dev/~sdk
 
+## 0.7.12
+
+### Patch Changes
+
+- [`6281dbd`](https://github.com/lingodotdev/lingo.dev/commit/6281dbd96bd5cfe54f194a6a1d055c8255a250de) Thanks [@maxprilutskiy](https://github.com/maxprilutskiy)! - fix sdk/spec exported types
+
+- Updated dependencies [[`6281dbd`](https://github.com/lingodotdev/lingo.dev/commit/6281dbd96bd5cfe54f194a6a1d055c8255a250de)]:
+  - @lingo.dev/~spec@0.24.2
+
 ## 0.7.11
 
 ### Patch Changes
