@@ -5,6 +5,7 @@ export const bucketTypes = [
   "csv",
   "flutter",
   "html",
+  "ejs",
   "json",
   "markdown",
   "xcode-strings",

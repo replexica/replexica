@@ -300,6 +300,194 @@ describe("bucket loaders", () => {
     });
   });
 
+  describe("ejs bucket loader", () => {
+    it("should handle static content in EJS templates", async () => {
+      setupFileMocks();
+
+      const input = `
+        <html>
+          <body>
+            <h1>Static Title</h1>
+            <p><%- user.name %></p>
+            <div>Static Text</div>
+          </body>
+        </html>
+      `.trim();
+
+      const expectedOutput = {
+        "body/0/0": "Static Title",
+        "body/1/0": "<%- user.name %>",
+        "body/2/0": "Static Text"
+      };
+
+      mockFileOperations(input);
+
+      const ejsLoader = createBucketLoader("ejs", "views/[locale]/template.ejs");
+      ejsLoader.setDefaultLocale("en");
+      const data = await ejsLoader.pull("en");
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it("should handle EJS expressions in attributes", async () => {
+      setupFileMocks();
+
+      const input = `
+        <img alt="<%- imageAlt %>" src="/image.jpg">
+        <input placeholder="<%= placeholder %>">
+      `.trim();
+
+      const expectedOutput = {
+        "body/0#alt": "<%- imageAlt %>",
+        "body/1#placeholder": "<%= placeholder %>"
+      };
+
+      mockFileOperations(input);
+
+      const ejsLoader = createBucketLoader("ejs", "views/[locale]/template.ejs");
+      ejsLoader.setDefaultLocale("en");
+      const data = await ejsLoader.pull("en");
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it("should preserve EJS logic blocks", async () => {
+      setupFileMocks();
+
+      const input = `
+        <ul>
+          <% users.forEach(function(user) { %>
+            <li><%- user.name %></li>
+          <% }); %>
+        </ul>
+      `.trim();
+
+      const expectedOutput = {
+        "body/0": "<% users.forEach(function(user) { %>",
+        "body/1/0": "<%- user.name %>",
+        "body/2": "<% }); %>"
+      };
+
+      mockFileOperations(input);
+
+      const ejsLoader = createBucketLoader("ejs", "views/[locale]/template.ejs");
+      ejsLoader.setDefaultLocale("en");
+      const data = await ejsLoader.pull("en");
+
+      expect(data).toEqual(expectedOutput);
+    });
+
+    it("should correctly push translations while preserving EJS syntax", async () => {
+      setupFileMocks();
+
+      const input = `
+        <h1>Welcome, <%- user.name %>!</h1>
+        <p>Your balance: <%= balance %></p>
+      `.trim();
+
+      const payload = {
+        "body/0/0": "Bienvenido, <%- user.name %>!",
+        "body/1/0": "Tu saldo: <%= balance %>"
+      };
+
+      const expectedOutput = `
+        <html lang="es">
+          <body>
+            <h1>Bienvenido, <%- user.name %>!</h1>
+            <p>Tu saldo: <%= balance %></p>
+          </body>
+        </html>
+      `.trim().replace(/\s+/g, ' ').replace(/>\s+</g, '><');
+
+      mockFileOperations(input);
+
+      const ejsLoader = createBucketLoader("ejs", "views/[locale]/template.ejs");
+      ejsLoader.setDefaultLocale("en");
+      await ejsLoader.pull("en");
+      await ejsLoader.push("es", payload);
+
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        "views/es/template.ejs",
+        expectedOutput,
+        { encoding: "utf-8", flag: "w" }
+      );
+    });
+
+    it("should handle EJS includes and partials", async () => {
+      setupFileMocks();
+    
+      const input = `
+        <%- include('header', { title: 'My Page' }) %>
+        <div class="content">
+          <h1><%- pageTitle %></h1>
+          <%- include('components/sidebar', { 
+            items: menuItems 
+          }) %>
+          <main>
+            <%- body %>
+          </main>
+        </div>
+        <%- include('footer') %>
+      `.trim();
+    
+      const expectedOutput = {
+        "body/0": "<%- include('header', { title: 'My Page' }) %>",
+        "body/1/0/0": "<%- pageTitle %>",
+        "body/1/1": "<%- include('components/sidebar', { items: menuItems }) %>",
+        "body/1/2/0": "<%- body %>",
+        "body/2": "<%- include('footer') %>"
+      };
+    
+      mockFileOperations(input);
+    
+      const ejsLoader = createBucketLoader("ejs", "views/[locale]/template.ejs");
+      ejsLoader.setDefaultLocale("en");
+      const data = await ejsLoader.pull("en");
+    
+      expect(data).toEqual(expectedOutput);
+    });
+    
+    it("should preserve nested includes with complex data structures", async () => {
+      setupFileMocks();
+    
+      const input = `
+        <nav>
+          <%- include('nav', { 
+            menu: {
+              items: navigationItems,
+              config: {
+                showIcons: true,
+                theme: 'dark'
+              }
+            }
+          }) %>
+        </nav>
+        <section>
+          <%- include('content/article', {
+            post,
+            comments: await getComments(),
+            layout: 'default'
+          }) %>
+        </section>
+      `.trim();
+    
+      const expectedOutput = {
+        "body/0/0": "<%- include('nav', { menu: { items: navigationItems, config: { showIcons: true, theme: 'dark' } } }) %>",
+        "body/1/0": "<%- include('content/article', { post, comments: await getComments(), layout: 'default' }) %>"
+      };
+    
+      mockFileOperations(input);
+    
+      const ejsLoader = createBucketLoader("ejs", "views/[locale]/template.ejs");
+      ejsLoader.setDefaultLocale("en");
+      const data = await ejsLoader.pull("en");
+    
+      expect(data).toEqual(expectedOutput);
+    });
+    
+    
+  });
+
   describe("json bucket loader", () => {
     it("should load json data", async () => {
       setupFileMocks();
