@@ -1,7 +1,9 @@
-export function formatPlutilStyle(jsonData: any, existingJson?: string): string {
-  // Detect indentation from existing JSON if provided
-  const indent = existingJson ? detectIndentation(existingJson) : "  ";
+const DEFAULT_SEPARATOR = " : ";
 
+export function formatPlutilStyle(jsonData: any, existingJson?: string): string {
+  // Detect indentation and separator spacing from existing JSON if provided
+  const indent = existingJson ? detectIndentation(existingJson) : "  ";
+  const separator = existingJson ? detectSeparatorSpacing(existingJson) : DEFAULT_SEPARATOR;
   function format(data: any, level = 0): string {
     const currentIndent = indent.repeat(level);
     const nextIndent = indent.repeat(level + 1);
@@ -34,7 +36,7 @@ export function formatPlutilStyle(jsonData: any, existingJson?: string): string 
 
     const items = sortedKeys.map((key) => {
       const value = data[key];
-      return `${nextIndent}${JSON.stringify(key)} : ${format(value, level + 1)}`;
+      return `${nextIndent}${JSON.stringify(key)}${separator}${format(value, level + 1)}`;
     });
 
     return `{\n${items.join(",\n")}\n${currentIndent}}`;
@@ -48,4 +50,9 @@ function detectIndentation(jsonStr: string): string {
   // Find the first indented line
   const match = jsonStr.match(/\n(\s+)/);
   return match ? match[1] : "    "; // fallback to 4 spaces if no indentation found
+}
+
+function detectSeparatorSpacing(jsonStr: string): string {
+  const match = jsonStr.match(/"(\s*:\s*)/);
+  return match ? match[1] : DEFAULT_SEPARATOR;
 }

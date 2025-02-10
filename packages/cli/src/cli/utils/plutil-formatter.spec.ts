@@ -56,10 +56,10 @@ describe("plutil-formatter", () => {
     expect(result).toBe(expected);
   });
 
-  it("should detect and use 4-space indentation", () => {
+  it("should detect and use 4-space indentation and extra whitespaces around separator", () => {
     const existingJson = `{
-    "foo": {
-        "bar": {
+    "foo"  :  {
+        "bar"  :  {
         }
     }
 }`;
@@ -71,8 +71,8 @@ describe("plutil-formatter", () => {
     };
 
     const expected = `{
-    "test" : {
-        "nested" : {
+    "test"  :  {
+        "nested"  :  {
 
         }
     }
@@ -82,7 +82,7 @@ describe("plutil-formatter", () => {
     expect(result).toBe(expected);
   });
 
-  it("should fallback to 2 spaces when no existing JSON provided", () => {
+  it("should fallback to 2 spaces when no existing JSON provided and default whitespaces around separator", () => {
     const input = {
       foo: {
         bar: {},
