@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.8
+
+### Patch Changes
+
+- [#457](https://github.com/lingodotdev/lingo.dev/pull/457) [`8ffff97`](https://github.com/lingodotdev/lingo.dev/commit/8ffff9757e28e4beef071866835a491080d7cba5) Thanks [@mathio](https://github.com/mathio)! - fix trailing new lines
+
 ## 0.74.7
 
 ### Patch Changes
