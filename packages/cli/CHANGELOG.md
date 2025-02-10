@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.6
+
+### Patch Changes
+
+- [#454](https://github.com/lingodotdev/lingo.dev/pull/454) [`9856274`](https://github.com/lingodotdev/lingo.dev/commit/98562747f3cce0d7109b24f3e5b867f003ebdfbb) Thanks [@mathio](https://github.com/mathio)! - fix i18n progress indicator
+
 ## 0.74.5
 
 ### Patch Changes
