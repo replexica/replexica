@@ -1,5 +1,11 @@
 # lingo.dev
 
+## 0.74.7
+
+### Patch Changes
+
+- [#455](https://github.com/lingodotdev/lingo.dev/pull/455) [`96babb9`](https://github.com/lingodotdev/lingo.dev/commit/96babb956b0aa7b83627aefd596051ed1849e7ca) Thanks [@github-actions](https://github.com/apps/github-actions)! - i18n progress fix
+
 ## 0.74.6
 
 ### Patch Changes
