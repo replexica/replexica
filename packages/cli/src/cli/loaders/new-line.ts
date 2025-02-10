@@ -10,7 +10,6 @@ export default function createNewLineLoader(): ILoader<string, string> {
       if (!data) return "";
 
       // Remove any existing final newline
-      console.log(data);
       const trimmed = data.replace(/[\r\n]+$/, "");
 
       // If original had final newline, add it back with same ending type
