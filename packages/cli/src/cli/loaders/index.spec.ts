@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import _ from "lodash";
 import fs from "fs/promises";
 import createBucketLoader from "./index";
+import createTextFileLoader from "./text-file";
 
 describe("bucket loaders", () => {
   beforeEach(() => {
@@ -1345,6 +1346,92 @@ Mundo!`;
       });
     });
   });
+
+  describe("text-file", () => {
+    describe("when there is no target locale file", () => {
+      it("should preserve trailing new line based on the source locale", async () => {
+        setupFileMocks();
+
+        const input = "Hello\n";
+        const expectedOutput = "Hola\n";
+
+        mockFileOperationsForPaths({
+          "i18n/en.txt": input,
+          "i18n/es.txt": "",
+        });
+
+        const textFileLoader = createTextFileLoader("i18n/[locale].txt");
+        textFileLoader.setDefaultLocale("en");
+        await textFileLoader.pull("en");
+
+        await textFileLoader.push("es", "Hola");
+
+        expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.txt", expectedOutput, { encoding: "utf-8", flag: "w" });
+      });
+
+      it("should not add trailing new line based on the source locale", async () => {
+        setupFileMocks();
+
+        const input = "Hello";
+        const expectedOutput = "Hola";
+
+        mockFileOperationsForPaths({
+          "i18n/en.txt": input,
+          "i18n/es.txt": "",
+        });
+
+        const textFileLoader = createTextFileLoader("i18n/[locale].txt");
+        textFileLoader.setDefaultLocale("en");
+        await textFileLoader.pull("en");
+
+        await textFileLoader.push("es", "Hola");
+
+        expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.txt", expectedOutput, { encoding: "utf-8", flag: "w" });
+      });
+    });
+
+    describe("when there is a target locale file", () => {
+      it("should preserve trailing new lines based on the target locale", async () => {
+        setupFileMocks();
+
+        const input = "Hello";
+        const expectedOutput = "Hola\n";
+
+        mockFileOperationsForPaths({
+          "i18n/en.txt": input,
+          "i18n/es.txt": "Foo\n",
+        });
+
+        const textFileLoader = createTextFileLoader("i18n/[locale].txt");
+        textFileLoader.setDefaultLocale("en");
+        await textFileLoader.pull("en");
+
+        await textFileLoader.push("es", "Hola");
+
+        expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.txt", expectedOutput, { encoding: "utf-8", flag: "w" });
+      });
+
+      it("should not add trailing new line based on the target locale", async () => {
+        setupFileMocks();
+
+        const input = "Hello\n";
+        const expectedOutput = "Hola";
+
+        mockFileOperationsForPaths({
+          "i18n/en.txt": input,
+          "i18n/es.txt": "Foo",
+        });
+
+        const textFileLoader = createTextFileLoader("i18n/[locale].txt");
+        textFileLoader.setDefaultLocale("en");
+        await textFileLoader.pull("en");
+
+        await textFileLoader.push("es", "Hola");
+
+        expect(fs.writeFile).toHaveBeenCalledWith("i18n/es.txt", expectedOutput, { encoding: "utf-8", flag: "w" });
+      });
+    });
+  });
 });
 
 // Helper functions
@@ -1372,4 +1459,16 @@ function mockFileOperations(input: string) {
   (fs.access as any).mockImplementation(() => Promise.resolve());
   (fs.readFile as any).mockImplementation(() => Promise.resolve(input));
   (fs.writeFile as any).mockImplementation(() => Promise.resolve());
+}
+
+function mockFileOperationsForPaths(input: Record<string, string>) {
+  (fs.access as any).mockImplementation((path) =>
+    input.hasOwnProperty(path) ? Promise.resolve() : Promise.reject(`fs.access: ${path} not mocked`),
+  );
+  (fs.readFile as any).mockImplementation((path) =>
+    input.hasOwnProperty(path) ? Promise.resolve(input[path]) : Promise.reject(`fs.readFile: ${path} not mocked`),
+  );
+  (fs.writeFile as any).mockImplementation((path) =>
+    input.hasOwnProperty(path) ? Promise.resolve() : Promise.reject(`fs:writeFile: ${path} not mocked`),
+  );
 }
